@@ -37,7 +37,6 @@ public class GameController {
     public GameController(@NotNull Board board) {
         this.board = board;
     }
-
     /**
      * This is just some dummy controller operation to make a simple move to see something
      * happening on the board. This method should eventually be deleted!
@@ -45,6 +44,12 @@ public class GameController {
      * @param space the space to which the current player should move
      */
     public void moveCurrentPlayerToSpace(@NotNull Space space)  {
+
+        if(space.getPlayer()==null) {
+            board.getCurrentPlayer().setSpace(space);
+        }
+
+
         // TODO Assignment V1: method should be implemented by the students:
         //   - the current player should be moved to the given space
         //     (if it is free()
