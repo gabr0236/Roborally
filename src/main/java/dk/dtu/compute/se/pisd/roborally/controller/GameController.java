@@ -49,8 +49,8 @@ public class GameController {
             Player currentPlayer = board.getCurrentPlayer();
             currentPlayer.setSpace(space);
             board.setCurrentPlayer(board.getPlayer((board.getPlayerNumber(currentPlayer)+1)%board.getPlayersNumber()));
+            board.incrementGameTurn();
         }
-
 
         // TODO Assignment V1: method should be implemented by the students:
         //   - the current player should be moved to the given space
@@ -59,6 +59,7 @@ public class GameController {
         //     following the current player
         //   - the counter of moves in the game should be increased by one
         //     if the player is moved
+
 
     }
 

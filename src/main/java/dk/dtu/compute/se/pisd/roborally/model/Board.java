@@ -57,6 +57,8 @@ public class Board extends Subject {
 
     private boolean stepMode;
 
+
+    //TODO: addition by the knightsoftherealm
     private int gameTurn = 1;
 
     public Board(int width, int height, @NotNull String boardName) {
@@ -171,6 +173,7 @@ public class Board extends Subject {
         }
     }
 
+
     /**
      * Returns the neighbour of the given space of the board in the given heading.
      * The neighbour is returned only, if it can be reached from the given space
@@ -181,6 +184,8 @@ public class Board extends Subject {
      * @param heading the heading of the neighbour
      * @return the space in the given direction; null if there is no (reachable) neighbour
      */
+
+
     public Space getNeighbour(@NotNull Space space, @NotNull Heading heading) {
         int x = space.x;
         int y = space.y;
@@ -216,6 +221,13 @@ public class Board extends Subject {
         return "Player = " + getCurrentPlayer().getName() + ", Turn = " + gameTurn;
     }
 
+
+    public int getGameTurn() {
+        return gameTurn;
+    }
+    public void incrementGameTurn() {
+        gameTurn++; notifyChange();
+    }
     // TODO Assignment V1: add a counter along with a getter and a setter, so the
     //      state the board (game) contains the number of moves, which then can
     //      be used to extend the status message including the number of
