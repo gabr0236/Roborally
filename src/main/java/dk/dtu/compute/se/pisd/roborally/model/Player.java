@@ -48,6 +48,12 @@ public class Player extends Subject {
     private CommandCardField[] program;
     private CommandCardField[] cards;
 
+    /**
+     * Konstruktør for spiller, opretter commandcardfields for spiller
+     * @param board
+     * @param color
+     * @param name
+     */
     public Player(@NotNull Board board, String color, @NotNull String name) {
         this.board = board;
         this.name = name;
@@ -96,6 +102,10 @@ public class Player extends Subject {
         return space;
     }
 
+    /**
+     * Sætter felt for spiller, samt fjerner spiller for gamle plads
+     * @param space
+     */
     public void setSpace(Space space) {
         Space oldSpace = this.space;
         if (space != oldSpace &&

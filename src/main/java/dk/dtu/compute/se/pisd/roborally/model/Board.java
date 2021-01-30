@@ -61,6 +61,14 @@ public class Board extends Subject {
     //TODO: addition by the knightsoftherealm
     private int gameTurn = 1;
 
+
+    /**
+     * Konstruktør for board, laver board ud fra parameterne height og width
+     * Opretter et Space pr felt
+     * @param width
+     * @param height
+     * @param boardName
+     */
     public Board(int width, int height, @NotNull String boardName) {
         this.boardName = boardName;
         this.width = width;
@@ -93,6 +101,13 @@ public class Board extends Subject {
         }
     }
 
+    /**
+     * Getspace bruges til at returnere spillerens plads på boarded
+     * Hvis spilleren er uden for boarded returneres null, hvilket betyder spilleren skal reboote ved start
+     * @param x
+     * @param y
+     * @return
+     */
     public Space getSpace(int x, int y) {
         if (x >= 0 && x < width &&
                 y >= 0 && y < height) {

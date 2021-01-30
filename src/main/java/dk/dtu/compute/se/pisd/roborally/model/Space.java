@@ -49,6 +49,10 @@ public class Space extends Subject {
         return player;
     }
 
+    /**
+     * sætter reference i feltet til spiller
+     * @param player
+     */
     public void setPlayer(Player player) {
         Player oldPlayer = this.player;
         if (player != oldPlayer &&
