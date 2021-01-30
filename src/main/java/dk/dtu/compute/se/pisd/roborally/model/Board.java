@@ -58,7 +58,7 @@ public class Board extends Subject {
     private boolean stepMode;
 
 
-    //TODO: addition by the knightsoftherealm
+   //tilføjet gameturn
     private int gameTurn = 1;
 
 
