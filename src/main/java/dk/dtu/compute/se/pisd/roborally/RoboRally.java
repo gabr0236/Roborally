@@ -89,6 +89,9 @@ public class RoboRally extends Application {
         }
 
         stage.sizeToScene();
+        System.out.println("spil startet");
+
+
     }
 
     @Override
