@@ -6,11 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="KnightsOfTheShadowRealm" />
+        <module name="roborally" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="KnightsOfTheShadowRealm" target="1.8" />
+      <module name="roborally" target="15" />
     </bytecodeTargetLevel>
   </component>
 </project>
