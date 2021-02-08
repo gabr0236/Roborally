@@ -190,27 +190,26 @@ public class GameController {
 
     // TODO Assignment V2
     public void moveForward(@NotNull Player player) {
-        int newX=player.getSpace().x;
-        int newY=player.getSpace().y;
+        int positionChangeX=0;
+        int positionChangeY=0;
 
         switch (player.getHeading()){
             case EAST:
-                newX++;
+                positionChangeX++;
                 break;
             case WEST:
-                newX--;
+                positionChangeX--;
                 break;
             case NORTH:
-                newY++;
+                positionChangeY--;
                 break;
             case SOUTH:
-                newY--;
+                positionChangeY++;
                 break;
         }
-        //if(board.getSpace(newX,newY).getPlayer()==null){
-        moveCurrentPlayerToSpace();
-            player.setSpace(board.getSpace(newX,newY));
-        //}
+        if(board.getSpace(player.getSpace().x+positionChangeX,player.getSpace().y+positionChangeY).getPlayer()==null){
+            player.setSpace(board.getSpace(player.getSpace().x+positionChangeX,player.getSpace().y+positionChangeY));
+        }
     }
 
     // TODO Assignment V2
