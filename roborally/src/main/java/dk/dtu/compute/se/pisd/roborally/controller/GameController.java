@@ -84,6 +84,7 @@ public class GameController {
         board.setPhase(Phase.ACTIVATION);
         board.setCurrentPlayer(board.getPlayer(0));
         board.setStep(0);
+
     }
 
     // XXX: V2
@@ -189,7 +190,27 @@ public class GameController {
 
     // TODO Assignment V2
     public void moveForward(@NotNull Player player) {
+        int newX=player.getSpace().x;
+        int newY=player.getSpace().y;
 
+        switch (player.getHeading()){
+            case EAST:
+                newX++;
+                break;
+            case WEST:
+                newX--;
+                break;
+            case NORTH:
+                newY++;
+                break;
+            case SOUTH:
+                newY--;
+                break;
+        }
+        //if(board.getSpace(newX,newY).getPlayer()==null){
+        moveCurrentPlayerToSpace();
+            player.setSpace(board.getSpace(newX,newY));
+        //}
     }
 
     // TODO Assignment V2
@@ -199,12 +220,13 @@ public class GameController {
 
     // TODO Assignment V2
     public void turnRight(@NotNull Player player) {
+        player.setHeading(player.getHeading().next());
 
     }
 
     // TODO Assignment V2
     public void turnLeft(@NotNull Player player) {
-
+        player.setHeading(player.getHeading().prev());
     }
 
     public boolean moveCards(@NotNull CommandCardField source, @NotNull CommandCardField target) {
