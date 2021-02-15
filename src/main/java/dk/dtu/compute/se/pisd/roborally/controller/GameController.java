@@ -136,6 +136,11 @@ public class GameController {
             int step = board.getStep();
             if (step >= 0 && step < Player.NO_REGISTERS) {
                 CommandCard card = currentPlayer.getProgramField(step).getCard();
+                //TODO: ændring her
+                if (card != null && card.command.isInteractive()){
+                    board.setPhase(Phase.PLAYER_INTERACTION);
+                    return;
+                }
                 if (card != null) {
                     Command command = card.command;
                     executeCommand(currentPlayer, command);
@@ -164,7 +169,8 @@ public class GameController {
     }
 
     // XXX: V2
-    private void executeCommand(@NotNull Player player, Command command) {
+    //TODO: lavet public
+    public void executeCommand(@NotNull Player player, Command command) {
         if (player != null && player.board == board && command != null) {
             // XXX This is a very simplistic way of dealing with some basic cards and
             //     their execution. This should eventually be done in a more elegant way
