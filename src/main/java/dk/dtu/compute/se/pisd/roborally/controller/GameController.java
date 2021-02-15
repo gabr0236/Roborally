@@ -231,6 +231,7 @@ public class GameController {
             int nextPlayerNumber = board.getPlayerNumber(currentPlayer) + 1;
             if (nextPlayerNumber < board.getPlayersNumber()) {
                 board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
+                continuePrograms();
             }
             } else {
                 int step = board.getStep() +1;
