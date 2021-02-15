@@ -207,21 +207,17 @@ public class PlayerView extends Tab implements ViewObserver {
                     //      the player's choices of the interactive command card. The
                     //      following is just a mockup showing two options
 
-                    int numberOfOptions =player.getCardField(player.board.getStep()).getCard().command.getOptions().size();
 
-                    List<Button> buttonList = Collections.<Button>emptyList();
-
-                    for (int i = 0; i < numberOfOptions; i++) {
-                        buttonList.add(new Button(player.getCardField(player.board.getStep()).getCard().getName()));
-
-                        CommandCard current =player.getCardField(player.board.getStep()).getCard();
-
-                        buttonList.get(i).setOnAction( e -> gameController.turnRight(player));
-                        buttonList.get(i).setDisable(false);
-                        playerInteractionPanel.getChildren().add(buttonList.get(i));
-                        notifyAll();
+                    CommandCard current =player.getProgramField(player.board.getStep()).getCard();
+                    //TODO: Spørgsmål: nødvendigt at lave notNull med commandcardfield først?
+                    if(current!=null) {
+                        for (Command option:current.command.getOptions()) {
+                            Button optionButton = new Button(option.displayName);
+                            optionButton.setOnAction(e -> gameController.notImplemented());
+                            optionButton.setDisable(false);
+                            playerInteractionPanel.getChildren().add(optionButton);
+                        }
                     }
-
 
 
                     /*Button optionButton = new Button("L3f7");
