@@ -136,7 +136,7 @@ public class GameController {
             int step = board.getStep();
             if (step >= 0 && step < Player.NO_REGISTERS) {
                 CommandCard card = currentPlayer.getProgramField(step).getCard();
-                //TODO: ændring her
+                //TODO: lavet ændring her
                 if (card != null && card.command.isInteractive()){
                     board.setPhase(Phase.PLAYER_INTERACTION);
                     return;
@@ -221,6 +221,30 @@ public class GameController {
     public void turnLeft(@NotNull Player player) {
         player.setHeading(player.getHeading().prev());
     }
+
+    public void executeCommandOptionAndContinue(@NotNull Command option){
+        Player currentPlayer = board.getCurrentPlayer();
+        if(currentPlayer!=null && Phase.PLAYER_INTERACTION==board.getPhase() && option!=null) {
+            board.setPhase(Phase.ACTIVATION);
+            executeCommand(currentPlayer, option);
+
+            int nextPlayerNumber = board.getPlayerNumber(currentPlayer) + 1;
+            if (nextPlayerNumber < board.getPlayersNumber()) {
+                board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
+            }
+            } else {
+                int step = board.getStep() +1;
+                if (step < Player.NO_REGISTERS) {
+                    makeProgramFieldsVisible(step);
+                    board.setStep(step);
+                    board.setCurrentPlayer(board.getPlayer(0));
+                } else {
+                    startProgrammingPhase();
+                }
+        }
+
+    }
+
 
     public boolean moveCards(@NotNull CommandCardField source, @NotNull CommandCardField target) {
         CommandCard sourceCard = source.getCard();
