@@ -37,7 +37,6 @@ public enum Command {
     // This is a very simplistic way of realizing different commands.
     /**
      * TODO: er det her rigtig javaD stil?
-     *
      * Enumeration konstanter ink. display names pr. konstant. Bruges i forbindelse med CommandCards
      * til at bevæge spillere
      */
@@ -77,5 +76,4 @@ public enum Command {
     public List<Command> getOptions() {
         return options;
     }
-
 }
