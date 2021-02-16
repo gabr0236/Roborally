@@ -46,9 +46,13 @@ public class GameController {
      * @param space the space to which the current player should move
      */
 
-    public void moveCurrentPlayerToSpace(@NotNull Space space)  {
-    }
+   // public void moveCurrentPlayerToSpace(@NotNull Space space)
+    // }
 
+
+    /**
+     * Ændre spillet til programmeringsfasen og itererer igennem for hver spiller og laver commandcard field og command cards
+     */
     // XXX: V2
     public void startProgrammingPhase() {
         board.setPhase(Phase.PROGRAMMING);
@@ -72,6 +76,10 @@ public class GameController {
         }
     }
 
+    /**
+     * vælger et tilfældigt command ud af commandarray
+     * @return et commandcard med den tilfældige command
+     */
     // XXX: V2
     private CommandCard generateRandomCommandCard() {
         Command[] commands = Command.values();
@@ -79,6 +87,9 @@ public class GameController {
         return new CommandCard(commands[random]);
     }
 
+    /**
+     * stopper programmeringsfasen gøre de lagte kort usynlige og ændre fase til activation phase
+     */
     // XXX: V2
     public void finishProgrammingPhase() {
         makeProgramFieldsInvisible();
@@ -88,6 +99,7 @@ public class GameController {
         board.setStep(0);
 
     }
+
 
     // XXX: V2
     private void makeProgramFieldsVisible(int register) {
@@ -111,18 +123,27 @@ public class GameController {
         }
     }
 
+    /**
+     * sætter stepMode til false og kører continuePrograms()
+     */
     // XXX: V2
     public void executePrograms() {
         board.setStepMode(false);
         continuePrograms();
     }
 
+    /**
+     * sætter stepMode til true og kører continuePrograms()
+     */
     // XXX: V2
     public void executeStep() {
         board.setStepMode(true);
         continuePrograms();
     }
 
+    /**
+     * kører metoden executeNextStep() mens spillet er activation phase og stepMode er false
+     */
     // XXX: V2
     private void continuePrograms() {
         do {
@@ -130,6 +151,12 @@ public class GameController {
         } while (board.getPhase() == Phase.ACTIVATION && !board.isStepMode());
     }
 
+    /**
+     * hvis det næste kort er et interaktionskort og spillet er i activation phase ændres fasen til interaktion og returnere.
+     * er kortet ikke interaktionskort bruges metoden executeCommand() på spilleren.
+     * sætter efterfølgende currentPlayer til den næste spiller. Hvis det ikke er den sidste spiller gøres kortene usynlige.
+     * til sidst startes progrmmeringsfasen.
+     */
     // XXX: V2
     private void executeNextStep() {
         Player currentPlayer = board.getCurrentPlayer();
@@ -195,6 +222,10 @@ public class GameController {
         }
     }
 
+    /**
+     * Rykker spiller et felt frem i den retning spilleren vender
+     * @param player
+     */
     // TODO Assignment V2
     public void moveForward(@NotNull Player player) {
         Space current = player.getSpace();
@@ -206,23 +237,43 @@ public class GameController {
         }
     }
 
+    /**
+     * Rykker spiller to felter frem i den retning spilleren vender
+     * @param player
+     */
     // TODO Assignment V2
     public void fastForward(@NotNull Player player) {
         moveForward(player);
         moveForward(player);
     }
 
+    /**
+     * vender spillerens retning mod højre
+     * @param player
+     */
     // TODO Assignment V2
     public void turnRight(@NotNull Player player) {
         player.setHeading(player.getHeading().next());
 
     }
 
+
+    /**
+     * vender spillerens retning mod venstre
+     * @param player
+     */
     // TODO Assignment V2
     public void turnLeft(@NotNull Player player) {
         player.setHeading(player.getHeading().prev());
     }
 
+
+    /**
+     * Hvis spillet er i interaktionsfasen kaldes metoden executeCommand() og ændre spillets fase til aktieringsfasen
+     * sætter efterfølgende currentPlayer til den næste spiller. Hvis det ikke er den sidste spiller gøres kortene usynlige.
+     * til sidst startes programmeringsfasen.
+     * @param option er en af de muligheder som kortet tillader
+     */
     public void executeCommandOptionAndContinue(@NotNull Command option){
         Player currentPlayer = board.getCurrentPlayer();
         if(currentPlayer!=null && Phase.PLAYER_INTERACTION==board.getPhase() && option!=null) {
@@ -247,7 +298,13 @@ public class GameController {
 
     }
 
-
+    /**
+     * hvis spilleren har et kort på hånden og spiller dette kort på et field der ikke allereder har et kort
+     * byttes værdierne af disse kort. hermed bliver tagetCard = sourceCard og sourcecard = null.
+     * @param source er det commandCardField som spilleren har på hånden
+     * @param target er det commandCardField hvor spilleren kan spille sine kort.
+     * @return hvis de to fields bytter kortværdier returneres true og ellers false
+     */
     public boolean moveCards(@NotNull CommandCardField source, @NotNull CommandCardField target) {
         CommandCard sourceCard = source.getCard();
         CommandCard targetCard = target.getCard();
