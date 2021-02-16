@@ -39,6 +39,14 @@ public class Space extends Subject {
 
     private Player player;
 
+    /**
+     * Konstruktøren til "Space", med "board", x og y som parametre
+     * Sætter player til at være "null", hvilket betyder der ikke befinder sig en spiller på felter/Spacet
+     *
+     * @param board
+     * @param x
+     * @param y
+     */
     public Space(Board board, int x, int y) {
         this.board = board;
         this.x = x;
@@ -46,10 +54,21 @@ public class Space extends Subject {
         player = null;
     }
 
+    /**
+     * En "getter" som retunerer spilleren, bruges til at tjekke om der befinder sig en spiller på feltet/spacet
+     *
+     * @return
+     */
     public Player getPlayer() {
         return player;
     }
 
+    /**
+     * En "setter" som bruges til at sætte feltet/spacet til enten at være true eller false afhængigt af om en
+     * spiller befinder sig på feltet/spacet
+     *
+     * @param player
+     */
     public void setPlayer(Player player) {
         Player oldPlayer = this.player;
         if (player != oldPlayer &&
@@ -66,6 +85,11 @@ public class Space extends Subject {
         }
     }
 
+    /**
+     * This is a minor hack; since some views that are registered with the space
+     * also need to update when some player attributes change, the player can
+     * notify the space of these changes by calling this method.
+     */
     void playerChanged() {
         // This is a minor hack; since some views that are registered with the space
         // also need to update when some player attributes change, the player can
