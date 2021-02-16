@@ -32,7 +32,7 @@ import java.util.List;
  *
  */
 public enum Command {
-
+    //Gab,sab,dan
     // This is a very simplistic way of realizing different commands.
 
     FORWARD("Fwd"),

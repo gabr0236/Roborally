@@ -32,6 +32,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class CommandCard extends Subject {
 
+    //Gab,sab,dan
     final public Command command;
 
     public CommandCard(@NotNull Command command) {

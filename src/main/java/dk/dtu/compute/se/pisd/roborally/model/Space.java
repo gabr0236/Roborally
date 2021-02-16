@@ -31,6 +31,7 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
  */
 public class Space extends Subject {
 
+    //Gab,sab,dan
     public final Board board;
 
     public final int x;

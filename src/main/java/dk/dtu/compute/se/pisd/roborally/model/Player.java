@@ -33,7 +33,7 @@ import static dk.dtu.compute.se.pisd.roborally.model.Heading.SOUTH;
  *
  */
 public class Player extends Subject {
-
+    //Gab,sab,dan
     final public static int NO_REGISTERS = 5;
     final public static int NO_CARDS = 8;
 
