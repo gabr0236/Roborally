@@ -28,6 +28,8 @@ package dk.dtu.compute.se.pisd.roborally.model;
  *
  */
 public enum Phase {
-    //Gab,sab,dan
+    /**
+     * Enumerationskonstanter der bruges til at identificere spillets nuværende stadie
+     */
     INITIALISATION, PROGRAMMING, ACTIVATION, PLAYER_INTERACTION
 }
