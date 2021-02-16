@@ -28,13 +28,21 @@ package dk.dtu.compute.se.pisd.roborally.model;
  *
  */
 public enum Heading {
-    //Gab,sab,dan
+
     SOUTH, WEST, NORTH, EAST;
 
+    /**
+     * Æmdre en spillers retning 90 grader mod højre
+     * @return
+     */
     public Heading next() {
         return values()[(this.ordinal() + 1) % values().length];
     }
 
+    /**
+     * Æmdre en spillers retning 90 grader mod venstre
+     * @return
+     */
     public Heading prev() {
         return values()[(this.ordinal() + values().length - 1) % values().length];
     }
