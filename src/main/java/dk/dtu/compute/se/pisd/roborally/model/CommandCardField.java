@@ -38,16 +38,33 @@ public class CommandCardField extends Subject {
 
     private boolean visible;
 
+    /**
+     * en metode som tager paramereteren "player" og sætter denne "player" til at være "player
+     * Sætter dette kort til at være "null"
+     * Sætter visibiliteten af Commandcardet til at være true, dvs. synligt.
+     *
+     * @param player
+     */
     public CommandCardField(Player player) {
         this.player = player;
         this. card = null;
         this.visible = true;
     }
 
+    /**
+     * En "getter" til CommandCardet, som går det muligt at tjekke værdien på et "CommandCard".
+     *
+     * @return
+     */
     public CommandCard getCard() {
         return card;
     }
 
+    /**
+     * En "setter" til CommandCardet, som går det muligt at sætte værdien på et "CommandCard", til en ønsket værdi.
+     *
+     * @param card
+     */
     public void setCard(CommandCard card) {
         if (card != this.card) {
             this.card = card;
@@ -55,10 +72,22 @@ public class CommandCardField extends Subject {
         }
     }
 
+    /**
+     * En metode som retunerer en boolsk værdi om et "Commandocard" er syndeligt eller ej,
+     * Et "Commandcard" som er i spil eller har været i spil er synligt,
+     * Et "Commandcard" som ikke er i spil er ikke synligt
+     *
+     * @return
+     */
     public boolean isVisible() {
         return visible;
     }
 
+    /**
+     * En metode som gør det muligt at ændre synligheden på guien for et "CommandCard"
+     *
+     * @param visible
+     */
     public void setVisible(boolean visible) {
         if (visible != this.visible) {
             this.visible = visible;
