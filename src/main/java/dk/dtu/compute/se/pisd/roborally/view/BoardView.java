@@ -53,8 +53,10 @@ public class BoardView extends VBox implements ViewObserver {
 
     private SpaceEventHandler spaceEventHandler;
 
-    //TODO gab
     /**
+     * TODO: Mere her, spørg hjælpelærer
+     * Skaber GUI for Board, herunder ternede felter, samt PlayerView
+     * Bruger gameController til at opsætte dette.
      *
      * @param gameController
      */
@@ -87,6 +89,10 @@ public class BoardView extends VBox implements ViewObserver {
         update(board);
     }
 
+    /**
+     * Opdaterer spillets Phase status
+     * @param subject
+     */
     @Override
     public void updateView(Subject subject) {
         if (subject == board) {
