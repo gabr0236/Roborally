@@ -40,6 +40,7 @@ import java.util.List;
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  *
+ *
  */
 public class PlayerView extends Tab implements ViewObserver {
 
@@ -66,7 +67,9 @@ public class PlayerView extends Tab implements ViewObserver {
     private GameController gameController;
 
     /**
-     * TODO Gab er gået i gang
+     * Konstruktør, skaber de forskellige nødvendige GUI elementer for den enkelte spiller,
+     * samt sammenfletter med GameController og henter de nødvendige oplysninger fra model klasserne
+     *
      * @param gameController
      * @param player
      */
@@ -140,6 +143,13 @@ public class PlayerView extends Tab implements ViewObserver {
         }
     }
 
+
+    /**
+     * Opdaterer spillerens view ud fra modellers nuværende stat, herunder modeller som Board, CardFieldView,
+     * og GUI elementer som Buttons
+     *
+     * @param subject
+     */
     @Override
     public void updateView(Subject subject) {
         if (subject == player.board) {
@@ -207,14 +217,9 @@ public class PlayerView extends Tab implements ViewObserver {
                 playerInteractionPanel.getChildren().clear();
 
                 if (player.board.getCurrentPlayer() == player) {
-                    // TODO Assignment V3: these buttons should be shown only when there is
-                    //      an interactive command card, and the buttons should represent
-                    //      the player's choices of the interactive command card. The
-                    //      following is just a mockup showing two options
-
 
                     CommandCard current =player.getProgramField(player.board.getStep()).getCard();
-                    //TODO: Spørgsmål: nødvendigt at lave notNull med commandcardfield først?
+                    //TODO: Spørgsmål: nødvendigt at lave notNull med CommandCardField først? Lige som vist i ekkarts video
                     if(current!=null) {
                         for (Command option:current.command.getOptions()) {
                             Button optionButton = new Button(option.displayName);
@@ -224,17 +229,6 @@ public class PlayerView extends Tab implements ViewObserver {
                         }
                     }
 
-
-                    /*Button optionButton = new Button("L3f7");
-                    optionButton.setOnAction( e -> gameController.turnLeft(player));
-                    optionButton.setDisable(false);
-                    playerInteractionPanel.getChildren().add(optionButton);
-
-
-                    optionButton = new Button("R1gh7");
-                    optionButton.setOnAction( e -> gameController.turnRight(player));
-                    optionButton.setDisable(false);
-                    playerInteractionPanel.getChildren().add(optionButton);*/
                 }
             }
         }

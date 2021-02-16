@@ -46,8 +46,8 @@ public class GameController {
      * @param space the space to which the current player should move
      */
 
-   // public void moveCurrentPlayerToSpace(@NotNull Space space)
-    // }
+    public void moveCurrentPlayerToSpace(@NotNull Space space){
+    }
 
 
     /**
