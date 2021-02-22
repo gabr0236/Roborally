@@ -284,9 +284,9 @@ public class GameController {
             if (nextPlayerNumber < board.getPlayersNumber()) {
                 board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
                 continuePrograms();
-            }
+
             } else {
-                int step = board.getStep() +1;
+                int step = board.getStep() + 1;
                 if (step < Player.NO_REGISTERS) {
                     makeProgramFieldsVisible(step);
                     board.setStep(step);
@@ -294,8 +294,8 @@ public class GameController {
                 } else {
                     startProgrammingPhase();
                 }
+            }
         }
-
     }
 
     /**
