@@ -173,19 +173,7 @@ public class GameController {
                     Command command = card.command;
                     executeCommand(currentPlayer, command);
                 }
-                int nextPlayerNumber = board.getPlayerNumber(currentPlayer) + 1;
-                if (nextPlayerNumber < board.getPlayersNumber()) {
-                    board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
-                } else {
-                    step++;
-                    if (step < Player.NO_REGISTERS) {
-                        makeProgramFieldsVisible(step);
-                        board.setStep(step);
-                        board.setCurrentPlayer(board.getPlayer(0));
-                    } else {
-                        startProgrammingPhase();
-                    }
-                }
+                nextPlayerOrPhase();
             } else {
                 // this should not happen
                 assert false;
@@ -279,23 +267,7 @@ public class GameController {
         if(currentPlayer!=null && Phase.PLAYER_INTERACTION==board.getPhase() && option!=null) {
             board.setPhase(Phase.ACTIVATION);
             executeCommand(currentPlayer, option);
-
-            //TODO: lav metode
-            int nextPlayerNumber = board.getPlayerNumber(currentPlayer) + 1;
-            if (nextPlayerNumber < board.getPlayersNumber()) {
-                board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
-                continuePrograms();
-
-            } else {
-                int step = board.getStep() + 1;
-                if (step < Player.NO_REGISTERS) {
-                    makeProgramFieldsVisible(step);
-                    board.setStep(step);
-                    board.setCurrentPlayer(board.getPlayer(0));
-                } else {
-                    startProgrammingPhase();
-                }
-            }
+            nextPlayerOrPhase();
         }
     }
 
@@ -325,6 +297,25 @@ public class GameController {
     public void notImplemented() {
         // XXX just for now to indicate that the actual method is not yet implemented
         assert false;
+    }
+
+    private void nextPlayerOrPhase(){
+        Player currentPlayer = board.getCurrentPlayer();
+        int nextPlayerNumber = board.getPlayerNumber(currentPlayer) + 1;
+        int step = board.getStep();
+        if (nextPlayerNumber < board.getPlayersNumber()) {
+            board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
+            continuePrograms();
+        } else {
+            step++;
+            if (step < Player.NO_REGISTERS) {
+                makeProgramFieldsVisible(step);
+                board.setStep(step);
+                board.setCurrentPlayer(board.getPlayer(0));
+            } else {
+                startProgrammingPhase();
+            }
+        }
     }
 
 }
