@@ -219,7 +219,6 @@ public class PlayerView extends Tab implements ViewObserver {
                 if (player.board.getCurrentPlayer() == player) {
 
                     CommandCard current =player.getProgramField(player.board.getStep()).getCard();
-                    //TODO: Spørgsmål: nødvendigt at lave notNull med CommandCardField først? Lige som vist i ekkarts video
                     if(current!=null) {
                         for (Command option:current.command.getOptions()) {
                             Button optionButton = new Button(option.displayName);
@@ -228,7 +227,6 @@ public class PlayerView extends Tab implements ViewObserver {
                             playerInteractionPanel.getChildren().add(optionButton);
                         }
                     }
-
                 }
             }
         }

@@ -280,6 +280,7 @@ public class GameController {
             board.setPhase(Phase.ACTIVATION);
             executeCommand(currentPlayer, option);
 
+            //TODO: lav metode
             int nextPlayerNumber = board.getPlayerNumber(currentPlayer) + 1;
             if (nextPlayerNumber < board.getPlayersNumber()) {
                 board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
