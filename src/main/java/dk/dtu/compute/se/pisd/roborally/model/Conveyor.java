@@ -8,4 +8,5 @@ public class Conveyor {
         this.heading=heading;
         this.command=command;
     }
+
 }
