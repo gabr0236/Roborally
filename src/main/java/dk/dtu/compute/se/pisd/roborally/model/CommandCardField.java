@@ -28,6 +28,9 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  *
+ * Javadoc
+ * @autor Sebastian
+ *
  */
 public class CommandCardField extends Subject {
 
