@@ -24,6 +24,8 @@ package dk.dtu.compute.se.pisd.roborally.controller;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 /**
  * ...
  *
@@ -219,11 +221,19 @@ public class GameController {
         Space current = player.getSpace();
         if(current!=null && player.board==current.board){
             Space target = board.getNeighbour(current,player.getHeading());
-            if(target!=null && target.getPlayer()==null && target.getWall().getBlockingDirection().contains(player.getHeading())){
-                player.setSpace(target);
+            if(target!=null && target.getPlayer()==null){
+                if(!getCurrentSpaceWallBlockingDirection(player).contains(player.getHeading())) {
+                    player.setSpace(target);
+                }
             }
         }
     }
+
+    public List<Heading> getCurrentSpaceWallBlockingDirection(@NotNull Player player){
+        return player.getSpace().getWall().getBlockingDirection();
+    }
+
+
 
     /**
      * Rykker spiller to felter frem i den retning spilleren vender

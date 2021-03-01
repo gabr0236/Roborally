@@ -37,7 +37,7 @@ class WallTest {
     void initialWallTest(){
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
-        board.getNeighbour(current.getSpace(),Heading.SOUTH).setWall(Heading.NORTH);
+        current.getSpace().setWall(Heading.SOUTH);
         gameController.moveForward(current);
 
         Assertions.assertEquals(current, board.getSpace(0, 0).getPlayer(), "Player " + current.getName() + " should beSpace (0,0)!");
