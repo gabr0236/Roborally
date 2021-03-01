@@ -36,8 +36,8 @@ public class Space extends Subject {
 
     public final int x;
     public final int y;
-
     private Player player;
+    Wall wall;
 
     /**
      * Konstruktøren til "Space", med "board", x og y som parametre
@@ -54,6 +54,12 @@ public class Space extends Subject {
         player = null;
     }
 
+    public Space(Board board, int x, int y,Wall wall) {
+        this.board = board;
+        this.x = x;
+        this.y = y;
+        player = null;
+    }
     /**
      * En "getter" som retunerer spilleren, bruges til at tjekke om der befinder sig en spiller på feltet/spacet
      *
