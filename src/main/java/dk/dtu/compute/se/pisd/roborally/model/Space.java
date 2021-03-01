@@ -23,9 +23,6 @@ package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 
-import java.util.Arrays;
-import java.util.Collections;
-
 /**
  * ...
  *
@@ -41,6 +38,7 @@ public class Space extends Subject {
     public final int y;
     private Player player;
     private Wall wall;
+    private Conveyor conveyor;
 
     public Wall getWall() {
         return wall;

@@ -220,7 +220,6 @@ public class GameController {
         if(current!=null && player.board==current.board){
             Space target = board.getNeighbour(current,player.getHeading());
             if(target!=null && target.getPlayer()==null){
-                //TODO: lav null check på blocking direction
                 if(!isCurrentSpaceWallBlockingDirection(player)){
                     if (!isHeadingNeighbourWallBlockingDirection(player)) {
                         player.setSpace(target);
@@ -266,7 +265,6 @@ public class GameController {
 
     }
 
-
     /**
      * vender spillerens retning mod venstre
      * @param player
@@ -275,7 +273,6 @@ public class GameController {
     public void turnLeft(@NotNull Player player) {
         player.setHeading(player.getHeading().prev());
     }
-
 
     /**
      * Hvis spillet er i interaktionsfasen kaldes metoden executeCommand() og ændre spillets fase til aktieringsfasen
