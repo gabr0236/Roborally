@@ -24,8 +24,6 @@ package dk.dtu.compute.se.pisd.roborally.controller;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
 /**
  * ...
  *
@@ -223,19 +221,27 @@ public class GameController {
             Space target = board.getNeighbour(current,player.getHeading());
             if(target!=null && target.getPlayer()==null){
                 //TODO: lav null check på blocking direction
-                if(!getCurrentSpaceWallBlockingDirection(player).contains(player.getHeading()) &&
-                        !getHeadingNeighbourWallBlockingDirection(player).contains(player.getHeading().oppositeHeading())) {
-                    player.setSpace(target);
+                if(!isCurrentSpaceWallBlockingDirection(player)){
+                    if (!isHeadingNeighbourWallBlockingDirection(player)) {
+                        player.setSpace(target);
+                    }
                 }
             }
         }
     }
 
-    public List<Heading> getCurrentSpaceWallBlockingDirection(@NotNull Player player){
-        return player.getSpace().getWall().getBlockingDirection();
+    public boolean isCurrentSpaceWallBlockingDirection(@NotNull Player player){
+        if(player.getSpace().getWall()!=null){
+            return player.getSpace().getWall().getBlockingDirection().contains(player.getHeading());
+        }
+        return false;
     }
-    public List<Heading> getHeadingNeighbourWallBlockingDirection(@NotNull Player player){
-        return player.board.getNeighbour(player.getSpace(), player.getHeading()).getWall().getBlockingDirection();
+    public boolean isHeadingNeighbourWallBlockingDirection(@NotNull Player player){
+        if(player.board.getNeighbour(player.getSpace(), player.getHeading()).getWall()!=null){
+            Heading oppositeHeading = player.getHeading().oppositeHeading();
+            return  player.board.getNeighbour(player.getSpace(), player.getHeading()).getWall().getBlockingDirection().contains(oppositeHeading);
+        }
+        return false;
     }
 
 

@@ -23,6 +23,9 @@ package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 /**
  * ...
  *
@@ -37,6 +40,7 @@ public class Space extends Subject {
     public final int x;
     public final int y;
     private Player player;
+    private Wall wall;
 
     public Wall getWall() {
         return wall;
@@ -46,7 +50,6 @@ public class Space extends Subject {
         this.wall = new Wall(blockingDirection);
     }
 
-    private Wall wall;
 
     /**
      * Konstruktøren til "Space", med "board", x og y som parametre

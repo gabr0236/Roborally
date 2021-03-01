@@ -34,7 +34,7 @@ class WallTest {
     }
 
     @Test
-    void initialWallTest(){
+    void wallOnCurrentSpaceBlockingMoveForward(){
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
         current.getSpace().setWall(Heading.SOUTH);
@@ -46,7 +46,7 @@ class WallTest {
 
     //TODO: change test names
     @Test
-    void secondWallTest(){
+    void wallOnNextSpaceBlockingMoveForward(){
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
         current.board.getNeighbour(current.getSpace(),current.getHeading()).setWall(Heading.NORTH);

@@ -51,6 +51,6 @@ public enum Heading {
 
     //TODO: check om virker
     public Heading oppositeHeading() {
-        return next().next();
+        return values()[(this.ordinal() + values().length - 2) % values().length];
     }
 }
