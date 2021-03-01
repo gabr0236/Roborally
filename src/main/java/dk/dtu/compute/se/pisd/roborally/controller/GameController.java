@@ -29,6 +29,9 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  *
+ * javadoc
+ * @author Daniel Diamant, danieldiamant3@gmail.com
+ *
  */
 public class GameController {
 

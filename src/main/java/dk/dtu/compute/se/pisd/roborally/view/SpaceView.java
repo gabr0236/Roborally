@@ -47,7 +47,11 @@ public class SpaceView extends StackPane implements ViewObserver {
 
     public final Space space;
 
-
+    /**
+     * contructor
+     * sætter dimensionerne for spillepladen og farver hvert andet felt hvidt og hver andet felt sort
+     * @param space
+     */
     public SpaceView(@NotNull Space space) {
         this.space = space;
 
