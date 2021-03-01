@@ -22,6 +22,7 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * ...
@@ -44,7 +45,7 @@ public class Space extends Subject {
         return wall;
     }
 
-    public void setWall(Heading...blockingDirection) {
+    public void setWall(@NotNull Heading...blockingDirection) {
         this.wall = new Wall(blockingDirection);
     }
 

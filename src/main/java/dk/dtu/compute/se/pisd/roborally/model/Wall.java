@@ -7,6 +7,12 @@ import java.util.Collections;
 import java.util.List;
 
 public class Wall {
+    private List<Heading> blockingDirection;
+
+    public Wall(@NotNull Heading...blockingDirection) {
+        this.blockingDirection = Collections.unmodifiableList(Arrays.asList(blockingDirection));
+    }
+
     public List<Heading> getBlockingDirection() {
         return blockingDirection;
     }
@@ -15,11 +21,6 @@ public class Wall {
         this.blockingDirection = blockingDirection;
     }
 
-    private List<Heading> blockingDirection;
-
-    public Wall(@NotNull Heading...blockingDirection) {
-        this.blockingDirection = Collections.unmodifiableList(Arrays.asList(blockingDirection));
-    }
 
 
 
