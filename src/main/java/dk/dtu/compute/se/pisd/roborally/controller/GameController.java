@@ -225,6 +225,10 @@ public class GameController {
                     }
                 }
             }
+            //TODO: må vi det?
+            else {
+                player.setSpace(null);
+            }
         }
     }
 

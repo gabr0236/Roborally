@@ -9,4 +9,6 @@ public class Conveyor {
         this.command=command;
     }
 
+
+
 }
