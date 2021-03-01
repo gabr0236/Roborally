@@ -49,7 +49,7 @@ public enum Heading {
         return values()[(this.ordinal() + values().length - 1) % values().length];
     }
 
-    //TODO: check om virker
+
     public Heading oppositeHeading() {
         return values()[(this.ordinal() + values().length - 2) % values().length];
     }

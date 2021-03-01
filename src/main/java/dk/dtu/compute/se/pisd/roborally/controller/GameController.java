@@ -164,7 +164,6 @@ public class GameController {
             int step = board.getStep();
             if (step >= 0 && step < Player.NO_REGISTERS) {
                 CommandCard card = currentPlayer.getProgramField(step).getCard();
-                //TODO: lavet ændring her
                 if (card != null && card.command.isInteractive()) {
                     board.setPhase(Phase.PLAYER_INTERACTION);
                     return;
@@ -215,7 +214,6 @@ public class GameController {
      *
      * @param player
      */
-    // TODO Assignment V2
     public void moveForward(@NotNull Player player) {
         Space current = player.getSpace();
         if (current != null && player.board == current.board) {
@@ -257,7 +255,6 @@ public class GameController {
      *
      * @param player
      */
-    // TODO Assignment V2
     public void fastForward(@NotNull Player player) {
         moveForward(player);
         moveForward(player);
@@ -268,7 +265,6 @@ public class GameController {
      *
      * @param player
      */
-    // TODO Assignment V2
     public void turnRight(@NotNull Player player) {
         player.setHeading(player.getHeading().next());
 
@@ -279,7 +275,6 @@ public class GameController {
      *
      * @param player
      */
-    // TODO Assignment V2
     public void turnLeft(@NotNull Player player) {
         player.setHeading(player.getHeading().prev());
     }
