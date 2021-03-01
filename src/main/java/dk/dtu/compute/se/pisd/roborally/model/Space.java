@@ -37,7 +37,16 @@ public class Space extends Subject {
     public final int x;
     public final int y;
     private Player player;
-    Wall wall;
+
+    public Wall getWall() {
+        return wall;
+    }
+
+    public void setWall(Heading...blockingDirection) {
+        this.wall = new Wall(blockingDirection);
+    }
+
+    private Wall wall;
 
     /**
      * Konstruktøren til "Space", med "board", x og y som parametre
