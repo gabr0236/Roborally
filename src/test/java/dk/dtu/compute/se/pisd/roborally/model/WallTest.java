@@ -43,4 +43,16 @@ class WallTest {
         Assertions.assertEquals(current, board.getSpace(0, 0).getPlayer(), "Player " + current.getName() + " should beSpace (0,0)!");
         Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
     }
+
+    //TODO: change test names
+    @Test
+    void secondWallTest(){
+        Board board = gameController.board;
+        Player current = board.getCurrentPlayer();
+        current.board.getNeighbour(current.getSpace(),current.getHeading()).setWall(Heading.NORTH);
+        gameController.moveForward(current);
+
+        Assertions.assertEquals(current, board.getSpace(0, 0).getPlayer(), "Player " + current.getName() + " should beSpace (0,0)!");
+        Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
+    }
 }

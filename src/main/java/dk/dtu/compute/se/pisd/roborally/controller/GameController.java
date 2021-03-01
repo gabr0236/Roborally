@@ -222,7 +222,9 @@ public class GameController {
         if(current!=null && player.board==current.board){
             Space target = board.getNeighbour(current,player.getHeading());
             if(target!=null && target.getPlayer()==null){
-                if(!getCurrentSpaceWallBlockingDirection(player).contains(player.getHeading())) {
+                //TODO: lav null check på blocking direction
+                if(!getCurrentSpaceWallBlockingDirection(player).contains(player.getHeading()) &&
+                        !getHeadingNeighbourWallBlockingDirection(player).contains(player.getHeading().oppositeHeading())) {
                     player.setSpace(target);
                 }
             }
@@ -231,6 +233,9 @@ public class GameController {
 
     public List<Heading> getCurrentSpaceWallBlockingDirection(@NotNull Player player){
         return player.getSpace().getWall().getBlockingDirection();
+    }
+    public List<Heading> getHeadingNeighbourWallBlockingDirection(@NotNull Player player){
+        return player.board.getNeighbour(player.getSpace(), player.getHeading()).getWall().getBlockingDirection();
     }
 
 
