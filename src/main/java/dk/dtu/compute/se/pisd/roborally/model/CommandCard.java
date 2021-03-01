@@ -29,10 +29,11 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  *
+ *Javadoc
+ * @author Gabriel
  */
 public class CommandCard extends Subject {
 
-    //Gab,sab,dan
     final public Command command;
 
     /**

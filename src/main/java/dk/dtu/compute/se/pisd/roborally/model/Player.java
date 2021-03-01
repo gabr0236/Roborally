@@ -31,6 +31,8 @@ import static dk.dtu.compute.se.pisd.roborally.model.Heading.SOUTH;
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  *
+ * Javadoc
+ * @author Gabriel
  */
 public class Player extends Subject {
 

@@ -32,7 +32,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class GameController {
 
-    //Gab,sab,dan
+
     final public Board board;
 
     public GameController(@NotNull Board board) {

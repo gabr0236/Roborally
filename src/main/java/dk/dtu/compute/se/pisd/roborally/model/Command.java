@@ -30,6 +30,8 @@ import java.util.List;
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  *
+ * Javadoc
+ * @author Gabriel
  */
 public enum Command {
 
@@ -70,6 +72,7 @@ public enum Command {
     }
 
     /**
+     *
      * Returnerer handlinger for en given enumerations konstant
      * @return
      */

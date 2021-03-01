@@ -40,7 +40,8 @@ import java.util.List;
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  *
- *
+ * Javadoc
+ * @author Gabriel
  */
 public class PlayerView extends Tab implements ViewObserver {
 
