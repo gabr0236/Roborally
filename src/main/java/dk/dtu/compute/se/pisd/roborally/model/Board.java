@@ -69,6 +69,9 @@ public class Board extends Subject {
                 spaces[x][y] = space;
             }
         }
+        //TODO: wall hardcoded
+        spaces[0][5].setWall(Heading.NORTH);
+
         this.stepMode = false;
     }
 

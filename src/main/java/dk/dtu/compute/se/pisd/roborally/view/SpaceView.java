@@ -30,6 +30,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
 import org.jetbrains.annotations.NotNull;
 
@@ -42,8 +43,8 @@ import org.jetbrains.annotations.NotNull;
 public class SpaceView extends StackPane implements ViewObserver {
 
     //TODO: midlertidig løsning for at spillet kan blive inden for skærmen på mac
-    final public static int SPACE_HEIGHT = 50; // 60; // 75;
-    final public static int SPACE_WIDTH = 50;  // 60; // 75;
+    final public static int SPACE_HEIGHT = 45; // 60; // 75;
+    final public static int SPACE_WIDTH = 45;  // 60; // 75;
 
     public final Space space;
 
@@ -66,6 +67,9 @@ public class SpaceView extends StackPane implements ViewObserver {
             this.setStyle("-fx-background-color: black;");
         }
 
+        if(space.getWall()!=null){
+            //TODO: væg her
+        }
         // updatePlayer();
 
         // This space view should listen to changes of the space
