@@ -69,9 +69,7 @@ public class SpaceView extends StackPane implements ViewObserver {
         } else {
             this.setStyle("-fx-background-color: linear-gradient(from 0px 0px to 0px 50px, gray, darkgray 50%, dimgray 99%, white)");
         }
-
         // updatePlayer();
-
         // This space view should listen to changes of the space
         space.attach(this);
         update(space);
@@ -90,7 +88,6 @@ public class SpaceView extends StackPane implements ViewObserver {
             } catch (Exception e) {
                 arrow.setFill(Color.MEDIUMPURPLE);
             }
-
             arrow.setRotate((90*player.getHeading().ordinal())%360);
             this.getChildren().add(arrow);
         }
