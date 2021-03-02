@@ -37,10 +37,6 @@ import static dk.dtu.compute.se.pisd.roborally.model.Phase.INITIALISATION;
  */
 public class Board extends Subject {
 
-<<<<<<< HEAD
-=======
-    //tobias
->>>>>>> origin/Development
     public final int width;
 
     public final int height;
