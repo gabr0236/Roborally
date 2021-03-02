@@ -98,17 +98,39 @@ public class SpaceView extends StackPane implements ViewObserver {
         }
 
         if(space.getWall()!=null) {
-            //TODO: væg her
-            //Rectangle rectangle = new Rectangle();
-            Line rectangle = new Line(0, 0, SPACE_WIDTH, 0);
-            rectangle.setStroke(Color.CRIMSON);
-            StackPane.setAlignment(rectangle, Pos.TOP_LEFT);
-            rectangle.setStrokeWidth(7);
-            rectangle.setStrokeLineCap(StrokeLineCap.BUTT);
-            this.getChildren().add(rectangle);
+            for (Heading heading:space.getWall().getBlockingDirection()) {
+                Line line=new Line();
+                switch (heading){
+                    case NORTH:
+                        line=modifyLineCoodinates(line,0,0,SPACE_WIDTH,0);
+                        break;
+                    case EAST:
+                        line=modifyLineCoodinates(line,SPACE_WIDTH,0,SPACE_WIDTH,SPACE_WIDTH);
+                        break;
+                    case SOUTH:
+                        line=modifyLineCoodinates(line,0,SPACE_HEIGHT,SPACE_WIDTH,SPACE_HEIGHT);
+                        break;
+                    case WEST:
+                        line=modifyLineCoodinates(line,0,0,0,SPACE_HEIGHT);
+                        break;
+                }
+                line.setStroke(Color.CRIMSON);
+                line.setStrokeWidth(7);
+                line.setStrokeLineCap(StrokeLineCap.BUTT);
+                this.getChildren().add(line);
+            }
         }
 
 
+    }
+
+    private Line modifyLineCoodinates(@NotNull Line line, int x1,int y1, int x2, int y2){
+        line.setStartX(x1);
+        line.setStartY(y1);
+        line.setEndX(x2);
+        line.setEndY(y2);
+        StackPane.setAlignment(line, Pos.TOP_LEFT);
+        return line;
     }
 
     @Override
