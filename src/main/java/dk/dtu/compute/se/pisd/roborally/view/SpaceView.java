@@ -26,12 +26,16 @@ import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 import javafx.geometry.Pos;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeLineCap;
 import org.jetbrains.annotations.NotNull;
+
+import java.awt.*;
 
 /**
  * ...
@@ -93,34 +97,39 @@ public class SpaceView extends StackPane implements ViewObserver {
 
         if (space.getWall() != null) {
             if (!space.getWall().getBlockingDirection().isEmpty()) {
+                Canvas canvas = new Canvas(SPACE_WIDTH,SPACE_HEIGHT);
+
                 for (Heading heading : space.getWall().getBlockingDirection()) {
-                    Line line = new Line();
+
+                    GraphicsContext gc = canvas.getGraphicsContext2D();
+                    gc.setStroke(Color.RED);
+                    gc.setLineWidth(5);
+                    gc.setLineCap(StrokeLineCap.ROUND);
+
                     switch (heading) {
                         case NORTH:
-                            line = getModifyLineCoordinates(line, 0, 0, SPACE_WIDTH, 0);
+                            gc.strokeLine(2, 2, SPACE_WIDTH-2, 2);
                             break;
 
                         case EAST:
-                            line = getModifyLineCoordinates(line, SPACE_WIDTH, 0, SPACE_WIDTH, SPACE_HEIGHT);
+                            gc.strokeLine(SPACE_WIDTH-2, 2, SPACE_WIDTH-2, SPACE_HEIGHT-2);
                             break;
 
                         case SOUTH:
-                            line = getModifyLineCoordinates(line, 0, SPACE_HEIGHT, SPACE_WIDTH, SPACE_HEIGHT);
+                            gc.strokeLine(2, SPACE_HEIGHT-2, SPACE_WIDTH-2, SPACE_HEIGHT-2);
                             break;
 
                         case WEST:
-                            line = getModifyLineCoordinates(line, 0, 0, 0, SPACE_HEIGHT);
+                            gc.strokeLine(2, 2, 2, SPACE_HEIGHT-2);
                             break;
                     }
-                    line.setStroke(Color.CRIMSON);
-                    line.setStrokeWidth(7);
-                    line.setStrokeLineCap(StrokeLineCap.BUTT);
-                    this.getChildren().add(line);
+
+                    this.getChildren().add(canvas);
+
                 }
             }
         }
     }
-
 
     private Line getModifyLineCoordinates(@NotNull Line line, int x1, int y1, int x2, int y2){
         line.setStartX(x1);
