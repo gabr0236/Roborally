@@ -21,21 +21,15 @@
  */
 package dk.dtu.compute.se.pisd.roborally.view;
 
-import com.sun.prism.paint.LinearGradient;
-import com.sun.prism.paint.Stop;
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 import javafx.geometry.Pos;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
 import org.jetbrains.annotations.NotNull;
 
@@ -97,34 +91,37 @@ public class SpaceView extends StackPane implements ViewObserver {
             this.getChildren().add(arrow);
         }
 
-        if(space.getWall()!=null) {
-            for (Heading heading:space.getWall().getBlockingDirection()) {
-                Line line=new Line();
-                switch (heading){
-                    case NORTH:
-                        line=modifyLineCoodinates(line,0,0,SPACE_WIDTH,0);
-                        break;
-                    case EAST:
-                        line=modifyLineCoodinates(line,SPACE_WIDTH,0,SPACE_WIDTH,SPACE_WIDTH);
-                        break;
-                    case SOUTH:
-                        line=modifyLineCoodinates(line,0,SPACE_HEIGHT,SPACE_WIDTH,SPACE_HEIGHT);
-                        break;
-                    case WEST:
-                        line=modifyLineCoodinates(line,0,0,0,SPACE_HEIGHT);
-                        break;
+        if (space.getWall() != null) {
+            if (!space.getWall().getBlockingDirection().isEmpty()) {
+                for (Heading heading : space.getWall().getBlockingDirection()) {
+                    Line line = new Line();
+                    switch (heading) {
+                        case NORTH:
+                            line = getModifyLineCoodinates(line, 0, 0, SPACE_WIDTH, 0);
+                            break;
+
+                        case EAST:
+                            line = getModifyLineCoodinates(line, SPACE_WIDTH, 0, SPACE_WIDTH, SPACE_HEIGHT);
+                            break;
+
+                        case SOUTH:
+                            line = getModifyLineCoodinates(line, 0, SPACE_HEIGHT, SPACE_WIDTH, SPACE_HEIGHT);
+                            break;
+
+                        case WEST:
+                            line = getModifyLineCoodinates(line, 0, 0, 0, SPACE_HEIGHT);
+                            break;
+                    }
+                    line.setStroke(Color.CRIMSON);
+                    line.setStrokeWidth(7);
+                    line.setStrokeLineCap(StrokeLineCap.BUTT);
+                    this.getChildren().add(line);
                 }
-                line.setStroke(Color.CRIMSON);
-                line.setStrokeWidth(7);
-                line.setStrokeLineCap(StrokeLineCap.BUTT);
-                this.getChildren().add(line);
             }
         }
-
-
     }
 
-    private Line modifyLineCoodinates(@NotNull Line line, int x1,int y1, int x2, int y2){
+    private Line getModifyLineCoodinates(@NotNull Line line, int x1, int y1, int x2, int y2){
         line.setStartX(x1);
         line.setStartY(y1);
         line.setEndX(x2);
