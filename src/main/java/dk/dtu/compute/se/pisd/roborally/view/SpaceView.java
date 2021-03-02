@@ -21,14 +21,19 @@
  */
 package dk.dtu.compute.se.pisd.roborally.view;
 
+import com.sun.prism.paint.LinearGradient;
+import com.sun.prism.paint.Stop;
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
+import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
@@ -62,14 +67,11 @@ public class SpaceView extends StackPane implements ViewObserver {
         this.setMaxHeight(SPACE_HEIGHT);
 
         if ((space.x + space.y) % 2 == 0) {
-            this.setStyle("-fx-background-color: white;");
+            this.setStyle("-fx-background-color: linear-gradient(from 0px 0px to 0px 50px, gray, dimgray 50%, darkgray 99%, white)");
         } else {
-            this.setStyle("-fx-background-color: black;");
+            this.setStyle("-fx-background-color: linear-gradient(from 0px 0px to 0px 50px, gray, darkgray 50%, dimgray 99%, white)");
         }
 
-        if(space.getWall()!=null){
-            //TODO: væg her
-        }
         // updatePlayer();
 
         // This space view should listen to changes of the space
@@ -94,6 +96,19 @@ public class SpaceView extends StackPane implements ViewObserver {
             arrow.setRotate((90*player.getHeading().ordinal())%360);
             this.getChildren().add(arrow);
         }
+
+        if(space.getWall()!=null) {
+            //TODO: væg her
+            //Rectangle rectangle = new Rectangle();
+            Line rectangle = new Line(0, 0, SPACE_WIDTH, 0);
+            rectangle.setStroke(Color.CRIMSON);
+            StackPane.setAlignment(rectangle, Pos.TOP_LEFT);
+            rectangle.setStrokeWidth(7);
+            rectangle.setStrokeLineCap(StrokeLineCap.BUTT);
+            this.getChildren().add(rectangle);
+        }
+
+
     }
 
     @Override

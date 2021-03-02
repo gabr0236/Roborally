@@ -6,10 +6,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class Wall {
+public class Walls {
+
     private List<Heading> blockingDirection;
 
-    public Wall(@NotNull Heading...blockingDirection) {
+    public Walls(@NotNull Heading...blockingDirection) {
         this.blockingDirection = Collections.unmodifiableList(Arrays.asList(blockingDirection));
     }
 

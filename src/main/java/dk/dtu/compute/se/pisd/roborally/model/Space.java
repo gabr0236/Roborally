@@ -38,15 +38,15 @@ public class Space extends Subject {
     public final int x;
     public final int y;
     private Player player;
-    private Wall wall;
+    private Walls walls;
     private Conveyor conveyor;
 
-    public Wall getWall() {
-        return wall;
+    public Walls getWall() {
+        return walls;
     }
 
     public void setWall(@NotNull Heading...blockingDirection) {
-        this.wall = new Wall(blockingDirection);
+        this.walls = new Walls(blockingDirection);
     }
 
 
@@ -65,7 +65,7 @@ public class Space extends Subject {
         player = null;
     }
 
-    public Space(Board board, int x, int y,Wall wall) {
+    public Space(Board board, int x, int y, Walls walls) {
         this.board = board;
         this.x = x;
         this.y = y;

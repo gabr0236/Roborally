@@ -233,10 +233,10 @@ public class GameController {
     }
 
     public boolean isCurrentSpaceWallBlockingDirection(@NotNull Player player) {
-        Wall tempWall = player.getSpace().getWall();
-        if (tempWall != null) {
-            if (!tempWall.getBlockingDirection().isEmpty()) {
-                return tempWall.getBlockingDirection().contains(player.getHeading());
+        Walls tempWalls = player.getSpace().getWall();
+        if (tempWalls != null) {
+            if (!tempWalls.getBlockingDirection().isEmpty()) {
+                return tempWalls.getBlockingDirection().contains(player.getHeading());
             }
         }
         return false;
