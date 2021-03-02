@@ -30,20 +30,53 @@ import java.util.List;
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  *
+ * Javadoc
+ * @author Gabriel
  */
 public enum Command {
 
-    // This is a very simplistic way of realizing different commands.
 
+    // This is a very simplistic way of realizing different commands.
+    /**
+     * TODO: er det her rigtig javaD stil?
+     * Enumeration konstanter ink. display names pr. konstant. Bruges i forbindelse med CommandCards
+     * til at bevæge spillere
+     */
     FORWARD("Fwd"),
     RIGHT("Turn Right"),
     LEFT("Turn Left"),
-    FAST_FORWARD("Fast Fwd");
+    FAST_FORWARD("Fast Fwd"),
+    OPTION_LEFT_RIGHT("Left OR Right", LEFT, RIGHT);
 
     final public String displayName;
 
-    Command(String displayName) {
+    final private List<Command> options;
+
+    /**
+     * Sætter for params nedenfor, bruges til at initialisere enumerations konstanterne
+     * @param displayName
+     * @param options
+     */
+    Command(String displayName, Command... options) {
         this.displayName = displayName;
+        this.options = Collections.unmodifiableList(Arrays.asList(options));
     }
 
+    /**
+     * Returnere boolsk værdi der siger om et CommandCard er "Interactive" altså om spilleren bliver
+     * givet en mulighed for at vælge imellem en eller flere handlinger
+     * @return
+     */
+    public boolean isInteractive() {
+        return !options.isEmpty();
+    }
+
+    /**
+     *
+     * Returnerer handlinger for en given enumerations konstant
+     * @return
+     */
+    public List<Command> getOptions() {
+        return options;
+    }
 }

@@ -39,6 +39,8 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  *
+ * Javadoc
+ * @author Gabriel
  */
 public class BoardView extends VBox implements ViewObserver {
 
@@ -53,6 +55,12 @@ public class BoardView extends VBox implements ViewObserver {
 
     private SpaceEventHandler spaceEventHandler;
 
+    /**
+     * Skaber GUI for Board, herunder ternede felter, samt PlayerView
+     * Bruger gameController til at opsætte dette.
+     *
+     * @param gameController
+     */
     public BoardView(@NotNull GameController gameController) {
         board = gameController.board;
 
@@ -82,6 +90,10 @@ public class BoardView extends VBox implements ViewObserver {
         update(board);
     }
 
+    /**
+     * Opdaterer spillets Phase status
+     * @param subject
+     */
     @Override
     public void updateView(Subject subject) {
         if (subject == board) {

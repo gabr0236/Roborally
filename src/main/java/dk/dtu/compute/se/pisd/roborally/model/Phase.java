@@ -26,7 +26,12 @@ package dk.dtu.compute.se.pisd.roborally.model;
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  *
+ * Javadoc
+ * @author Gabriel
  */
 public enum Phase {
+    /**
+     * Enumerationskonstanter der bruges til at identificere spillets nuværende stadie
+     */
     INITIALISATION, PROGRAMMING, ACTIVATION, PLAYER_INTERACTION
 }

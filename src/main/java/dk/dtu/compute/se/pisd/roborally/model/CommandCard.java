@@ -29,11 +29,18 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  *
+ *Javadoc
+ * @author Gabriel
  */
 public class CommandCard extends Subject {
 
     final public Command command;
 
+    /**
+     *konstruktør, sætter Command til at pege på parameteren som er en enumerations konstant
+     *
+     * @param command
+     */
     public CommandCard(@NotNull Command command) {
         this.command = command;
     }

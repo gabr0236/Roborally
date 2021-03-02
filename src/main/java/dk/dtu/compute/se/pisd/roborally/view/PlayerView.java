@@ -32,11 +32,16 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  *
+ * Javadoc
+ * @author Gabriel
  */
 public class PlayerView extends Tab implements ViewObserver {
 
@@ -62,6 +67,13 @@ public class PlayerView extends Tab implements ViewObserver {
 
     private GameController gameController;
 
+    /**
+     * Konstruktør, skaber de forskellige nødvendige GUI elementer for den enkelte spiller,
+     * samt sammenfletter med GameController og henter de nødvendige oplysninger fra model klasserne
+     *
+     * @param gameController
+     * @param player
+     */
     public PlayerView(@NotNull GameController gameController, @NotNull Player player) {
         super(player.getName());
         this.setStyle("-fx-text-base-color: " + player.getColor() + ";");
@@ -91,13 +103,13 @@ public class PlayerView extends Tab implements ViewObserver {
         //      refactored.
 
         finishButton = new Button("Finish Programming");
-        finishButton.setOnAction( e -> gameController.notImplemented());
+        finishButton.setOnAction( e -> gameController.finishProgrammingPhase());
 
         executeButton = new Button("Execute Program");
-        executeButton.setOnAction( e-> gameController.notImplemented());
+        executeButton.setOnAction( e-> gameController.executePrograms());
 
         stepButton = new Button("Execute Current Register");
-        stepButton.setOnAction( e-> gameController.notImplemented());
+        stepButton.setOnAction( e-> gameController.executeStep());
 
         buttonPanel = new VBox(finishButton, executeButton, stepButton);
         buttonPanel.setAlignment(Pos.CENTER_LEFT);
@@ -132,6 +144,13 @@ public class PlayerView extends Tab implements ViewObserver {
         }
     }
 
+
+    /**
+     * Opdaterer spillerens view ud fra modellers nuværende stat, herunder modeller som Board, CardFieldView,
+     * og GUI elementer som Buttons
+     *
+     * @param subject
+     */
     @Override
     public void updateView(Subject subject) {
         if (subject == player.board) {
@@ -212,6 +231,16 @@ public class PlayerView extends Tab implements ViewObserver {
                     optionButton.setOnAction( e -> gameController.notImplemented());
                     optionButton.setDisable(false);
                     playerInteractionPanel.getChildren().add(optionButton);
+
+                    CommandCard current =player.getProgramField(player.board.getStep()).getCard();
+                    if(current!=null) {
+                        for (Command option:current.command.getOptions()) {
+                            Button optionButton = new Button(option.displayName);
+                            optionButton.setOnAction(e -> gameController.executeCommandOptionAndContinue(option));
+                            optionButton.setDisable(false);
+                            playerInteractionPanel.getChildren().add(optionButton);
+                        }
+                    }
                 }
             }
         }

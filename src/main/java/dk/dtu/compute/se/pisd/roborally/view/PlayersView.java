@@ -33,12 +33,17 @@ import javafx.scene.control.TabPane;
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */
+
 public class PlayersView extends TabPane implements ViewObserver {
 
     private Board board;
 
     private PlayerView[] playerViews;
 
+    /**
+     * Contructor der indsætter en PlayerView for hver spiller i et PlayerView-array
+     * @param gameController
+     */
     public PlayersView(GameController gameController) {
         board = gameController.board;
 
@@ -52,6 +57,7 @@ public class PlayersView extends TabPane implements ViewObserver {
         board.attach(this);
         update(board);
     }
+
 
     @Override
     public void updateView(Subject subject) {

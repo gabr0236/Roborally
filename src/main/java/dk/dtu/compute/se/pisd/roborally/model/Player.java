@@ -31,6 +31,8 @@ import static dk.dtu.compute.se.pisd.roborally.model.Heading.SOUTH;
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  *
+ * Javadoc
+ * @author Gabriel
  */
 public class Player extends Subject {
 
@@ -48,6 +50,17 @@ public class Player extends Subject {
     private CommandCardField[] program;
     private CommandCardField[] cards;
 
+    /**
+     * Player konstruktør, Initialisere spiller og tilknytter board, sætter farve og sætter navn.
+     *
+     * Herefter oprettes først et CommandCardField Array med plads til at holde en robots registers
+     * Der oprettes herefter CommandCardField Array med plads til at holde en robots tilfældige
+     * programmeringskort der tildeles i starten af hver programmeringsfase.
+     *
+     * @param board
+     * @param color
+     * @param name
+     */
     public Player(@NotNull Board board, String color, @NotNull String name) {
         this.board = board;
         this.name = name;
@@ -66,10 +79,19 @@ public class Player extends Subject {
         }
     }
 
+    /**
+     * Returnerer navn
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sætter navn samt kalder observerens notifyChange() til at opdatere GUI
+     *
+     * @param name
+     */
     public void setName(String name) {
         if (name != null && !name.equals(this.name)) {
             this.name = name;
@@ -84,6 +106,11 @@ public class Player extends Subject {
         return color;
     }
 
+    /**
+     * Sætter farve samt kalder observerens notifyChange() til at opdatere GUI
+     *
+     * @param color
+     */
     public void setColor(String color) {
         this.color = color;
         notifyChange();
@@ -96,6 +123,10 @@ public class Player extends Subject {
         return space;
     }
 
+    /**
+     * Metode til at tilknytte spiller til Space
+     * @param space
+     */
     public void setSpace(Space space) {
         Space oldSpace = this.space;
         if (space != oldSpace &&
@@ -115,6 +146,10 @@ public class Player extends Subject {
         return heading;
     }
 
+    /**
+     * Metode til at sætte spillers "retning"
+     * @param heading
+     */
     public void setHeading(@NotNull Heading heading) {
         if (heading != this.heading) {
             this.heading = heading;
@@ -125,10 +160,20 @@ public class Player extends Subject {
         }
     }
 
+    /**
+     * Henter et specifikt registreringskort, vælges ud fra paramereten i
+     * @param i
+     * @return
+     */
     public CommandCardField getProgramField(int i) {
         return program[i];
     }
 
+    /**
+     * Henter et specifikt kort spilleren har på hånden, vælges ud fra paramereten i
+     * @param i
+     * @return
+     */
     public CommandCardField getCardField(int i) {
         return cards[i];
     }
