@@ -97,19 +97,19 @@ public class SpaceView extends StackPane implements ViewObserver {
                     Line line = new Line();
                     switch (heading) {
                         case NORTH:
-                            line = getModifyLineCoodinates(line, 0, 0, SPACE_WIDTH, 0);
+                            line = getModifyLineCoordinates(line, 0, 0, SPACE_WIDTH, 0);
                             break;
 
                         case EAST:
-                            line = getModifyLineCoodinates(line, SPACE_WIDTH, 0, SPACE_WIDTH, SPACE_HEIGHT);
+                            line = getModifyLineCoordinates(line, SPACE_WIDTH, 0, SPACE_WIDTH, SPACE_HEIGHT);
                             break;
 
                         case SOUTH:
-                            line = getModifyLineCoodinates(line, 0, SPACE_HEIGHT, SPACE_WIDTH, SPACE_HEIGHT);
+                            line = getModifyLineCoordinates(line, 0, SPACE_HEIGHT, SPACE_WIDTH, SPACE_HEIGHT);
                             break;
 
                         case WEST:
-                            line = getModifyLineCoodinates(line, 0, 0, 0, SPACE_HEIGHT);
+                            line = getModifyLineCoordinates(line, 0, 0, 0, SPACE_HEIGHT);
                             break;
                     }
                     line.setStroke(Color.CRIMSON);
@@ -121,7 +121,8 @@ public class SpaceView extends StackPane implements ViewObserver {
         }
     }
 
-    private Line getModifyLineCoodinates(@NotNull Line line, int x1, int y1, int x2, int y2){
+
+    private Line getModifyLineCoordinates(@NotNull Line line, int x1, int y1, int x2, int y2){
         line.setStartX(x1);
         line.setStartY(y1);
         line.setEndX(x2);
