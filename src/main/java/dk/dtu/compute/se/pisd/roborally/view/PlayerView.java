@@ -36,8 +36,6 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * ...
- *
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  * Javadoc
@@ -144,7 +142,6 @@ public class PlayerView extends Tab implements ViewObserver {
         }
     }
 
-
     /**
      * Opdaterer spillerens view ud fra modellers nuværende stat, herunder modeller som Board, CardFieldView,
      * og GUI elementer som Buttons
@@ -219,9 +216,9 @@ public class PlayerView extends Tab implements ViewObserver {
 
                 if (player.board.getCurrentPlayer() == player) {
 
-                    CommandCard current =player.getProgramField(player.board.getStep()).getCard();
-                    if(current!=null) {
-                        for (Command option:current.command.getOptions()) {
+                    CommandCard current = player.getProgramField(player.board.getStep()).getCard();
+                    if(current != null) {
+                        for (Command option: current.command.getOptions()) {
                             Button optionButton = new Button(option.displayName);
                             optionButton.setOnAction(e -> gameController.executeCommandOptionAndContinue(option));
                             optionButton.setDisable(false);
@@ -232,5 +229,4 @@ public class PlayerView extends Tab implements ViewObserver {
             }
         }
     }
-
 }
