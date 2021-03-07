@@ -65,9 +65,9 @@ public class SpaceView extends StackPane implements ViewObserver {
         this.setMaxHeight(SPACE_HEIGHT);
 
         if ((space.x + space.y) % 2 == 0) {
-            this.setStyle("-fx-background-color: linear-gradient(from 0px 0px to 0px 50px, gray, dimgray 50%, darkgray 99%, white)");
+            this.setStyle("-fx-background-color: Silver");
         } else {
-            this.setStyle("-fx-background-color: linear-gradient(from 0px 0px to 0px 50px, gray, darkgray 50%, dimgray 99%, white)");
+            this.setStyle("-fx-background-color: SlateGrey");
         }
         // updatePlayer();
         // This space view should listen to changes of the space

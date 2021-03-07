@@ -336,6 +336,7 @@ public class GameController {
             board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
             continuePrograms();
         } else {
+            executeBoardElements();
             step++;
             if (step < Player.NO_REGISTERS) {
                 makeProgramFieldsVisible(step);
@@ -347,4 +348,13 @@ public class GameController {
         }
     }
 
+    private void executeBoardElements(){
+        if(!board.getPlayers().isEmpty()) {
+            for (Player player : board.getPlayers()) {
+                if(player.getSpace()!=null){
+
+                }
+            }
+        }
+    }
 }

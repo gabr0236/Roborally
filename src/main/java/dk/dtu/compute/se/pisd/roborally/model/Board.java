@@ -25,6 +25,7 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static dk.dtu.compute.se.pisd.roborally.model.Phase.INITIALISATION;
@@ -73,7 +74,7 @@ public class Board extends Subject {
         spaces[1][2].setWall(Heading.NORTH);
         spaces[2][4].setWall(Heading.EAST);
         spaces[2][5].setWall(Heading.EAST);
-        spaces[1][7].setWall(Heading.SOUTH,Heading.WEST);
+        spaces[1][7].setWall(Heading.SOUTH,Heading.WEST,Heading.NORTH,Heading.EAST);
 
         this.stepMode = false;
     }
@@ -218,5 +219,8 @@ public class Board extends Subject {
                 ", Step: " + getStep();
     }
 
+    public List<Player> getPlayers() {
+        return Collections.unmodifiableList(players);
+    }
 
 }
