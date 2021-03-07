@@ -348,6 +348,7 @@ public class GameController {
         }
     }
 
+    //TODO: excecuteBoardElements
     private void executeBoardElements(){
         if(!board.getPlayers().isEmpty()) {
             for (Player player : board.getPlayers()) {
