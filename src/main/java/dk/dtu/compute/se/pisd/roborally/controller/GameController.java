@@ -219,8 +219,8 @@ public class GameController {
         if (current != null && player.board == current.board) {
             Space target = board.getNeighbour(current, player.getHeading());
             if (target != null && target.getPlayer() == null) {
-                if (!isCurrentSpaceWallBlockingDirection(player)) {
-                    if (!isHeadingNeighbourWallBlockingDirection(player)) {
+                if (!isCurrentSpaceWallBlockingDirection(player, player.getHeading())) {
+                    if (!isHeadingNeighbourWallBlockingDirection(player, player.getHeading())) {
                         player.setSpace(target);
                     }
                 }
@@ -232,23 +232,21 @@ public class GameController {
         }
     }
 
-    public boolean isCurrentSpaceWallBlockingDirection(@NotNull Player player) {
+    public boolean isCurrentSpaceWallBlockingDirection(@NotNull Player player, Heading heading) {
         Walls tempWalls = player.getSpace().getWall();
         if (tempWalls != null) {
-            //TODO activate BoardElement direkte?
             if (!tempWalls.getBlockingDirection().isEmpty()) {
-                return tempWalls.getBlockingDirection().contains(player.getHeading());
+                return tempWalls.getBlockingDirection().contains(heading);
             }
         }
         return false;
     }
 
-
-    public boolean isHeadingNeighbourWallBlockingDirection(@NotNull Player player) {
-        Space neighbour = player.board.getNeighbour(player.getSpace(), player.getHeading());
+    public boolean isHeadingNeighbourWallBlockingDirection(@NotNull Player player, Heading heading) {
+        Space neighbour = player.board.getNeighbour(player.getSpace(), heading);
         if (neighbour != null) {
             if (neighbour.getWall() != null) {
-                Heading oppositeHeading = player.getHeading().oppositeHeading();
+                Heading oppositeHeading = heading.oppositeHeading();
                 return neighbour.getWall().getBlockingDirection().contains(oppositeHeading);
             }
         }
@@ -365,6 +363,21 @@ public class GameController {
         }
     }
     private void directionMove(@NotNull Player player, @NotNull Heading heading, @NotNull Command command){
+            Space current = player.getSpace();
+            if (current != null && player.board == current.board) {
+                Space target = board.getNeighbour(current, heading);
+                if (target != null && target.getPlayer() == null) {
+                    if (!isCurrentSpaceWallBlockingDirection(player, heading)) {
+                        if (!isHeadingNeighbourWallBlockingDirection(player, heading)) {
+                            player.setSpace(target);
+                        }
+                    }
+                }
+                //TODO: Lav reboot felter, Ellers kan man ikke respawne jf. PRGML §statement nedenfor
+                else {
+                    player.setSpace(null);
+                }
+            }
+        }
 
-    }
 }
