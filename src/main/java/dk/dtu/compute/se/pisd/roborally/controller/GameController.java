@@ -349,19 +349,29 @@ public class GameController {
     }
 
     //TODO: excecuteBoardElements
-    private void executeBoardElements(){
-        if(!board.getPlayers().isEmpty()) {
+    private void executeBoardElements() {
+        if (!board.getPlayers().isEmpty()) {
             for (Player player : board.getPlayers()) {
-                if(player.getSpace()!=null){
+                if (player.getSpace() != null) {
                     Conveyor conveyor = player.getSpace().getConveyor();
-                    if(conveyor!=null){
-                        executeCommand(player,conveyor.getCommand());
-                        //TODO: bevæg i conveyers retning
+                    if (conveyor != null) {
+                        executeMove(player, conveyor.getHeading(), conveyor.getCommand());
                     }
                 }
             }
         }
     }
+
+
+    private void executeMove(@NotNull Player player, @NotNull Heading heading, @NotNull Command command) {
+        if (command == Command.FAST_FORWARD) {
+            directionMove(player, heading, command);
+            directionMove(player, heading, command);
+        } else {
+            directionMove(player, heading, command);
+        }
+    }
+
     private void directionMove(@NotNull Player player, @NotNull Heading heading, @NotNull Command command){
             Space current = player.getSpace();
             if (current != null && player.board == current.board) {
