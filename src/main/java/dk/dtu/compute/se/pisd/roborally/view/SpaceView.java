@@ -22,19 +22,23 @@
 package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
+import dk.dtu.compute.se.pisd.roborally.model.Command;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.transform.Affine;
 import org.jetbrains.annotations.NotNull;
 
+import javax.xml.crypto.dsig.Transform;
 import java.awt.*;
 
 /**
@@ -112,14 +116,17 @@ public class SpaceView extends StackPane implements ViewObserver {
         }
 
         if(space.getConveyor()!=null){
-            Canvas canvas = new Canvas(SPACE_WIDTH,SPACE_HEIGHT);
-            GraphicsContext gc = canvas.getGraphicsContext2D();
-            gc.setStroke(Color.STEELBLUE);
-            gc.setLineWidth(10);
-            gc.setLineCap(StrokeLineCap.ROUND);
-            gc.strokeLine(SPACE_WIDTH/2,2,SPACE_WIDTH/2,SPACE_HEIGHT-2);
-            this.getChildren().add(canvas);
-
+            Polygon arrow = new Polygon(0.0, 0.0,
+                    15.0, 30.0,
+                    30.0, 0.0 );
+            if(space.getConveyor().getCommand()== Command.FAST_FORWARD){
+                arrow.setFill(Color.LIGHTSKYBLUE);
+            } else{
+                arrow.setFill(Color.LIMEGREEN);
+            }
+            arrow.setRotate((90*space.getConveyor().getHeading().ordinal())%360);
+            this.setStyle("-fx-background-color: Black");
+            this.getChildren().add(arrow);
         }
     }
 
@@ -132,3 +139,12 @@ public class SpaceView extends StackPane implements ViewObserver {
     }
 
 }
+/* gc.setStroke(Color.RED);
+            gc.setLineWidth(5);
+            gc.setLineCap(StrokeLineCap.ROUND);
+            switch (space.getConveyor().getHeading()) {
+                case NORTH -> gc.strokeLine((SPACE_WIDTH)/2.0, 10, (SPACE_WIDTH)/2.0, SPACE_HEIGHT-2);
+                case EAST -> gc.strokeLine(2, (SPACE_HEIGHT-2)/2.0, SPACE_WIDTH-2-10, (SPACE_HEIGHT-2)/2.0);
+                case SOUTH -> gc.strokeLine((SPACE_WIDTH-2)/2.0, 2, (SPACE_WIDTH-2)/2.0, SPACE_HEIGHT-2);
+                case WEST -> gc.strokeLine(2, (SPACE_HEIGHT-2)/2.0, SPACE_WIDTH-2, (SPACE_HEIGHT-2)/2.0);
+            }*/
