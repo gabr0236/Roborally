@@ -348,8 +348,8 @@ public class GameController {
         }
     }
 
-    //TODO: excecuteBoardElements
-    private void executeBoardElements() {
+
+    public void executeBoardElements() {
         if (!board.getPlayers().isEmpty()) {
             for (Player player : board.getPlayers()) {
                 if (player.getSpace() != null) {
