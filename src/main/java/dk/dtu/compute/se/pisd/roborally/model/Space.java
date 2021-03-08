@@ -41,12 +41,21 @@ public class Space extends Subject {
     private Walls walls;
     private Conveyor conveyor;
 
+
+    public Conveyor getConveyor() {
+        return conveyor;
+    }
+
+    public void setConveyor(Conveyor conveyor) {
+        this.conveyor = conveyor;
+    }
+
     public Walls getWall() {
         return walls;
     }
 
-    public void setWall(@NotNull Heading...blockingDirection) {
-        this.walls = new Walls(blockingDirection);
+    public void setWalls(Walls walls) {
+        this.walls = walls;
     }
 
 

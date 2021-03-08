@@ -71,10 +71,10 @@ public class Board extends Subject {
             }
         }
         //TODO: wall hardcoded
-        spaces[1][2].setWall(Heading.NORTH);
-        spaces[2][4].setWall(Heading.EAST);
-        spaces[2][5].setWall(Heading.EAST);
-        spaces[1][7].setWall(Heading.SOUTH,Heading.WEST,Heading.NORTH,Heading.EAST);
+        spaces[1][2].setWalls(new Walls(Heading.NORTH));
+        spaces[2][4].setWalls(new Walls(Heading.EAST));
+        spaces[2][5].setWalls(new Walls(Heading.EAST));
+        spaces[1][7].setWalls(new Walls(Heading.NORTH,Heading.EAST,Heading.WEST,Heading.SOUTH));
 
         this.stepMode = false;
     }
