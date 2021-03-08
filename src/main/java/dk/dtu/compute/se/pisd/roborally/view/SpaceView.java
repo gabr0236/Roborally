@@ -119,17 +119,10 @@ public class SpaceView extends StackPane implements ViewObserver {
             gc.setLineCap(StrokeLineCap.ROUND);
             gc.strokeLine(SPACE_WIDTH/2,2,SPACE_WIDTH/2,SPACE_HEIGHT-2);
             this.getChildren().add(canvas);
+
         }
     }
 
-    private Line getModifyLineCoordinates(@NotNull Line line, int x1, int y1, int x2, int y2){
-        line.setStartX(x1);
-        line.setStartY(y1);
-        line.setEndX(x2);
-        line.setEndY(y2);
-        StackPane.setAlignment(line, Pos.TOP_LEFT);
-        return line;
-    }
 
     @Override
     public void updateView(Subject subject) {
