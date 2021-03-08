@@ -46,7 +46,7 @@ public class Space extends Subject {
         return conveyor;
     }
 
-    public void setConveyor(Conveyor conveyor) {
+    public void setConveyor(@NotNull Conveyor conveyor) {
         this.conveyor = conveyor;
     }
 
@@ -54,7 +54,7 @@ public class Space extends Subject {
         return walls;
     }
 
-    public void setWalls(Walls walls) {
+    public void setWalls(@NotNull Walls walls) {
         this.walls = walls;
     }
 

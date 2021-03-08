@@ -225,7 +225,7 @@ public class GameController {
                     }
                 }
             }
-            //TODO: må vi det?
+            //TODO: Lav reboot felter, Ellers kan man ikke respawne jf. PRGML §statement nedenfor
             else {
                 player.setSpace(null);
             }
@@ -361,5 +361,8 @@ public class GameController {
                 }
             }
         }
+    }
+    private void directionMove(@NotNull Player player, @NotNull Heading heading, @NotNull Command command){
+
     }
 }

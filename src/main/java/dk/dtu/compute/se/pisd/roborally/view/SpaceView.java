@@ -110,6 +110,16 @@ public class SpaceView extends StackPane implements ViewObserver {
                 this.getChildren().add(canvas);
             }
         }
+
+        if(space.getConveyor()!=null){
+            Canvas canvas = new Canvas(SPACE_WIDTH,SPACE_HEIGHT);
+            GraphicsContext gc = canvas.getGraphicsContext2D();
+            gc.setStroke(Color.STEELBLUE);
+            gc.setLineWidth(10);
+            gc.setLineCap(StrokeLineCap.ROUND);
+            gc.strokeLine(SPACE_WIDTH/2,2,SPACE_WIDTH/2,SPACE_HEIGHT-2);
+            this.getChildren().add(canvas);
+        }
     }
 
     private Line getModifyLineCoordinates(@NotNull Line line, int x1, int y1, int x2, int y2){
