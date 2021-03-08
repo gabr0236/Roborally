@@ -355,7 +355,6 @@ public class GameController {
         if(!board.getPlayers().isEmpty()) {
             for (Player player : board.getPlayers()) {
                 if(player.getSpace()!=null){
-
                 }
             }
         }
