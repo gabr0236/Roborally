@@ -37,7 +37,7 @@ class WallsTest {
     void wallOnCurrentSpaceBlockingMoveForward(){
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
-        current.getSpace().setWall(Heading.SOUTH);
+        current.getSpace().setWalls(new Walls(Heading.SOUTH));
         gameController.moveForward(current);
 
         Assertions.assertEquals(current, board.getSpace(0, 0).getPlayer(), "Player " + current.getName() + " should beSpace (0,0)!");
@@ -48,7 +48,7 @@ class WallsTest {
     void wallOnCurrentSpaceNotBlockingMoveForward(){
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
-        current.getSpace().setWall(Heading.EAST);
+        current.getSpace().setWalls(new Walls(Heading.EAST));
         gameController.moveForward(current);
 
         Assertions.assertEquals(current, board.getSpace(0, 1).getPlayer(), "Player " + current.getName() + " should beSpace (0,0)!");
@@ -59,7 +59,7 @@ class WallsTest {
     void wallOnCurrentSpaceNotBlockingMoveForward2(){
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
-        current.getSpace().setWall(Heading.NORTH);
+        current.getSpace().setWalls(new Walls(Heading.NORTH));
         gameController.moveForward(current);
 
         Assertions.assertEquals(current, board.getSpace(0, 1).getPlayer(), "Player " + current.getName() + " should beSpace (0,0)!");
@@ -70,7 +70,7 @@ class WallsTest {
     void wallOnNextSpaceBlockingMoveForward(){
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
-        current.board.getNeighbour(current.getSpace(),current.getHeading()).setWall(Heading.NORTH);
+        current.board.getNeighbour(current.getSpace(),current.getHeading()).setWalls(new Walls(Heading.NORTH));
         gameController.moveForward(current);
 
         Assertions.assertEquals(current, board.getSpace(0, 0).getPlayer(), "Player " + current.getName() + " should beSpace (0,0)!");
@@ -81,7 +81,7 @@ class WallsTest {
     void wallOnNextSpaceNotBlockingMoveForward(){
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
-        current.board.getNeighbour(current.getSpace(),current.getHeading()).setWall(Heading.WEST);
+        current.board.getNeighbour(current.getSpace(),current.getHeading()).setWalls(new Walls(Heading.WEST));
         gameController.moveForward(current);
 
         Assertions.assertEquals(current, board.getSpace(0, 1).getPlayer(), "Player " + current.getName() + " should beSpace (0,1)!");
@@ -92,7 +92,7 @@ class WallsTest {
     void wallOnNextSpaceNotBlockingMoveForward2(){
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
-        current.board.getNeighbour(current.getSpace(),current.getHeading()).setWall(Heading.SOUTH);
+        current.board.getNeighbour(current.getSpace(),current.getHeading()).setWalls(new Walls(Heading.SOUTH));
         gameController.moveForward(current);
 
         Assertions.assertEquals(current, board.getSpace(0, 1).getPlayer(), "Player " + current.getName() + " should beSpace (0,1)!");

@@ -355,6 +355,11 @@ public class GameController {
         if(!board.getPlayers().isEmpty()) {
             for (Player player : board.getPlayers()) {
                 if(player.getSpace()!=null){
+                    Conveyor conveyor = player.getSpace().getConveyor();
+                    if(conveyor!=null){
+                        executeCommand(player,conveyor.getCommand());
+                        //TODO: bevæg i conveyers retning
+                    }
                 }
             }
         }
