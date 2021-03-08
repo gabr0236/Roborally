@@ -31,7 +31,6 @@ package dk.dtu.compute.se.pisd.roborally;
  * @author Ekkart Kindler, ekki@dtu.dk
  */
 public class StartRoboRally {
-
     public static void main(String[] args) {
         RoboRally.main(args);
     }

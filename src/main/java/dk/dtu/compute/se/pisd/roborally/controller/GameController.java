@@ -235,12 +235,14 @@ public class GameController {
     public boolean isCurrentSpaceWallBlockingDirection(@NotNull Player player) {
         Walls tempWalls = player.getSpace().getWall();
         if (tempWalls != null) {
+            //TODO activate BoardElement direkte?
             if (!tempWalls.getBlockingDirection().isEmpty()) {
                 return tempWalls.getBlockingDirection().contains(player.getHeading());
             }
         }
         return false;
     }
+
 
     public boolean isHeadingNeighbourWallBlockingDirection(@NotNull Player player) {
         Space neighbour = player.board.getNeighbour(player.getSpace(), player.getHeading());
