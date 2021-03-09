@@ -36,7 +36,7 @@ class ConveyorTest {
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
 
-        current.getSpace().setConveyor(new Conveyor(Heading.SOUTH,Command.FORWARD));
+        current.getSpace().setActivatableBoardElement(new Conveyor(Heading.SOUTH,Command.FORWARD));
         gameController.executeBoardElements();
         Assertions.assertEquals(current, board.getSpace(0, 1).getPlayer(), "Player " + current.getName() + " should beSpace (0,1)!");
         Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
@@ -48,7 +48,7 @@ class ConveyorTest {
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
 
-        current.getSpace().setConveyor(new Conveyor(Heading.SOUTH,Command.FAST_FORWARD));
+        current.getSpace().setActivatableBoardElement(new Conveyor(Heading.SOUTH,Command.FAST_FORWARD));
         gameController.executeBoardElements();
         Assertions.assertEquals(current, board.getSpace(0, 2).getPlayer(), "Player " + current.getName() + " should beSpace (0,2)!");
         Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
@@ -60,7 +60,7 @@ class ConveyorTest {
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
         current.setHeading(Heading.NORTH);
-        current.getSpace().setConveyor(new Conveyor(Heading.SOUTH,Command.FORWARD));
+        current.getSpace().setActivatableBoardElement(new Conveyor(Heading.SOUTH,Command.FORWARD));
         gameController.executeBoardElements();
         Assertions.assertEquals(current, board.getSpace(0, 1).getPlayer(), "Player " + current.getName() + " should beSpace (0,1)!");
         Assertions.assertEquals(Heading.NORTH, current.getHeading(), "Player 0 should be heading NORTH!");
@@ -72,7 +72,7 @@ class ConveyorTest {
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
         current.setHeading(Heading.NORTH);
-        current.getSpace().setConveyor(new Conveyor(Heading.SOUTH,Command.FORWARD));
+        current.getSpace().setActivatableBoardElement(new Conveyor(Heading.SOUTH,Command.FORWARD));
         board.getNeighbour(current.getSpace(),Heading.SOUTH).setWalls(new Walls(Heading.NORTH));
         gameController.executeBoardElements();
         Assertions.assertEquals(current, board.getSpace(0, 0).getPlayer(), "Player " + current.getName() + " should beSpace (0,0)!");

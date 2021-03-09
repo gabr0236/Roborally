@@ -75,9 +75,9 @@ public class Board extends Subject {
         spaces[2][4].setWalls(new Walls(Heading.EAST));
         spaces[2][5].setWalls(new Walls(Heading.EAST));
         spaces[1][7].setWalls(new Walls(Heading.SOUTH));
-        spaces[2][0].setConveyor(new Conveyor(Heading.EAST,Command.FORWARD));
-        spaces[5][5].setConveyor(new Conveyor(Heading.NORTH,Command.FAST_FORWARD));
-        spaces[2][9].setConveyor(new Conveyor(Heading.EAST,Command.FORWARD));
+        spaces[2][0].setActivatableBoardElement(new Conveyor(Heading.EAST,Command.FORWARD));
+        spaces[5][5].setActivatableBoardElement(new Conveyor(Heading.NORTH,Command.FAST_FORWARD));
+        spaces[2][9].setActivatableBoardElement(new Conveyor(Heading.EAST,Command.FORWARD));
         this.stepMode = false;
     }
 

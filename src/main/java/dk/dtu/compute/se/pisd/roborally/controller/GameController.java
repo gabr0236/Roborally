@@ -349,9 +349,9 @@ public class GameController {
         if (!board.getPlayers().isEmpty()) {
             for (Player player : board.getPlayers()) {
                 if (player.getSpace() != null) {
-                    Conveyor conveyor = player.getSpace().getConveyor();
-                    if (conveyor != null) {
-                        executeMove(player, conveyor.getHeading(), conveyor.getCommand());
+                    ActivatableBoardElement activatableBoardElement = player.getSpace().getActivatableBoardElement();
+                    if (activatableBoardElement != null) {
+                        activatableBoardElement.activateElement(player);
                     }
                 }
             }
@@ -359,28 +359,8 @@ public class GameController {
     }
 
 
-    private void executeMove(@NotNull Player player, @NotNull Heading heading, @NotNull Command command) {
-        if (command == Command.FAST_FORWARD) {
-            directionMove(player, heading, command);
-            directionMove(player, heading, command);
-        } else {
-            directionMove(player, heading, command);
-        }
-    }
 
-    private void directionMove(@NotNull Player player, @NotNull Heading heading, @NotNull Command command){
-            Space current = player.getSpace();
-            if (current != null && player.board == current.board) {
-                Space target = board.getNeighbour(current, heading);
-                if (target != null && target.getPlayer() == null) {
-                    if (!isCurrentSpaceWallBlockingDirection(player, heading)) {
-                        if (!isHeadingNeighbourWallBlockingDirection(player, heading)) {
-                            player.setSpace(target);
-                        }
-                    }
-                }
-                //TODO: slå sammen med anden move metode
-            }
-        }
+
+
 
 }

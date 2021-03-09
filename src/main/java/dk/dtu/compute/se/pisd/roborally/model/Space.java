@@ -39,15 +39,15 @@ public class Space extends Subject {
     public final int y;
     private Player player;
     private Walls walls;
-    private Conveyor conveyor;
+    private ActivatableBoardElement activatableBoardElement;
 
 
-    public Conveyor getConveyor() {
-        return conveyor;
+    public ActivatableBoardElement getActivatableBoardElement() {
+        return activatableBoardElement;
     }
 
-    public void setConveyor(@NotNull Conveyor conveyor) {
-        this.conveyor = conveyor;
+    public void setActivatableBoardElement(@NotNull ActivatableBoardElement activatableBoardElement) {
+        this.activatableBoardElement = activatableBoardElement;
     }
 
     public Walls getWall() {
