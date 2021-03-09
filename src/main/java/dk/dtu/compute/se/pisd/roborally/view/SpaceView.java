@@ -118,7 +118,7 @@ public class SpaceView extends StackPane implements ViewObserver {
         if(space.getConveyor()!=null){
             //de er ikke helt centered 🤨🤨
             Polygon arrow = new Polygon(0.0, 0.0,
-                    15.0, 30.0,
+                    16.0, 30.0,
                     30.0, 0.0 );
             if(space.getConveyor().getCommand()== Command.FAST_FORWARD){
                 arrow.setFill(Color.LIGHTSKYBLUE);
