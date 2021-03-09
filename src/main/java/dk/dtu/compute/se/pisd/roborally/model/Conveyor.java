@@ -13,6 +13,7 @@ public class Conveyor extends ActivatableBoardElement {
         this.command=command;
     }
 
+    @Override
     public void activateElement(@NotNull Player player, @NotNull GameController gameController) {
         gameController.activateDirectionMove(player,command,heading);
     }

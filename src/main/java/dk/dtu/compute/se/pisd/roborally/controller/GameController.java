@@ -390,5 +390,20 @@ public class GameController {
         }
     }
 
+    public void registerCheckpoint(@NotNull Player player, int checkpointNumber) {
+        if(player!=null) {
+            if (checkpointNumber == player.getLastCheckpointVisited() + 1) {
+                player.setLastCheckpointVisited(checkpointNumber);
+            }
+        }
+        findWinner(player);
+
+    }
+
+    public void findWinner(@NotNull Player player){
+        if(player.getLastCheckpointVisited()==Checkpoint.numberOfCheckpoints){
+            player.setPlayerWin(true);
+        }
+    }
 
 }

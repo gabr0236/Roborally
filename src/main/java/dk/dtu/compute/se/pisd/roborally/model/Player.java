@@ -24,6 +24,8 @@ package dk.dtu.compute.se.pisd.roborally.model;
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+
 import static dk.dtu.compute.se.pisd.roborally.model.Heading.SOUTH;
 
 /**
@@ -49,6 +51,23 @@ public class Player extends Subject {
 
     private CommandCardField[] program;
     private CommandCardField[] cards;
+
+    public void setPlayerWin(boolean playerWin) {
+        this.playerWin = playerWin;
+    }
+
+    private boolean playerWin = false;
+
+    public int getLastCheckpointVisited() {
+        return lastCheckpointVisited;
+    }
+
+    public void setLastCheckpointVisited(int lastCheckpointVisited) {
+        this.lastCheckpointVisited = lastCheckpointVisited;
+    }
+
+    private int lastCheckpointVisited=0;
+
 
     /**
      * Player konstruktør, Initialisere spiller og tilknytter board, sætter farve og sætter navn.
