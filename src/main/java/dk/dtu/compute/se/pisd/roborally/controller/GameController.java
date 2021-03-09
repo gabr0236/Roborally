@@ -225,10 +225,6 @@ public class GameController {
                     }
                 }
             }
-            //TODO: Lav reboot felter, Ellers kan man ikke respawne jf. PRGML §statement nedenfor
-            else {
-                player.setSpace(null);
-            }
         }
     }
 
@@ -383,11 +379,7 @@ public class GameController {
                         }
                     }
                 }
-                //TODO: Lav reboot felter, Ellers kan man ikke respawne jf. PRGML §statement nedenfor
                 //TODO: slå sammen med anden move metode
-                else {
-                    player.setSpace(null);
-                }
             }
         }
 

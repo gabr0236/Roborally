@@ -7,8 +7,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class ConveyorTest {
-    private final int TEST_WIDTH = 10;
-    private final int TEST_HEIGHT = 10;
+    private final int TEST_WIDTH = 12;
+    private final int TEST_HEIGHT = 12;
 
     private GameController gameController;
 
