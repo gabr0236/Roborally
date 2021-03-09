@@ -7,8 +7,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class ConveyorTest {
-    private final int TEST_WIDTH = 10;
-    private final int TEST_HEIGHT = 10;
+    private final int TEST_WIDTH = 12;
+    private final int TEST_HEIGHT = 12;
 
     private GameController gameController;
 
@@ -65,6 +65,19 @@ class ConveyorTest {
         Assertions.assertEquals(current, board.getSpace(0, 1).getPlayer(), "Player " + current.getName() + " should beSpace (0,1)!");
         Assertions.assertEquals(Heading.NORTH, current.getHeading(), "Player 0 should be heading NORTH!");
         Assertions.assertNull(board.getSpace(0, 0).getPlayer(), "Space (0,0) should be empty!");
+    }
+
+    @Test
+    void conveyorMoveForwardSouthFacingNorthWallBlock() {
+        Board board = gameController.board;
+        Player current = board.getCurrentPlayer();
+        current.setHeading(Heading.NORTH);
+        current.getSpace().setConveyor(new Conveyor(Heading.SOUTH,Command.FORWARD));
+        board.getNeighbour(current.getSpace(),Heading.SOUTH).setWalls(new Walls(Heading.NORTH));
+        gameController.executeBoardElements();
+        Assertions.assertEquals(current, board.getSpace(0, 0).getPlayer(), "Player " + current.getName() + " should beSpace (0,0)!");
+        Assertions.assertEquals(Heading.NORTH, current.getHeading(), "Player 0 should be heading NORTH!");
+        Assertions.assertNull(board.getSpace(0, 1).getPlayer(), "Space (0,0) should be empty!");
     }
 
 

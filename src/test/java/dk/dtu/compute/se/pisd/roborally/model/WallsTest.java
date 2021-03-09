@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class WallsTest {
-    private final int TEST_WIDTH = 8;
-    private final int TEST_HEIGHT = 8;
+    private final int TEST_WIDTH = 12;
+    private final int TEST_HEIGHT = 12;
 
     private GameController gameController;
 
