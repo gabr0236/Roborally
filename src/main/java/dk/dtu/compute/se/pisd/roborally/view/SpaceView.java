@@ -98,20 +98,36 @@ public class SpaceView extends StackPane implements ViewObserver {
             }
         }
 
-        if(space.getActivatableBoardElement()!=null){
-            //de er ikke helt centered 🤨🤨
-            Conveyor conveyor = (Conveyor) space.getActivatableBoardElement();
-            Polygon arrow = new Polygon(0.0, 0.0,
-                    16.0, 30.0,
-                    30.0, 0.0 );
-            if(conveyor.getCommand()== Command.FAST_FORWARD){
-                arrow.setFill(Color.LIGHTSKYBLUE);
-            } else{
-                arrow.setFill(Color.LIMEGREEN);
+        if(space.getActivatableBoardElement()!=null) {
+            if (space.getActivatableBoardElement() instanceof Conveyor) {
+                //de er ikke helt centered 🤨🤨
+                Conveyor conveyor = (Conveyor) space.getActivatableBoardElement();
+                Polygon arrow = new Polygon(0.0, 0.0,
+                        16.0, 30.0,
+                        30.0, 0.0);
+                if (conveyor.getCommand() == Command.FAST_FORWARD) {
+                    arrow.setFill(Color.LIGHTSKYBLUE);
+                } else {
+                    arrow.setFill(Color.LIMEGREEN);
+                }
+                arrow.setRotate((90 * conveyor.getHeading().ordinal()) % 360);
+                this.setStyle("-fx-background-color: Black");
+                this.getChildren().add(arrow);
             }
-            arrow.setRotate((90*conveyor.getHeading().ordinal())%360);
-            this.setStyle("-fx-background-color: Black");
-            this.getChildren().add(arrow);
+        }
+
+        if(space.getActivatableBoardElement()!=null) {
+            if (space.getActivatableBoardElement() instanceof Checkpoint) {
+                //de er ikke helt centered 🤨🤨
+                Checkpoint checkpoint = (Checkpoint) space.getActivatableBoardElement();
+                Polygon arrow = new Polygon(0.0, 0.0,
+                        16.0, 30.0,
+                        30.0, 0.0);
+                    arrow.setFill(Color.YELLOW);
+                arrow.setRotate((90 * Heading.NORTH.ordinal()) % 360);
+                this.setStyle("-fx-background-color: Black");
+                this.getChildren().add(arrow);
+            }
         }
 
         Player player = space.getPlayer();

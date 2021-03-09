@@ -82,6 +82,7 @@ public class Board extends Subject {
         spaces[2][0].setActivatableBoardElement(new Conveyor(Heading.EAST,Command.FORWARD));
         spaces[5][5].setActivatableBoardElement(new Conveyor(Heading.NORTH,Command.FAST_FORWARD));
         spaces[2][9].setActivatableBoardElement(new Conveyor(Heading.EAST,Command.FORWARD));
+        spaces[0][1].setActivatableBoardElement(new Checkpoint());
         this.stepMode = false;
     }
 
