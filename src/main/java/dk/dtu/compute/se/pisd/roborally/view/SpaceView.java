@@ -82,20 +82,6 @@ public class SpaceView extends StackPane implements ViewObserver {
     private void updatePlayer() {
         this.getChildren().clear();
 
-        Player player = space.getPlayer();
-        if (player != null) {
-            Polygon arrow = new Polygon(0.0, 0.0,
-                    10.0, 20.0,
-                    20.0, 0.0 );
-            try {
-                arrow.setFill(Color.valueOf(player.getColor()));
-            } catch (Exception e) {
-                arrow.setFill(Color.MEDIUMPURPLE);
-            }
-            arrow.setRotate((90*player.getHeading().ordinal())%360);
-            this.getChildren().add(arrow);
-        }
-
         if (space.getWall() != null) {
             if (!space.getWall().getBlockingDirection().isEmpty()) {
                 Canvas canvas = new Canvas(SPACE_WIDTH,SPACE_HEIGHT);
@@ -118,7 +104,7 @@ public class SpaceView extends StackPane implements ViewObserver {
         if(space.getConveyor()!=null){
             //de er ikke helt centered 🤨🤨
             Polygon arrow = new Polygon(0.0, 0.0,
-                    15.0, 30.0,
+                    16.0, 30.0,
                     30.0, 0.0 );
             if(space.getConveyor().getCommand()== Command.FAST_FORWARD){
                 arrow.setFill(Color.LIGHTSKYBLUE);
@@ -127,6 +113,20 @@ public class SpaceView extends StackPane implements ViewObserver {
             }
             arrow.setRotate((90*space.getConveyor().getHeading().ordinal())%360);
             this.setStyle("-fx-background-color: Black");
+            this.getChildren().add(arrow);
+        }
+
+        Player player = space.getPlayer();
+        if (player != null) {
+            Polygon arrow = new Polygon(0.0, 0.0,
+                    10.0, 20.0,
+                    20.0, 0.0 );
+            try {
+                arrow.setFill(Color.valueOf(player.getColor()));
+            } catch (Exception e) {
+                arrow.setFill(Color.MEDIUMPURPLE);
+            }
+            arrow.setRotate((90*player.getHeading().ordinal())%360);
             this.getChildren().add(arrow);
         }
     }
@@ -138,7 +138,6 @@ public class SpaceView extends StackPane implements ViewObserver {
             updatePlayer();
         }
     }
-
 }
 /* gc.setStroke(Color.RED);
             gc.setLineWidth(5);
