@@ -228,6 +228,23 @@ public class GameController {
         }
     }
 
+    private void directionMove(@NotNull Player player, @NotNull Heading heading){
+        Space current = player.getSpace();
+        if (current != null && player.board == current.board) {
+            Space target = current.board.getNeighbour(current, heading);
+            if (target != null && target.getPlayer() == null) {
+                if (!isCurrentSpaceWallBlockingDirection(player, heading)) {
+                    if (!isHeadingNeighbourWallBlockingDirection(player, heading)) {
+                        player.setSpace(target);
+                    }
+                }
+            }
+            //TODO: slå sammen med anden move metode
+        }
+    }
+
+
+    //TODO: lav sammen med anden block metode
     public boolean isCurrentSpaceWallBlockingDirection(@NotNull Player player, Heading heading) {
         Walls tempWalls = player.getSpace().getWall();
         if (tempWalls != null) {
@@ -346,21 +363,30 @@ public class GameController {
 
 
     public void executeBoardElements() {
-        if (!board.getPlayers().isEmpty()) {
-            for (Player player : board.getPlayers()) {
-                if (player.getSpace() != null) {
-                    ActivatableBoardElement activatableBoardElement = player.getSpace().getActivatableBoardElement();
-                    if (activatableBoardElement != null) {
-                        activatableBoardElement.activateElement(player);
+        if (board.getSpaces()!=null) {
+            for (Space[] spaceArray:board.getSpaces()) {
+                for (Space space : spaceArray) {
+                    if (space != null) {
+                        Player player = space.getPlayer();
+                        if(player!=null){
+                            ActivatableBoardElement activatableBoardElement = space.getActivatableBoardElement();
+                            if (activatableBoardElement != null) {
+                                activatableBoardElement.activateElement(space.getPlayer(), this);
+                            }
+                        }
                     }
                 }
             }
         }
     }
 
-
-
-
-
+    public void activateDirectionMove(@NotNull Player player, @NotNull Command command, @NotNull Heading heading) {
+        if (command == Command.FAST_FORWARD) {
+            directionMove(player, heading);
+            directionMove(player, heading);
+        } else {
+            directionMove(player,heading);
+        }
+    }
 
 }

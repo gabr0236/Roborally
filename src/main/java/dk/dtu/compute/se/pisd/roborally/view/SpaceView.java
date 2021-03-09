@@ -22,10 +22,7 @@
 package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
-import dk.dtu.compute.se.pisd.roborally.model.Command;
-import dk.dtu.compute.se.pisd.roborally.model.Heading;
-import dk.dtu.compute.se.pisd.roborally.model.Player;
-import dk.dtu.compute.se.pisd.roborally.model.Space;
+import dk.dtu.compute.se.pisd.roborally.model.*;
 import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -101,17 +98,18 @@ public class SpaceView extends StackPane implements ViewObserver {
             }
         }
 
-        if(space.getConveyor()!=null){
+        if(space.getActivatableBoardElement()!=null){
             //de er ikke helt centered 🤨🤨
+            Conveyor conveyor = (Conveyor) space.getActivatableBoardElement();
             Polygon arrow = new Polygon(0.0, 0.0,
                     16.0, 30.0,
                     30.0, 0.0 );
-            if(space.getConveyor().getCommand()== Command.FAST_FORWARD){
+            if(conveyor.getCommand()== Command.FAST_FORWARD){
                 arrow.setFill(Color.LIGHTSKYBLUE);
             } else{
                 arrow.setFill(Color.LIMEGREEN);
             }
-            arrow.setRotate((90*space.getConveyor().getHeading().ordinal())%360);
+            arrow.setRotate((90*conveyor.getHeading().ordinal())%360);
             this.setStyle("-fx-background-color: Black");
             this.getChildren().add(arrow);
         }
