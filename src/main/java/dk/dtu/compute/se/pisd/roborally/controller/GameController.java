@@ -266,6 +266,16 @@ public class GameController {
         return false;
     }
 
+    //TODO: gør smartere
+    public void activateDirectionMove(@NotNull Player player, @NotNull Command command, @NotNull Heading heading) {
+        if (command == Command.FAST_FORWARD) {
+            directionMove(player, heading);
+            directionMove(player, heading);
+        } else {
+            directionMove(player,heading);
+        }
+    }
+
 
     /**
      * Rykker spiller to felter frem i den retning spilleren vender
@@ -380,13 +390,5 @@ public class GameController {
         }
     }
 
-    public void activateDirectionMove(@NotNull Player player, @NotNull Command command, @NotNull Heading heading) {
-        if (command == Command.FAST_FORWARD) {
-            directionMove(player, heading);
-            directionMove(player, heading);
-        } else {
-            directionMove(player,heading);
-        }
-    }
 
 }
