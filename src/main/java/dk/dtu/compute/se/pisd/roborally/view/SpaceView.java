@@ -138,7 +138,6 @@ public class SpaceView extends StackPane implements ViewObserver {
             updatePlayer();
         }
     }
-
 }
 /* gc.setStroke(Color.RED);
             gc.setLineWidth(5);
