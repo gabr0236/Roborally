@@ -372,6 +372,7 @@ public class GameController {
     }
 
 
+    //TODO: lav flere checks samtidig
     public void executeBoardElements() {
         if (board.getSpaces()!=null) {
             for (Space[] spaceArray:board.getSpaces()) {
@@ -405,5 +406,7 @@ public class GameController {
             System.out.println(player.getColor() + " har vundet!!");
         }
     }
+    //TODO: vis hvor mange checkpoints spiller har
+    //lav afslutningsfase når spiller har vundet
 
 }

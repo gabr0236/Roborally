@@ -51,6 +51,7 @@ public class Board extends Subject {
         return spaces;
     }
 
+    //TODO: lav liste
     private final Space[][] spaces;
 
     private final List<Player> players = new ArrayList<>();

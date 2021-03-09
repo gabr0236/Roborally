@@ -116,6 +116,7 @@ public class SpaceView extends StackPane implements ViewObserver {
             }
         }
 
+
         if(space.getActivatableBoardElement()!=null) {
             if (space.getActivatableBoardElement() instanceof Checkpoint) {
                 //de er ikke helt centered 🤨🤨
