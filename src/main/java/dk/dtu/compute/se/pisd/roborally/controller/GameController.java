@@ -47,12 +47,9 @@ public class GameController {
 
     public void moveCurrentPlayerToSpace(@NotNull Space space) {
     }
-
-
     /**
      * Ændre spillet til programmeringsfasen og itererer igennem for hver spiller og laver commandcard field og command cards
      */
-    // XXX: V2
     public void startProgrammingPhase() {
         board.setPhase(Phase.PROGRAMMING);
         board.setCurrentPlayer(board.getPlayer(0));
@@ -99,7 +96,6 @@ public class GameController {
         board.setStep(0);
 
     }
-
 
     // XXX: V2
     private void makeProgramFieldsVisible(int register) {
@@ -311,15 +307,6 @@ public class GameController {
         } else {
             return false;
         }
-    }
-
-    /**
-     * A method called when no corresponding controller operation is implemented yet. This
-     * should eventually be removed.
-     */
-    public void notImplemented() {
-        // XXX just for now to indicate that the actual method is not yet implemented
-        assert false;
     }
 
     private void nextPlayerOrPhase() {
