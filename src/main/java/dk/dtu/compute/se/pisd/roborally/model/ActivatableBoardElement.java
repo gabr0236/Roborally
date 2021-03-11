@@ -4,6 +4,6 @@ import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class ActivatableBoardElement {
-    //TODO andre params?
+    //TODO andre params? dvs skal alle params defineres fra start?
     public abstract void activateElement(Player player, GameController gameController);
 }
