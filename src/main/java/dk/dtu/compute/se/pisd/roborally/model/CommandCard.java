@@ -28,8 +28,8 @@ import org.jetbrains.annotations.NotNull;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
- *Javadoc
+ * <p>
+ * Javadoc
  * @author Gabriel
  */
 public class CommandCard extends Subject {
@@ -37,7 +37,7 @@ public class CommandCard extends Subject {
     final public Command command;
 
     /**
-     *konstruktør, sætter Command til at pege på parameteren som er en enumerations konstant
+     * konstruktør, sætter Command til at pege på parameteren som er en enumerations konstant
      *
      * @param command
      */

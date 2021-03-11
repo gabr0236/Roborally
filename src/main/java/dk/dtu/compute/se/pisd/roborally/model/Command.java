@@ -29,7 +29,7 @@ import java.util.List;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
+ * <p>
  * Javadoc
  * @author Gabriel
  */
@@ -38,7 +38,6 @@ public enum Command {
 
     // This is a very simplistic way of realizing different commands.
     /**
-     * TODO: er det her rigtig javaD stil?
      * Enumeration konstanter ink. display names pr. konstant. Bruges i forbindelse med CommandCards
      * til at bevæge spillere
      */
@@ -54,6 +53,7 @@ public enum Command {
 
     /**
      * Sætter for params nedenfor, bruges til at initialisere enumerations konstanterne
+     *
      * @param displayName
      * @param options
      */
@@ -65,6 +65,7 @@ public enum Command {
     /**
      * Returnere boolsk værdi der siger om et CommandCard er "Interactive" altså om spilleren bliver
      * givet en mulighed for at vælge imellem en eller flere handlinger
+     *
      * @return
      */
     public boolean isInteractive() {
@@ -72,8 +73,8 @@ public enum Command {
     }
 
     /**
-     *
      * Returnerer handlinger for en given enumerations konstant
+     *
      * @return
      */
     public List<Command> getOptions() {

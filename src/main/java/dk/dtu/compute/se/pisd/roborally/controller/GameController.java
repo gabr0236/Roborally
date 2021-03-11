@@ -28,7 +28,6 @@ import org.jetbrains.annotations.NotNull;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
  */
 public class GameController {
 
@@ -46,14 +45,12 @@ public class GameController {
      * @param space the space to which the current player should move
      */
 
-    public void moveCurrentPlayerToSpace(@NotNull Space space){
+    public void moveCurrentPlayerToSpace(@NotNull Space space) {
     }
-
 
     /**
      * Ændre spillet til programmeringsfasen og itererer igennem for hver spiller og laver commandcard field og command cards
      */
-    // XXX: V2
     public void startProgrammingPhase() {
         board.setPhase(Phase.PROGRAMMING);
         board.setCurrentPlayer(board.getPlayer(0));
@@ -78,6 +75,7 @@ public class GameController {
 
     /**
      * vælger et tilfældigt command ud af commandarray
+     *
      * @return et commandcard med den tilfældige command
      */
     // XXX: V2
@@ -99,7 +97,6 @@ public class GameController {
         board.setStep(0);
 
     }
-
 
     // XXX: V2
     private void makeProgramFieldsVisible(int register) {
@@ -164,14 +161,13 @@ public class GameController {
             int step = board.getStep();
             if (step >= 0 && step < Player.NO_REGISTERS) {
                 CommandCard card = currentPlayer.getProgramField(step).getCard();
-                //TODO: lavet ændring her
-                if (card != null && card.command.isInteractive()){
+                if (card != null && card.command.isInteractive()) {
                     board.setPhase(Phase.PLAYER_INTERACTION);
                     return;
                 }
                 if (card != null) {
                     Command command = card.command;
-                    executeCommand(currentPlayer, command);
+                    executeCommand(currentPlayer,currentPlayer.getHeading(), command);
                 }
                 nextPlayerOrPhase();
             } else {
@@ -185,7 +181,7 @@ public class GameController {
     }
 
     // XXX: V2
-    private void executeCommand(@NotNull Player player, Command command) {
+    public void executeCommand(@NotNull Player player,Heading heading, Command command) {
         if (player != null && player.board == board && command != null) {
             // XXX This is a very simplistic way of dealing with some basic cards and
             //     their execution. This should eventually be done in a more elegant way
@@ -193,7 +189,7 @@ public class GameController {
 
             switch (command) {
                 case FORWARD:
-                    this.moveForward(player);
+                    this.directionMove(player, heading);
                     break;
                 case RIGHT:
                     this.turnRight(player);
@@ -202,7 +198,7 @@ public class GameController {
                     this.turnLeft(player);
                     break;
                 case FAST_FORWARD:
-                    this.fastForward(player);
+                    this.fastForward(player, heading);
                     break;
                 default:
                     // DO NOTHING (for now)
@@ -211,62 +207,87 @@ public class GameController {
     }
 
     /**
-     * Rykker spiller et felt frem i den retning spilleren vender
+     * Rykker spiller et felt frem i en specifik retning
+     *
      * @param player
      */
-    // TODO Assignment V2
-    public void moveForward(@NotNull Player player) {
+    public void directionMove(@NotNull Player player, @NotNull Heading heading) {
         Space current = player.getSpace();
-        if(current!=null && player.board==current.board){
-            Space target = board.getNeighbour(current,player.getHeading());
-            if(target!=null && target.getPlayer()==null){
-                player.setSpace(target);
+        if (current != null && player.board == current.board) {
+            Space target = current.board.getNeighbour(current, heading);
+            if (target != null && target.getPlayer() == null) {
+                if (isWallBlock(player, heading)) {
+                    player.setSpace(target);
+                }
             }
         }
     }
 
+    private boolean isWallBlock(@NotNull Player player, Heading heading) {
+        return (!isCurrentSpaceWallBlockingDirection(player, heading)
+                && !isHeadingNeighbourWallBlockingDirection(player, heading));
+    }
+
+    //TODO: lav sammen med anden block metode evt.
+    public boolean isCurrentSpaceWallBlockingDirection(@NotNull Player player, Heading heading) {
+        Walls tempWalls = player.getSpace().getWall();
+        if (tempWalls != null && player.getSpace() != null) {
+            return tempWalls.getBlockingDirection().contains(heading);
+        }
+        return false;
+    }
+
+    public boolean isHeadingNeighbourWallBlockingDirection(@NotNull Player player, Heading heading) {
+        Space neighbour = player.board.getNeighbour(player.getSpace(), heading);
+        if (neighbour != null && neighbour.getWall() != null) {
+            Heading oppositeHeading = heading.oppositeHeading();
+            return neighbour.getWall().getBlockingDirection().contains(oppositeHeading);
+        }
+        return false;
+    }
+
+
     /**
      * Rykker spiller to felter frem i den retning spilleren vender
+     *
      * @param player
      */
-    // TODO Assignment V2
-    public void fastForward(@NotNull Player player) {
-        moveForward(player);
-        moveForward(player);
+    public void fastForward(@NotNull Player player, @NotNull Heading heading) {
+        directionMove(player, heading);
+        directionMove(player, heading);
     }
 
     /**
      * vender spillerens retning mod højre
+     *
      * @param player
      */
-    // TODO Assignment V2
     public void turnRight(@NotNull Player player) {
         player.setHeading(player.getHeading().next());
 
     }
 
-
     /**
      * vender spillerens retning mod venstre
+     *
      * @param player
      */
-    // TODO Assignment V2
     public void turnLeft(@NotNull Player player) {
         player.setHeading(player.getHeading().prev());
     }
-
 
     /**
      * Hvis spillet er i interaktionsfasen kaldes metoden executeCommand() og ændre spillets fase til aktieringsfasen
      * sætter efterfølgende currentPlayer til den næste spiller. Hvis det ikke er den sidste spiller gøres kortene usynlige.
      * til sidst startes programmeringsfasen.
+     *
      * @param option er en af de muligheder som kortet tillader
      */
-    public void executeCommandOptionAndContinue(@NotNull Command option){
+    public void executeCommandOptionAndContinue(@NotNull Command option) {
         Player currentPlayer = board.getCurrentPlayer();
-        if(currentPlayer!=null && Phase.PLAYER_INTERACTION==board.getPhase() && option!=null) {
+        if (currentPlayer != null && Phase.PLAYER_INTERACTION == board.getPhase() && option != null) {
             board.setPhase(Phase.ACTIVATION);
-            executeCommand(currentPlayer, option);
+            executeCommand(currentPlayer,currentPlayer.getHeading(), option);
             nextPlayerOrPhase();
         }
     }
@@ -274,6 +295,7 @@ public class GameController {
     /**
      * hvis spilleren har et kort på hånden og spiller dette kort på et field der ikke allereder har et kort
      * byttes værdierne af disse kort. hermed bliver tagetCard = sourceCard og sourcecard = null.
+     *
      * @param source er det commandCardField som spilleren har på hånden
      * @param target er det commandCardField hvor spilleren kan spille sine kort.
      * @return hvis de to fields bytter kortværdier returneres true og ellers false
@@ -290,16 +312,7 @@ public class GameController {
         }
     }
 
-    /**
-     * A method called when no corresponding controller operation is implemented yet. This
-     * should eventually be removed.
-     */
-    public void notImplemented() {
-        // XXX just for now to indicate that the actual method is not yet implemented
-        assert false;
-    }
-
-    private void nextPlayerOrPhase(){
+    private void nextPlayerOrPhase() {
         Player currentPlayer = board.getCurrentPlayer();
         int nextPlayerNumber = board.getPlayerNumber(currentPlayer) + 1;
         int step = board.getStep();
@@ -307,6 +320,7 @@ public class GameController {
             board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
             continuePrograms();
         } else {
+            executeBoardElements();
             step++;
             if (step < Player.NO_REGISTERS) {
                 makeProgramFieldsVisible(step);
@@ -317,5 +331,35 @@ public class GameController {
             }
         }
     }
+
+    public void executeBoardElements() {
+        if (board.getSpacesList() != null) {
+            for (Space space : board.getSpacesList()) {
+                Player player = space.getPlayer();
+                if (player != null && space.getActivatableBoardElement() != null) {
+                    space.getActivatableBoardElement().activateElement(space.getPlayer(), this);
+                }
+            }
+        }
+    }
+
+    public void registerCheckpoint(@NotNull Player player, int checkpointNumber) {
+        if (player != null) {
+            if (checkpointNumber == player.getLastCheckpointVisited() + 1) {
+                player.setLastCheckpointVisited(checkpointNumber);
+            }
+        }
+        findWinner(player);
+    }
+
+    public void findWinner(@NotNull Player player) {
+        if (player.getLastCheckpointVisited() == Checkpoint.numberOfCheckpoints) {
+            player.setPlayerWin(true);
+            System.out.println(player.getColor() + " har vundet!!");
+        }
+    }
+
+    //TODO: vis hvor mange checkpoints spiller har
+    //lav afslutningsfase når spiller har vundet
 
 }

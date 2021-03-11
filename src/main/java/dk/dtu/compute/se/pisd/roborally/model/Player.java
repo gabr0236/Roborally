@@ -24,13 +24,15 @@ package dk.dtu.compute.se.pisd.roborally.model;
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+
 import static dk.dtu.compute.se.pisd.roborally.model.Heading.SOUTH;
 
 /**
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
+ * <p>
  * Javadoc
  * @author Gabriel
  */
@@ -47,12 +49,29 @@ public class Player extends Subject {
     private Space space;
     private Heading heading = SOUTH;
 
-    private CommandCardField[] program;
-    private CommandCardField[] cards;
+    private final CommandCardField[] program;
+    private final CommandCardField[] cards;
+
+    public void setPlayerWin(boolean playerWin) {
+        this.playerWin = playerWin;
+    }
+
+    private boolean playerWin = false;
+
+    public int getLastCheckpointVisited() {
+        return lastCheckpointVisited;
+    }
+
+    public void setLastCheckpointVisited(int lastCheckpointVisited) {
+        this.lastCheckpointVisited = lastCheckpointVisited;
+    }
+
+    private int lastCheckpointVisited = 0;
+
 
     /**
      * Player konstruktør, Initialisere spiller og tilknytter board, sætter farve og sætter navn.
-     *
+     * <p>
      * Herefter oprettes først et CommandCardField Array med plads til at holde en robots registers
      * Der oprettes herefter CommandCardField Array med plads til at holde en robots tilfældige
      * programmeringskort der tildeles i starten af hver programmeringsfase.
@@ -81,6 +100,7 @@ public class Player extends Subject {
 
     /**
      * Returnerer navn
+     *
      * @return
      */
     public String getName() {
@@ -125,6 +145,7 @@ public class Player extends Subject {
 
     /**
      * Metode til at tilknytte spiller til Space
+     *
      * @param space
      */
     public void setSpace(Space space) {
@@ -148,6 +169,7 @@ public class Player extends Subject {
 
     /**
      * Metode til at sætte spillers "retning"
+     *
      * @param heading
      */
     public void setHeading(@NotNull Heading heading) {
@@ -162,6 +184,7 @@ public class Player extends Subject {
 
     /**
      * Henter et specifikt registreringskort, vælges ud fra paramereten i
+     *
      * @param i
      * @return
      */
@@ -171,6 +194,7 @@ public class Player extends Subject {
 
     /**
      * Henter et specifikt kort spilleren har på hånden, vælges ud fra paramereten i
+     *
      * @param i
      * @return
      */

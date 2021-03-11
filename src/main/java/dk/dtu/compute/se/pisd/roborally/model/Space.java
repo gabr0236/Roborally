@@ -22,14 +22,12 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
- * Javadoc
- * @author Sebastian
  */
 public class Space extends Subject {
 
@@ -38,8 +36,27 @@ public class Space extends Subject {
 
     public final int x;
     public final int y;
-
     private Player player;
+    private Walls walls;
+    private ActivatableBoardElement activatableBoardElement;
+
+
+    public ActivatableBoardElement getActivatableBoardElement() {
+        return activatableBoardElement;
+    }
+
+    public void setActivatableBoardElement(@NotNull ActivatableBoardElement activatableBoardElement) {
+        this.activatableBoardElement = activatableBoardElement;
+    }
+
+    public Walls getWall() {
+        return walls;
+    }
+
+    public void setWalls(@NotNull Walls walls) {
+        this.walls = walls;
+    }
+
 
     /**
      * Konstruktøren til "Space", med "board", x og y som parametre
@@ -50,6 +67,13 @@ public class Space extends Subject {
      * @param y
      */
     public Space(Board board, int x, int y) {
+        this.board = board;
+        this.x = x;
+        this.y = y;
+        player = null;
+    }
+
+    public Space(Board board, int x, int y, Walls walls) {
         this.board = board;
         this.x = x;
         this.y = y;

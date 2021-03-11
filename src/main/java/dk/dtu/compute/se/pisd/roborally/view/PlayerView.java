@@ -36,34 +36,36 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * @author Ekkart Kindler, ekki@dtu.dk
+ * ...
  *
+ * @author Ekkart Kindler, ekki@dtu.dk
+ * <p>
  * Javadoc
  * @author Gabriel
  */
 public class PlayerView extends Tab implements ViewObserver {
 
-    private Player player;
+    private final Player player;
 
-    private VBox top;
+    private final VBox top;
 
-    private Label programLabel;
-    private GridPane programPane;
-    private Label cardsLabel;
-    private GridPane cardsPane;
+    private final Label programLabel;
+    private final GridPane programPane;
+    private final Label cardsLabel;
+    private final GridPane cardsPane;
 
-    private CardFieldView[] programCardViews;
-    private CardFieldView[] cardViews;
+    private final CardFieldView[] programCardViews;
+    private final CardFieldView[] cardViews;
 
-    private VBox buttonPanel;
+    private final VBox buttonPanel;
 
-    private Button finishButton;
-    private Button executeButton;
-    private Button stepButton;
+    private final Button finishButton;
+    private final Button executeButton;
+    private final Button stepButton;
 
-    private VBox playerInteractionPanel;
+    private final VBox playerInteractionPanel;
 
-    private GameController gameController;
+    private final GameController gameController;
 
     /**
      * Konstruktør, skaber de forskellige nødvendige GUI elementer for den enkelte spiller,
@@ -101,13 +103,13 @@ public class PlayerView extends Tab implements ViewObserver {
         //      refactored.
 
         finishButton = new Button("Finish Programming");
-        finishButton.setOnAction( e -> gameController.finishProgrammingPhase());
+        finishButton.setOnAction(e -> gameController.finishProgrammingPhase());
 
         executeButton = new Button("Execute Program");
-        executeButton.setOnAction( e-> gameController.executePrograms());
+        executeButton.setOnAction(e -> gameController.executePrograms());
 
         stepButton = new Button("Execute Current Register");
-        stepButton.setOnAction( e-> gameController.executeStep());
+        stepButton.setOnAction(e -> gameController.executeStep());
 
         buttonPanel = new VBox(finishButton, executeButton, stepButton);
         buttonPanel.setAlignment(Pos.CENTER_LEFT);
@@ -142,6 +144,7 @@ public class PlayerView extends Tab implements ViewObserver {
         }
     }
 
+
     /**
      * Opdaterer spillerens view ud fra modellers nuværende stat, herunder modeller som Board, CardFieldView,
      * og GUI elementer som Buttons
@@ -154,7 +157,7 @@ public class PlayerView extends Tab implements ViewObserver {
             for (int i = 0; i < Player.NO_REGISTERS; i++) {
                 CardFieldView cardFieldView = programCardViews[i];
                 if (cardFieldView != null) {
-                    if (player.board.getPhase() == Phase.PROGRAMMING ) {
+                    if (player.board.getPhase() == Phase.PROGRAMMING) {
                         cardFieldView.setBackground(CardFieldView.BG_DEFAULT);
                     } else {
                         if (i < player.board.getStep()) {
@@ -217,8 +220,8 @@ public class PlayerView extends Tab implements ViewObserver {
                 if (player.board.getCurrentPlayer() == player) {
 
                     CommandCard current = player.getProgramField(player.board.getStep()).getCard();
-                    if(current != null) {
-                        for (Command option: current.command.getOptions()) {
+                    if (current != null) {
+                        for (Command option : current.command.getOptions()) {
                             Button optionButton = new Button(option.displayName);
                             optionButton.setOnAction(e -> gameController.executeCommandOptionAndContinue(option));
                             optionButton.setDisable(false);
@@ -229,4 +232,5 @@ public class PlayerView extends Tab implements ViewObserver {
             }
         }
     }
+
 }

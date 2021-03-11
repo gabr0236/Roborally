@@ -10,7 +10,6 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="KnightsOfTheShadowRealm" target="1.8" />
       <module name="roborally" target="15" />
     </bytecodeTargetLevel>
   </component>
