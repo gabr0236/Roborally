@@ -38,7 +38,7 @@ class WallsTest {
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
         current.getSpace().setWalls(new Walls(Heading.SOUTH));
-        gameController.moveForward(current);
+        gameController.directionMove(current, current.getHeading());
 
         Assertions.assertEquals(current, board.getSpace(0, 0).getPlayer(), "Player " + current.getName() + " should beSpace (0,0)!");
         Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
@@ -49,7 +49,7 @@ class WallsTest {
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
         current.getSpace().setWalls(new Walls(Heading.EAST));
-        gameController.moveForward(current);
+        gameController.directionMove(current, current.getHeading());
 
         Assertions.assertEquals(current, board.getSpace(0, 1).getPlayer(), "Player " + current.getName() + " should beSpace (0,0)!");
         Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
@@ -60,7 +60,7 @@ class WallsTest {
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
         current.getSpace().setWalls(new Walls(Heading.NORTH));
-        gameController.moveForward(current);
+        gameController.directionMove(current, current.getHeading());
 
         Assertions.assertEquals(current, board.getSpace(0, 1).getPlayer(), "Player " + current.getName() + " should beSpace (0,0)!");
         Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
@@ -71,7 +71,7 @@ class WallsTest {
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
         current.board.getNeighbour(current.getSpace(),current.getHeading()).setWalls(new Walls(Heading.NORTH));
-        gameController.moveForward(current);
+        gameController.directionMove(current, current.getHeading());
 
         Assertions.assertEquals(current, board.getSpace(0, 0).getPlayer(), "Player " + current.getName() + " should beSpace (0,0)!");
         Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
@@ -82,7 +82,7 @@ class WallsTest {
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
         current.board.getNeighbour(current.getSpace(),current.getHeading()).setWalls(new Walls(Heading.WEST));
-        gameController.moveForward(current);
+        gameController.directionMove(current, current.getHeading());
 
         Assertions.assertEquals(current, board.getSpace(0, 1).getPlayer(), "Player " + current.getName() + " should beSpace (0,1)!");
         Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
@@ -93,7 +93,7 @@ class WallsTest {
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
         current.board.getNeighbour(current.getSpace(),current.getHeading()).setWalls(new Walls(Heading.SOUTH));
-        gameController.moveForward(current);
+        gameController.directionMove(current, current.getHeading());
 
         Assertions.assertEquals(current, board.getSpace(0, 1).getPlayer(), "Player " + current.getName() + " should beSpace (0,1)!");
         Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");

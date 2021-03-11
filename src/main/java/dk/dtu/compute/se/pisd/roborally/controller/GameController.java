@@ -192,7 +192,7 @@ public class GameController {
 
             switch (command) {
                 case FORWARD:
-                    this.moveForward(player);
+                    this.directionMove(player, player.getHeading());
                     break;
                 case RIGHT:
                     this.turnRight(player);
@@ -201,7 +201,7 @@ public class GameController {
                     this.turnLeft(player);
                     break;
                 case FAST_FORWARD:
-                    this.fastForward(player);
+                    this.fastForward(player, player.getHeading());
                     break;
                 default:
                     // DO NOTHING (for now)
@@ -210,39 +210,29 @@ public class GameController {
     }
 
     /**
-     * Rykker spiller et felt frem i den retning spilleren vender
+     * Rykker spiller et felt frem i en specifik retning
      *
      * @param player
      */
-    public void moveForward(@NotNull Player player) {
-        Space current = player.getSpace();
-        if (current != null && player.board == current.board) {
-            Space target = board.getNeighbour(current, player.getHeading());
-            if (target != null && target.getPlayer() == null) {
-                if (!isCurrentSpaceWallBlockingDirection(player, player.getHeading())) {
-                    if (!isHeadingNeighbourWallBlockingDirection(player, player.getHeading())) {
-                        player.setSpace(target);
-                    }
-                }
-            }
-        }
-    }
 
-    private void directionMove(@NotNull Player player, @NotNull Heading heading){
+    public void directionMove(@NotNull Player player, @NotNull Heading heading){
         Space current = player.getSpace();
         if (current != null && player.board == current.board) {
             Space target = current.board.getNeighbour(current, heading);
             if (target != null && target.getPlayer() == null) {
-                if (!isCurrentSpaceWallBlockingDirection(player, heading)) {
-                    if (!isHeadingNeighbourWallBlockingDirection(player, heading)) {
-                        player.setSpace(target);
-                    }
+                if (isWallBlock(player,heading)) {
+                    player.setSpace(target);
                 }
             }
             //TODO: slå sammen med anden move metode
         }
     }
 
+
+    private boolean isWallBlock(@NotNull Player player, Heading heading){
+        return (!isCurrentSpaceWallBlockingDirection(player,heading)
+                && !isHeadingNeighbourWallBlockingDirection(player, heading));
+    }
 
     //TODO: lav sammen med anden block metode
     public boolean isCurrentSpaceWallBlockingDirection(@NotNull Player player, Heading heading) {
@@ -252,6 +242,7 @@ public class GameController {
                 return tempWalls.getBlockingDirection().contains(heading);
             }
         }
+
         return false;
     }
 
@@ -282,9 +273,9 @@ public class GameController {
      *
      * @param player
      */
-    public void fastForward(@NotNull Player player) {
-        moveForward(player);
-        moveForward(player);
+    public void fastForward(@NotNull Player player, @NotNull Heading heading) {
+        directionMove(player,heading);
+        directionMove(player,heading);
     }
 
     /**
