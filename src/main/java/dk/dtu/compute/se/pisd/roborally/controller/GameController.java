@@ -167,7 +167,7 @@ public class GameController {
                 }
                 if (card != null) {
                     Command command = card.command;
-                    executeCommand(currentPlayer, command);
+                    executeCommand(currentPlayer,currentPlayer.getHeading(), command);
                 }
                 nextPlayerOrPhase();
             } else {
@@ -181,7 +181,7 @@ public class GameController {
     }
 
     // XXX: V2
-    private void executeCommand(@NotNull Player player, Command command) {
+    public void executeCommand(@NotNull Player player,Heading heading, Command command) {
         if (player != null && player.board == board && command != null) {
             // XXX This is a very simplistic way of dealing with some basic cards and
             //     their execution. This should eventually be done in a more elegant way
@@ -189,7 +189,7 @@ public class GameController {
 
             switch (command) {
                 case FORWARD:
-                    this.directionMove(player, player.getHeading());
+                    this.directionMove(player, heading);
                     break;
                 case RIGHT:
                     this.turnRight(player);
@@ -198,7 +198,7 @@ public class GameController {
                     this.turnLeft(player);
                     break;
                 case FAST_FORWARD:
-                    this.fastForward(player, player.getHeading());
+                    this.fastForward(player, heading);
                     break;
                 default:
                     // DO NOTHING (for now)
@@ -287,7 +287,7 @@ public class GameController {
         Player currentPlayer = board.getCurrentPlayer();
         if (currentPlayer != null && Phase.PLAYER_INTERACTION == board.getPhase() && option != null) {
             board.setPhase(Phase.ACTIVATION);
-            executeCommand(currentPlayer, option);
+            executeCommand(currentPlayer,currentPlayer.getHeading(), option);
             nextPlayerOrPhase();
         }
     }

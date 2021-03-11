@@ -15,12 +15,7 @@ public class Conveyor extends ActivatableBoardElement {
 
     @Override
     public void activateElement(@NotNull Player player, @NotNull GameController gameController) {
-        //TODO: logik i model, skal laves på en anden måde
-        if (command == Command.FAST_FORWARD) {
-            gameController.fastForward(player, heading);
-        } else {
-            gameController.directionMove(player, heading);
-        }
+        gameController.executeCommand(player,heading,command);
     }
 
     public Heading getHeading() {
