@@ -51,7 +51,8 @@ public class Board extends Subject {
         return spaces;
     }
 
-    //TODO: lav liste
+    private List<Space> spacesList = new ArrayList<>();
+
     private final Space[][] spaces;
 
     private final List<Player> players = new ArrayList<>();
@@ -73,9 +74,10 @@ public class Board extends Subject {
             for(int y = 0; y < height; y++) {
                 Space space = new Space(this, x, y);
                 spaces[x][y] = space;
+                spacesList.add(space);
             }
         }
-        //TODO: wall hardcoded
+
         spaces[1][2].setWalls(new Walls(Heading.NORTH));
         spaces[2][4].setWalls(new Walls(Heading.EAST));
         spaces[2][5].setWalls(new Walls(Heading.EAST));
@@ -230,5 +232,7 @@ public class Board extends Subject {
     public List<Player> getPlayers() {
         return Collections.unmodifiableList(players);
     }
+
+    public List<Space> getSpacesList() { return Collections.unmodifiableList(spacesList); }
 
 }

@@ -214,41 +214,36 @@ public class GameController {
      *
      * @param player
      */
-    public void directionMove(@NotNull Player player, @NotNull Heading heading){
+    public void directionMove(@NotNull Player player, @NotNull Heading heading) {
         Space current = player.getSpace();
         if (current != null && player.board == current.board) {
             Space target = current.board.getNeighbour(current, heading);
             if (target != null && target.getPlayer() == null) {
-                if (isWallBlock(player,heading)) {
+                if (isWallBlock(player, heading)) {
                     player.setSpace(target);
                 }
             }
-            //TODO: slå sammen med anden move metode
         }
     }
 
-    private boolean isWallBlock(@NotNull Player player, Heading heading){
-        return (!isCurrentSpaceWallBlockingDirection(player,heading)
+    private boolean isWallBlock(@NotNull Player player, Heading heading) {
+        return (!isCurrentSpaceWallBlockingDirection(player, heading)
                 && !isHeadingNeighbourWallBlockingDirection(player, heading));
     }
 
-    //TODO: lav sammen med anden block metode
+    //TODO: lav sammen med anden block metode evt.
     public boolean isCurrentSpaceWallBlockingDirection(@NotNull Player player, Heading heading) {
         Walls tempWalls = player.getSpace().getWall();
-        if (tempWalls != null) {
-            if (!tempWalls.getBlockingDirection().isEmpty()) {
+        if (tempWalls != null && player.getSpace()!=null) {
                 return tempWalls.getBlockingDirection().contains(heading);
-            }
         } return false;
     }
 
     public boolean isHeadingNeighbourWallBlockingDirection(@NotNull Player player, Heading heading) {
         Space neighbour = player.board.getNeighbour(player.getSpace(), heading);
-        if (neighbour != null) {
-            if (neighbour.getWall() != null) {
+        if (neighbour != null && neighbour.getWall()!=null) {
                 Heading oppositeHeading = heading.oppositeHeading();
                 return neighbour.getWall().getBlockingDirection().contains(oppositeHeading);
-            }
         } return false;
     }
 
@@ -259,8 +254,8 @@ public class GameController {
      * @param player
      */
     public void fastForward(@NotNull Player player, @NotNull Heading heading) {
-        directionMove(player,heading);
-        directionMove(player,heading);
+        directionMove(player, heading);
+        directionMove(player, heading);
     }
 
     /**
@@ -347,28 +342,19 @@ public class GameController {
         }
     }
 
-
-    //TODO: lav flere checks samtidig
     public void executeBoardElements() {
-        if (board.getSpaces()!=null) {
-            for (Space[] spaceArray:board.getSpaces()) {
-                for (Space space : spaceArray) {
-                    if (space != null) {
-                        Player player = space.getPlayer();
-                        if(player!=null){
-                            ActivatableBoardElement activatableBoardElement = space.getActivatableBoardElement();
-                            if (activatableBoardElement != null) {
-                                activatableBoardElement.activateElement(space.getPlayer(), this);
-                            }
-                        }
-                    }
+        if (board.getSpacesList() != null) {
+            for (Space space : board.getSpacesList()) {
+                Player player = space.getPlayer();
+                if (player != null && space.getActivatableBoardElement() != null) {
+                    space.getActivatableBoardElement().activateElement(space.getPlayer(), this);
                 }
             }
         }
     }
 
     public void registerCheckpoint(@NotNull Player player, int checkpointNumber) {
-        if(player!=null) {
+        if (player != null) {
             if (checkpointNumber == player.getLastCheckpointVisited() + 1) {
                 player.setLastCheckpointVisited(checkpointNumber);
             }
@@ -376,12 +362,13 @@ public class GameController {
         findWinner(player);
     }
 
-    public void findWinner(@NotNull Player player){
-        if(player.getLastCheckpointVisited()==Checkpoint.numberOfCheckpoints){
+    public void findWinner(@NotNull Player player) {
+        if (player.getLastCheckpointVisited() == Checkpoint.numberOfCheckpoints) {
             player.setPlayerWin(true);
             System.out.println(player.getColor() + " har vundet!!");
         }
     }
+
     //TODO: vis hvor mange checkpoints spiller har
     //lav afslutningsfase når spiller har vundet
 
