@@ -15,7 +15,11 @@ public class Conveyor extends ActivatableBoardElement {
 
     @Override
     public void activateElement(@NotNull Player player, @NotNull GameController gameController) {
-        gameController.activateDirectionMove(player,command,heading);
+        //TODO: logik i model, ok med ekki?
+            if(command==Command.FAST_FORWARD){
+                gameController.fastForward(player,heading);
+            }
+            else { gameController.directionMove(player,heading); }
     }
 
     public Heading getHeading() {

@@ -214,7 +214,6 @@ public class GameController {
      *
      * @param player
      */
-
     public void directionMove(@NotNull Player player, @NotNull Heading heading){
         Space current = player.getSpace();
         if (current != null && player.board == current.board) {
@@ -240,9 +239,7 @@ public class GameController {
             if (!tempWalls.getBlockingDirection().isEmpty()) {
                 return tempWalls.getBlockingDirection().contains(heading);
             }
-        }
-
-        return false;
+        } return false;
     }
 
     public boolean isHeadingNeighbourWallBlockingDirection(@NotNull Player player, Heading heading) {
@@ -252,18 +249,7 @@ public class GameController {
                 Heading oppositeHeading = heading.oppositeHeading();
                 return neighbour.getWall().getBlockingDirection().contains(oppositeHeading);
             }
-        }
-        return false;
-    }
-
-    //TODO: gør smartere
-    public void activateDirectionMove(@NotNull Player player, @NotNull Command command, @NotNull Heading heading) {
-        if (command == Command.FAST_FORWARD) {
-            directionMove(player, heading);
-            directionMove(player, heading);
-        } else {
-            directionMove(player,heading);
-        }
+        } return false;
     }
 
 
