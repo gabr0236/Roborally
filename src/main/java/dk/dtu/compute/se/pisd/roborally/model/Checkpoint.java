@@ -2,19 +2,19 @@ package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 
-public class Checkpoint extends ActivatableBoardElement{
+public class Checkpoint extends ActivatableBoardElement {
 
     public static int numberOfCheckpoints = 0;
 
-    private int checkpointNumber;
+    private final int checkpointNumber;
 
-    Checkpoint(){
-        if(numberOfCheckpoints==0){
+    Checkpoint() {
+        if (numberOfCheckpoints == 0) {
             numberOfCheckpoints++;
-            checkpointNumber=numberOfCheckpoints;
+            checkpointNumber = numberOfCheckpoints;
         } else {
             numberOfCheckpoints++;
-            checkpointNumber=numberOfCheckpoints;
+            checkpointNumber = numberOfCheckpoints;
         }
     }
 

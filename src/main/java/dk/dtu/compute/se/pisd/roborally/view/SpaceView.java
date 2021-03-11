@@ -42,7 +42,6 @@ import java.awt.*;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
  */
 public class SpaceView extends StackPane implements ViewObserver {
 
@@ -81,7 +80,7 @@ public class SpaceView extends StackPane implements ViewObserver {
 
         if (space.getWall() != null) {
             if (!space.getWall().getBlockingDirection().isEmpty()) {
-                Canvas canvas = new Canvas(SPACE_WIDTH,SPACE_HEIGHT);
+                Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
                 GraphicsContext gc = canvas.getGraphicsContext2D();
                 gc.setStroke(Color.RED);
                 gc.setLineWidth(5);
@@ -98,7 +97,7 @@ public class SpaceView extends StackPane implements ViewObserver {
             }
         }
 
-        if(space.getActivatableBoardElement()!=null) {
+        if (space.getActivatableBoardElement() != null) {
             if (space.getActivatableBoardElement() instanceof Conveyor) {
                 //de er ikke helt centered 🤨🤨
                 Conveyor conveyor = (Conveyor) space.getActivatableBoardElement();
@@ -117,14 +116,14 @@ public class SpaceView extends StackPane implements ViewObserver {
         }
 
 
-        if(space.getActivatableBoardElement()!=null) {
+        if (space.getActivatableBoardElement() != null) {
             if (space.getActivatableBoardElement() instanceof Checkpoint) {
                 //de er ikke helt centered 🤨🤨
                 Checkpoint checkpoint = (Checkpoint) space.getActivatableBoardElement();
                 Polygon arrow = new Polygon(0.0, 0.0,
                         16.0, 30.0,
                         30.0, 0.0);
-                    arrow.setFill(Color.YELLOW);
+                arrow.setFill(Color.YELLOW);
                 arrow.setRotate((90 * Heading.NORTH.ordinal()) % 360);
                 this.setStyle("-fx-background-color: Black");
                 this.getChildren().add(arrow);
@@ -135,13 +134,13 @@ public class SpaceView extends StackPane implements ViewObserver {
         if (player != null) {
             Polygon arrow = new Polygon(0.0, 0.0,
                     10.0, 20.0,
-                    20.0, 0.0 );
+                    20.0, 0.0);
             try {
                 arrow.setFill(Color.valueOf(player.getColor()));
             } catch (Exception e) {
                 arrow.setFill(Color.MEDIUMPURPLE);
             }
-            arrow.setRotate((90*player.getHeading().ordinal())%360);
+            arrow.setRotate((90 * player.getHeading().ordinal()) % 360);
             this.getChildren().add(arrow);
         }
     }

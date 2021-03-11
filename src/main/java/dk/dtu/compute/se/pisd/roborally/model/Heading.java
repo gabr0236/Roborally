@@ -25,7 +25,7 @@ package dk.dtu.compute.se.pisd.roborally.model;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
+ * <p>
  * Javadoc
  * @author Gabriel
  */
@@ -35,6 +35,7 @@ public enum Heading {
 
     /**
      * Æmdre en spillers retning 90 grader mod højre
+     *
      * @return
      */
     public Heading next() {
@@ -43,6 +44,7 @@ public enum Heading {
 
     /**
      * Æmdre en spillers retning 90 grader mod venstre
+     *
      * @return
      */
     public Heading prev() {

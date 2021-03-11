@@ -47,6 +47,7 @@ public class GameController {
 
     public void moveCurrentPlayerToSpace(@NotNull Space space) {
     }
+
     /**
      * Ændre spillet til programmeringsfasen og itererer igennem for hver spiller og laver commandcard field og command cards
      */
@@ -230,17 +231,19 @@ public class GameController {
     //TODO: lav sammen med anden block metode evt.
     public boolean isCurrentSpaceWallBlockingDirection(@NotNull Player player, Heading heading) {
         Walls tempWalls = player.getSpace().getWall();
-        if (tempWalls != null && player.getSpace()!=null) {
-                return tempWalls.getBlockingDirection().contains(heading);
-        } return false;
+        if (tempWalls != null && player.getSpace() != null) {
+            return tempWalls.getBlockingDirection().contains(heading);
+        }
+        return false;
     }
 
     public boolean isHeadingNeighbourWallBlockingDirection(@NotNull Player player, Heading heading) {
         Space neighbour = player.board.getNeighbour(player.getSpace(), heading);
-        if (neighbour != null && neighbour.getWall()!=null) {
-                Heading oppositeHeading = heading.oppositeHeading();
-                return neighbour.getWall().getBlockingDirection().contains(oppositeHeading);
-        } return false;
+        if (neighbour != null && neighbour.getWall() != null) {
+            Heading oppositeHeading = heading.oppositeHeading();
+            return neighbour.getWall().getBlockingDirection().contains(oppositeHeading);
+        }
+        return false;
     }
 
 

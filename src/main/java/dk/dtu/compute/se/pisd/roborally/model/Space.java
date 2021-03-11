@@ -28,7 +28,6 @@ import org.jetbrains.annotations.NotNull;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
  */
 public class Space extends Subject {
 
@@ -80,6 +79,7 @@ public class Space extends Subject {
         this.y = y;
         player = null;
     }
+
     /**
      * En "getter" som retunerer spilleren, bruges til at tjekke om der befinder sig en spiller på feltet/spacet
      *

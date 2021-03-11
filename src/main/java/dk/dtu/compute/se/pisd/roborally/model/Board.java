@@ -34,7 +34,6 @@ import static dk.dtu.compute.se.pisd.roborally.model.Phase.INITIALISATION;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
  */
 public class Board extends Subject {
 
@@ -51,7 +50,7 @@ public class Board extends Subject {
         return spaces;
     }
 
-    private List<Space> spacesList = new ArrayList<>();
+    private final List<Space> spacesList = new ArrayList<>();
 
     private final Space[][] spaces;
 
@@ -71,7 +70,7 @@ public class Board extends Subject {
         this.height = height;
         spaces = new Space[width][height];
         for (int x = 0; x < width; x++) {
-            for(int y = 0; y < height; y++) {
+            for (int y = 0; y < height; y++) {
                 Space space = new Space(this, x, y);
                 spaces[x][y] = space;
                 spacesList.add(space);
@@ -82,9 +81,9 @@ public class Board extends Subject {
         spaces[2][4].setWalls(new Walls(Heading.EAST));
         spaces[2][5].setWalls(new Walls(Heading.EAST));
         spaces[1][7].setWalls(new Walls(Heading.SOUTH));
-        spaces[2][0].setActivatableBoardElement(new Conveyor(Heading.EAST,Command.FORWARD));
-        spaces[5][5].setActivatableBoardElement(new Conveyor(Heading.NORTH,Command.FAST_FORWARD));
-        spaces[2][9].setActivatableBoardElement(new Conveyor(Heading.EAST,Command.FORWARD));
+        spaces[2][0].setActivatableBoardElement(new Conveyor(Heading.EAST, Command.FORWARD));
+        spaces[5][5].setActivatableBoardElement(new Conveyor(Heading.NORTH, Command.FAST_FORWARD));
+        spaces[2][9].setActivatableBoardElement(new Conveyor(Heading.EAST, Command.FORWARD));
         spaces[0][1].setActivatableBoardElement(new Checkpoint());
         this.stepMode = false;
     }
@@ -193,7 +192,7 @@ public class Board extends Subject {
      * (no walls or obstacles in either of the involved spaces); otherwise,
      * null will be returned.
      *
-     * @param space the space for which the neighbour should be computed
+     * @param space   the space for which the neighbour should be computed
      * @param heading the heading of the neighbour
      * @return the space in the given direction; null if there is no (reachable) neighbour
      */
@@ -233,6 +232,8 @@ public class Board extends Subject {
         return Collections.unmodifiableList(players);
     }
 
-    public List<Space> getSpacesList() { return Collections.unmodifiableList(spacesList); }
+    public List<Space> getSpacesList() {
+        return Collections.unmodifiableList(spacesList);
+    }
 
 }
