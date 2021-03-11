@@ -228,7 +228,6 @@ public class GameController {
         }
     }
 
-
     private boolean isWallBlock(@NotNull Player player, Heading heading){
         return (!isCurrentSpaceWallBlockingDirection(player,heading)
                 && !isHeadingNeighbourWallBlockingDirection(player, heading));
