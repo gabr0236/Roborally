@@ -52,23 +52,9 @@ public class Player extends Subject {
     private final CommandCardField[] program;
     private final CommandCardField[] cards;
 
-    public void setPlayerWin(boolean playerWin) {
-        this.playerWin = playerWin;
-    }
-
-    public boolean isPlayerWin() {
-        return playerWin;
-    }
+    //TODO: tilføj variabel til at vise på skærm antal checkpoints
 
     private boolean playerWin = false;
-
-    public int getLastCheckpointVisited() {
-        return lastCheckpointVisited;
-    }
-
-    public void setLastCheckpointVisited(int lastCheckpointVisited) {
-        this.lastCheckpointVisited = lastCheckpointVisited;
-    }
 
     private int lastCheckpointVisited = 0;
 
@@ -167,6 +153,14 @@ public class Player extends Subject {
         }
     }
 
+    public void setPlayerWin(boolean playerWin) {
+        this.playerWin = playerWin;
+    }
+
+    public boolean isPlayerWin() {
+        return playerWin;
+    }
+
     public Heading getHeading() {
         return heading;
     }
@@ -184,6 +178,14 @@ public class Player extends Subject {
                 space.playerChanged();
             }
         }
+    }
+
+    public int getLastCheckpointVisited() {
+        return lastCheckpointVisited;
+    }
+
+    public void setLastCheckpointVisited(int lastCheckpointVisited) {
+        this.lastCheckpointVisited = lastCheckpointVisited;
     }
 
     /**
