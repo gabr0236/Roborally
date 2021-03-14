@@ -29,6 +29,7 @@ public class CheckpointTest {
     @AfterEach
     void tearDown(){
         gameController = null;
+        Checkpoint.setNumberOfCheckpoints(0);
     }
 
     @Test
@@ -59,6 +60,7 @@ public class CheckpointTest {
         Assertions.assertEquals(current, board.getSpace(0, 2).getPlayer(), "Player " + current.getName() + " should beSpace (0,2)!");
         Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
         Assertions.assertTrue(current.isPlayerWin(), "Playerwin should be true");
+
     }
 
     @Test
