@@ -347,9 +347,9 @@ public class GameController {
         if (player != null) {
             if (checkpointNumber == player.getLastCheckpointVisited() + 1) {
                 player.setLastCheckpointVisited(checkpointNumber);
+                findWinner(player);
             }
         }
-        findWinner(player);
     }
 
     public void findWinner(@NotNull Player player) {
