@@ -29,6 +29,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeLineCap;
@@ -120,11 +121,9 @@ public class SpaceView extends StackPane implements ViewObserver {
             if (space.getActivatableBoardElement() instanceof Checkpoint) {
                 //de er ikke helt centered 🤨🤨
                 Checkpoint checkpoint = (Checkpoint) space.getActivatableBoardElement();
-                Polygon arrow = new Polygon(0.0, 0.0,
-                        16.0, 30.0,
-                        30.0, 0.0);
+                Circle arrow = new Circle();
                 arrow.setFill(Color.YELLOW);
-                arrow.setRotate((90 * Heading.NORTH.ordinal()) % 360);
+                arrow.setRadius(18);
                 this.setStyle("-fx-background-color: Black");
                 this.getChildren().add(arrow);
             }

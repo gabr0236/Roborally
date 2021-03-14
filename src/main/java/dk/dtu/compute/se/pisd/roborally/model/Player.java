@@ -56,6 +56,10 @@ public class Player extends Subject {
         this.playerWin = playerWin;
     }
 
+    public boolean isPlayerWin() {
+        return playerWin;
+    }
+
     private boolean playerWin = false;
 
     public int getLastCheckpointVisited() {

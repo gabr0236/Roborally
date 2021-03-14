@@ -76,7 +76,10 @@ public class Board extends Subject {
                 spacesList.add(space);
             }
         }
+        this.stepMode = false;
+    }
 
+    public void setBoard(){
         spaces[1][2].setWalls(new Walls(Heading.NORTH));
         spaces[2][4].setWalls(new Walls(Heading.EAST));
         spaces[2][5].setWalls(new Walls(Heading.EAST));
@@ -84,8 +87,7 @@ public class Board extends Subject {
         spaces[2][0].setActivatableBoardElement(new Conveyor(Heading.EAST, Command.FORWARD));
         spaces[5][5].setActivatableBoardElement(new Conveyor(Heading.NORTH, Command.FAST_FORWARD));
         spaces[2][9].setActivatableBoardElement(new Conveyor(Heading.EAST, Command.FORWARD));
-        spaces[0][1].setActivatableBoardElement(new Checkpoint());
-        this.stepMode = false;
+        spaces[8][4].setActivatableBoardElement(new Checkpoint());
     }
 
     public Board(int width, int height) {
