@@ -215,13 +215,42 @@ public class GameController {
         Space current = player.getSpace();
         if (current != null && player.board == current.board) {
             Space target = current.board.getNeighbour(current, heading);
-            if (target != null && target.getPlayer() == null) {
+            if (target != null) {
                 if (isWallBlock(player, heading)) {
-                    player.setSpace(target);
+                    try{
+                        moveToSpace(player, target, heading);
+                    } catch (ImpossibleMoveException e){
+
+                    }
                 }
             }
         }
     }
+
+    void moveToSpace(@NotNull Player player, @NotNull Space space, @NotNull Heading heading) throws ImpossibleMoveException {
+        assert board.getNeighbour(player.getSpace(), heading) == space; // make sure the move to here is possible in principle
+        Player other = space.getPlayer();
+            if (other != null) {
+                Space target = board.getNeighbour(space, heading);
+                if (target != null) {
+                    if (isWallBlock(other, heading)) {
+                        // XXX Note that there might be additional problems with
+                        //     infinite recursion here (in some special cases)!
+                        //     We will come back to that!
+
+                        moveToSpace(other, target, heading);
+
+                        // Note that we do NOT embed the above statement in a try catch block, since
+                        // the thrown exception is supposed to be passed on to the caller
+
+                        assert target.getPlayer() == null : target; // make sure target is free now
+                    } else {
+                        throw new ImpossibleMoveException(player, space, heading);
+                    }
+                }
+            }
+            player.setSpace(space);
+         }
 
     private boolean isWallBlock(@NotNull Player player, Heading heading) {
         return (!isCurrentSpaceWallBlockingDirection(player, heading)
