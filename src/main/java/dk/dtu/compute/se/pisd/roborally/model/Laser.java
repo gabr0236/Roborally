@@ -11,12 +11,21 @@ public class Laser {
     private Space location;
     private Heading direction;
 
+    /**
+     *
+     * @param board
+     * @param location
+     * @param direction
+     */
     public Laser(@NotNull Board board, @NotNull Space location, @NotNull Heading direction) {
         this.board = board;
         this.location = location;
         this.direction = direction;
     }
 
+    /**
+     *
+     */
     public void fire() {
         boolean collision = false;
         Space ray = board.getNeighbour(location, direction);
@@ -45,9 +54,11 @@ public class Laser {
 
         // TODO: Add damage to robot if collision exists.
         if (ray != null) {
-            if (ray.getPlayer() != null) {
-                if (ray.getWall() != null) {
-                    if (!ray.getWall().getDirections().isOppositeOf(direction)) {
+            Player player = ray.getPlayer();
+            if (player != null) {
+                Wall wall = ray.getWall();
+                if (wall != null) {
+                    if (!wall.getDirection().isOppositeOf(direction)) {
                         // Do Damage
                     }
                 } else {
@@ -57,26 +68,50 @@ public class Laser {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public Board getBoard() {
         return board;
     }
 
+    /**
+     *
+     * @param board
+     */
     public void setBoard(Board board) {
         this.board = board;
     }
 
+    /**
+     *
+     * @return
+     */
     public Space getLocation() {
         return location;
     }
 
+    /**
+     *
+     * @param location
+     */
     public void setLocation(Space location) {
         this.location = location;
     }
 
+    /**
+     *
+     * @return
+     */
     public Heading getDirection() {
         return direction;
     }
 
+    /**
+     *
+     * @param direction
+     */
     public void setDirection(Heading direction) {
         this.direction = direction;
     }
