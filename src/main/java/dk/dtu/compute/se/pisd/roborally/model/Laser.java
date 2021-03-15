@@ -1,33 +1,83 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
-// TODO: Tilføj skade
+import org.jetbrains.annotations.NotNull;
+
+/**
+ *
+ * @author Tobias, s205358@student.dtu.dk
+ */
 public class Laser {
     private Board board;
     private Space location;
-    private Heading heading;
+    private Heading direction;
 
-    public Laser(Board board, Space location, Heading heading) {
+    public Laser(@NotNull Board board, @NotNull Space location, @NotNull Heading direction) {
         this.board = board;
         this.location = location;
-        this.heading = heading;
+        this.direction = direction;
     }
 
     public void fire() {
         boolean collision = false;
-        Space rayLocation = board.getNeighbour(location, heading);
+        Space ray = board.getNeighbour(location, direction);
         do {
-            // TODO: Tjek også for væg.
-            // En spiller kan stå på et felt med en væg og ved siden af et felt med en væg, hvis blokeringsretning ikke
-            // ville beskytte mod dette andet felt, hvis ikke man tjekker for modsatte retning.
-            if (rayLocation.getPlayer() != null) {
+            if (ray == null) {
                 collision = true;
-            } else {
-                rayLocation = board.getNeighbour(rayLocation, heading);
+                return;
             }
+
+            Player player = ray.getPlayer();
+            if (player != null) {
+                collision = true;
+                return;
+            }
+
+            Wall wall = ray.getWall();
+            if (wall != null) {
+                if (wall.getDirection().isOppositeOf(direction) || wall.getDirection() == direction) {
+                    collision = true;
+                    return;
+                }
+            }
+
+            ray = board.getNeighbour(location, direction);
         } while(!collision);
 
-        if (rayLocation.getPlayer() != null) {
-            // do something
+        // TODO: Add damage to robot if collision exists.
+        if (ray != null) {
+            if (ray.getPlayer() != null) {
+                if (ray.getWall() != null) {
+                    if (!ray.getWall().getDirections().isOppositeOf(direction)) {
+                        // Do Damage
+                    }
+                } else {
+                    // Do Damage
+                }
+            }
         }
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    public Space getLocation() {
+        return location;
+    }
+
+    public void setLocation(Space location) {
+        this.location = location;
+    }
+
+    public Heading getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Heading direction) {
+        this.direction = direction;
     }
 }
