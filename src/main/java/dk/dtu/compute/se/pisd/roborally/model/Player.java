@@ -52,11 +52,13 @@ public class Player extends Subject {
     private final CommandCardField[] program;
     private final CommandCardField[] cards;
 
-    //TODO: tilføj variabel til at vise på skærm antal checkpoints
-
     private boolean playerWin = false;
 
+    //TODO: tilføj variabel til at vise på skærm antal checkpoints
     private int lastCheckpointVisited = 0;
+
+    //TODO: skal kende spillers reboot felt
+
 
 
     /**
@@ -70,7 +72,7 @@ public class Player extends Subject {
      * @param color
      * @param name
      */
-    public Player(@NotNull Board board, String color, @NotNull String name) {
+    public Player(@NotNull Board board,@NotNull String color, @NotNull String name) {
         this.board = board;
         this.name = name;
         this.color = color;
