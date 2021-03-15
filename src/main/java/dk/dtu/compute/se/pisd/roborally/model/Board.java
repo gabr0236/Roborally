@@ -24,7 +24,9 @@ package dk.dtu.compute.se.pisd.roborally.model;
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import org.jetbrains.annotations.NotNull;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -64,12 +66,25 @@ public class Board extends Subject {
 
     private boolean stepMode;
 
-    private List<Reboot> rebootList = new ArrayList<>();
+    //TODO spørg ekki
+    public final int rebootBorderX;
+
+    public final int rebootBorderY;
+
+
+    public List<Space> getRebootSpaceList() {
+        return rebootSpaceList;
+    }
+
+    private List<Space> rebootSpaceList = new ArrayList<>();
 
     public Board(int width, int height, @NotNull String boardName) {
         this.boardName = boardName;
         this.width = width;
         this.height = height;
+        //TODO spørg ekki
+        this.rebootBorderX=2;
+        this.rebootBorderY=height;
         spaces = new Space[width][height];
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
@@ -89,15 +104,18 @@ public class Board extends Subject {
         spaces[2][0].setActivatableBoardElement(new Conveyor(Heading.EAST, Command.FORWARD));
         spaces[5][5].setActivatableBoardElement(new Conveyor(Heading.NORTH, Command.FAST_FORWARD));
         spaces[2][9].setActivatableBoardElement(new Conveyor(Heading.EAST, Command.FORWARD));
-        spaces[8][4].setActivatableBoardElement(new Checkpoint());
+        spaces[12][4].setActivatableBoardElement(new Checkpoint());
         spaces[0][1].setActivatableBoardElement(new Checkpoint());
-        spaces[1][1].setActivatableBoardElement(new Reboot());
-        spaces[1][1].setActivatableBoardElement(new Reboot());
-        spaces[0][3].setActivatableBoardElement(new Reboot());
-        spaces[1][4].setActivatableBoardElement(new Reboot());
-        spaces[1][5].setActivatableBoardElement(new Reboot());
-        spaces[0][6].setActivatableBoardElement(new Reboot());
-        spaces[1][8].setActivatableBoardElement(new Reboot());
+        spaces[1][1].setReboot(new Reboot(Heading.EAST,true));
+        spaces[1][1].setReboot(new Reboot(Heading.EAST,true));
+        spaces[0][3].setReboot(new Reboot(Heading.EAST,true));
+        spaces[1][4].setReboot(new Reboot(Heading.EAST,true));
+        spaces[1][5].setReboot(new Reboot(Heading.EAST,true));
+        spaces[0][6].setReboot(new Reboot(Heading.EAST,true));
+        spaces[1][8].setReboot(new Reboot(Heading.EAST,true));
+        spaces[5][4].setReboot(new Reboot(Heading.EAST,false));
+        rebootSpaceList=(Arrays.asList(spaces[1][1], spaces[1][1], spaces[0][3], spaces[1][4], spaces[1][5],
+                spaces[0][6], spaces[1][8],spaces[12][4]));
     }
 
     public Board(int width, int height) {

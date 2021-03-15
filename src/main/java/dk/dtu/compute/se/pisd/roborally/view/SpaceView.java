@@ -135,15 +135,14 @@ public class SpaceView extends StackPane implements ViewObserver {
             }
         }
 
-        if (space.getActivatableBoardElement() != null) {
-            if (space.getActivatableBoardElement() instanceof Reboot) {
+        if (space.getReboot() != null) {
                 this.setStyle("-fx-background-color: greenyellow");
                 Text text = new Text();
                 text.setText("R");
                 text.setTabSize(12);
                 this.getChildren().add(text);
             }
-            }
+
 
 
         Player player = space.getPlayer();

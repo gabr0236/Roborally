@@ -220,7 +220,16 @@ public class GameController {
                     player.setSpace(target);
                 }
             }
+            else if(target == null){
+                teleportPlayerToReboot(player);
+            }
         }
+    }
+
+    private void teleportPlayerToReboot(@NotNull Player player){
+        player.setSpace(player.getRebootSpace());
+        //TODO: Spørg ekki
+        player.setHeading(player.getRebootSpace().getReboot().REBOOT_HEADING);
     }
 
     private boolean isWallBlock(@NotNull Player player, Heading heading) {
@@ -321,6 +330,7 @@ public class GameController {
             continuePrograms();
         } else {
             executeBoardElements();
+            updateAllReboot();
             step++;
             if (step < Player.NO_REGISTERS) {
                 makeProgramFieldsVisible(step);
@@ -359,7 +369,30 @@ public class GameController {
         }
     }
 
+    private void updateAllReboot(){
+        for (Player player :board.getPlayers()) {
+            updatePlayerRebootSpace(player);
+        }
+    }
+    //TODO: startfield ok?
+    private void updatePlayerRebootSpace(@NotNull Player player){
+        Space current=player.getSpace();
+        if(current!=null){
+            if(current.x>current.board.rebootBorderX && player.getRebootSpace()){
+                for (Space space :board.getRebootSpaceList()) {
+                    if(!space.getReboot().isStartField()) {
+                        current.getReboot().setPlayer(null);
+                        space.getReboot().setPlayer(player);
+                        player.setRebootSpace(space);
+                    }
+                    }
+                }
+            }
+    }
+
+
+}
     //TODO: vis hvor mange checkpoints spiller har
     //lav afslutningsfase når spiller har vundet
 
-}
+
