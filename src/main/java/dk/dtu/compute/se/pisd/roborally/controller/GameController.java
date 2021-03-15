@@ -224,9 +224,7 @@ public class GameController {
                     }
                 }
             }
-            else if(target == null){
-                teleportPlayerToReboot(player);
-            }
+
         }
     }
 
@@ -239,8 +237,9 @@ public class GameController {
     void moveToSpace(@NotNull Player player, @NotNull Space space, @NotNull Heading heading) throws ImpossibleMoveException {
         assert board.getNeighbour(player.getSpace(), heading) == space; // make sure the move to here is possible in principle
         Player other = space.getPlayer();
+        Space target = board.getNeighbour(space, heading);
             if (other != null) {
-                Space target = board.getNeighbour(space, heading);
+
                 if (target != null) {
                     if (isWallBlock(other, heading)) {
                         // XXX Note that there might be additional problems with
@@ -257,8 +256,14 @@ public class GameController {
                         throw new ImpossibleMoveException(player, space, heading);
                     }
                 }
+
             }
+
             player.setSpace(space);
+            if(target == null) {
+            teleportPlayerToReboot(player);
+        }
+
          }
 
     private boolean isWallBlock(@NotNull Player player, Heading heading) {
