@@ -168,12 +168,3 @@ public class SpaceView extends StackPane implements ViewObserver {
         }
     }
 }
-/* gc.setStroke(Color.RED);
-            gc.setLineWidth(5);
-            gc.setLineCap(StrokeLineCap.ROUND);
-            switch (space.getConveyor().getHeading()) {
-                case NORTH -> gc.strokeLine((SPACE_WIDTH)/2.0, 10, (SPACE_WIDTH)/2.0, SPACE_HEIGHT-2);
-                case EAST -> gc.strokeLine(2, (SPACE_HEIGHT-2)/2.0, SPACE_WIDTH-2-10, (SPACE_HEIGHT-2)/2.0);
-                case SOUTH -> gc.strokeLine((SPACE_WIDTH-2)/2.0, 2, (SPACE_WIDTH-2)/2.0, SPACE_HEIGHT-2);
-                case WEST -> gc.strokeLine(2, (SPACE_HEIGHT-2)/2.0, SPACE_WIDTH-2, (SPACE_HEIGHT-2)/2.0);
-            }*/

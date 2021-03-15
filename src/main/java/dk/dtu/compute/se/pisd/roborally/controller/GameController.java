@@ -379,17 +379,15 @@ public class GameController {
         Space current=player.getSpace();
         if(current!=null){
             if(current.x>current.board.rebootBorderX && player.getRebootSpace().getReboot().isStartField()){
+                //TODO: chech for contains isStartField
                 for (Space space :board.getRebootSpaceList()) {
                     if(!space.getReboot().isStartField()) {
-                        space.getReboot().setPlayer(player);
                         player.setRebootSpace(space);
                     }
                     }
                 }
             }
     }
-
-
 }
     //TODO: vis hvor mange checkpoints spiller har
     //lav afslutningsfase når spiller har vundet

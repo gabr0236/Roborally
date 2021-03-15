@@ -86,7 +86,6 @@ public class AppController implements Observer {
                 board.addPlayer(player);
                 player.setSpace(board.getRebootSpaceList().get(i+1));
                 player.setRebootSpace(board.getRebootSpaceList().get(i+1));
-                player.getSpace().getReboot().setPlayer(player);
             }
 
             // XXX: V2

@@ -69,13 +69,6 @@ public class Board extends Subject {
     //TODO spørg ekki
     public final int rebootBorderX;
 
-    public final int rebootBorderY;
-
-
-    public List<Space> getRebootSpaceList() {
-        return rebootSpaceList;
-    }
-
     private List<Space> rebootSpaceList = new ArrayList<>();
 
     public Board(int width, int height, @NotNull String boardName) {
@@ -84,7 +77,6 @@ public class Board extends Subject {
         this.height = height;
         //TODO spørg ekki
         this.rebootBorderX=2;
-        this.rebootBorderY=height;
         spaces = new Space[width][height];
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
@@ -266,4 +258,7 @@ public class Board extends Subject {
         return Collections.unmodifiableList(spacesList);
     }
 
+    public List<Space> getRebootSpaceList() {
+        return Collections.unmodifiableList((rebootSpaceList));
+    }
 }
