@@ -8,7 +8,7 @@ public class Reboot{
     public final Heading REBOOT_HEADING;
 
 
-    private boolean startField;
+    private final boolean startField;
 
     Reboot(Heading REBOOT_HEADING, boolean startField){
         this.REBOOT_HEADING=REBOOT_HEADING;

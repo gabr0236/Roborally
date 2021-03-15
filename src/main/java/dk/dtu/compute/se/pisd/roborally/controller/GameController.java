@@ -378,10 +378,9 @@ public class GameController {
     private void updatePlayerRebootSpace(@NotNull Player player){
         Space current=player.getSpace();
         if(current!=null){
-            if(current.x>current.board.rebootBorderX && player.getRebootSpace()){
+            if(current.x>current.board.rebootBorderX && player.getRebootSpace().getReboot().isStartField()){
                 for (Space space :board.getRebootSpaceList()) {
                     if(!space.getReboot().isStartField()) {
-                        current.getReboot().setPlayer(null);
                         space.getReboot().setPlayer(player);
                         player.setRebootSpace(space);
                     }

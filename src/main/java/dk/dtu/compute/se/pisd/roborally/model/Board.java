@@ -115,7 +115,7 @@ public class Board extends Subject {
         spaces[1][8].setReboot(new Reboot(Heading.EAST,true));
         spaces[5][4].setReboot(new Reboot(Heading.EAST,false));
         rebootSpaceList=(Arrays.asList(spaces[1][1], spaces[1][1], spaces[0][3], spaces[1][4], spaces[1][5],
-                spaces[0][6], spaces[1][8],spaces[12][4]));
+                spaces[0][6], spaces[1][8],spaces[5][4]));
     }
 
     public Board(int width, int height) {
