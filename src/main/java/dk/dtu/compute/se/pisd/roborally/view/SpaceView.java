@@ -33,6 +33,8 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.scene.transform.Affine;
 import org.jetbrains.annotations.NotNull;
 
@@ -126,8 +128,23 @@ public class SpaceView extends StackPane implements ViewObserver {
                 arrow.setRadius(18);
                 this.setStyle("-fx-background-color: Black");
                 this.getChildren().add(arrow);
+                Text text = new Text();
+                text.setText("C");
+                text.setTabSize(12);
+                this.getChildren().add(text);
             }
         }
+
+        if (space.getActivatableBoardElement() != null) {
+            if (space.getActivatableBoardElement() instanceof Reboot) {
+                this.setStyle("-fx-background-color: greenyellow");
+                Text text = new Text();
+                text.setText("R");
+                text.setTabSize(12);
+                this.getChildren().add(text);
+            }
+            }
+
 
         Player player = space.getPlayer();
         if (player != null) {

@@ -64,6 +64,8 @@ public class Board extends Subject {
 
     private boolean stepMode;
 
+    private List<Reboot> rebootList = new ArrayList<>();
+
     public Board(int width, int height, @NotNull String boardName) {
         this.boardName = boardName;
         this.width = width;
@@ -89,6 +91,13 @@ public class Board extends Subject {
         spaces[2][9].setActivatableBoardElement(new Conveyor(Heading.EAST, Command.FORWARD));
         spaces[8][4].setActivatableBoardElement(new Checkpoint());
         spaces[0][1].setActivatableBoardElement(new Checkpoint());
+        spaces[1][1].setActivatableBoardElement(new Reboot());
+        spaces[1][1].setActivatableBoardElement(new Reboot());
+        spaces[0][3].setActivatableBoardElement(new Reboot());
+        spaces[1][4].setActivatableBoardElement(new Reboot());
+        spaces[1][5].setActivatableBoardElement(new Reboot());
+        spaces[0][6].setActivatableBoardElement(new Reboot());
+        spaces[1][8].setActivatableBoardElement(new Reboot());
     }
 
     public Board(int width, int height) {

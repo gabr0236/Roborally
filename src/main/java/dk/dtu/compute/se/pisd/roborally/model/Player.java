@@ -58,7 +58,7 @@ public class Player extends Subject {
     private int lastCheckpointVisited = 0;
 
     //TODO: skal kende spillers reboot felt
-
+    private Space rebootSpace;
 
 
     /**
@@ -208,6 +208,14 @@ public class Player extends Subject {
      */
     public CommandCardField getCardField(int i) {
         return cards[i];
+    }
+
+    public Space getRebootSpace() {
+        return rebootSpace;
+    }
+
+    public void setRebootSpace(Space rebootSpace) {
+        this.rebootSpace = rebootSpace;
     }
 
 }
