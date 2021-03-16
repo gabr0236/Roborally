@@ -230,7 +230,7 @@ public class GameController {
 
     //TODO: lav sammen med anden block metode evt.
     public boolean isCurrentSpaceWallBlockingDirection(@NotNull Player player, Heading heading) {
-        Walls tempWalls = player.getSpace().getWall();
+        Walls tempWalls = player.getSpace().getWalls();
         if (tempWalls != null && player.getSpace() != null) {
             return tempWalls.getBlockingDirection().contains(heading);
         }
@@ -239,9 +239,9 @@ public class GameController {
 
     public boolean isHeadingNeighbourWallBlockingDirection(@NotNull Player player, Heading heading) {
         Space neighbour = player.board.getNeighbour(player.getSpace(), heading);
-        if (neighbour != null && neighbour.getWall() != null) {
+        if (neighbour != null && neighbour.getWalls() != null) {
             Heading oppositeHeading = heading.oppositeHeading();
-            return neighbour.getWall().getBlockingDirection().contains(oppositeHeading);
+            return neighbour.getWalls().getBlockingDirection().contains(oppositeHeading);
         }
         return false;
     }

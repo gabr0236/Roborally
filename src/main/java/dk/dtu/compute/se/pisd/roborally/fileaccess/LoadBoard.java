@@ -27,7 +27,7 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.model.BoardTemplate;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.model.SpaceTemplate;
-import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
+import dk.dtu.compute.se.pisd.roborally.model.ActivatableBoardElement;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 
@@ -58,7 +58,7 @@ public class LoadBoard {
 
 		// In simple cases, we can create a Gson object with new Gson():
         GsonBuilder simpleBuilder = new GsonBuilder().
-                registerTypeAdapter(FieldAction.class, new Adapter<FieldAction>());
+                registerTypeAdapter(ActivatableBoardElement.class, new Adapter<ActivatableBoardElement>());
         Gson gson = simpleBuilder.create();
 
 		Board result;
@@ -73,8 +73,8 @@ public class LoadBoard {
 			for (SpaceTemplate spaceTemplate: template.spaces) {
 			    Space space = result.getSpace(spaceTemplate.x, spaceTemplate.y);
 			    if (space != null) {
-                    space.getActions().addAll(spaceTemplate.actions);
-                    space.getWalls().addAll(spaceTemplate.walls);
+                    space.setActivatableBoardElement(spaceTemplate.actions.get(0));
+                    space.getWalls().getBlockingDirection().addAll(spaceTemplate.walls);
                 }
             }
 			reader.close();
@@ -103,12 +103,13 @@ public class LoadBoard {
         for (int i=0; i<board.width; i++) {
             for (int j=0; j<board.height; j++) {
                 Space space = board.getSpace(i,j);
-                if (!space.getWalls().isEmpty() || !space.getActions().isEmpty()) {
+                //TODO: skal nok kun checke for walls
+                if (!space.getWalls().getBlockingDirection().isEmpty() || space.getActivatableBoardElement()!=null) {
                     SpaceTemplate spaceTemplate = new SpaceTemplate();
                     spaceTemplate.x = space.x;
                     spaceTemplate.y = space.y;
-                    spaceTemplate.actions.addAll(space.getActions());
-                    spaceTemplate.walls.addAll(space.getWalls());
+                    spaceTemplate.actions.add(space.getActivatableBoardElement());
+                    spaceTemplate.walls.addAll(space.getWalls().getBlockingDirection());
                     template.spaces.add(spaceTemplate);
                 }
             }
@@ -129,7 +130,7 @@ public class LoadBoard {
         // a builder (here, we want to configure the JSON serialisation with
         // a pretty printer):
         GsonBuilder simpleBuilder = new GsonBuilder().
-                registerTypeAdapter(FieldAction.class, new Adapter<FieldAction>()).
+                registerTypeAdapter(ActivatableBoardElement.class, new Adapter<ActivatableBoardElement>()).
                 setPrettyPrinting();
         Gson gson = simpleBuilder.create();
 
