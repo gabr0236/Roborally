@@ -104,18 +104,6 @@ class GameControllerTest {
 */
 
 
-     @Test
-    void teleportToStartBoardReboot() {
-        Board board = gameController.board;
-        Player current = board.getCurrentPlayer();
 
-        current.setSpace(board.getSpace(0,0));
-        current.setHeading(Heading.NORTH);
-
-
-        Assertions.assertEquals(current, board.getSpace(1, 1).getPlayer(), "Player " + current.getName() + " should beSpace (1,1)!");
-        //Assertions.assertEquals(pushedPlayer, board.getSpace(1, 2).getPlayer(), "Player " + pushedPlayer.getName() + " should beSpace (0,1)!");
-
-    }
 
 }
