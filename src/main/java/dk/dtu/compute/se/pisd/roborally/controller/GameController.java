@@ -181,7 +181,7 @@ public class GameController {
     }
 
     // XXX: V2
-    public void executeCommand(@NotNull Player player,Heading heading, Command command) {
+    public void executeCommand(@NotNull Player player, Heading heading, Command command) {
         if (player != null && player.board == board && command != null) {
             // XXX This is a very simplistic way of dealing with some basic cards and
             //     their execution. This should eventually be done in a more elegant way
@@ -215,13 +215,48 @@ public class GameController {
         Space current = player.getSpace();
         if (current != null && player.board == current.board) {
             Space target = current.board.getNeighbour(current, heading);
-            if (target != null && target.getPlayer() == null) {
+            if (target != null) {
                 if (isWallBlock(player, heading)) {
-                    player.setSpace(target);
+                    try{
+                        moveToSpace(player, target, heading);
+                    } catch (ImpossibleMoveException e){
+
+                    }
                 }
             }
+
         }
     }
+
+
+    //TODO: virker ikke
+    void moveToSpace(@NotNull Player player, @NotNull Space space, @NotNull Heading heading) throws ImpossibleMoveException {
+        assert board.getNeighbour(player.getSpace(), heading) == space; // make sure the move to here is possible in principle
+        Player other = space.getPlayer();
+        Space target = board.getNeighbour(space, heading);
+            if (other != null) {
+
+                if (target != null) {
+                    if (isWallBlock(other, heading)) {
+                        // XXX Note that there might be additional problems with
+                        //     infinite recursion here (in some special cases)!
+                        //     We will come back to that!
+
+                        moveToSpace(other, target, heading);
+
+                        // Note that we do NOT embed the above statement in a try catch block, since
+                        // the thrown exception is supposed to be passed on to the caller
+
+                        assert target.getPlayer() == null : target; // make sure target is free now
+                    } else {
+                        throw new ImpossibleMoveException(player, space, heading);
+                    }
+                }
+
+            }
+
+            player.setSpace(space);
+        }
 
     private boolean isWallBlock(@NotNull Player player, Heading heading) {
         return (!isCurrentSpaceWallBlockingDirection(player, heading)
@@ -321,12 +356,14 @@ public class GameController {
             continuePrograms();
         } else {
             executeBoardElements();
+            updateAllReboot();
             step++;
             if (step < Player.NO_REGISTERS) {
                 makeProgramFieldsVisible(step);
                 board.setStep(step);
                 board.setCurrentPlayer(board.getPlayer(0));
             } else {
+                respawnPlayers();
                 startProgrammingPhase();
             }
         }
@@ -359,7 +396,42 @@ public class GameController {
         }
     }
 
+    private void updateAllReboot(){
+        for (Player player :board.getPlayers()) {
+            updatePlayerRebootSpace(player);
+        }
+    }
+    //TODO: startfield ok?
+    private void updatePlayerRebootSpace(@NotNull Player player){
+        Space current=player.getSpace();
+        if(current!=null){
+            if(current.x>current.board.rebootBorderX && player.getRebootSpace().getReboot().isStartField()){
+                //TODO: chech for contains isStartField
+                for (Space space :board.getRebootSpaceList()) {
+                    if(!space.getReboot().isStartField()) {
+                        player.setRebootSpace(space);
+                    }
+                    }
+                }
+            }
+    }
+
+    private void respawnPlayers(){
+        for (Player player:board.getPlayers()
+             ) {
+            if(player.getSpace()==null){
+                teleportPlayerToReboot(player);
+            }
+        }
+    }
+
+    private void teleportPlayerToReboot(@NotNull Player player){
+        player.setSpace(player.getRebootSpace());
+        //TODO: Spørg ekki
+        player.setHeading(player.getRebootSpace().getReboot().REBOOT_HEADING);
+    }
+}
     //TODO: vis hvor mange checkpoints spiller har
     //lav afslutningsfase når spiller har vundet
 
-}
+

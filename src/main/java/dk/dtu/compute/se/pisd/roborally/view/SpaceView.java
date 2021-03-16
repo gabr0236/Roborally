@@ -23,14 +23,23 @@ package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.model.*;
+import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.transform.Affine;
 import org.jetbrains.annotations.NotNull;
+
+import javax.xml.crypto.dsig.Transform;
+import java.awt.*;
 
 /**
  * ...
@@ -119,8 +128,22 @@ public class SpaceView extends StackPane implements ViewObserver {
                 arrow.setRadius(18);
                 this.setStyle("-fx-background-color: Black");
                 this.getChildren().add(arrow);
+                Text text = new Text();
+                text.setText("C");
+                //text.setTabSize(12);
+                this.getChildren().add(text);
             }
         }
+
+        if (space.getReboot() != null) {
+                this.setStyle("-fx-background-color: greenyellow");
+                Text text = new Text();
+                text.setText("R");
+                //text.setTabSize(12);
+                this.getChildren().add(text);
+            }
+
+
 
         Player player = space.getPlayer();
         if (player != null) {
@@ -145,12 +168,3 @@ public class SpaceView extends StackPane implements ViewObserver {
         }
     }
 }
-/* gc.setStroke(Color.RED);
-            gc.setLineWidth(5);
-            gc.setLineCap(StrokeLineCap.ROUND);
-            switch (space.getConveyor().getHeading()) {
-                case NORTH -> gc.strokeLine((SPACE_WIDTH)/2.0, 10, (SPACE_WIDTH)/2.0, SPACE_HEIGHT-2);
-                case EAST -> gc.strokeLine(2, (SPACE_HEIGHT-2)/2.0, SPACE_WIDTH-2-10, (SPACE_HEIGHT-2)/2.0);
-                case SOUTH -> gc.strokeLine((SPACE_WIDTH-2)/2.0, 2, (SPACE_WIDTH-2)/2.0, SPACE_HEIGHT-2);
-                case WEST -> gc.strokeLine(2, (SPACE_HEIGHT-2)/2.0, SPACE_WIDTH-2, (SPACE_HEIGHT-2)/2.0);
-            }*/
