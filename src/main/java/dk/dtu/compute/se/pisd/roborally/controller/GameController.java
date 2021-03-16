@@ -229,7 +229,6 @@ public class GameController {
     }
 
 
-    //TODO: virker ikke
     void moveToSpace(@NotNull Player player, @NotNull Space space, @NotNull Heading heading) throws ImpossibleMoveException {
         assert board.getNeighbour(player.getSpace(), heading) == space; // make sure the move to here is possible in principle
         Player other = space.getPlayer();
@@ -417,8 +416,7 @@ public class GameController {
     }
 
     private void respawnPlayers(){
-        for (Player player:board.getPlayers()
-             ) {
+        for (Player player:board.getPlayers()) {
             if(player.getSpace()==null){
                 teleportPlayerToReboot(player);
             }

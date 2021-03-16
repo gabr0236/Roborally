@@ -102,6 +102,7 @@ public class LoadBoard {
         template.width = board.width;
         template.height = board.height;
 
+        //todo: @Gab foreach med spaces list
         for (int i=0; i<board.width; i++) {
             for (int j=0; j<board.height; j++) {
                 Space space = board.getSpace(i,j);
