@@ -81,14 +81,14 @@ public class SpaceView extends StackPane implements ViewObserver {
     private void updatePlayer() {
         this.getChildren().clear();
 
-        if (space.getWall() != null) {
-            if (!space.getWall().getBlockingDirection().isEmpty()) {
+        if (space.getWalls() != null) {
+            if (!space.getWalls().getBlockingDirection().isEmpty()) {
                 Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
                 GraphicsContext gc = canvas.getGraphicsContext2D();
                 gc.setStroke(Color.RED);
                 gc.setLineWidth(5);
                 gc.setLineCap(StrokeLineCap.ROUND);
-                for (Heading heading : space.getWall().getBlockingDirection()) {
+                for (Heading heading : space.getWalls().getBlockingDirection()) {
                     switch (heading) {
                         case NORTH -> gc.strokeLine(2, 2, SPACE_WIDTH - 2, 2);
                         case EAST -> gc.strokeLine(SPACE_WIDTH - 2, 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);

@@ -50,7 +50,7 @@ public class Space extends Subject {
         this.activatableBoardElement = activatableBoardElement;
     }
 
-    public Walls getWall() {
+    public Walls getWalls() {
         return walls;
     }
 

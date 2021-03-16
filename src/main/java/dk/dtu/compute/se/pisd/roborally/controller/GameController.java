@@ -229,7 +229,6 @@ public class GameController {
     }
 
 
-    //TODO: virker ikke
     void moveToSpace(@NotNull Player player, @NotNull Space space, @NotNull Heading heading) throws ImpossibleMoveException {
         assert board.getNeighbour(player.getSpace(), heading) == space; // make sure the move to here is possible in principle
         Player other = space.getPlayer();
@@ -263,9 +262,8 @@ public class GameController {
                 && !isHeadingNeighbourWallBlockingDirection(player, heading));
     }
 
-    //TODO: lav sammen med anden block metode evt.
     public boolean isCurrentSpaceWallBlockingDirection(@NotNull Player player, Heading heading) {
-        Walls tempWalls = player.getSpace().getWall();
+        Walls tempWalls = player.getSpace().getWalls();
         if (tempWalls != null && player.getSpace() != null) {
             return tempWalls.getBlockingDirection().contains(heading);
         }
@@ -274,9 +272,9 @@ public class GameController {
 
     public boolean isHeadingNeighbourWallBlockingDirection(@NotNull Player player, Heading heading) {
         Space neighbour = player.board.getNeighbour(player.getSpace(), heading);
-        if (neighbour != null && neighbour.getWall() != null) {
+        if (neighbour != null && neighbour.getWalls() != null) {
             Heading oppositeHeading = heading.oppositeHeading();
-            return neighbour.getWall().getBlockingDirection().contains(oppositeHeading);
+            return neighbour.getWalls().getBlockingDirection().contains(oppositeHeading);
         }
         return false;
     }
@@ -401,24 +399,21 @@ public class GameController {
             updatePlayerRebootSpace(player);
         }
     }
-    //TODO: startfield ok?
     private void updatePlayerRebootSpace(@NotNull Player player){
         Space current=player.getSpace();
         if(current!=null){
             if(current.x>current.board.rebootBorderX && player.getRebootSpace().getReboot().isStartField()){
-                //TODO: chech for contains isStartField
                 for (Space space :board.getRebootSpaceList()) {
                     if(!space.getReboot().isStartField()) {
                         player.setRebootSpace(space);
                     }
-                    }
                 }
             }
+        }
     }
 
     private void respawnPlayers(){
-        for (Player player:board.getPlayers()
-             ) {
+        for (Player player:board.getPlayers()) {
             if(player.getSpace()==null){
                 teleportPlayerToReboot(player);
             }
@@ -427,7 +422,6 @@ public class GameController {
 
     private void teleportPlayerToReboot(@NotNull Player player){
         player.setSpace(player.getRebootSpace());
-        //TODO: Spørg ekki
         player.setHeading(player.getRebootSpace().getReboot().REBOOT_HEADING);
     }
 }
