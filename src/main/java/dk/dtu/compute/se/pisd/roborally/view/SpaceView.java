@@ -130,7 +130,7 @@ public class SpaceView extends StackPane implements ViewObserver {
                 this.getChildren().add(arrow);
                 Text text = new Text();
                 text.setText("C");
-                text.setTabSize(12);
+                //text.setTabSize(12);
                 this.getChildren().add(text);
             }
         }
@@ -139,7 +139,7 @@ public class SpaceView extends StackPane implements ViewObserver {
                 this.setStyle("-fx-background-color: greenyellow");
                 Text text = new Text();
                 text.setText("R");
-                text.setTabSize(12);
+                //text.setTabSize(12);
                 this.getChildren().add(text);
             }
 
