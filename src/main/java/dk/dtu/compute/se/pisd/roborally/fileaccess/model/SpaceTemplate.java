@@ -36,6 +36,7 @@ import java.util.List;
 public class SpaceTemplate {
 
     public List<Heading> walls = new ArrayList<>();
+    //TODO: @gab tilføj reboot, checkpoint m.m
     public List<ActivatableBoardElement> actions = new ArrayList<>();
 
     public int x;

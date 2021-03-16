@@ -53,7 +53,8 @@ public class LoadBoard {
         InputStream inputStream = classLoader.getResourceAsStream(BOARDSFOLDER + "/" + boardname + "." + JSON_EXT);
         if (inputStream == null) {
             // TODO these constants should be defined somewhere
-            return new Board(8,8);
+            //TODO: @gab skal nok loades fra DB
+            return new Board(13,10);
         }
 
 		// In simple cases, we can create a Gson object with new Gson():
@@ -73,6 +74,7 @@ public class LoadBoard {
 			for (SpaceTemplate spaceTemplate: template.spaces) {
 			    Space space = result.getSpace(spaceTemplate.x, spaceTemplate.y);
 			    if (space != null) {
+                    //TODO: @gab skal laves om så den matcher save board
                     space.setActivatableBoardElement(spaceTemplate.actions.get(0));
                     space.getWalls().getBlockingDirection().addAll(spaceTemplate.walls);
                 }
@@ -103,7 +105,7 @@ public class LoadBoard {
         for (int i=0; i<board.width; i++) {
             for (int j=0; j<board.height; j++) {
                 Space space = board.getSpace(i,j);
-                //TODO: skal nok kun checke for walls
+                //TODO: skal nok kun checke for walls, ikke actions og vi skal checke for andre ting
                 if (!space.getWalls().getBlockingDirection().isEmpty() || space.getActivatableBoardElement()!=null) {
                     SpaceTemplate spaceTemplate = new SpaceTemplate();
                     spaceTemplate.x = space.x;
