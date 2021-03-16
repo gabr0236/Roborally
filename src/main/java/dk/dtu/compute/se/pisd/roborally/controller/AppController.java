@@ -27,6 +27,7 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.RoboRally;
 
 import dk.dtu.compute.se.pisd.roborally.dal.IRepository;
+import dk.dtu.compute.se.pisd.roborally.dal.RepositoryAccess;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 
@@ -91,19 +92,22 @@ public class AppController implements Observer{
 
             // board.setCurrentPlayer(board.getPlayer(0));
             gameController.startProgrammingPhase();
-            //createGameInDB(board);
+
+            IRepository repository = RepositoryAccess.getRepository();
+            repository.createGameInDB(board);
 
             roboRally.createBoardView(gameController);
         }
     }
 
     public void saveGame() {
-        // XXX needs to be implemented eventually
+        IRepository repository = RepositoryAccess.getRepository();
+        repository.updateGameInDB(this.gameController.board);
+
     }
 
     public void loadGame() {
-        // XXX needs to be implememted eventually
-        // for now, we just create a new game
+        IRepository repository = RepositoryAccess.getRepository();
         if (gameController == null) {
             newGame();
         }
