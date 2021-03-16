@@ -262,7 +262,6 @@ public class GameController {
                 && !isHeadingNeighbourWallBlockingDirection(player, heading));
     }
 
-    //TODO: lav sammen med anden block metode evt.
     public boolean isCurrentSpaceWallBlockingDirection(@NotNull Player player, Heading heading) {
         Walls tempWalls = player.getSpace().getWalls();
         if (tempWalls != null && player.getSpace() != null) {
@@ -400,19 +399,17 @@ public class GameController {
             updatePlayerRebootSpace(player);
         }
     }
-    //TODO: startfield ok?
     private void updatePlayerRebootSpace(@NotNull Player player){
         Space current=player.getSpace();
         if(current!=null){
             if(current.x>current.board.rebootBorderX && player.getRebootSpace().getReboot().isStartField()){
-                //TODO: chech for contains isStartField
                 for (Space space :board.getRebootSpaceList()) {
                     if(!space.getReboot().isStartField()) {
                         player.setRebootSpace(space);
                     }
-                    }
                 }
             }
+        }
     }
 
     private void respawnPlayers(){
@@ -425,7 +422,6 @@ public class GameController {
 
     private void teleportPlayerToReboot(@NotNull Player player){
         player.setSpace(player.getRebootSpace());
-        //TODO: Spørg ekki
         player.setHeading(player.getRebootSpace().getReboot().REBOOT_HEADING);
     }
 }
