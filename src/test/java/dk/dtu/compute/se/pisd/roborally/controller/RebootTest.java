@@ -33,6 +33,15 @@ public class RebootTest {
         board.getSpace(0,6).setReboot(new Reboot(Heading.EAST,true));
         board.getSpace(1,8).setReboot(new Reboot(Heading.EAST,true));
         board.getSpace(5,4).setReboot(new Reboot(Heading.EAST,false));
+
+       //board.getRebootSpaceList().add(board.getSpace(1,1));
+       //board.getRebootSpaceList().add(board.getSpace(0,3));
+       //board.getRebootSpaceList().add(board.getSpace(1,4));
+       //board.getRebootSpaceList().add(board.getSpace(1,5));
+       //board.getRebootSpaceList().add(board.getSpace(0,6));
+       //board.getRebootSpaceList().add(board.getSpace(1,8));
+       //board.getRebootSpaceList().add(board.getSpace(5,4));
+
         rebootSpaceListTest=(Arrays.asList(board.getSpace(1,1), board.getSpace(0,3), board.getSpace(1,4), board.getSpace(1,5),
                 board.getSpace(0,6), board.getSpace(1,8),board.getSpace(5,4)));
 
@@ -77,4 +86,23 @@ public class RebootTest {
 
     }
 
+
+    /*@Test
+    void teleportToNormalBoardReboot() {
+        Board board = gameController.board;
+        Player pushedPlayer = board.getCurrentPlayer();
+        Player current = board.getPlayer(1);
+
+
+        pushedPlayer.setSpace(board.getSpace(5, 0));
+        current.setSpace(board.getSpace(5, 1));
+        gameController.updateAllReboot();
+        current.setHeading(Heading.NORTH);
+        gameController.directionMove(current, current.getHeading());
+        gameController.respawnPlayers();
+
+
+        Assertions.assertEquals(pushedPlayer, board.getSpace(5, 4).getPlayer(), "Player " + pushedPlayer.getName() + " should beSpace (5,4)!");
+
+    }*/
 }
