@@ -418,6 +418,7 @@ public class GameController {
         }
     }
 
+    //TODO seb, flere spillere skal kunne reboote
     private void teleportPlayerToReboot(@NotNull Player player){
         player.setSpace(player.getRebootSpace());
         player.setHeading(player.getRebootSpace().getReboot().REBOOT_HEADING);
