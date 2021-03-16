@@ -392,15 +392,15 @@ public class GameController {
         }
     }
 
-    private void updateAllReboot(){
+    public void updateAllReboot(){
         for (Player player :board.getPlayers()) {
             updatePlayerRebootSpace(player);
         }
     }
-    private void updatePlayerRebootSpace(@NotNull Player player){
+    public void updatePlayerRebootSpace(@NotNull Player player){
         Space current=player.getSpace();
         if(current!=null){
-            if(current.x>current.board.rebootBorderX && player.getRebootSpace().getReboot().isStartField()){
+            if(current.x>current.board.rebootBorderX){
                 for (Space space :board.getRebootSpaceList()) {
                     if(!space.getReboot().isStartField()) {
                         player.setRebootSpace(space);
@@ -410,7 +410,7 @@ public class GameController {
         }
     }
 
-    public void respawnPlayers(){
+    private void respawnPlayers(){
         for (Player player:board.getPlayers()) {
             if(player.getSpace()==null){
                 teleportPlayerToReboot(player);
@@ -418,9 +418,9 @@ public class GameController {
         }
     }
 
-    private void teleportPlayerToReboot(@NotNull Player player){
+    public void teleportPlayerToReboot(@NotNull Player player){
         if (player.getRebootSpace().getPlayer() != null){
-            directionMove(player.getRebootSpace().getPlayer(), player.getRebootSpace().getPlayer().getHeading());
+            directionMove(player.getRebootSpace().getPlayer(), player.getRebootSpace().getReboot().REBOOT_HEADING);
         }
         player.setSpace(player.getRebootSpace());
         player.setHeading(player.getRebootSpace().getReboot().REBOOT_HEADING);
