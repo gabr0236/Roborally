@@ -38,7 +38,6 @@ import java.util.List;
 public class SpaceTemplate {
 
     public List<Heading> walls = new ArrayList<>();
-    //TODO: @gab tilføj reboot, checkpoint m.m, ikke som liste
     public Reboot reboot;
     public ActivatableBoardElement activatableBoardElement;
 
