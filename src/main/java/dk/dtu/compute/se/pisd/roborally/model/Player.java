@@ -24,13 +24,16 @@ package dk.dtu.compute.se.pisd.roborally.model;
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+
+import static dk.dtu.compute.se.pisd.roborally.model.Heading.EAST;
 import static dk.dtu.compute.se.pisd.roborally.model.Heading.SOUTH;
 
 /**
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
+ * <p>
  * Javadoc
  * @author Gabriel
  */
@@ -45,14 +48,23 @@ public class Player extends Subject {
     private String color;
 
     private Space space;
-    private Heading heading = SOUTH;
+    private Heading heading = EAST;
 
-    private CommandCardField[] program;
-    private CommandCardField[] cards;
+    private final CommandCardField[] program;
+    private final CommandCardField[] cards;
+
+    private boolean playerWin = false;
+
+    //TODO: tilføj variabel til at vise på skærm antal checkpoints
+    private int lastCheckpointVisited = 0;
+
+    //TODO: skal kende spillers reboot felt
+    private Space rebootSpace;
+
 
     /**
      * Player konstruktør, Initialisere spiller og tilknytter board, sætter farve og sætter navn.
-     *
+     * <p>
      * Herefter oprettes først et CommandCardField Array med plads til at holde en robots registers
      * Der oprettes herefter CommandCardField Array med plads til at holde en robots tilfældige
      * programmeringskort der tildeles i starten af hver programmeringsfase.
@@ -61,7 +73,7 @@ public class Player extends Subject {
      * @param color
      * @param name
      */
-    public Player(@NotNull Board board, String color, @NotNull String name) {
+    public Player(@NotNull Board board,@NotNull String color, @NotNull String name) {
         this.board = board;
         this.name = name;
         this.color = color;
@@ -81,6 +93,7 @@ public class Player extends Subject {
 
     /**
      * Returnerer navn
+     *
      * @return
      */
     public String getName() {
@@ -125,6 +138,7 @@ public class Player extends Subject {
 
     /**
      * Metode til at tilknytte spiller til Space
+     *
      * @param space
      */
     public void setSpace(Space space) {
@@ -142,12 +156,21 @@ public class Player extends Subject {
         }
     }
 
+    public void setPlayerWin(boolean playerWin) {
+        this.playerWin = playerWin;
+    }
+
+    public boolean isPlayerWin() {
+        return playerWin;
+    }
+
     public Heading getHeading() {
         return heading;
     }
 
     /**
      * Metode til at sætte spillers "retning"
+     *
      * @param heading
      */
     public void setHeading(@NotNull Heading heading) {
@@ -160,8 +183,17 @@ public class Player extends Subject {
         }
     }
 
+    public int getLastCheckpointVisited() {
+        return lastCheckpointVisited;
+    }
+
+    public void setLastCheckpointVisited(int lastCheckpointVisited) {
+        this.lastCheckpointVisited = lastCheckpointVisited;
+    }
+
     /**
      * Henter et specifikt registreringskort, vælges ud fra paramereten i
+     *
      * @param i
      * @return
      */
@@ -171,11 +203,20 @@ public class Player extends Subject {
 
     /**
      * Henter et specifikt kort spilleren har på hånden, vælges ud fra paramereten i
+     *
      * @param i
      * @return
      */
     public CommandCardField getCardField(int i) {
         return cards[i];
+    }
+
+    public Space getRebootSpace() {
+        return rebootSpace;
+    }
+
+    public void setRebootSpace(Space rebootSpace) {
+        this.rebootSpace = rebootSpace;
     }
 
 }

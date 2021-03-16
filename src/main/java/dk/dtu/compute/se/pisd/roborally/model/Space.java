@@ -28,7 +28,6 @@ import org.jetbrains.annotations.NotNull;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
  */
 public class Space extends Subject {
 
@@ -39,6 +38,7 @@ public class Space extends Subject {
     public final int y;
     private Player player;
     private Walls walls;
+    private Reboot reboot;
     private ActivatableBoardElement activatableBoardElement;
 
 
@@ -80,6 +80,7 @@ public class Space extends Subject {
         this.y = y;
         player = null;
     }
+
     /**
      * En "getter" som retunerer spilleren, bruges til at tjekke om der befinder sig en spiller på feltet/spacet
      *
@@ -121,6 +122,14 @@ public class Space extends Subject {
         // also need to update when some player attributes change, the player can
         // notify the space of these changes by calling this method.
         notifyChange();
+    }
+
+    public Reboot getReboot() {
+        return reboot;
+    }
+
+    public void setReboot(Reboot reboot) {
+        this.reboot = reboot;
     }
 
 }

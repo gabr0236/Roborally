@@ -22,19 +22,19 @@
 package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
-import dk.dtu.compute.se.pisd.roborally.model.Command;
-import dk.dtu.compute.se.pisd.roborally.model.Heading;
-import dk.dtu.compute.se.pisd.roborally.model.Player;
-import dk.dtu.compute.se.pisd.roborally.model.Space;
+import dk.dtu.compute.se.pisd.roborally.model.*;
 import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.scene.transform.Affine;
 import org.jetbrains.annotations.NotNull;
 
@@ -45,7 +45,6 @@ import java.awt.*;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
  */
 public class SpaceView extends StackPane implements ViewObserver {
 
@@ -82,23 +81,9 @@ public class SpaceView extends StackPane implements ViewObserver {
     private void updatePlayer() {
         this.getChildren().clear();
 
-        Player player = space.getPlayer();
-        if (player != null) {
-            Polygon arrow = new Polygon(0.0, 0.0,
-                    10.0, 20.0,
-                    20.0, 0.0 );
-            try {
-                arrow.setFill(Color.valueOf(player.getColor()));
-            } catch (Exception e) {
-                arrow.setFill(Color.MEDIUMPURPLE);
-            }
-            arrow.setRotate((90*player.getHeading().ordinal())%360);
-            this.getChildren().add(arrow);
-        }
-
         if (space.getWall() != null) {
             if (!space.getWall().getBlockingDirection().isEmpty()) {
-                Canvas canvas = new Canvas(SPACE_WIDTH,SPACE_HEIGHT);
+                Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
                 GraphicsContext gc = canvas.getGraphicsContext2D();
                 gc.setStroke(Color.RED);
                 gc.setLineWidth(5);
@@ -115,18 +100,62 @@ public class SpaceView extends StackPane implements ViewObserver {
             }
         }
 
-        if(space.getConveyor()!=null){
-            //de er ikke helt centered 🤨🤨
-            Polygon arrow = new Polygon(0.0, 0.0,
-                    15.0, 30.0,
-                    30.0, 0.0 );
-            if(space.getConveyor().getCommand()== Command.FAST_FORWARD){
-                arrow.setFill(Color.LIGHTSKYBLUE);
-            } else{
-                arrow.setFill(Color.LIMEGREEN);
+        if (space.getActivatableBoardElement() != null) {
+            if (space.getActivatableBoardElement() instanceof Conveyor) {
+                //de er ikke helt centered 🤨🤨
+                Conveyor conveyor = (Conveyor) space.getActivatableBoardElement();
+                Polygon arrow = new Polygon(0.0, 0.0,
+                        16.0, 30.0,
+                        30.0, 0.0);
+                if (conveyor.getCommand() == Command.FAST_FORWARD) {
+                    arrow.setFill(Color.LIGHTSKYBLUE);
+                } else {
+                    arrow.setFill(Color.LIMEGREEN);
+                }
+                arrow.setRotate((90 * conveyor.getHeading().ordinal()) % 360);
+                this.setStyle("-fx-background-color: Black");
+                this.getChildren().add(arrow);
             }
-            arrow.setRotate((90*space.getConveyor().getHeading().ordinal())%360);
-            this.setStyle("-fx-background-color: Black");
+        }
+
+
+        if (space.getActivatableBoardElement() != null) {
+            if (space.getActivatableBoardElement() instanceof Checkpoint) {
+                //de er ikke helt centered 🤨🤨
+                Checkpoint checkpoint = (Checkpoint) space.getActivatableBoardElement();
+                Circle arrow = new Circle();
+                arrow.setFill(Color.YELLOW);
+                arrow.setRadius(18);
+                this.setStyle("-fx-background-color: Black");
+                this.getChildren().add(arrow);
+                Text text = new Text();
+                text.setText("C");
+                text.setTabSize(12);
+                this.getChildren().add(text);
+            }
+        }
+
+        if (space.getReboot() != null) {
+                this.setStyle("-fx-background-color: greenyellow");
+                Text text = new Text();
+                text.setText("R");
+                text.setTabSize(12);
+                this.getChildren().add(text);
+            }
+
+
+
+        Player player = space.getPlayer();
+        if (player != null) {
+            Polygon arrow = new Polygon(0.0, 0.0,
+                    10.0, 20.0,
+                    20.0, 0.0);
+            try {
+                arrow.setFill(Color.valueOf(player.getColor()));
+            } catch (Exception e) {
+                arrow.setFill(Color.MEDIUMPURPLE);
+            }
+            arrow.setRotate((90 * player.getHeading().ordinal()) % 360);
             this.getChildren().add(arrow);
         }
     }
@@ -138,14 +167,4 @@ public class SpaceView extends StackPane implements ViewObserver {
             updatePlayer();
         }
     }
-
 }
-/* gc.setStroke(Color.RED);
-            gc.setLineWidth(5);
-            gc.setLineCap(StrokeLineCap.ROUND);
-            switch (space.getConveyor().getHeading()) {
-                case NORTH -> gc.strokeLine((SPACE_WIDTH)/2.0, 10, (SPACE_WIDTH)/2.0, SPACE_HEIGHT-2);
-                case EAST -> gc.strokeLine(2, (SPACE_HEIGHT-2)/2.0, SPACE_WIDTH-2-10, (SPACE_HEIGHT-2)/2.0);
-                case SOUTH -> gc.strokeLine((SPACE_WIDTH-2)/2.0, 2, (SPACE_WIDTH-2)/2.0, SPACE_HEIGHT-2);
-                case WEST -> gc.strokeLine(2, (SPACE_HEIGHT-2)/2.0, SPACE_WIDTH-2, (SPACE_HEIGHT-2)/2.0);
-            }*/

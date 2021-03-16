@@ -29,7 +29,6 @@ import javafx.application.Platform;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
  */
 public interface ViewObserver extends Observer {
 
