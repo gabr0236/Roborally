@@ -27,11 +27,10 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.model.BoardTemplate;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.model.SpaceTemplate;
-import dk.dtu.compute.se.pisd.roborally.model.ActivatableBoardElement;
-import dk.dtu.compute.se.pisd.roborally.model.Board;
-import dk.dtu.compute.se.pisd.roborally.model.Space;
+import dk.dtu.compute.se.pisd.roborally.model.*;
 
 import java.io.*;
+import java.util.Collections;
 
 /**
  * ...
@@ -53,7 +52,6 @@ public class LoadBoard {
         InputStream inputStream = classLoader.getResourceAsStream(BOARDSFOLDER + "/" + boardname + "." + JSON_EXT);
         if (inputStream == null) {
             // TODO these constants should be defined somewhere
-            //TODO: @gab skal nok loades fra DB
             return new Board(13,10);
         }
 
@@ -74,8 +72,8 @@ public class LoadBoard {
 			for (SpaceTemplate spaceTemplate: template.spaces) {
 			    Space space = result.getSpace(spaceTemplate.x, spaceTemplate.y);
 			    if (space != null) {
-                    //TODO: @gab skal laves om så den matcher save board
-                    space.setActivatableBoardElement(spaceTemplate.actions.get(0));
+                    space.setActivatableBoardElement(spaceTemplate.activatableBoardElement);
+                    space.setReboot(spaceTemplate.reboot);
                     space.getWalls().getBlockingDirection().addAll(spaceTemplate.walls);
                 }
             }
@@ -102,20 +100,16 @@ public class LoadBoard {
         template.width = board.width;
         template.height = board.height;
 
-        //todo: @Gab foreach med spaces list
-        for (int i=0; i<board.width; i++) {
-            for (int j=0; j<board.height; j++) {
-                Space space = board.getSpace(i,j);
-                //TODO: skal nok kun checke for walls, ikke actions og vi skal checke for andre ting
-                if (!space.getWalls().getBlockingDirection().isEmpty() || space.getActivatableBoardElement()!=null) {
+        for (Space space:board.getRebootSpaceList()) {
+                if (space.getWalls()!=null || space.getActivatableBoardElement()!=null || space.getReboot()!=null) {
                     SpaceTemplate spaceTemplate = new SpaceTemplate();
                     spaceTemplate.x = space.x;
                     spaceTemplate.y = space.y;
-                    spaceTemplate.actions.add(space.getActivatableBoardElement());
+                    spaceTemplate.activatableBoardElement=space.getActivatableBoardElement();
                     spaceTemplate.walls.addAll(space.getWalls().getBlockingDirection());
+                    spaceTemplate.reboot=space.getReboot();
                     template.spaces.add(spaceTemplate);
                 }
-            }
         }
 
         ClassLoader classLoader = LoadBoard.class.getClassLoader();
