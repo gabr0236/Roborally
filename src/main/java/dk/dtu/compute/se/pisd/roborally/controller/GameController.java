@@ -216,7 +216,7 @@ public class GameController {
         if (current != null && player.board == current.board) {
             Space target = current.board.getNeighbour(current, heading);
             if (target != null) {
-                if (isWallBlock(player, heading)) {
+                if (notWallsBlock(player, heading)) {
                     try{
                         moveToSpace(player, target, heading);
                     } catch (ImpossibleMoveException e){
@@ -236,7 +236,7 @@ public class GameController {
             if (other != null) {
 
                 if (target != null) {
-                    if (isWallBlock(other, heading)) {
+                    if (notWallsBlock(other, heading)) {
                         // XXX Note that there might be additional problems with
                         //     infinite recursion here (in some special cases)!
                         //     We will come back to that!
@@ -246,7 +246,7 @@ public class GameController {
                         // Note that we do NOT embed the above statement in a try catch block, since
                         // the thrown exception is supposed to be passed on to the caller
 
-                        //assert target.getPlayer() == null : target; // make sure target is free now
+                        assert space.getPlayer() == null : space; // make sure target is free now
                     } else {
                         throw new ImpossibleMoveException(player, space, heading);
                     }
@@ -255,7 +255,7 @@ public class GameController {
             player.setSpace(space);
         }
 
-    private boolean isWallBlock(@NotNull Player player, Heading heading) {
+    private boolean notWallsBlock(@NotNull Player player, Heading heading) {
         return (!isCurrentSpaceWallBlockingDirection(player, heading)
                 && !isHeadingNeighbourWallBlockingDirection(player, heading));
     }
