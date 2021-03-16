@@ -18,7 +18,7 @@ class ConveyorTest {
         Board board = new Board(TEST_WIDTH, TEST_HEIGHT);
         gameController = new GameController(board);
         for (int i = 0; i < 6; i++) {
-            Player player = new Player(board, null,"Player " + i);
+            Player player = new Player(board, "Black","Player " + i);
             board.addPlayer(player);
             player.setSpace(board.getSpace(i, i));
             player.setHeading(Heading.values()[i % Heading.values().length]);

@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.awt.*;
+
 class GameControllerTest {
 
     private final int TEST_WIDTH = 12;
@@ -18,7 +20,7 @@ class GameControllerTest {
         Board board = new Board(TEST_WIDTH, TEST_HEIGHT);
         gameController = new GameController(board);
         for (int i = 0; i < 6; i++) {
-            Player player = new Player(board, null,"Player " + i);
+            Player player = new Player(board, "Black","Player " + i);
             board.addPlayer(player);
             player.setSpace(board.getSpace(i, i));
             player.setHeading(Heading.values()[i % Heading.values().length]);
@@ -70,29 +72,7 @@ class GameControllerTest {
         Assertions.assertNull(board.getSpace(0, 0).getPlayer(), "Space (0,0) should be empty!");
     }
 
-    @Test
-    void fastForwardPlayerBlockAtSecondField() {
-        Board board = gameController.board;
-        Player current = board.getCurrentPlayer();
-        current.setSpace(board.getSpace(2,0));
-        gameController.fastForward(current, current.getHeading());
 
-        Assertions.assertEquals(current, board.getSpace(2, 1).getPlayer(), "Player " + current.getName() + " should beSpace (2,1)!");
-        Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
-        Assertions.assertNull(board.getSpace(2, 0).getPlayer(), "Space (2,0) should be empty!");
-    }
-
-    @Test
-    void fastForwardPlayerBlockAtFirstField() {
-        Board board = gameController.board;
-        Player current = board.getCurrentPlayer();
-        current.setSpace(board.getSpace(2,1));
-        gameController.fastForward(current, current.getHeading());
-
-        Assertions.assertEquals(current, board.getSpace(2, 1).getPlayer(), "Player " + current.getName() + " should beSpace (0,1)!");
-        Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
-        Assertions.assertNull(board.getSpace(0, 0).getPlayer(), "Space (0,0) should be empty!");
-    }
 
     @Test
     void turnRight() {
