@@ -83,23 +83,38 @@ class GameControllerTest {
         Assertions.assertEquals(Heading.EAST, current.getHeading(), "Player 0 should be heading EAST!");
     }
 
-    //TODO: Test om skubbefunktion virker
-    /*@Test
+    @Test
     void pushPlayer() {
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
         Player pushedPlayer = board.getPlayer(2);
 
-       pushedPlayer.setSpace(board.getSpace(1,1));
+        pushedPlayer.setSpace(board.getSpace(1,1));
         current.setSpace(board.getSpace(1,0));
         current.setHeading(Heading.SOUTH);
-        try {
-            gameController.moveToSpace(current, board.getSpace(1, 1), current.getHeading());
-        } catch (ImpossibleMoveException e){}
-
+        gameController.directionMove(current, current.getHeading());
+        //TODO @Gab spørg ekki
         Assertions.assertEquals(current, board.getSpace(1, 1).getPlayer(), "Player " + current.getName() + " should beSpace (1,1)!");
-        //Assertions.assertEquals(pushedPlayer, board.getSpace(1, 2).getPlayer(), "Player " + pushedPlayer.getName() + " should beSpace (0,1)!");
-
+        Assertions.assertEquals(pushedPlayer, board.getSpace(1, 2).getPlayer(), "Player " + pushedPlayer.getName() + " should beSpace (0,1)!");
     }
-*/
+
+    @Test
+    void push5Players() {
+        Board board = gameController.board;
+        Player current = board.getCurrentPlayer();
+        Player pushedPlayer1 = board.getPlayer(1); pushedPlayer1.setSpace(board.getSpace(1,1));
+        Player pushedPlayer2 = board.getPlayer(2); pushedPlayer1.setSpace(board.getSpace(1,2));
+        Player pushedPlayer3 = board.getPlayer(3); pushedPlayer1.setSpace(board.getSpace(1,3));
+        Player pushedPlayer4 = board.getPlayer(4); pushedPlayer1.setSpace(board.getSpace(1,4));
+        Player pushedPlayer5 = board.getPlayer(5); pushedPlayer1.setSpace(board.getSpace(1,5));
+        current.setSpace(board.getSpace(1,0));
+        current.setHeading(Heading.SOUTH);
+        gameController.directionMove(current, current.getHeading());
+        //TODO @Gab spørg ekki om fejl fra moveToSpace
+        Assertions.assertEquals(current, board.getSpace(1, 1).getPlayer(), "Player " + current.getName() + " should beSpace (1,1)!");
+        Assertions.assertEquals(pushedPlayer1, board.getSpace(1, 2).getPlayer(), "Player " + current.getName() + " should beSpace (1,2)!");
+       // Assertions.assertEquals(pushedPlayer2, board.getSpace(1, 3).getPlayer(), "Player " + current.getName() + " should beSpace (1,3)!");
+       // Assertions.assertEquals(pushedPlayer3, board.getSpace(1, 4).getPlayer(), "Player " + current.getName() + " should beSpace (1,4)!");
+       // Assertions.assertEquals(pushedPlayer4, board.getSpace(1, 5).getPlayer(), "Player " + current.getName() + " should beSpace (1,5)!");
+    }
 }
