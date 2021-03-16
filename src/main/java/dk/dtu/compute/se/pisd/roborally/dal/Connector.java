@@ -36,7 +36,7 @@ import java.sql.Statement;
  *
  */
 class Connector {
-	
+	//TODO sæt vores egne params
     private static final String HOST     = "localhost";
     private static final int    PORT     = 3306;
     private static final String DATABASE = "pisu";

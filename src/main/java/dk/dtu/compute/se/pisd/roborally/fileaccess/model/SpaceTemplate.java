@@ -22,7 +22,9 @@
 package dk.dtu.compute.se.pisd.roborally.fileaccess.model;
 
 import dk.dtu.compute.se.pisd.roborally.model.ActivatableBoardElement;
+import dk.dtu.compute.se.pisd.roborally.model.Checkpoint;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
+import dk.dtu.compute.se.pisd.roborally.model.Reboot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +38,8 @@ import java.util.List;
 public class SpaceTemplate {
 
     public List<Heading> walls = new ArrayList<>();
-    //TODO: @gab tilføj reboot, checkpoint m.m, ikke som liste
-    public List<ActivatableBoardElement> actions = new ArrayList<>();
+    public Reboot reboot;
+    public ActivatableBoardElement activatableBoardElement;
 
     public int x;
     public int y;

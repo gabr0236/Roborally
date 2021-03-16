@@ -246,14 +246,12 @@ public class GameController {
                         // Note that we do NOT embed the above statement in a try catch block, since
                         // the thrown exception is supposed to be passed on to the caller
 
-                        assert target.getPlayer() == null : target; // make sure target is free now
+                        //assert target.getPlayer() == null : target; // make sure target is free now
                     } else {
                         throw new ImpossibleMoveException(player, space, heading);
                     }
                 }
-
             }
-
             player.setSpace(space);
         }
 
