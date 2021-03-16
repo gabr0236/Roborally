@@ -410,7 +410,7 @@ public class GameController {
         }
     }
 
-    private void respawnPlayers(){
+    public void respawnPlayers(){
         for (Player player:board.getPlayers()) {
             if(player.getSpace()==null){
                 teleportPlayerToReboot(player);

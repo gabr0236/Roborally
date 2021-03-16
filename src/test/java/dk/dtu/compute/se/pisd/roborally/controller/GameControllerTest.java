@@ -114,28 +114,55 @@ class GameControllerTest {
         current.setSpace(board.getSpace(1,0));
         current.setHeading(Heading.SOUTH);
         gameController.directionMove(current, current.getHeading());
-        //TODO @Gab spørg ekki
+
         Assertions.assertEquals(current, board.getSpace(1, 1).getPlayer(), "Player " + current.getName() + " should beSpace (1,1)!");
-        Assertions.assertEquals(pushedPlayer, board.getSpace(1, 2).getPlayer(), "Player " + pushedPlayer.getName() + " should beSpace (0,1)!");
+        Assertions.assertEquals(pushedPlayer, board.getSpace(1, 2).getPlayer(), "Player " + pushedPlayer.getName() + " should beSpace (1,1)!");
+    }
+
+    @Test
+    void pushPlayerWallBlock() {
+        Board board = gameController.board;
+        Player current = board.getCurrentPlayer();
+        Player pushedPlayer = board.getPlayer(2);
+
+        pushedPlayer.setSpace(board.getSpace(1,1));
+        current.setSpace(board.getSpace(1,0));
+        current.setHeading(Heading.SOUTH);
+        pushedPlayer.getSpace().setWalls(new Walls(Heading.SOUTH));
+        gameController.directionMove(current, current.getHeading());
+
+        Assertions.assertEquals(current, board.getSpace(1, 0).getPlayer(), "Player " + current.getName() + " should beSpace (1,0)!");
+        Assertions.assertEquals(pushedPlayer, board.getSpace(1, 1).getPlayer(), "Player " + pushedPlayer.getName() + " should beSpace (1,1)!");
     }
 
     @Test
     void push5Players() {
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
-        Player pushedPlayer1 = board.getPlayer(1); pushedPlayer1.setSpace(board.getSpace(1,1));
-        Player pushedPlayer2 = board.getPlayer(2); pushedPlayer1.setSpace(board.getSpace(1,2));
-        Player pushedPlayer3 = board.getPlayer(3); pushedPlayer1.setSpace(board.getSpace(1,3));
-        Player pushedPlayer4 = board.getPlayer(4); pushedPlayer1.setSpace(board.getSpace(1,4));
-        Player pushedPlayer5 = board.getPlayer(5); pushedPlayer1.setSpace(board.getSpace(1,5));
         current.setSpace(board.getSpace(1,0));
+        Player player1 = board.getPlayer(1);
+        Player player2 = board.getPlayer(2);
+        Player player3 = board.getPlayer(3);
+        Player player4 = board.getPlayer(4);
+        Player player5 = board.getPlayer(5);
+
+        player1.setSpace(board.getSpace(1,1));
+        player2.setSpace(board.getSpace(1,2));
+        player3.setSpace(board.getSpace(1,3));
+        player4.setSpace(board.getSpace(1,4));
+        player5.setSpace(board.getSpace(1,5));
+
         current.setHeading(Heading.SOUTH);
         gameController.directionMove(current, current.getHeading());
-        //TODO @Gab spørg ekki om fejl fra moveToSpace
+
         Assertions.assertEquals(current, board.getSpace(1, 1).getPlayer(), "Player " + current.getName() + " should beSpace (1,1)!");
-        Assertions.assertEquals(pushedPlayer1, board.getSpace(1, 2).getPlayer(), "Player " + current.getName() + " should beSpace (1,2)!");
-       // Assertions.assertEquals(pushedPlayer2, board.getSpace(1, 3).getPlayer(), "Player " + current.getName() + " should beSpace (1,3)!");
-       // Assertions.assertEquals(pushedPlayer3, board.getSpace(1, 4).getPlayer(), "Player " + current.getName() + " should beSpace (1,4)!");
-       // Assertions.assertEquals(pushedPlayer4, board.getSpace(1, 5).getPlayer(), "Player " + current.getName() + " should beSpace (1,5)!");
+        Assertions.assertEquals(player1, board.getSpace(1, 2).getPlayer(), "Player " + player1.getName() + " should beSpace (1,2)!");
+        Assertions.assertEquals(player2, board.getSpace(1, 3).getPlayer(), "Player " + player2.getName() + " should beSpace (1,3)!");
+        Assertions.assertEquals(player3, board.getSpace(1, 4).getPlayer(), "Player " + player3.getName() + " should beSpace (1,4)!");
+        Assertions.assertEquals(player4, board.getSpace(1, 5).getPlayer(), "Player " + player4.getName() + " should beSpace (1,5)!");
+        Assertions.assertEquals(player5, board.getSpace(1, 6).getPlayer(), "Player " + player5.getName() + " should beSpace (1,6)!");
+        Assertions.assertNull(board.getSpace(1,7).getPlayer());
+        Assertions.assertNull(board.getSpace(1,0).getPlayer());
     }
+
 }
