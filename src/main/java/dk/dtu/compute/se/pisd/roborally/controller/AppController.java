@@ -88,9 +88,9 @@ public class AppController implements Observer {
                 player.setRebootSpace(board.getRebootSpaceList().get(i+1));
             }
 
-            // XXX: V2
             // board.setCurrentPlayer(board.getPlayer(0));
             gameController.startProgrammingPhase();
+
 
             roboRally.createBoardView(gameController);
         }
