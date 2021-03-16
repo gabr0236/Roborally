@@ -26,6 +26,7 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 
 import dk.dtu.compute.se.pisd.roborally.RoboRally;
 
+import dk.dtu.compute.se.pisd.roborally.dal.IRepository;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 
@@ -46,7 +47,7 @@ import java.util.Optional;
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  */
-public class AppController implements Observer {
+public class AppController implements Observer{
 
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
 
@@ -90,7 +91,7 @@ public class AppController implements Observer {
 
             // board.setCurrentPlayer(board.getPlayer(0));
             gameController.startProgrammingPhase();
-
+            //createGameInDB(board);
 
             roboRally.createBoardView(gameController);
         }
@@ -158,5 +159,4 @@ public class AppController implements Observer {
     public void update(Subject subject) {
         // XXX do nothing for now
     }
-
 }
