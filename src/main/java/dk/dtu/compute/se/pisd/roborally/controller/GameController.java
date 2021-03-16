@@ -228,11 +228,6 @@ public class GameController {
         }
     }
 
-    private void teleportPlayerToReboot(@NotNull Player player){
-        player.setSpace(player.getRebootSpace());
-        //TODO: Spørg ekki
-        player.setHeading(player.getRebootSpace().getReboot().REBOOT_HEADING);
-    }
 
     //TODO: virker ikke
     void moveToSpace(@NotNull Player player, @NotNull Space space, @NotNull Heading heading) throws ImpossibleMoveException {
@@ -261,11 +256,7 @@ public class GameController {
             }
 
             player.setSpace(space);
-            if(target == null) {
-            teleportPlayerToReboot(player);
         }
-
-         }
 
     private boolean isWallBlock(@NotNull Player player, Heading heading) {
         return (!isCurrentSpaceWallBlockingDirection(player, heading)
@@ -372,6 +363,7 @@ public class GameController {
                 board.setStep(step);
                 board.setCurrentPlayer(board.getPlayer(0));
             } else {
+                respawnPlayers();
                 startProgrammingPhase();
             }
         }
@@ -422,6 +414,21 @@ public class GameController {
                     }
                 }
             }
+    }
+
+    private void respawnPlayers(){
+        for (Player player:board.getPlayers()
+             ) {
+            if(player.getSpace()==null){
+                teleportPlayerToReboot(player);
+            }
+        }
+    }
+
+    private void teleportPlayerToReboot(@NotNull Player player){
+        player.setSpace(player.getRebootSpace());
+        //TODO: Spørg ekki
+        player.setHeading(player.getRebootSpace().getReboot().REBOOT_HEADING);
     }
 }
     //TODO: vis hvor mange checkpoints spiller har
