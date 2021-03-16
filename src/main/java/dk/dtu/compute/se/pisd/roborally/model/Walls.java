@@ -10,7 +10,7 @@ public class Walls {
 
     private final List<Heading> blockingDirection;
 
-    Walls(@NotNull Heading... blockingDirection) {
+    public Walls(@NotNull Heading... blockingDirection) {
         this.blockingDirection = Collections.unmodifiableList(Arrays.asList(blockingDirection));
     }
 
