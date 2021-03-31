@@ -24,6 +24,8 @@ package dk.dtu.compute.se.pisd.roborally.controller;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+
 /**
  * ...
  *
@@ -224,36 +226,34 @@ public class GameController {
                     }
                 }
             }
-
         }
     }
-
 
     void moveToSpace(@NotNull Player player, @NotNull Space space, @NotNull Heading heading) throws ImpossibleMoveException {
         assert board.getNeighbour(player.getSpace(), heading) == space; // make sure the move to here is possible in principle
         Player other = space.getPlayer();
         Space target = board.getNeighbour(space, heading);
-            if (other != null) {
+        if (other != null) {
 
-                if (target != null) {
-                    if (notWallsBlock(other, heading)) {
-                        // XXX Note that there might be additional problems with
-                        //     infinite recursion here (in some special cases)!
-                        //     We will come back to that!
+            if (target != null) {
+                if (notWallsBlock(other, heading)) {
+                    // XXX Note that there might be additional problems with
+                    //     infinite recursion here (in some special cases)!
+                    //     We will come back to that!
 
-                        moveToSpace(other, target, heading);
+                    moveToSpace(other, target, heading);
 
-                        // Note that we do NOT embed the above statement in a try catch block, since
-                        // the thrown exception is supposed to be passed on to the caller
+                    // Note that we do NOT embed the above statement in a try catch block, since
+                    // the thrown exception is supposed to be passed on to the caller
 
-                        assert space.getPlayer() == null : space; // make sure target is free now
-                    } else {
-                        throw new ImpossibleMoveException(player, space, heading);
-                    }
+                    assert space.getPlayer() == null : space; // make sure target is free now
+                } else {
+                   throw new ImpossibleMoveException(player, space, heading);
                 }
             }
-            player.setSpace(space);
         }
+        player.setSpace(space);
+    }
 
     private boolean notWallsBlock(@NotNull Player player, Heading heading) {
         return (!isCurrentSpaceWallBlockingDirection(player, heading)
@@ -261,18 +261,18 @@ public class GameController {
     }
 
     public boolean isCurrentSpaceWallBlockingDirection(@NotNull Player player, Heading heading) {
-        Walls tempWalls = player.getSpace().getWalls();
-        if (tempWalls != null && player.getSpace() != null) {
-            return tempWalls.getBlockingDirection().contains(heading);
+        ArrayList<Heading> walls = player.getSpace().getWallList();
+        if (!walls.isEmpty()) {
+            return walls.contains(heading);
         }
         return false;
     }
 
     public boolean isHeadingNeighbourWallBlockingDirection(@NotNull Player player, Heading heading) {
         Space neighbour = player.board.getNeighbour(player.getSpace(), heading);
-        if (neighbour != null && neighbour.getWalls() != null) {
+        if (neighbour != null && !neighbour.getWallList().isEmpty()) {
             Heading oppositeHeading = heading.oppositeHeading();
-            return neighbour.getWalls().getBlockingDirection().contains(oppositeHeading);
+            return neighbour.getWallList().contains(oppositeHeading);
         }
         return false;
     }

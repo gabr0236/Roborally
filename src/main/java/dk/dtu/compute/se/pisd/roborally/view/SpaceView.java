@@ -23,23 +23,15 @@ package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.model.*;
-import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import javafx.scene.transform.Affine;
 import org.jetbrains.annotations.NotNull;
-
-import javax.xml.crypto.dsig.Transform;
-import java.awt.*;
 
 /**
  * ...
@@ -80,24 +72,21 @@ public class SpaceView extends StackPane implements ViewObserver {
 
     private void updatePlayer() {
         this.getChildren().clear();
-
-        if (space.getWalls() != null) {
-            if (!space.getWalls().getBlockingDirection().isEmpty()) {
-                Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
-                GraphicsContext gc = canvas.getGraphicsContext2D();
-                gc.setStroke(Color.RED);
-                gc.setLineWidth(5);
-                gc.setLineCap(StrokeLineCap.ROUND);
-                for (Heading heading : space.getWalls().getBlockingDirection()) {
-                    switch (heading) {
-                        case NORTH -> gc.strokeLine(2, 2, SPACE_WIDTH - 2, 2);
-                        case EAST -> gc.strokeLine(SPACE_WIDTH - 2, 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
-                        case SOUTH -> gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
-                        case WEST -> gc.strokeLine(2, 2, 2, SPACE_HEIGHT - 2);
-                    }
+        if (!space.getWallList().isEmpty()) {
+            Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
+            GraphicsContext gc = canvas.getGraphicsContext2D();
+            gc.setStroke(Color.RED);
+            gc.setLineWidth(5);
+            gc.setLineCap(StrokeLineCap.ROUND);
+            for (Heading wall : space.getWallList()) {
+                switch (wall) {
+                    case NORTH -> gc.strokeLine(2, 2, SPACE_WIDTH - 2, 2);
+                    case EAST -> gc.strokeLine(SPACE_WIDTH - 2, 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
+                    case SOUTH -> gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
+                    case WEST -> gc.strokeLine(2, 2, 2, SPACE_HEIGHT - 2);
                 }
-                this.getChildren().add(canvas);
             }
+            this.getChildren().add(canvas);
         }
 
         if (space.getActivatableBoardElement() != null) {
@@ -136,13 +125,12 @@ public class SpaceView extends StackPane implements ViewObserver {
         }
 
         if (space.getReboot() != null) {
-                this.setStyle("-fx-background-color: greenyellow");
-                Text text = new Text();
-                text.setText("R");
-                //text.setTabSize(12);
-                this.getChildren().add(text);
+            this.setStyle("-fx-background-color: greenyellow");
+            Text text = new Text();
+            text.setText("R");
+            //text.setTabSize(12);
+            this.getChildren().add(text);
             }
-
 
 
         Player player = space.getPlayer();
@@ -159,7 +147,6 @@ public class SpaceView extends StackPane implements ViewObserver {
             this.getChildren().add(arrow);
         }
     }
-
 
     @Override
     public void updateView(Subject subject) {

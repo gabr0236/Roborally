@@ -24,6 +24,9 @@ package dk.dtu.compute.se.pisd.roborally.model;
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * ...
  *
@@ -37,27 +40,9 @@ public class Space extends Subject {
     public final int x;
     public final int y;
     private Player player;
-    private Walls walls;
+    private ArrayList<Heading> wallList;
     private Reboot reboot;
-    private ActivatableBoardElement activatableBoardElement;
-
-
-    public ActivatableBoardElement getActivatableBoardElement() {
-        return activatableBoardElement;
-    }
-
-    public void setActivatableBoardElement(@NotNull ActivatableBoardElement activatableBoardElement) {
-        this.activatableBoardElement = activatableBoardElement;
-    }
-
-    public Walls getWalls() {
-        return walls;
-    }
-
-    public void setWalls(@NotNull Walls walls) {
-        this.walls = walls;
-    }
-
+    private ActivatableBoardElement activatableBoardElement = null;
 
     /**
      * Konstruktøren til "Space", med "board", x og y som parametre
@@ -71,14 +56,20 @@ public class Space extends Subject {
         this.board = board;
         this.x = x;
         this.y = y;
+        this.wallList = new ArrayList<Heading>();
         player = null;
     }
 
-    public Space(Board board, int x, int y, Walls walls) {
+    public Space(Board board, int x, int y, ArrayList<Heading> wallList) {
         this.board = board;
         this.x = x;
         this.y = y;
+        this.wallList = wallList;
         player = null;
+    }
+
+    public Board getBoard() {
+        return board;
     }
 
     /**
@@ -124,6 +115,14 @@ public class Space extends Subject {
         notifyChange();
     }
 
+    public ArrayList<Heading> getWallList() {
+        return wallList;
+    }
+
+    public void setWallList(ArrayList<Heading> wallList) {
+        this.wallList = wallList;
+    }
+
     public Reboot getReboot() {
         return reboot;
     }
@@ -132,4 +131,11 @@ public class Space extends Subject {
         this.reboot = reboot;
     }
 
+    public ActivatableBoardElement getActivatableBoardElement() {
+        return activatableBoardElement;
+    }
+
+    public void setActivatableBoardElement(@NotNull ActivatableBoardElement activatableBoardElement) {
+        this.activatableBoardElement = activatableBoardElement;
+    }
 }

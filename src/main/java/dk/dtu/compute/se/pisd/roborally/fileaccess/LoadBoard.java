@@ -30,7 +30,6 @@ import dk.dtu.compute.se.pisd.roborally.fileaccess.model.SpaceTemplate;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 
 import java.io.*;
-import java.util.Collections;
 
 /**
  * ...
@@ -74,7 +73,7 @@ public class LoadBoard {
 			    if (space != null) {
                     space.setActivatableBoardElement(spaceTemplate.activatableBoardElement);
                     space.setReboot(spaceTemplate.reboot);
-                    space.getWalls().getBlockingDirection().addAll(spaceTemplate.walls);
+                    space.getWallList().addAll(spaceTemplate.walls);
                 }
             }
 			reader.close();
@@ -101,12 +100,12 @@ public class LoadBoard {
         template.height = board.height;
 
         for (Space space:board.getRebootSpaceList()) {
-                if (space.getWalls()!=null || space.getActivatableBoardElement()!=null || space.getReboot()!=null) {
+                if (!space.getWallList().isEmpty() || space.getActivatableBoardElement()!=null || space.getReboot()!=null) {
                     SpaceTemplate spaceTemplate = new SpaceTemplate();
                     spaceTemplate.x = space.x;
                     spaceTemplate.y = space.y;
-                    spaceTemplate.activatableBoardElement=space.getActivatableBoardElement();
-                    spaceTemplate.walls.addAll(space.getWalls().getBlockingDirection());
+                    spaceTemplate.activatableBoardElement = space.getActivatableBoardElement();
+                    spaceTemplate.walls.addAll(space.getWallList());
                     spaceTemplate.reboot=space.getReboot();
                     template.spaces.add(spaceTemplate);
                 }
