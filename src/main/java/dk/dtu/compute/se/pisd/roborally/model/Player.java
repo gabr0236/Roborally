@@ -31,7 +31,6 @@ import static dk.dtu.compute.se.pisd.roborally.model.Heading.SOUTH;
 
 /**
  * ...
- *
  * @author Ekkart Kindler, ekki@dtu.dk
  * <p>
  * Javadoc
@@ -203,10 +202,10 @@ public class Player extends Subject {
 
     /**
      * Henter et specifikt kort spilleren har på hånden, vælges ud fra paramereten i
-     *
      * @param i
      * @return
      */
+
     public CommandCardField getCardField(int i) {
         return cards[i];
     }
