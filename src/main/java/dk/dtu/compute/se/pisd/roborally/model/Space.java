@@ -135,7 +135,7 @@ public class Space extends Subject {
         return activatableBoardElement;
     }
 
-    public void setActivatableBoardElement(@NotNull ActivatableBoardElement activatableBoardElement) {
+    public void setActivatableBoardElement(ActivatableBoardElement activatableBoardElement) {
         this.activatableBoardElement = activatableBoardElement;
     }
 }

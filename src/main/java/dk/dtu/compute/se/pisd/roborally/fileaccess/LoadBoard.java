@@ -68,6 +68,7 @@ public class LoadBoard {
 			BoardTemplate template = gson.fromJson(reader, BoardTemplate.class);
 
 			result = new Board(template.width, template.height);
+
 			for (SpaceTemplate spaceTemplate: template.spaces) {
 			    Space space = result.getSpace(spaceTemplate.x, spaceTemplate.y);
 			    if (space != null) {
@@ -76,6 +77,7 @@ public class LoadBoard {
                     space.getWallList().addAll(spaceTemplate.walls);
                 }
             }
+
 			reader.close();
 			return result;
 		} catch (IOException e1) {

@@ -35,8 +35,6 @@ public class BoardTemplate {
 
     public int width;
     public int height;
-
-
     public List<SpaceTemplate> spaces = new ArrayList<>();
 
 }
