@@ -66,7 +66,6 @@ public class Board extends Subject {
 
     private boolean stepMode;
 
-    //TODO spørg ekki
     public final int rebootBorderX;
 
     private List<Space> rebootSpaceList = new ArrayList<>();
@@ -75,7 +74,6 @@ public class Board extends Subject {
         this.boardName = boardName;
         this.width = width;
         this.height = height;
-        //TODO spørg ekki
         this.rebootBorderX=2;
         spaces = new Space[width][height];
         for (int x = 0; x < width; x++) {

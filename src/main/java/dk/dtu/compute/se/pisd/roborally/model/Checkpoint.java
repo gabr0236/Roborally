@@ -25,7 +25,6 @@ public class Checkpoint extends ActivatableBoardElement {
         gameController.registerCheckpoint(player, checkpointNumber);
     }
 
-    //TODO dårlig paksis?
     public static void setNumberOfCheckpoints(int numberOfCheckpoints) {
         Checkpoint.numberOfCheckpoints = numberOfCheckpoints;
     }
