@@ -68,7 +68,6 @@ public class LoadBoard {
 			BoardTemplate template = gson.fromJson(reader, BoardTemplate.class);
 
 			result = new Board(template.width, template.height);
-
 			for (SpaceTemplate spaceTemplate: template.spaces) {
 			    Space space = result.getSpace(spaceTemplate.x, spaceTemplate.y);
 			    if (space != null) {
@@ -77,7 +76,6 @@ public class LoadBoard {
                     space.getWallList().addAll(spaceTemplate.walls);
                 }
             }
-
 			reader.close();
 			return result;
 		} catch (IOException e1) {
@@ -101,7 +99,7 @@ public class LoadBoard {
         template.width = board.width;
         template.height = board.height;
 
-        for (Space space:board.getRebootSpaceList()) {
+        for (Space space:board.getSpacesList()) {
                 if (!space.getWallList().isEmpty() || space.getActivatableBoardElement()!=null || space.getReboot()!=null) {
                     SpaceTemplate spaceTemplate = new SpaceTemplate();
                     spaceTemplate.x = space.x;
