@@ -427,7 +427,7 @@ public class GameController {
         player.setHeading(player.getRebootSpace().getReboot().REBOOT_HEADING);
     }
 }
-    //TODO: vis hvor mange checkpoints spiller har
+    //TODO: @GAB vis hvor mange checkpoints spiller har
     //lav afslutningsfase når spiller har vundet
 
 

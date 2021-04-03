@@ -6,13 +6,14 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 class ConveyorTest {
     private final int TEST_WIDTH = 12;
     private final int TEST_HEIGHT = 12;
 
     private GameController gameController;
 
-    //TODO: midlertidig duplikation
     @BeforeEach
     void setUp() {
         Board board = new Board(TEST_WIDTH, TEST_HEIGHT);
@@ -67,19 +68,18 @@ class ConveyorTest {
         Assertions.assertNull(board.getSpace(0, 0).getPlayer(), "Space (0,0) should be empty!");
     }
 
-    // TODO: Update test with new walls.
-    /*
+
     @Test
     void conveyorMoveForwardSouthFacingNorthWallBlock() {
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
         current.setHeading(Heading.NORTH);
         current.getSpace().setActivatableBoardElement(new Conveyor(Heading.SOUTH,Command.FORWARD));
-        board.getNeighbour(current.getSpace(),Heading.SOUTH).setWall(new Wall(Heading.NORTH));
+        board.getNeighbour(current.getSpace(),Heading.SOUTH).setWallList(new ArrayList<Heading>() {{ add(Heading.NORTH); }});
         gameController.executeBoardElements();
         Assertions.assertEquals(current, board.getSpace(0, 0).getPlayer(), "Player " + current.getName() + " should beSpace (0,0)!");
         Assertions.assertEquals(Heading.NORTH, current.getHeading(), "Player 0 should be heading NORTH!");
         Assertions.assertNull(board.getSpace(0, 1).getPlayer(), "Space (0,0) should be empty!");
     }
-     */
+
 }

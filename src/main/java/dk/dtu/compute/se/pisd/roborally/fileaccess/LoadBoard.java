@@ -72,7 +72,7 @@ public class LoadBoard {
 			    Space space = result.getSpace(spaceTemplate.x, spaceTemplate.y);
 			    if (space != null) {
                     space.setActivatableBoardElement(spaceTemplate.activatableBoardElement);
-                    space.setReboot(spaceTemplate.reboot);
+                    //space.setReboot(spaceTemplate.reboot);
                     space.getWallList().addAll(spaceTemplate.walls);
                 }
             }
@@ -99,14 +99,15 @@ public class LoadBoard {
         template.width = board.width;
         template.height = board.height;
 
-        for (Space space:board.getRebootSpaceList()) {
+        for (Space space:board.getSpacesList()) {
                 if (!space.getWallList().isEmpty() || space.getActivatableBoardElement()!=null || space.getReboot()!=null) {
                     SpaceTemplate spaceTemplate = new SpaceTemplate();
                     spaceTemplate.x = space.x;
                     spaceTemplate.y = space.y;
                     spaceTemplate.activatableBoardElement = space.getActivatableBoardElement();
                     spaceTemplate.walls.addAll(space.getWallList());
-                    spaceTemplate.reboot=space.getReboot();
+                    //TODO @Gab reboot commented out for load tests
+                    //spaceTemplate.reboot=space.getReboot();
                     template.spaces.add(spaceTemplate);
                 }
         }

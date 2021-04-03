@@ -38,7 +38,8 @@ import java.util.List;
 public class SpaceTemplate {
 
     public List<Heading> walls = new ArrayList<>();
-    public Reboot reboot;
+    //TODO @gab reboot commented out for loading tests
+    //public Reboot reboot;
     public ActivatableBoardElement activatableBoardElement;
 
     public int x;
