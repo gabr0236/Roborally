@@ -28,7 +28,6 @@ package dk.dtu.compute.se.pisd.roborally.dal;
  *
  */
 public class GameInDB {
-
     public final int id;
     public final String name;
 
@@ -41,5 +40,4 @@ public class GameInDB {
     public String toString() {
         return id + ": " + name;
     }
-
 }

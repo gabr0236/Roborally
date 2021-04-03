@@ -62,7 +62,6 @@ class Connector {
     }
     
     private void createDatabaseSchema() {
-
     	String createTablesStatement =
 				IOUtil.readResource("schemas/createschema.sql");
 
@@ -93,5 +92,4 @@ class Connector {
     Connection getConnection() {
     	return connection; 
     }
-    
 }

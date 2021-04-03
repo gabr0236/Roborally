@@ -36,7 +36,6 @@ import java.util.List;
  *
  */
 public class SpaceTemplate {
-
     public List<Heading> walls = new ArrayList<>();
     //TODO @gab reboot commented out for loading tests
     //public Reboot reboot;
@@ -44,5 +43,4 @@ public class SpaceTemplate {
 
     public int x;
     public int y;
-
 }

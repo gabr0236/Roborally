@@ -36,31 +36,18 @@ import java.util.List;
  *
  */
 class Repository implements IRepository {
-	
 	private static final String GAME_GAMEID = "gameID";
-
 	private static final String GAME_NAME = "name";
-	
 	private static final String GAME_CURRENTPLAYER = "currentPlayer";
-
 	private static final String GAME_PHASE = "phase";
-
 	private static final String GAME_STEP = "step";
-	
 	private static final String PLAYER_PLAYERID = "playerID";
-	
 	private static final String PLAYER_NAME = "name";
-
 	private static final String PLAYER_COLOUR = "colour";
-	
 	private static final String PLAYER_GAMEID = "gameID";
-	
 	private static final String PLAYER_POSITION_X = "positionX";
-
 	private static final String PLAYER_POSITION_Y = "positionY";
-
 	private static final String PLAYER_HEADING = "heading";
-
 	private Connector connector;
 	
 	Repository(Connector connector){
