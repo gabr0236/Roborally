@@ -14,7 +14,6 @@ class WallsTest {
 
     private GameController gameController;
 
-    //TODO: midlertidig duplikation
     @BeforeEach
     void setUp() {
         Board board = new Board(TEST_WIDTH, TEST_HEIGHT);
@@ -33,7 +32,7 @@ class WallsTest {
         gameController = null;
     }
 
-    // TODO: Update test with new walls.
+
 
     @Test
     void wallOnCurrentSpaceBlockingMoveForward(){

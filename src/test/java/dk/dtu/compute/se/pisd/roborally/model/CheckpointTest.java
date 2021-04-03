@@ -12,7 +12,7 @@ public class CheckpointTest {
 
     private GameController gameController;
 
-    //TODO: midlertidig duplikation
+
     @BeforeEach
     void setUp () {
         Board board = new Board(TEST_WIDTH, TEST_HEIGHT);

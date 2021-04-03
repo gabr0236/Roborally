@@ -5,7 +5,7 @@ import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 public class Checkpoint extends ActivatableBoardElement {
 
 
-    //TODO anden løsning end static :P
+    //TODO @gab anden løsning end static :P
     private static int numberOfCheckpoints = 0;
 
     private final int checkpointNumber;

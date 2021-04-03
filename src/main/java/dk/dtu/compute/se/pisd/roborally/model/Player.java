@@ -54,10 +54,10 @@ public class Player extends Subject {
 
     private boolean playerWin = false;
 
-    //TODO: tilføj variabel til at vise på skærm antal checkpoints
+    //TODO: @gab tilføj variabel til at vise på skærm antal checkpoints
     private int lastCheckpointVisited = 0;
 
-    //TODO: skal kende spillers reboot felt
+    //TODO: @gab skal kende spillers reboot felt
     private Space rebootSpace;
 
 

@@ -187,7 +187,6 @@ class Repository implements IRepository {
 				e1.printStackTrace();
 			}
 		}
-
 		return false;
 	}
 	
@@ -210,7 +209,11 @@ class Repository implements IRepository {
 				// game = new Board(width,height);
 				// TODO and we should also store the used game board in the database
 				//      for now, we use the default game board
-				game = LoadBoard.loadBoard(null);
+
+				//TODO @Gab midlertidigt til at teste loading uden board load
+				game = new Board(13,10);
+				game.setBoard();
+				//game = LoadBoard.loadBoard(null);
 				if (game == null) {
 					return null;
 				}
@@ -288,7 +291,6 @@ class Repository implements IRepository {
 			rs.updateInt(PLAYER_HEADING, player.getHeading().ordinal());
 			rs.insertRow();
 		}
-
 		rs.close();
 	}
 	
@@ -444,7 +446,4 @@ class Repository implements IRepository {
 		}
 		return select_games_stmt;
 	}
-
-
-
 }

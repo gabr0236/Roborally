@@ -14,7 +14,6 @@ class ConveyorTest {
 
     private GameController gameController;
 
-    //TODO: midlertidig duplikation
     @BeforeEach
     void setUp() {
         Board board = new Board(TEST_WIDTH, TEST_HEIGHT);
@@ -69,7 +68,6 @@ class ConveyorTest {
         Assertions.assertNull(board.getSpace(0, 0).getPlayer(), "Space (0,0) should be empty!");
     }
 
-    // TODO: Update test with new walls.
 
     @Test
     void conveyorMoveForwardSouthFacingNorthWallBlock() {

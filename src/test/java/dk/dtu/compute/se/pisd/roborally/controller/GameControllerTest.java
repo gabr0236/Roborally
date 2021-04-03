@@ -98,7 +98,6 @@ class GameControllerTest {
         Assertions.assertEquals(pushedPlayer, board.getSpace(1, 2).getPlayer(), "Player " + pushedPlayer.getName() + " should beSpace (1,1)!");
     }
 
-    // TODO: Update test with new walls.
 
     @Test
     void pushPlayerWallBlock() {
