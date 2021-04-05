@@ -22,10 +22,8 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * ...
@@ -42,7 +40,7 @@ public class Space extends Subject {
     private Player player;
     private ArrayList<Heading> wallList;
     private Reboot reboot;
-    private ActivatableBoardElement activatableBoardElement = null;
+    private ArrayList<ActivatableBoardElement> activatableBoardElementList = new ArrayList<>();
 
     /**
      * Konstruktøren til "Space", med "board", x og y som parametre
@@ -131,11 +129,8 @@ public class Space extends Subject {
         this.reboot = reboot;
     }
 
-    public ActivatableBoardElement getActivatableBoardElement() {
-        return activatableBoardElement;
+    public ArrayList<ActivatableBoardElement> getActivatableBoardElementList() {
+        return activatableBoardElementList;
     }
 
-    public void setActivatableBoardElement(ActivatableBoardElement activatableBoardElement) {
-        this.activatableBoardElement = activatableBoardElement;
-    }
 }

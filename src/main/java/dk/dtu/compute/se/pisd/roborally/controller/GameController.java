@@ -369,8 +369,10 @@ public class GameController {
         if (board.getSpacesList() != null) {
             for (Space space : board.getSpacesList()) {
                 Player player = space.getPlayer();
-                if (player != null && space.getActivatableBoardElement() != null) {
-                    space.getActivatableBoardElement().activateElement(space.getPlayer(), this);
+                for (ActivatableBoardElement activatableBoardElement:space.getActivatableBoardElementList()) {
+                    if (player != null && activatableBoardElement != null) {
+                        activatableBoardElement.activateElement(space.getPlayer(), this);
+                    }
                 }
             }
         }
