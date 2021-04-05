@@ -43,6 +43,7 @@ public class Space extends Subject {
     private ArrayList<Heading> wallList;
     private Reboot reboot;
     private ActivatableBoardElement activatableBoardElement = null;
+    private boolean isPit;
 
     /**
      * Konstruktøren til "Space", med "board", x og y som parametre
@@ -134,6 +135,10 @@ public class Space extends Subject {
     public ActivatableBoardElement getActivatableBoardElement() {
         return activatableBoardElement;
     }
+
+    public void setPit(){ isPit = true;}
+
+    public boolean getPit(){ return isPit;}
 
     public void setActivatableBoardElement(ActivatableBoardElement activatableBoardElement) {
         this.activatableBoardElement = activatableBoardElement;
