@@ -184,13 +184,16 @@ public class GameController {
     // XXX: V2
     public void executeCommand(@NotNull Player player, Heading heading, Command command) {
         if (player != null && player.board == board && command != null) {
+            Space current = player.getSpace();
             // XXX This is a very simplistic way of dealing with some basic cards and
             //     their execution. This should eventually be done in a more elegant way
             //     (this concerns the way cards are modelled as well as the way they are executed).
 
             switch (command) {
                 case FORWARD:
-                    this.directionMove(player, heading);
+                    try{
+                        this.moveToSpace(player, current.board.getNeighbour(player.getSpace(), player.getHeading()), heading);
+                    } catch (ImpossibleMoveException e){}
                     break;
                 case RIGHT:
                     this.turnRight(player);
@@ -199,7 +202,7 @@ public class GameController {
                     this.turnLeft(player);
                     break;
                 case FAST_FORWARD:
-                    this.fastForward(player, heading);
+                        this.fastForward(player, player.getHeading());
                     break;
                 default:
                     // DO NOTHING (for now)
@@ -235,7 +238,6 @@ public class GameController {
         Player other = space.getPlayer();
         Space target = board.getNeighbour(space, heading);
         if (other != null) {
-
             if (target != null) {
                 if (notWallsBlock(other.getSpace(), heading)) {
                     // XXX Note that there might be additional problems with
@@ -286,8 +288,16 @@ public class GameController {
      * @param player
      */
     public void fastForward(@NotNull Player player, @NotNull Heading heading) {
-        directionMove(player, heading);
-        directionMove(player, heading);
+        try {
+            moveToSpace(player, board.getNeighbour(player.getSpace(), player.getHeading()), heading);
+        } catch (ImpossibleMoveException e) {
+            e.printStackTrace();
+        }
+        try {
+            moveToSpace(player, board.getNeighbour(player.getSpace(), player.getHeading()), heading);
+        } catch (ImpossibleMoveException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
