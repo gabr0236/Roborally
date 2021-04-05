@@ -41,7 +41,7 @@ public class Space extends Subject {
     private ArrayList<Heading> wallList;
     private Reboot reboot;
     private ArrayList<ActivatableBoardElement> activatableBoardElementList = new ArrayList<>();
-
+    private boolean isPit;
     /**
      * Konstruktøren til "Space", med "board", x og y som parametre
      * Sætter player til at være "null", hvilket betyder der ikke befinder sig en spiller på felter/Spacet
@@ -128,6 +128,11 @@ public class Space extends Subject {
     public void setReboot(Reboot reboot) {
         this.reboot = reboot;
     }
+
+
+    public void setPit(){ isPit = true;}
+
+    public boolean getPit(){ return isPit;}
 
     public ArrayList<ActivatableBoardElement> getActivatableBoardElementList() {
         return activatableBoardElementList;
