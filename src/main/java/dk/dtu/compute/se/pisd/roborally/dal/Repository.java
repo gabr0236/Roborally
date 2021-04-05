@@ -516,22 +516,22 @@ class Repository implements IRepository {
 
 
 	private static final String SQL_SELECT_CARDS_ASC =
-			"SELECT playerID, position, command FROM Cards WHERE gameID = ? ORDER BY playerID ASC";
+			"SELECT * FROM Cards WHERE gameID = ? ORDER BY playerID ASC";
 	private PreparedStatement select_cards_asc_stmt = null;
-	//TODO: @gab virker ikke
+
 	private PreparedStatement getSelectCardsASCStatement() {
-		if (select_players_asc_stmt == null) {
+		if (select_cards_asc_stmt == null) {
 			Connection connection = connector.getConnection();
 			try {
 				// This statement does not need to be updatable
-				select_players_asc_stmt = connection.prepareStatement(
+				select_cards_asc_stmt = connection.prepareStatement(
 						SQL_SELECT_CARDS_ASC);
 			} catch (SQLException e) {
 				// TODO error handling
 				e.printStackTrace();
 			}
 		}
-		return select_players_asc_stmt;
+		return select_cards_asc_stmt;
 	}
 
 	
