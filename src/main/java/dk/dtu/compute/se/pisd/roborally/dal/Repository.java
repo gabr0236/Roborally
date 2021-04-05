@@ -356,6 +356,7 @@ class Repository implements IRepository {
 		rs.close();
 	}
 
+	//TODO: @gab virker ikke
 	private void loadCardFieldsFromDB(Board game) throws SQLException{
 		PreparedStatement ps = getSelectCardsASCStatement();
 		ps.setInt(1, game.getGameId());
@@ -363,7 +364,6 @@ class Repository implements IRepository {
 		ResultSet rs = ps.executeQuery();
 
 		while (rs.next()) {
-			int gameId = rs.getInt(CARDS_GAMEID);
 			int playerId = rs.getInt(CARDS_PLAYERID);
 			int position = rs.getInt(CARDS_POSITION);
 			int card = rs.getInt(CARDS_COMMAND);
@@ -385,8 +385,6 @@ class Repository implements IRepository {
 			rs.updateInt(PLAYER_POSITION_X, player.getSpace().x);
 			rs.updateInt(PLAYER_POSITION_Y, player.getSpace().y);
 			rs.updateInt(PLAYER_HEADING, player.getHeading().ordinal());
-			// TODO error handling
-			// TODO take care of case when number of players changes, etc
 			rs.updateRow();
 		}
 		rs.close();
@@ -394,19 +392,19 @@ class Repository implements IRepository {
 		// TODO error handling/consistency check: check whether all players were updated
 	}
 
-	//TODO @Gab, updating works except the first card in hand determines the rest of the cards
+
 	private void updateCardsInDB(Board game) throws SQLException {
 		PreparedStatement ps = getSelectCardsStatementU();
 		ps.setInt(1, game.getGameId());
 
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
-			int i = 0;
 			int playerId = rs.getInt(CARDS_PLAYERID);
 			Player player = game.getPlayer(playerId);
-				rs.updateInt(CARDS_COMMAND, player.getCardField(i).getCard().command.ordinal());
-				rs.updateRow();
-				i++;
+			int position = rs.getInt(CARDS_POSITION);
+
+			rs.updateInt(CARDS_COMMAND, player.getCardField(position).getCard().command.ordinal());
+			rs.updateRow();
 		}
 		rs.close();
 
@@ -475,7 +473,6 @@ class Repository implements IRepository {
 		return select_players_stmt;
 	}
 
-
 	private static final String SQL_SELECT_CARDS =
 			"SELECT * FROM Cards WHERE gameID = ?";
 
@@ -500,9 +497,8 @@ class Repository implements IRepository {
 
 	private static final String SQL_SELECT_PLAYERS_ASC =
 			"SELECT * FROM Player WHERE gameID = ? ORDER BY playerID ASC";
-	
 	private PreparedStatement select_players_asc_stmt = null;
-	
+
 	private PreparedStatement getSelectPlayersASCStatement() {
 		if (select_players_asc_stmt == null) {
 			Connection connection = connector.getConnection();
@@ -520,10 +516,9 @@ class Repository implements IRepository {
 
 
 	private static final String SQL_SELECT_CARDS_ASC =
-			"SELECT playerid, position, command FROM Cards WHERE gameID = ? ORDER BY playerID ASC";
-
+			"SELECT playerID, position, command FROM Cards WHERE gameID = ? ORDER BY playerID ASC";
 	private PreparedStatement select_cards_asc_stmt = null;
-
+	//TODO: @gab virker ikke
 	private PreparedStatement getSelectCardsASCStatement() {
 		if (select_players_asc_stmt == null) {
 			Connection connection = connector.getConnection();
