@@ -64,7 +64,6 @@ class Repository implements IRepository {
 
 	private static final String PLAYER_REBOOT_POSITION_Y = "rebootPosY";
 
-
 	private static final String CARDS_GAMEID = "gameID";
 
 	private static final String CARDS_PLAYERID = "playerID";
@@ -72,8 +71,6 @@ class Repository implements IRepository {
 	private static final String CARDS_POSITION = "position";
 
 	private static final String CARDS_COMMAND = "command";
-
-
 
 
 	private Connector connector;
@@ -117,7 +114,6 @@ class Repository implements IRepository {
 				statement.close();
 
 				createPlayersInDB(game);
-				//TODO this method needs to be implemented first
 				createCardsInDB(game);
 
 
@@ -321,7 +317,7 @@ class Repository implements IRepository {
 		ResultSet rs = ps.executeQuery();
 		for (int i = 0; i < game.getPlayersNumber(); i++) {
 			Player player = game.getPlayer(i);
-			for (int j = 0; j < 8;j++) {
+			for (int j = 0; j < Player.NO_CARDS;j++) {
 				rs.moveToInsertRow();
 				rs.updateInt(CARDS_GAMEID, game.getGameId());
 				rs.updateInt(CARDS_PLAYERID, i);
@@ -366,7 +362,6 @@ class Repository implements IRepository {
 		rs.close();
 	}
 
-	//TODO: @gab virker ikke
 	private void loadCardFieldsFromDB(Board game) throws SQLException{
 		PreparedStatement ps = getSelectCardsASCStatement();
 		ps.setInt(1, game.getGameId());
@@ -377,7 +372,7 @@ class Repository implements IRepository {
 			int playerId = rs.getInt(CARDS_PLAYERID);
 			int position = rs.getInt(CARDS_POSITION);
 			int card = rs.getInt(CARDS_COMMAND);
-				game.getPlayers().get(playerId).getCardField(position).setCard(new CommandCard(Command.values()[card]));
+			game.getPlayers().get(playerId).getCardField(position).setCard(new CommandCard(Command.values()[card]));
 		}
 		rs.close();
 	}
@@ -466,7 +461,6 @@ class Repository implements IRepository {
 		
 	private static final String SQL_SELECT_PLAYERS =
 			"SELECT * FROM Player WHERE gameID = ?";
-
 	private PreparedStatement select_players_stmt = null;
 
 	private PreparedStatement getSelectPlayersStatementU() {
