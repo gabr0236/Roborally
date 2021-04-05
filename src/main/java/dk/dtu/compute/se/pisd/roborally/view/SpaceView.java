@@ -148,7 +148,7 @@ public class SpaceView extends StackPane implements ViewObserver {
         }
 
         if (space.getPit()) {
-            this.setStyle("-fx-background-color: greenyellow");
+            this.setStyle("-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #424341, #090703)");
             Text text = new Text();
             text.setText("PIT");
             this.getChildren().add(text);
