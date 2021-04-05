@@ -86,10 +86,8 @@ public class AppController implements Observer{
             for (int i = 0; i < no; i++) {
                 Player player = new Player(board, PLAYER_COLORS.get(i), "Player " + (i + 1));
                 board.addPlayer(player);
-                //TODO Midlertidig, reboot skal laves på smartere måde
-                player.setSpace(board.getSpace(i,i));
-                //player.setSpace(board.getRebootSpaceList().get(i));
-                //player.setRebootSpace(board.getRebootSpaceList().get(i));
+                player.setSpace(board.getRebootSpaceList().get(i));
+                player.setRebootSpace(board.getRebootSpaceList().get(i));
             }
 
             // board.setCurrentPlayer(board.getPlayer(0));
@@ -109,13 +107,12 @@ public class AppController implements Observer{
 
     public void loadGame() {
         IRepository repository = RepositoryAccess.getRepository();
-
         //TODO @Gab til at teste fast spil
-        gameController=new GameController(repository.loadGameFromDB(15));
-
+        gameController=new GameController(repository.loadGameFromDB(27));
         if (gameController == null) {
             newGame();
         }
+        roboRally.createBoardView(gameController);
     }
 
     /**

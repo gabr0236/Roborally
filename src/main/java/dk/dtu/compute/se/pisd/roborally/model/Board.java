@@ -96,15 +96,16 @@ public class Board extends Subject {
         spaces[2][9].setActivatableBoardElement(new Conveyor(Heading.EAST, Command.FORWARD));
         spaces[12][4].setActivatableBoardElement(new Checkpoint());
         spaces[0][1].setActivatableBoardElement(new Checkpoint());
-        //spaces[1][1].setReboot(new Reboot(Heading.EAST,true));
-        //spaces[0][3].setReboot(new Reboot(Heading.EAST,true));
-        //spaces[1][4].setReboot(new Reboot(Heading.EAST,true));
-        //spaces[1][5].setReboot(new Reboot(Heading.EAST,true));
-        //spaces[0][6].setReboot(new Reboot(Heading.EAST,true));
-        //spaces[1][8].setReboot(new Reboot(Heading.EAST,true));
-        //spaces[5][4].setReboot(new Reboot(Heading.EAST,false));
-        //rebootSpaceList=(Arrays.asList(spaces[1][1], spaces[0][3], spaces[1][4], spaces[1][5],
-        //        spaces[0][6], spaces[1][8],spaces[5][4]));
+        spaces[1][1].setReboot(new Reboot(Heading.EAST,true));
+        spaces[0][3].setReboot(new Reboot(Heading.EAST,true));
+        spaces[1][4].setReboot(new Reboot(Heading.EAST,true));
+        spaces[1][5].setReboot(new Reboot(Heading.EAST,true));
+        spaces[0][6].setReboot(new Reboot(Heading.EAST,true));
+        spaces[1][8].setReboot(new Reboot(Heading.EAST,true));
+        spaces[5][4].setReboot(new Reboot(Heading.EAST,false));
+        //TODO: @gab reboot skal laves lidt på en anden måde mht. listen
+        rebootSpaceList=(Arrays.asList(spaces[1][1], spaces[0][3], spaces[1][4], spaces[1][5],
+                spaces[0][6], spaces[1][8],spaces[5][4]));
     }
 
     public Board(int width, int height) {

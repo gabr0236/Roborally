@@ -106,8 +106,7 @@ public class LoadBoard {
                     spaceTemplate.y = space.y;
                     spaceTemplate.activatableBoardElement = space.getActivatableBoardElement();
                     spaceTemplate.walls.addAll(space.getWallList());
-                    //TODO @Gab reboot commented out for load tests
-                    //spaceTemplate.reboot=space.getReboot();
+                    spaceTemplate.reboot=space.getReboot();
                     template.spaces.add(spaceTemplate);
                 }
         }
