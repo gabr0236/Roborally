@@ -24,6 +24,9 @@ CREATE TABLE IF NOT EXISTS Player (
   positionX int,
   positionY int,
   heading tinyint,
+
+  rebootPosX int,
+  rebootPosY int,
   
   PRIMARY KEY (gameID, playerID),
   FOREIGN KEY (gameID) REFERENCES Game(gameID)

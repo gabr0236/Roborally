@@ -60,6 +60,11 @@ class Repository implements IRepository {
 
 	private static final String PLAYER_HEADING = "heading";
 
+	private static final String PLAYER_REBOOT_POSITION_X = "rebootPosX";
+
+	private static final String PLAYER_REBOOT_POSITION_Y = "rebootPosY";
+
+
 	private static final String CARDS_GAMEID = "gameID";
 
 	private static final String CARDS_PLAYERID = "playerID";
@@ -301,6 +306,8 @@ class Repository implements IRepository {
 			rs.updateInt(PLAYER_POSITION_X, player.getSpace().x);
 			rs.updateInt(PLAYER_POSITION_Y, player.getSpace().y);
 			rs.updateInt(PLAYER_HEADING, player.getHeading().ordinal());
+			rs.updateInt(PLAYER_REBOOT_POSITION_X, player.getRebootSpace().x);
+			rs.updateInt(PLAYER_REBOOT_POSITION_Y, player.getRebootSpace().y);
 			rs.insertRow();
 		}
 		rs.close();
@@ -343,7 +350,10 @@ class Repository implements IRepository {
 				
 				int x = rs.getInt(PLAYER_POSITION_X);
 				int y = rs.getInt(PLAYER_POSITION_Y);
+				int rebootPosX = rs.getInt(PLAYER_REBOOT_POSITION_X);
+				int rebootPosY = rs.getInt(PLAYER_REBOOT_POSITION_Y);
 				player.setSpace(game.getSpace(x,y));
+				player.setRebootSpace(game.getSpace(rebootPosX,rebootPosY));
 				int heading = rs.getInt(PLAYER_HEADING);
 				player.setHeading(Heading.values()[heading]);
 
@@ -385,6 +395,8 @@ class Repository implements IRepository {
 			rs.updateInt(PLAYER_POSITION_X, player.getSpace().x);
 			rs.updateInt(PLAYER_POSITION_Y, player.getSpace().y);
 			rs.updateInt(PLAYER_HEADING, player.getHeading().ordinal());
+			rs.updateInt(PLAYER_REBOOT_POSITION_X, player.getRebootSpace().x);
+			rs.updateInt(PLAYER_REBOOT_POSITION_Y, player.getRebootSpace().y);
 			rs.updateRow();
 		}
 		rs.close();
