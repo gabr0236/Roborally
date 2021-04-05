@@ -44,6 +44,8 @@ public class Space extends Subject {
     private Reboot reboot;
     private ActivatableBoardElement activatableBoardElement = null;
     private boolean isPit;
+    private boolean hasPushingWall;
+    private Heading pushingWallHeading;
 
     /**
      * Konstruktøren til "Space", med "board", x og y som parametre
@@ -143,4 +145,8 @@ public class Space extends Subject {
     public void setActivatableBoardElement(ActivatableBoardElement activatableBoardElement) {
         this.activatableBoardElement = activatableBoardElement;
     }
+
+    public void setHasPushingWall(Heading heading) { hasPushingWall = true; pushingWallHeading = heading;}
+    public boolean getHasPushingWall() { return hasPushingWall;}
+    public Heading getPushingWallHeading() { return pushingWallHeading; }
 }

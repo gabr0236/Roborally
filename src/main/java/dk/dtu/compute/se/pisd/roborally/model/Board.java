@@ -91,6 +91,7 @@ public class Board extends Subject {
         spaces[2][4].setWallList(new ArrayList<Heading>() {{ add(Heading.EAST); }});
         spaces[2][5].setWallList(new ArrayList<Heading>() {{ add(Heading.EAST); }});
         spaces[1][7].setWallList(new ArrayList<Heading>() {{ add(Heading.SOUTH); }});
+        spaces[1][7].setHasPushingWall(Heading.SOUTH);
         spaces[2][0].setActivatableBoardElement(new Conveyor(Heading.EAST, Command.FORWARD));
         spaces[5][5].setActivatableBoardElement(new Conveyor(NORTH, Command.FAST_FORWARD));
         spaces[2][9].setActivatableBoardElement(new Conveyor(Heading.EAST, Command.FORWARD));
@@ -103,7 +104,7 @@ public class Board extends Subject {
         spaces[0][6].setReboot(new Reboot(Heading.EAST,true));
         spaces[1][8].setReboot(new Reboot(Heading.EAST,true));
         spaces[5][4].setReboot(new Reboot(Heading.EAST,false));
-        spaces[6][4].setPit();
+        spaces[9][3].setPit();
         spaces[10][7].setPit();
         spaces[7][1].setPit();
         //TODO: @gab reboot skal laves lidt på en anden måde mht. listen

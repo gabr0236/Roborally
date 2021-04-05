@@ -75,8 +75,13 @@ public class SpaceView extends StackPane implements ViewObserver {
         if (!space.getWallList().isEmpty()) {
             Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
             GraphicsContext gc = canvas.getGraphicsContext2D();
-            gc.setStroke(Color.RED);
+            if(space.getHasPushingWall()) {
+                gc.setStroke(Color.BLUE);
+            }
+            else
+                gc.setStroke(Color.RED);
             gc.setLineWidth(5);
+
             gc.setLineCap(StrokeLineCap.ROUND);
             for (Heading wall : space.getWallList()) {
                 switch (wall) {

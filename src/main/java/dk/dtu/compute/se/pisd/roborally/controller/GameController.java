@@ -255,6 +255,7 @@ public class GameController {
         }
         player.setSpace(space);
         checkPit(player);
+        wallPush(player);
     }
 
     public boolean notWallsBlock(@NotNull Space space, Heading heading) {
@@ -428,11 +429,17 @@ public class GameController {
         player.setSpace(player.getRebootSpace());
         player.setHeading(player.getRebootSpace().getReboot().REBOOT_HEADING);
     }
-
+//TODO: @Dani test
     private void checkPit(@NotNull Player player){
         if(player.getSpace().getPit())
             player.setSpace(null);
 
+    }
+
+    private void wallPush(@NotNull Player player){
+        if(player.getSpace().getHasPushingWall()){
+            directionMove(player, player.getSpace().getPushingWallHeading().oppositeHeading());
+        }
     }
 }
     //TODO: @GAB vis hvor mange checkpoints spiller har
