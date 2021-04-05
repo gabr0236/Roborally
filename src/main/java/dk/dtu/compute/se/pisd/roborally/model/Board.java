@@ -103,6 +103,9 @@ public class Board extends Subject {
         spaces[0][6].setReboot(new Reboot(Heading.EAST,true));
         spaces[1][8].setReboot(new Reboot(Heading.EAST,true));
         spaces[5][4].setReboot(new Reboot(Heading.EAST,false));
+        spaces[6][4].setPit();
+        spaces[10][7].setPit();
+        spaces[7][1].setPit();
         //TODO: @gab reboot skal laves lidt på en anden måde mht. listen
         rebootSpaceList=(Arrays.asList(spaces[1][1], spaces[0][3], spaces[1][4], spaces[1][5],
                 spaces[0][6], spaces[1][8],spaces[5][4]));

@@ -226,6 +226,7 @@ public class GameController {
                 }
             }
         }
+
     }
     //TODO: @gab optimise movetospace, direction move, og execute command, we can probably combine these methods somehow
 
@@ -253,6 +254,7 @@ public class GameController {
             }
         }
         player.setSpace(space);
+        checkPit(player);
     }
 
     public boolean notWallsBlock(@NotNull Space space, Heading heading) {
@@ -427,6 +429,12 @@ public class GameController {
         }
         player.setSpace(player.getRebootSpace());
         player.setHeading(player.getRebootSpace().getReboot().REBOOT_HEADING);
+    }
+
+    private void checkPit(@NotNull Player player){
+        if(player.getSpace().getPit())
+            player.setSpace(null);
+
     }
 }
     //TODO: @GAB vis hvor mange checkpoints spiller har

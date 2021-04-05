@@ -150,6 +150,13 @@ public class SpaceView extends StackPane implements ViewObserver {
             arrow.setRotate((90 * player.getHeading().ordinal()) % 360);
             this.getChildren().add(arrow);
         }
+
+        if (space.getPit()) {
+            this.setStyle("-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #424341, #090703)");
+            Text text = new Text();
+            text.setText("PIT");
+            this.getChildren().add(text);
+        }
     }
 
     @Override
