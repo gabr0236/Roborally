@@ -33,7 +33,6 @@ import java.util.ArrayList;
  */
 public class GameController {
 
-
     final public Board board;
 
     public GameController(@NotNull Board board) {
