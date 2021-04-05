@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS Player (
 CREATE TABLE IF NOT EXISTS Cards (
   gameID int NOT NULL,
   playerID tinyint NOT NULL,
-  position int,
+  position int NOT NULL,
   command tinyint,
   PRIMARY KEY (gameID, playerID, position),
   FOREIGN KEY (gameID, playerID) references Player(gameID, playerID)

@@ -108,7 +108,7 @@ public class AppController implements Observer{
     public void loadGame() {
         IRepository repository = RepositoryAccess.getRepository();
         //TODO @Gab til at teste fast spil
-        gameController=new GameController(repository.loadGameFromDB(40));
+        gameController=new GameController(repository.loadGameFromDB(1));
         if (gameController == null) {
             newGame();
         }
