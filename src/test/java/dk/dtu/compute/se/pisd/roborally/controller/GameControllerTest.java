@@ -147,4 +147,17 @@ class GameControllerTest {
         Assertions.assertNull(board.getSpace(1,0).getPlayer());
     }
 
+    @Test
+    void pitTest(){
+        Board board = gameController.board;
+        Player current = board.getCurrentPlayer();
+        current.setSpace(board.getSpace(1,0));
+        board.getSpace(1,1).setPit();
+        current.setHeading(Heading.SOUTH);
+        gameController.directionMove(current, current.getHeading());
+        Assertions.assertNull(current.getSpace());
+    }
+
+
+
 }
