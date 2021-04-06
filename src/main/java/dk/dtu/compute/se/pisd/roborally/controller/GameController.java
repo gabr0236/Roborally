@@ -39,15 +39,6 @@ public class GameController {
         this.board = board;
     }
 
-    /**
-     * This is just some dummy controller operation to make a simple move to see something
-     * happening on the board. This method should eventually be deleted!
-     *
-     * @param space the space to which the current player should move
-     */
-
-    public void moveCurrentPlayerToSpace(@NotNull Space space) {
-    }
 
     /**
      * Sets phase to programming, currentplayer to 0, and step to 0.
