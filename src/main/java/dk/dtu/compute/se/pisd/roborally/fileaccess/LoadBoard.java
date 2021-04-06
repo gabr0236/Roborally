@@ -37,7 +37,6 @@ import java.io.*;
  * @author Ekkart Kindler, ekki@dtu.dk
  */
 public class LoadBoard {
-
     private static final String BOARDSFOLDER = "boards";
     private static final String DEFAULTBOARD = "defaultboard";
     private static final String JSON_EXT = "json";
@@ -71,8 +70,7 @@ public class LoadBoard {
 			for (SpaceTemplate spaceTemplate: template.spaces) {
 			    Space space = result.getSpace(spaceTemplate.x, spaceTemplate.y);
 			    if (space != null) {
-                    space.setActivatableBoardElement(spaceTemplate.activatableBoardElement);
-                    //space.setReboot(spaceTemplate.reboot);
+                    space.getActivatableBoardElementList().addAll(spaceTemplate.activatableBoardElementList);
                     space.getWallList().addAll(spaceTemplate.walls);
                 }
             }
@@ -100,11 +98,11 @@ public class LoadBoard {
         template.height = board.height;
 
         for (Space space:board.getSpacesList()) {
-                if (!space.getWallList().isEmpty() || space.getActivatableBoardElement()!=null || space.getReboot()!=null) {
+                if (!space.getWallList().isEmpty() || space.getActivatableBoardElementList()!=null) {
                     SpaceTemplate spaceTemplate = new SpaceTemplate();
                     spaceTemplate.x = space.x;
                     spaceTemplate.y = space.y;
-                    spaceTemplate.activatableBoardElement = space.getActivatableBoardElement();
+                    spaceTemplate.activatableBoardElementList.addAll(space.getActivatableBoardElementList());
                     spaceTemplate.walls.addAll(space.getWallList());
                     spaceTemplate.reboot=space.getReboot();
                     template.spaces.add(spaceTemplate);
@@ -151,5 +149,4 @@ public class LoadBoard {
             }
         }
     }
-
 }

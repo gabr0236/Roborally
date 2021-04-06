@@ -30,7 +30,12 @@ package dk.dtu.compute.se.pisd.roborally.dal;
 public class RepositoryAccess {
     
 	private static Repository repository;
-	
+
+	/**
+	 * Singleton pattern, makes it possible to access the methods from
+	 * IRepository throughout the project
+	 * @return
+	 */
 	public static IRepository getRepository() {
 		if(repository == null) {
 			repository = new Repository(new Connector());

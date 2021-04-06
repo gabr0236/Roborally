@@ -32,7 +32,6 @@ import java.io.*;
  * @author Ekkart Kindler, ekki@dtu.dk
  */
 public class IOUtil {
-
     /**
      * Reads a string from some InputStream. The solution is based
      * on google's Guava and a solution from Baeldung:
@@ -70,5 +69,4 @@ public class IOUtil {
         InputStream inputStream = classLoader.getResourceAsStream(relativeResourcePath);
         return IOUtil.readString(inputStream);
     }
-
 }

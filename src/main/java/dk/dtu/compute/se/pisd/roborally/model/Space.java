@@ -22,10 +22,8 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * ...
@@ -34,7 +32,6 @@ import java.util.List;
  */
 public class Space extends Subject {
 
-    //Gab,sab,dan
     public final Board board;
 
     public final int x;
@@ -42,9 +39,8 @@ public class Space extends Subject {
     private Player player;
     private ArrayList<Heading> wallList;
     private Reboot reboot;
-    private ActivatableBoardElement activatableBoardElement = null;
+    private ArrayList<ActivatableBoardElement> activatableBoardElementList = new ArrayList<>();
     private boolean isPit;
-
     /**
      * Konstruktøren til "Space", med "board", x og y som parametre
      * Sætter player til at være "null", hvilket betyder der ikke befinder sig en spiller på felter/Spacet
@@ -132,15 +128,13 @@ public class Space extends Subject {
         this.reboot = reboot;
     }
 
-    public ActivatableBoardElement getActivatableBoardElement() {
-        return activatableBoardElement;
-    }
 
     public void setPit(){ isPit = true;}
 
     public boolean getPit(){ return isPit;}
 
-    public void setActivatableBoardElement(ActivatableBoardElement activatableBoardElement) {
-        this.activatableBoardElement = activatableBoardElement;
+    public ArrayList<ActivatableBoardElement> getActivatableBoardElementList() {
+        return activatableBoardElementList;
     }
+
 }

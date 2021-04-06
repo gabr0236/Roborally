@@ -38,9 +38,9 @@ import java.sql.Statement;
 class Connector {
     private static final String HOST     = "localhost";
     private static final int    PORT     = 3306;
-    private static final String DATABASE = "Roborally";
+    private static final String DATABASE = "pisu";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "dfgowuab1";
+    private static final String PASSWORD = "123456";
 
     private static final String DELIMITER = ";;";
     
@@ -62,7 +62,6 @@ class Connector {
     }
     
     private void createDatabaseSchema() {
-
     	String createTablesStatement =
 				IOUtil.readResource("schemas/createschema.sql");
 
@@ -93,5 +92,4 @@ class Connector {
     Connection getConnection() {
     	return connection; 
     }
-    
 }

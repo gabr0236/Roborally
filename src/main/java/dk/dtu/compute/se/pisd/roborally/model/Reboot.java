@@ -2,6 +2,9 @@ package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 
+/**
+ * @author Gabriel
+ */
 public class Reboot{
 
     public final Heading REBOOT_HEADING;
