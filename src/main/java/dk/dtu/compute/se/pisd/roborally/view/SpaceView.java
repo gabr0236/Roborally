@@ -106,8 +106,6 @@ public class SpaceView extends StackPane implements ViewObserver {
         }
 
         if (space.getActivatableBoardElementList() != null) {
-            for (ActivatableBoardElement activatableBoardElement : space.getActivatableBoardElementList()) {
-
                 if (space.getReboot() != null) {
                     this.setStyle("-fx-background-color: greenyellow");
                     Text text = new Text();
@@ -115,7 +113,6 @@ public class SpaceView extends StackPane implements ViewObserver {
                     //text.setTabSize(12);
                     this.getChildren().add(text);
                 }
-            }
         }
 
         if (space.getActivatableBoardElementList() != null) {
