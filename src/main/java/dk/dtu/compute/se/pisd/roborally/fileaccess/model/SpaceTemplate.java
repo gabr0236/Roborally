@@ -36,12 +36,10 @@ import java.util.List;
  *
  */
 public class SpaceTemplate {
-
     public List<Heading> walls = new ArrayList<>();
     public Reboot reboot;
     public ArrayList<ActivatableBoardElement> activatableBoardElementList;
 
     public int x;
     public int y;
-
 }

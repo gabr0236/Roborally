@@ -37,7 +37,6 @@ import java.io.*;
  * @author Ekkart Kindler, ekki@dtu.dk
  */
 public class LoadBoard {
-
     private static final String BOARDSFOLDER = "boards";
     private static final String DEFAULTBOARD = "defaultboard";
     private static final String JSON_EXT = "json";
@@ -150,5 +149,4 @@ public class LoadBoard {
             }
         }
     }
-
 }
