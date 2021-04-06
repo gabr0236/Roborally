@@ -85,7 +85,7 @@ public class GameController {
     }
 
     /**
-     * stopper programmeringsfasen gøre de lagte kort usynlige og ændre fase til activation phase
+     * Switches phase to activation
      */
     public void finishProgrammingPhase() {
         makeProgramFieldsInvisible();
@@ -96,7 +96,7 @@ public class GameController {
 
     }
 
-    // XXX: V2
+
     private void makeProgramFieldsVisible(int register) {
         if (register >= 0 && register < Player.NO_REGISTERS) {
             for (int i = 0; i < board.getPlayersNumber(); i++) {
@@ -107,7 +107,6 @@ public class GameController {
         }
     }
 
-    // XXX: V2
     private void makeProgramFieldsInvisible() {
         for (int i = 0; i < board.getPlayersNumber(); i++) {
             Player player = board.getPlayer(i);
@@ -119,27 +118,24 @@ public class GameController {
     }
 
     /**
-     * sætter stepMode til false og kører continuePrograms()
+     * Sets stepMode to false, and execute all registers
      */
-    // XXX: V2
     public void executePrograms() {
         board.setStepMode(false);
         continuePrograms();
     }
 
     /**
-     * sætter stepMode til true og kører continuePrograms()
+     * Executes a single register
      */
-    // XXX: V2
     public void executeStep() {
         board.setStepMode(true);
         continuePrograms();
     }
 
     /**
-     * kører metoden executeNextStep() mens spillet er activation phase og stepMode er false
+     *Executes a single register or executes all registers depending on whether board isStepMode is true
      */
-    // XXX: V2
     private void continuePrograms() {
         do {
             executeNextStep();
@@ -147,12 +143,8 @@ public class GameController {
     }
 
     /**
-     * hvis det næste kort er et interaktionskort og spillet er i activation phase ændres fasen til interaktion og returnere.
-     * er kortet ikke interaktionskort bruges metoden executeCommand() på spilleren.
-     * sætter efterfølgende currentPlayer til den næste spiller. Hvis det ikke er den sidste spiller gøres kortene usynlige.
-     * til sidst startes progrmmeringsfasen.
+     * Executes the current register for the current player and calls nextPlayerOrPhase().
      */
-    // XXX: V2
     private void executeNextStep() {
         Player currentPlayer = board.getCurrentPlayer();
         if (board.getPhase() == Phase.ACTIVATION && currentPlayer != null) {
@@ -178,7 +170,12 @@ public class GameController {
         }
     }
 
-    // XXX: V2
+    /**
+     * Calls the move method for a player corresponding to the command passed as param.
+     * @param player
+     * @param heading
+     * @param command
+     */
     public void executeCommand(@NotNull Player player, Heading heading, Command command) {
         if (player != null && player.board == board && command != null) {
             // XXX This is a very simplistic way of dealing with some basic cards and
@@ -205,10 +202,8 @@ public class GameController {
     }
 
     /**
-     * Rykker spiller et felt frem i en specifik retning
-     *
+     * Moves a player forward in a specific direction.
      * @param player
-     *
      * @author Gabriel
      */
     public void directionMove(@NotNull Player player, @NotNull Heading heading) {
@@ -225,10 +220,16 @@ public class GameController {
                 }
             }
         }
-
     }
     //TODO: @gab optimise movetospace, direction move, og execute command, we can probably combine these methods somehow
 
+    /**
+     * Moves a player forward in a specific direction, and pushes, any player in the way, forward.
+     * @param player
+     * @param space
+     * @param heading
+     * @throws ImpossibleMoveException
+     */
     public void moveToSpace(@NotNull Player player, @NotNull Space space, @NotNull Heading heading) throws ImpossibleMoveException {
         assert board.getNeighbour(player.getSpace(), heading) == space; // make sure the move to here is possible in principle
         Player other = space.getPlayer();
@@ -253,12 +254,12 @@ public class GameController {
             }
         }
         player.setSpace(space);
-        checkPit(player);
+        fallIntoPit(player);
     }
 
 
     /**
-     *
+     *Returns true if no walls is blocking a move in a specific direction
      * @param space
      * @param heading
      * @return
@@ -270,7 +271,7 @@ public class GameController {
     }
 
     /**
-     *
+     *Returns true if a wall is blocking a player from moving on the players space.
      * @param space
      * @param heading
      * @return
@@ -286,6 +287,7 @@ public class GameController {
 
     /**
      *
+     * Returns true if a wall is blocking a player from moving on the players neighbours space.
      * @param space
      * @param heading
      * @return
@@ -302,8 +304,7 @@ public class GameController {
 
 
     /**
-     * Rykker spiller to felter frem i den retning spilleren vender
-     *
+     * Moves a player 2 spaces forward.
      * @param player
      * @author Gabriel
      */
@@ -313,8 +314,7 @@ public class GameController {
     }
 
     /**
-     * vender spillerens retning mod højre
-     *
+     * Turns a player to the right.
      * @param player
      * @author Gabriel
      */
@@ -324,8 +324,7 @@ public class GameController {
     }
 
     /**
-     * vender spillerens retning mod venstre
-     *
+     * Turns a player to the left.
      * @param player
      * @author Gabriel
      */
@@ -334,11 +333,8 @@ public class GameController {
     }
 
     /**
-     * Hvis spillet er i interaktionsfasen kaldes metoden executeCommand() og ændre spillets fase til aktieringsfasen
-     * sætter efterfølgende currentPlayer til den næste spiller. Hvis det ikke er den sidste spiller gøres kortene usynlige.
-     * til sidst startes programmeringsfasen.
-     *
-     * @param option er en af de muligheder som kortet tillader
+     * Executes a option from the optional CommandCard chosen by the player on the GUI.
+     * @param option
      * @author Gabriel
      */
     public void executeCommandOptionAndContinue(@NotNull Command option) {
@@ -351,12 +347,10 @@ public class GameController {
     }
 
     /**
-     * hvis spilleren har et kort på hånden og spiller dette kort på et field der ikke allereder har et kort
-     * byttes værdierne af disse kort. hermed bliver tagetCard = sourceCard og sourcecard = null.
-     *
-     * @param source er det commandCardField som spilleren har på hånden
-     * @param target er det commandCardField hvor spilleren kan spille sine kort.
-     * @return hvis de to fields bytter kortværdier returneres true og ellers false
+     * Moves a players CommandCard to a different position in hand.
+     * @param source
+     * @param target
+     * @return
      */
     public boolean moveCards(@NotNull CommandCardField source, @NotNull CommandCardField target) {
         CommandCard sourceCard = source.getCard();
@@ -371,6 +365,8 @@ public class GameController {
     }
 
     /**
+     * Changes phase if all players have completed all of their programs steps,
+     * otherwise change player to next player and change to next step
      * @author Gabriel
      */
     private void nextPlayerOrPhase() {
@@ -396,6 +392,7 @@ public class GameController {
     }
 
     /**
+     * Executes all ActivatableBoardElements activateElement methods
      * @author Gabriel
      */
     public void executeBoardElements() {
@@ -412,7 +409,7 @@ public class GameController {
     }
 
     /**
-     *
+     * Registers a players checkpoint in player, and calls findWinner() if player have gathered all checkpoints
      * @param player
      * @param checkpointNumber
      * @author Gabriel
@@ -427,7 +424,8 @@ public class GameController {
     }
 
     /**
-     *
+     * TODO: this need to be updated at some point to show a winning screen and maybe delete game from database?
+     * Prints out the winning player
      * @param player
      * @author Gabriel
      */
@@ -439,6 +437,8 @@ public class GameController {
     }
 
     /**
+     * TODO: @Gab merge with the method below
+     * Calls updatePlayerRebootSpace for each player
      * @author Gabriel
      */
     private void updateAllReboot(){
@@ -448,7 +448,7 @@ public class GameController {
     }
 
     /**
-     *
+     * Updates a players reboot space if the player have left the startfield
      * @param player
      * @author Gabriel
      */
@@ -466,6 +466,7 @@ public class GameController {
     }
 
     /**
+     * Respawns all players
      * @author Gabriel
      */
     public void respawnPlayers(){
@@ -476,7 +477,10 @@ public class GameController {
         }
     }
 
-    //TODO seb, flere spillere skal kunne reboote
+    /**
+     * Teleports players to reboot space and pushes players forward if multiple players is respawning on the same space
+     * @param player
+     */
     private void teleportPlayerToReboot(@NotNull Player player){
         if (player.getRebootSpace().getPlayer() != null){
             directionMove(player.getRebootSpace().getPlayer(), player.getRebootSpace().getReboot().REBOOT_HEADING);
@@ -485,10 +489,13 @@ public class GameController {
         player.setHeading(player.getRebootSpace().getReboot().REBOOT_HEADING);
     }
 
-    private void checkPit(@NotNull Player player){
+    /**
+     * Player falls into pit and is removed from the board
+     * @param player
+     */
+    private void fallIntoPit(@NotNull Player player){
         if(player.getSpace().getPit())
             player.setSpace(null);
-
     }
 }
     //TODO: @GAB vis hvor mange checkpoints spiller har
