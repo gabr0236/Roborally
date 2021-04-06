@@ -430,7 +430,7 @@ public class GameController {
      * @author Gabriel
      */
     public void findWinner(@NotNull Player player) {
-        if (player.getLastCheckpointVisited() == Checkpoint.getNumberOfCheckpoints()) {
+        if (player.getLastCheckpointVisited() == board.getNumberOfCheckpoints()) {
             player.setPlayerWin(true);
             System.out.println(player.getColor() + " har vundet!!");
         }
