@@ -3,8 +3,11 @@ package dk.dtu.compute.se.pisd.roborally.model;
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * @author Gabriel
+ */
 public class Conveyor extends ActivatableBoardElement {
-    //public final?
+    //TODO: public final?
     private final Heading heading;
     private final Command command;
 

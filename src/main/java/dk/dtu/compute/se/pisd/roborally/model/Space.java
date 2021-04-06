@@ -32,7 +32,6 @@ import java.util.ArrayList;
  */
 public class Space extends Subject {
 
-    //Gab,sab,dan
     public final Board board;
 
     public final int x;

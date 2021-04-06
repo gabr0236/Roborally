@@ -62,6 +62,10 @@ public class AppController implements Observer{
         this.roboRally = roboRally;
     }
 
+    /**
+     * Creates a new game by creating a board, gamecontroller, players, view. Also starts the programming phase.
+     * Also IRepository to create a game in DB.
+     */
     public void newGame() {
         ChoiceDialog<Integer> dialog = new ChoiceDialog<>(PLAYER_NUMBER_OPTIONS.get(0), PLAYER_NUMBER_OPTIONS);
         dialog.setTitle("Player number");
@@ -105,9 +109,12 @@ public class AppController implements Observer{
         repository.updateGameInDB(this.gameController.board);
     }
 
+
+    /**
+     * Loads game from DB, if no game is found this method creates a new game using newGame(); from above.
+     */
     public void loadGame() {
         IRepository repository = RepositoryAccess.getRepository();
-        //TODO @Gab til at teste fast spil
         gameController=new GameController(repository.loadGameFromDB(1));
         if (gameController == null) {
             newGame();
@@ -137,6 +144,9 @@ public class AppController implements Observer{
         return false;
     }
 
+    /**
+     * Prompts the user access to close the game entirely. This will not save the game in the DB.
+     */
     public void exit() {
         if (gameController != null) {
             Alert alert = new Alert(AlertType.CONFIRMATION);

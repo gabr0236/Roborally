@@ -50,7 +50,8 @@ public class GameController {
     }
 
     /**
-     * Ændre spillet til programmeringsfasen og itererer igennem for hver spiller og laver commandcard field og command cards
+     * Sets phase to programming, currentplayer to 0, and step to 0.
+     * Assigns random cards to each players hand.
      */
     public void startProgrammingPhase() {
         board.setPhase(Phase.PROGRAMMING);
@@ -75,11 +76,8 @@ public class GameController {
     }
 
     /**
-     * vælger et tilfældigt command ud af commandarray
-     *
-     * @return et commandcard med den tilfældige command
+     * @return random CommandCard
      */
-    // XXX: V2
     private CommandCard generateRandomCommandCard() {
         Command[] commands = Command.values();
         int random = (int) (Math.random() * commands.length);
@@ -89,7 +87,6 @@ public class GameController {
     /**
      * stopper programmeringsfasen gøre de lagte kort usynlige og ændre fase til activation phase
      */
-    // XXX: V2
     public void finishProgrammingPhase() {
         makeProgramFieldsInvisible();
         makeProgramFieldsVisible(0);
@@ -211,6 +208,8 @@ public class GameController {
      * Rykker spiller et felt frem i en specifik retning
      *
      * @param player
+     *
+     * @author Gabriel
      */
     public void directionMove(@NotNull Player player, @NotNull Heading heading) {
         Space current = player.getSpace();
@@ -257,11 +256,26 @@ public class GameController {
         checkPit(player);
     }
 
+
+    /**
+     *
+     * @param space
+     * @param heading
+     * @return
+     * @author Gabriel
+     */
     public boolean notWallsBlock(@NotNull Space space, Heading heading) {
         return (!isCurrentSpaceWallBlockingDirection(space, heading)
                 && !isHeadingNeighbourWallBlockingDirection(space, heading));
     }
 
+    /**
+     *
+     * @param space
+     * @param heading
+     * @return
+     * @author Gabriel
+     */
     public boolean isCurrentSpaceWallBlockingDirection(@NotNull Space space, Heading heading) {
         ArrayList<Heading> walls = space.getWallList();
         if (!walls.isEmpty()) {
@@ -270,6 +284,13 @@ public class GameController {
         return false;
     }
 
+    /**
+     *
+     * @param space
+     * @param heading
+     * @return
+     * @author Gabriel
+     */
     public boolean isHeadingNeighbourWallBlockingDirection(@NotNull Space space, Heading heading) {
         Space neighbour = board.getNeighbour(space, heading);
         if (neighbour != null && !neighbour.getWallList().isEmpty()) {
@@ -284,6 +305,7 @@ public class GameController {
      * Rykker spiller to felter frem i den retning spilleren vender
      *
      * @param player
+     * @author Gabriel
      */
     public void fastForward(@NotNull Player player, @NotNull Heading heading) {
         directionMove(player, heading);
@@ -294,6 +316,7 @@ public class GameController {
      * vender spillerens retning mod højre
      *
      * @param player
+     * @author Gabriel
      */
     public void turnRight(@NotNull Player player) {
         player.setHeading(player.getHeading().next());
@@ -304,6 +327,7 @@ public class GameController {
      * vender spillerens retning mod venstre
      *
      * @param player
+     * @author Gabriel
      */
     public void turnLeft(@NotNull Player player) {
         player.setHeading(player.getHeading().prev());
@@ -315,6 +339,7 @@ public class GameController {
      * til sidst startes programmeringsfasen.
      *
      * @param option er en af de muligheder som kortet tillader
+     * @author Gabriel
      */
     public void executeCommandOptionAndContinue(@NotNull Command option) {
         Player currentPlayer = board.getCurrentPlayer();
@@ -345,6 +370,9 @@ public class GameController {
         }
     }
 
+    /**
+     * @author Gabriel
+     */
     private void nextPlayerOrPhase() {
         Player currentPlayer = board.getCurrentPlayer();
         int nextPlayerNumber = board.getPlayerNumber(currentPlayer) + 1;
@@ -367,6 +395,9 @@ public class GameController {
         }
     }
 
+    /**
+     * @author Gabriel
+     */
     public void executeBoardElements() {
         if (board.getSpacesList() != null) {
             for (Space space : board.getSpacesList()) {
@@ -380,6 +411,12 @@ public class GameController {
         }
     }
 
+    /**
+     *
+     * @param player
+     * @param checkpointNumber
+     * @author Gabriel
+     */
     public void registerCheckpoint(@NotNull Player player, int checkpointNumber) {
         if (player != null) {
             if (checkpointNumber == player.getLastCheckpointVisited() + 1) {
@@ -389,6 +426,11 @@ public class GameController {
         }
     }
 
+    /**
+     *
+     * @param player
+     * @author Gabriel
+     */
     public void findWinner(@NotNull Player player) {
         if (player.getLastCheckpointVisited() == Checkpoint.getNumberOfCheckpoints()) {
             player.setPlayerWin(true);
@@ -396,11 +438,20 @@ public class GameController {
         }
     }
 
+    /**
+     * @author Gabriel
+     */
     private void updateAllReboot(){
         for (Player player :board.getPlayers()) {
             updatePlayerRebootSpace(player);
         }
     }
+
+    /**
+     *
+     * @param player
+     * @author Gabriel
+     */
     private void updatePlayerRebootSpace(@NotNull Player player){
         Space current=player.getSpace();
         if(current!=null){
@@ -414,6 +465,9 @@ public class GameController {
         }
     }
 
+    /**
+     * @author Gabriel
+     */
     public void respawnPlayers(){
         for (Player player:board.getPlayers()) {
             if(player.getSpace()==null){

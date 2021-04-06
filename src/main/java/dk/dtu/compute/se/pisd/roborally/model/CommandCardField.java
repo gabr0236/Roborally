@@ -30,7 +30,6 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
  */
 public class CommandCardField extends Subject {
 
-    //Gab,sab,dan
     final public Player player;
 
     private CommandCard card;

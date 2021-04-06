@@ -70,6 +70,9 @@ public class SpaceView extends StackPane implements ViewObserver {
         update(space);
     }
 
+    /**
+     * @author Gabriel
+     */
     private void updatePlayer() {
         this.getChildren().clear();
         if (!space.getWallList().isEmpty()) {

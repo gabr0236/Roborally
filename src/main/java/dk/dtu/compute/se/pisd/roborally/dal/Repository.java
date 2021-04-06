@@ -309,6 +309,12 @@ class Repository implements IRepository {
 		rs.close();
 	}
 
+	/**
+	 *
+	 * @param game
+	 * @throws SQLException
+	 * @author Gabriel
+	 */
 	private void createCardsInDB(Board game) throws SQLException {
 		// TODO code should be more defensive
 		PreparedStatement ps = getSelectCardsStatementU();
@@ -362,6 +368,12 @@ class Repository implements IRepository {
 		rs.close();
 	}
 
+	/**
+	 *
+	 * @param game
+	 * @throws SQLException
+	 * @author Gabriel
+	 */
 	private void loadCardFieldsFromDB(Board game) throws SQLException{
 		PreparedStatement ps = getSelectCardsASCStatement();
 		ps.setInt(1, game.getGameId());
@@ -400,6 +412,12 @@ class Repository implements IRepository {
 	}
 
 
+	/**
+	 *
+	 * @param game
+	 * @throws SQLException
+	 * @author Gabriel
+	 */
 	private void updateCardsInDB(Board game) throws SQLException {
 		PreparedStatement ps = getSelectCardsStatementU();
 		ps.setInt(1, game.getGameId());
@@ -484,6 +502,11 @@ class Repository implements IRepository {
 
 	private PreparedStatement select_card_stmt = null;
 
+	/**
+	 *
+	 * @return
+	 * @author Gabriel
+	 */
 	private PreparedStatement getSelectCardsStatementU() {
 		if (select_card_stmt == null) {
 			Connection connection = connector.getConnection();
@@ -525,6 +548,11 @@ class Repository implements IRepository {
 			"SELECT * FROM Cards WHERE gameID = ? ORDER BY playerID ASC";
 	private PreparedStatement select_cards_asc_stmt = null;
 
+	/**
+	 *
+	 * @return
+	 * @author Gabriel
+	 */
 	private PreparedStatement getSelectCardsASCStatement() {
 		if (select_cards_asc_stmt == null) {
 			Connection connection = connector.getConnection();
