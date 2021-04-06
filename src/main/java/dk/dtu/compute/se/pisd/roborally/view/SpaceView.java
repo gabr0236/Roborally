@@ -122,9 +122,9 @@ public class SpaceView extends StackPane implements ViewObserver {
                     arrowView.setFill(Color.YELLOW);
                     Heading clock;
                     if (gear.isClockwise()) {
-                        clock = Heading.EAST;
-                    } else {
                         clock = Heading.WEST;
+                    } else {
+                        clock = Heading.EAST;
                     }
                     arrowView.setRotate((90 * clock.ordinal()) % 360);
                     this.getChildren().add(gearView);
