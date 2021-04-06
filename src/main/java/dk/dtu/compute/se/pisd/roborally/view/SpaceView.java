@@ -46,6 +46,8 @@ public class SpaceView extends StackPane implements ViewObserver {
 
     public final Space space;
 
+    private StackPane dynamic;
+
 
     public SpaceView(@NotNull Space space) {
         this.space = space;
@@ -65,10 +67,18 @@ public class SpaceView extends StackPane implements ViewObserver {
             this.setStyle("-fx-background-color: SlateGrey");
         }
         // updatePlayer();
-        // This space view should listen to changes of the space
+        // This space view should listen to changes of the spac
+
+        //TODO: det her
+        //dynamic = new StackPane();
+        //createStaticElements();
+        //this.getChildren().add(dynamic);
+
         space.attach(this);
         update(space);
     }
+
+
 
     /**
      * @author Gabriel

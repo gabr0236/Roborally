@@ -275,7 +275,6 @@ public class Board extends Subject {
         return Collections.unmodifiableList(spacesList);
     }
 
-    public List<Space> getRebootSpaceList() {
-        return Collections.unmodifiableList((rebootSpaceList));
+    public List<Space> getRebootSpaceList() { return rebootSpaceList;
     }
 }
