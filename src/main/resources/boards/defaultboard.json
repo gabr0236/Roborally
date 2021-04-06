@@ -1,6 +1,7 @@
 {
   "width": 13,
   "height": 10,
+  "numberOfCheckpoints": 2,
   "spaces": [
     {
       "walls": [
@@ -504,6 +505,32 @@
       "activatableBoardElementList": [],
       "x": 5,
       "y": 6
+    },
+    {
+      "walls": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Checkpoint",
+          "INSTANCE": {
+            "checkpointNumber": "1"
+          }
+        }
+      ],
+      "x": 8,
+      "y": 1
+    },
+    {
+      "walls": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Checkpoint",
+          "INSTANCE": {
+            "checkpointNumber": "2"
+          }
+        }
+      ],
+      "x": 9,
+      "y": 8
     }
     ]
 }

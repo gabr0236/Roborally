@@ -417,12 +417,13 @@ public class GameController {
 
     /**
      * TODO: this need to be updated at some point to show a winning screen and maybe delete game from database?
+     * TODO: @Gab this is not pretty, i will redo later
      * Prints out the winning player
      * @param player
      * @author Gabriel
      */
     public void findWinner(@NotNull Player player) {
-        if (player.getLastCheckpointVisited() == Checkpoint.getNumberOfCheckpoints()) {
+        if (player.getLastCheckpointVisited()==board.getNumberOfCheckpoints()) {
             player.setPlayerWin(true);
             System.out.println(player.getColor() + " har vundet!!");
         }

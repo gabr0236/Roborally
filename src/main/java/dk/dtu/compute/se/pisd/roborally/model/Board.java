@@ -69,6 +69,16 @@ public class Board extends Subject {
 
     private List<Space> rebootSpaceList = new ArrayList<>();
 
+    public int getNumberOfCheckpoints() {
+        return numberOfCheckpoints;
+    }
+
+    public void setNumberOfCheckpoints(int numberOfCheckpoints) {
+        this.numberOfCheckpoints = numberOfCheckpoints;
+    }
+
+    private int numberOfCheckpoints;
+
     /**
      * Creates a board with the size of width * height, and create spaces for the board
      * @param width
@@ -99,8 +109,8 @@ public class Board extends Subject {
         spaces[2][0].getActivatableBoardElementList().add(new Conveyor(Heading.EAST, Command.FORWARD));
         spaces[5][5].getActivatableBoardElementList().add(new Conveyor(NORTH, Command.FAST_FORWARD));
         spaces[2][9].getActivatableBoardElementList().add(new Conveyor(Heading.EAST, Command.FORWARD));
-        spaces[12][4].getActivatableBoardElementList().add(new Checkpoint());
-        spaces[0][1].getActivatableBoardElementList().add(new Checkpoint());
+        spaces[12][4].getActivatableBoardElementList().add(new Checkpoint(2));
+        spaces[0][1].getActivatableBoardElementList().add(new Checkpoint(1));
         spaces[1][1].setReboot(new Reboot(Heading.EAST,true));
         spaces[0][3].setReboot(new Reboot(Heading.EAST,true));
         spaces[1][4].setReboot(new Reboot(Heading.EAST,true));
