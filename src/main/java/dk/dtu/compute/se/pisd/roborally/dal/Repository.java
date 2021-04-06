@@ -79,6 +79,7 @@ class Repository implements IRepository {
 		this.connector = connector;
 	}
 
+
 	@Override
 	public boolean createGameInDB(Board game) {
 		if (game.getGameId() == null) {
