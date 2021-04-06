@@ -21,4 +21,8 @@ public class Gear extends ActivatableBoardElement {
             gameController.turnLeft(player);
         }
     }
+
+    public boolean isClockwise() {
+        return clockwise;
+    }
 }

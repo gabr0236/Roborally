@@ -39,7 +39,6 @@ public class GameController {
         this.board = board;
     }
 
-
     /**
      * Sets phase to programming, currentplayer to 0, and step to 0.
      * Assigns random cards to each players hand.
@@ -86,7 +85,6 @@ public class GameController {
         board.setStep(0);
 
     }
-
 
     private void makeProgramFieldsVisible(int register) {
         if (register >= 0 && register < Player.NO_REGISTERS) {
@@ -444,7 +442,7 @@ public class GameController {
      * @author Gabriel
      */
     private void updatePlayerRebootSpace(@NotNull Player player){
-        Space current=player.getSpace();
+        Space current = player.getSpace();
         if(current!=null){
             if(current.x>current.board.rebootBorderX && player.getRebootSpace().getReboot().isStartField()){
                 for (Space space :board.getRebootSpaceList()) {
@@ -472,7 +470,7 @@ public class GameController {
      * Teleports players to reboot space and pushes players forward if multiple players is respawning on the same space
      * @param player
      */
-    private void teleportPlayerToReboot(@NotNull Player player){
+    public void teleportPlayerToReboot(@NotNull Player player){
         if (player.getRebootSpace().getPlayer() != null){
             directionMove(player.getRebootSpace().getPlayer(), player.getRebootSpace().getReboot().REBOOT_HEADING);
         }
