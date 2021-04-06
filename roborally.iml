@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_X">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_15_PREVIEW">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -12,9 +12,9 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="lib1" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:win:15.0.1" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:win:15.0.1" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:win:15.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:mac:15.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:mac:15.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:mac:15.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.jetbrains:annotations:13.0" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:8.0.11" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: com.google.protobuf:protobuf-java:2.6.0" level="project" />
@@ -27,10 +27,10 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-engine:5.4.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-engine:1.4.2" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:15.0.1" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:win:15.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:mac:15.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:15.0.1" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:win:15.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:mac:15.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-base:15.0.1" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:win:15.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:mac:15.0.1" level="project" />
   </component>
 </module>

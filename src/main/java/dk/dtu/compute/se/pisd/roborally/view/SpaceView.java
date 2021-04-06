@@ -70,6 +70,9 @@ public class SpaceView extends StackPane implements ViewObserver {
         update(space);
     }
 
+    /**
+     * @author Gabriel
+     */
     private void updatePlayer() {
         this.getChildren().clear();
         if (!space.getWallList().isEmpty()) {
@@ -89,10 +92,12 @@ public class SpaceView extends StackPane implements ViewObserver {
             this.getChildren().add(canvas);
         }
 
-        if (space.getActivatableBoardElement() != null) {
-            if (space.getActivatableBoardElement() instanceof Conveyor) {
+        if (space.getActivatableBoardElementList() != null) {
+            for (ActivatableBoardElement activatableBoardElement:space.getActivatableBoardElementList()) {
+
+                if (activatableBoardElement instanceof Conveyor) {
                 //de er ikke helt centered 🤨🤨
-                Conveyor conveyor = (Conveyor) space.getActivatableBoardElement();
+                Conveyor conveyor = (Conveyor) activatableBoardElement;
                 Polygon arrow = new Polygon(0.0, 0.0,
                         16.0, 30.0,
                         30.0, 0.0);
@@ -104,14 +109,16 @@ public class SpaceView extends StackPane implements ViewObserver {
                 arrow.setRotate((90 * conveyor.getHeading().ordinal()) % 360);
                 this.setStyle("-fx-background-color: Black");
                 this.getChildren().add(arrow);
+                }
             }
         }
 
 
-        if (space.getActivatableBoardElement() != null) {
-            if (space.getActivatableBoardElement() instanceof Checkpoint) {
+        if (space.getActivatableBoardElementList() != null) {
+            for (ActivatableBoardElement activatableBoardElement:space.getActivatableBoardElementList()) {
+            if (activatableBoardElement instanceof Checkpoint) {
                 //de er ikke helt centered 🤨🤨
-                Checkpoint checkpoint = (Checkpoint) space.getActivatableBoardElement();
+                Checkpoint checkpoint = (Checkpoint) activatableBoardElement;
                 Circle arrow = new Circle();
                 arrow.setFill(Color.YELLOW);
                 arrow.setRadius(18);
@@ -121,7 +128,7 @@ public class SpaceView extends StackPane implements ViewObserver {
                 text.setText("C");
                 //text.setTabSize(12);
                 this.getChildren().add(text);
-            }
+            }}
         }
 
         if (space.getReboot() != null) {
@@ -145,6 +152,13 @@ public class SpaceView extends StackPane implements ViewObserver {
             }
             arrow.setRotate((90 * player.getHeading().ordinal()) % 360);
             this.getChildren().add(arrow);
+        }
+
+        if (space.getPit()) {
+            this.setStyle("-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #424341, #090703)");
+            Text text = new Text();
+            text.setText("PIT");
+            this.getChildren().add(text);
         }
     }
 

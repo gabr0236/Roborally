@@ -269,6 +269,7 @@ public class CardFieldView extends GridPane implements ViewObserver {
                         if (object instanceof String) {
                             CommandCardField source = cardFieldFromRepresentation((String) object);
                             if (source != null && gameController.moveCards(source, cardField)) {
+                                //TODO: @Gab hvad er det her?
                                 // CommandCard card = source.getCard();
                                 // if (card != null) {
                                 // if (gameController.moveCards(source, cardField)) {

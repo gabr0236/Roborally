@@ -29,8 +29,6 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  * <p>
- * Javadoc
- * @author Gabriel
  */
 public class CommandCard extends Subject {
 
