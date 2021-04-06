@@ -17,19 +17,25 @@ public class Laser {
 
     public void fire(GameController gameController) {
         Space projectile = board.getNeighbour(location, direction);
-        boolean hit = false;
 
+        boolean hit = false;
         do {
+            if (projectile == null) {
+                hit = !hit;
+                return;
+            }
             if (gameController.notWallsBlock(projectile, direction)) {
                 if (projectile.getPlayer() != null) {
                     Player player = projectile.getPlayer();
-                    // TODO: Add reboot.
-                    // gameController.reboot(player);
+                    // TODO: Reboot player
+                    hit = !hit;
+                    return;
                 } else {
                     projectile = board.getNeighbour(projectile, direction);
                 }
             } else {
                hit = !hit;
+               return;
             }
         } while(!hit);
     }
