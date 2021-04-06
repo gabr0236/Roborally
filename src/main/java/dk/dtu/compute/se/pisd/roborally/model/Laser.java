@@ -2,7 +2,10 @@ package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 
-public class Laser {
+/**
+ * @author Tobias s205358
+ */
+public class Laser extends ActivatableBoardElement {
     private Heading direction;
     private Space location;
     private Board board;
@@ -15,21 +18,33 @@ public class Laser {
         }
     }
 
+    @Override
+    public void activateElement(Player player, GameController gameController) {
+        
+    }
+
     public void fire(GameController gameController) {
         Space projectile = board.getNeighbour(location, direction);
-        boolean hit = false;
 
+        boolean hit = false;
         do {
+            if (projectile == null) {
+                hit = !hit;
+                return;
+            }
             if (gameController.notWallsBlock(projectile, direction)) {
                 if (projectile.getPlayer() != null) {
                     Player player = projectile.getPlayer();
-                    // TODO: Add reboot.
-                    // gameController.reboot(player);
+                    // Should be changed if players can take damage.
+                    gameController.teleportPlayerToReboot(player);
+                    hit = !hit;
+                    return;
                 } else {
                     projectile = board.getNeighbour(projectile, direction);
                 }
             } else {
                hit = !hit;
+               return;
             }
         } while(!hit);
     }

@@ -46,8 +46,7 @@ public class SpaceView extends StackPane implements ViewObserver {
 
     public final Space space;
 
-    private StackPane dynamic;
-
+    StackPane dynamic;
 
     public SpaceView(@NotNull Space space) {
         this.space = space;
@@ -66,25 +65,92 @@ public class SpaceView extends StackPane implements ViewObserver {
         } else {
             this.setStyle("-fx-background-color: SlateGrey");
         }
+        staticElements();
+        dynamic = new StackPane();
+        this.getChildren().add(dynamic);
         // updatePlayer();
-        // This space view should listen to changes of the spac
-
-        //TODO: det her
-        //dynamic = new StackPane();
-        //createStaticElements();
-        //this.getChildren().add(dynamic);
-
+        // This space view should listen to changes of the space
         space.attach(this);
         update(space);
     }
-
-
 
     /**
      * @author Gabriel
      */
     private void updatePlayer() {
+        dynamic.getChildren().clear();
+        Player player = space.getPlayer();
+        if (player != null) {
+            Polygon arrow = new Polygon(0.0, 0.0,
+                    10.0, 20.0,
+                    20.0, 0.0);
+            try {
+                arrow.setFill(Color.valueOf(player.getColor()));
+            } catch (Exception e) {
+                arrow.setFill(Color.MEDIUMPURPLE);
+            }
+            arrow.setRotate((90 * player.getHeading().ordinal()) % 360);
+            dynamic.getChildren().add(arrow);
+        }
+    }
+
+
+    private void staticElements() {
         this.getChildren().clear();
+
+        if (space.getPit()) {
+            this.setStyle("-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #424341, #090703)");
+            Text text = new Text();
+            text.setText("PIT");
+            this.getChildren().add(text);
+        }
+
+
+        if (space.getReboot() != null) {
+            this.setStyle("-fx-background-color: greenyellow");
+            Text text = new Text();
+            text.setText("R");
+            //text.setTabSize(12);
+            this.getChildren().add(text);
+        }
+
+        if (space.getActivatableBoardElementList() != null) {
+            for (ActivatableBoardElement activatableBoardElement:space.getActivatableBoardElementList()) {
+                if (activatableBoardElement instanceof Checkpoint) {
+                    //de er ikke helt centered 🤨🤨
+                    Checkpoint checkpoint = (Checkpoint) activatableBoardElement;
+                    Circle arrow = new Circle();
+                    arrow.setFill(Color.YELLOW);
+                    arrow.setRadius(18);
+                    this.setStyle("-fx-background-color: Black");
+                    this.getChildren().add(arrow);
+                    Text text = new Text();
+                    text.setText("C");
+                    //text.setTabSize(12);
+                    this.getChildren().add(text);
+                }}
+        }
+
+        if (space.getActivatableBoardElementList() != null) {
+            for (ActivatableBoardElement activatableBoardElement:space.getActivatableBoardElementList()) {
+
+                if (activatableBoardElement instanceof Conveyor) {
+                    //de er ikke helt centered 🤨🤨
+                    Conveyor conveyor = (Conveyor) activatableBoardElement;
+                    Polygon arrow = new Polygon(0.0, 0.0,
+                            16.0, 30.0,
+                            30.0, 0.0);
+                    if (conveyor.getCommand() == Command.FAST_FORWARD) {
+                        arrow.setFill(Color.LIGHTSKYBLUE);
+                    } else {
+                        arrow.setFill(Color.LIMEGREEN);
+                    }
+                    arrow.setRotate((90 * conveyor.getHeading().ordinal()) % 360);
+                    this.setStyle("-fx-background-color: Black");
+                    this.getChildren().add(arrow);
+                }
+            }
+        }
         if (!space.getWallList().isEmpty()) {
             Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
             GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -100,75 +166,6 @@ public class SpaceView extends StackPane implements ViewObserver {
                 }
             }
             this.getChildren().add(canvas);
-        }
-
-        if (space.getActivatableBoardElementList() != null) {
-            for (ActivatableBoardElement activatableBoardElement:space.getActivatableBoardElementList()) {
-
-                if (activatableBoardElement instanceof Conveyor) {
-                //de er ikke helt centered 🤨🤨
-                Conveyor conveyor = (Conveyor) activatableBoardElement;
-                Polygon arrow = new Polygon(0.0, 0.0,
-                        16.0, 30.0,
-                        30.0, 0.0);
-                if (conveyor.getCommand() == Command.FAST_FORWARD) {
-                    arrow.setFill(Color.LIGHTSKYBLUE);
-                } else {
-                    arrow.setFill(Color.LIMEGREEN);
-                }
-                arrow.setRotate((90 * conveyor.getHeading().ordinal()) % 360);
-                this.setStyle("-fx-background-color: Black");
-                this.getChildren().add(arrow);
-                }
-            }
-        }
-
-
-        if (space.getActivatableBoardElementList() != null) {
-            for (ActivatableBoardElement activatableBoardElement:space.getActivatableBoardElementList()) {
-            if (activatableBoardElement instanceof Checkpoint) {
-                //de er ikke helt centered 🤨🤨
-                Checkpoint checkpoint = (Checkpoint) activatableBoardElement;
-                Circle arrow = new Circle();
-                arrow.setFill(Color.YELLOW);
-                arrow.setRadius(18);
-                this.setStyle("-fx-background-color: Black");
-                this.getChildren().add(arrow);
-                Text text = new Text();
-                text.setText("C");
-                //text.setTabSize(12);
-                this.getChildren().add(text);
-            }}
-        }
-
-        if (space.getReboot() != null) {
-            this.setStyle("-fx-background-color: greenyellow");
-            Text text = new Text();
-            text.setText("R");
-            //text.setTabSize(12);
-            this.getChildren().add(text);
-            }
-
-
-        Player player = space.getPlayer();
-        if (player != null) {
-            Polygon arrow = new Polygon(0.0, 0.0,
-                    10.0, 20.0,
-                    20.0, 0.0);
-            try {
-                arrow.setFill(Color.valueOf(player.getColor()));
-            } catch (Exception e) {
-                arrow.setFill(Color.MEDIUMPURPLE);
-            }
-            arrow.setRotate((90 * player.getHeading().ordinal()) % 360);
-            this.getChildren().add(arrow);
-        }
-
-        if (space.getPit()) {
-            this.setStyle("-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #424341, #090703)");
-            Text text = new Text();
-            text.setText("PIT");
-            this.getChildren().add(text);
         }
     }
 

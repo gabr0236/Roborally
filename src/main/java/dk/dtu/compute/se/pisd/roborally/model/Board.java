@@ -121,6 +121,7 @@ public class Board extends Subject {
         spaces[6][4].setPit();
         spaces[10][7].setPit();
         spaces[7][1].setPit();
+        spaces[4][3].getActivatableBoardElementList().add(new Gear(false));
         //TODO: @gab reboot skal laves lidt på en anden måde mht. listen
         rebootSpaceList=(Arrays.asList(spaces[1][1], spaces[0][3], spaces[1][4], spaces[1][5],
                 spaces[0][6], spaces[1][8],spaces[5][4]));

@@ -39,8 +39,6 @@ public class GameController {
         this.board = board;
     }
 
-
-
     /**
      * Sets phase to programming, currentplayer to 0, and step to 0.
      * Assigns random cards to each players hand.
@@ -87,7 +85,6 @@ public class GameController {
         board.setStep(0);
 
     }
-
 
     private void makeProgramFieldsVisible(int register) {
         if (register >= 0 && register < Player.NO_REGISTERS) {
@@ -186,6 +183,13 @@ public class GameController {
                     break;
                 case FAST_FORWARD:
                     this.fastForward(player, heading);
+                    break;
+                case MOVE_x3:
+                    this.fastForward(player, heading);
+                    this.directionMove(player,heading);
+                    break;
+                case U_TURN:
+                    this.turnAround(player);
                     break;
                 default:
                     // DO NOTHING (for now)
@@ -324,6 +328,10 @@ public class GameController {
         player.setHeading(player.getHeading().prev());
     }
 
+    public void turnAround(@NotNull Player player) {
+        player.setHeading(player.getHeading().oppositeHeading());
+    }
+
     /**
      * Executes a option from the optional CommandCard chosen by the player on the GUI.
      * @param option
@@ -417,13 +425,12 @@ public class GameController {
 
     /**
      * TODO: this need to be updated at some point to show a winning screen and maybe delete game from database?
-     * TODO: @Gab this is not pretty, i will redo later
      * Prints out the winning player
      * @param player
      * @author Gabriel
      */
     public void findWinner(@NotNull Player player) {
-        if (player.getLastCheckpointVisited()==board.getNumberOfCheckpoints()) {
+        if (player.getLastCheckpointVisited() == Checkpoint.getNumberOfCheckpoints()) {
             player.setPlayerWin(true);
             System.out.println(player.getColor() + " har vundet!!");
         }
@@ -446,7 +453,7 @@ public class GameController {
      * @author Gabriel
      */
     private void updatePlayerRebootSpace(@NotNull Player player){
-        Space current=player.getSpace();
+        Space current = player.getSpace();
         if(current!=null){
             if(current.x>current.board.rebootBorderX && player.getRebootSpace().getReboot().isStartField()){
                 for (Space space :board.getRebootSpaceList()) {
@@ -474,7 +481,7 @@ public class GameController {
      * Teleports players to reboot space and pushes players forward if multiple players is respawning on the same space
      * @param player
      */
-    private void teleportPlayerToReboot(@NotNull Player player){
+    public void teleportPlayerToReboot(@NotNull Player player){
         if (player.getRebootSpace().getPlayer() != null){
             directionMove(player.getRebootSpace().getPlayer(), player.getRebootSpace().getReboot().REBOOT_HEADING);
         }
