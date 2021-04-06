@@ -184,6 +184,13 @@ public class GameController {
                 case FAST_FORWARD:
                     this.fastForward(player, heading);
                     break;
+                case MOVE_x3:
+                    this.fastForward(player, heading);
+                    this.directionMove(player,heading);
+                    break;
+                case U_TURN:
+                    this.turnAround(player);
+                    break;
                 default:
                     // DO NOTHING (for now)
             }
@@ -319,6 +326,10 @@ public class GameController {
      */
     public void turnLeft(@NotNull Player player) {
         player.setHeading(player.getHeading().prev());
+    }
+
+    public void turnAround(@NotNull Player player) {
+        player.setHeading(player.getHeading().oppositeHeading());
     }
 
     /**
