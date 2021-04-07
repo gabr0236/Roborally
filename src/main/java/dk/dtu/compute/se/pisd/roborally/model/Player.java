@@ -26,11 +26,11 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
+import static dk.dtu.compute.se.pisd.roborally.model.Heading.EAST;
 import static dk.dtu.compute.se.pisd.roborally.model.Heading.SOUTH;
 
 /**
  * ...
- *
  * @author Ekkart Kindler, ekki@dtu.dk
  * <p>
  * Javadoc
@@ -47,26 +47,16 @@ public class Player extends Subject {
     private String color;
 
     private Space space;
-    private Heading heading = SOUTH;
+    private Heading heading = EAST;
 
     private final CommandCardField[] program;
     private final CommandCardField[] cards;
 
-    public void setPlayerWin(boolean playerWin) {
-        this.playerWin = playerWin;
-    }
-
     private boolean playerWin = false;
 
-    public int getLastCheckpointVisited() {
-        return lastCheckpointVisited;
-    }
-
-    public void setLastCheckpointVisited(int lastCheckpointVisited) {
-        this.lastCheckpointVisited = lastCheckpointVisited;
-    }
-
     private int lastCheckpointVisited = 0;
+
+    private Space rebootSpace;
 
 
     /**
@@ -80,7 +70,7 @@ public class Player extends Subject {
      * @param color
      * @param name
      */
-    public Player(@NotNull Board board, String color, @NotNull String name) {
+    public Player(@NotNull Board board,@NotNull String color, @NotNull String name) {
         this.board = board;
         this.name = name;
         this.color = color;
@@ -163,6 +153,14 @@ public class Player extends Subject {
         }
     }
 
+    public void setPlayerWin(boolean playerWin) {
+        this.playerWin = playerWin;
+    }
+
+    public boolean isPlayerWin() {
+        return playerWin;
+    }
+
     public Heading getHeading() {
         return heading;
     }
@@ -182,6 +180,14 @@ public class Player extends Subject {
         }
     }
 
+    public int getLastCheckpointVisited() {
+        return lastCheckpointVisited;
+    }
+
+    public void setLastCheckpointVisited(int lastCheckpointVisited) {
+        this.lastCheckpointVisited = lastCheckpointVisited;
+    }
+
     /**
      * Henter et specifikt registreringskort, vælges ud fra paramereten i
      *
@@ -194,12 +200,20 @@ public class Player extends Subject {
 
     /**
      * Henter et specifikt kort spilleren har på hånden, vælges ud fra paramereten i
-     *
      * @param i
      * @return
      */
+
     public CommandCardField getCardField(int i) {
         return cards[i];
+    }
+
+    public Space getRebootSpace() {
+        return rebootSpace;
+    }
+
+    public void setRebootSpace(Space rebootSpace) {
+        this.rebootSpace = rebootSpace;
     }
 
 }

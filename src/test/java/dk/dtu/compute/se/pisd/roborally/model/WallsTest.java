@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
 
 class WallsTest {
     private final int TEST_WIDTH = 12;
@@ -14,13 +14,12 @@ class WallsTest {
 
     private GameController gameController;
 
-    //TODO: midlertidig duplikation
     @BeforeEach
     void setUp() {
         Board board = new Board(TEST_WIDTH, TEST_HEIGHT);
         gameController = new GameController(board);
         for (int i = 0; i < 6; i++) {
-            Player player = new Player(board, null,"Player " + i);
+            Player player = new Player(board, "Black","Player " + i);
             board.addPlayer(player);
             player.setSpace(board.getSpace(i, i));
             player.setHeading(Heading.values()[i % Heading.values().length]);
@@ -33,11 +32,13 @@ class WallsTest {
         gameController = null;
     }
 
+
+
     @Test
     void wallOnCurrentSpaceBlockingMoveForward(){
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
-        current.getSpace().setWalls(new Walls(Heading.SOUTH));
+        current.getSpace().setWallList(new ArrayList<Heading>() {{ add(Heading.SOUTH); }});
         gameController.directionMove(current, current.getHeading());
 
         Assertions.assertEquals(current, board.getSpace(0, 0).getPlayer(), "Player " + current.getName() + " should beSpace (0,0)!");
@@ -48,7 +49,7 @@ class WallsTest {
     void wallOnCurrentSpaceNotBlockingMoveForward(){
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
-        current.getSpace().setWalls(new Walls(Heading.EAST));
+        current.getSpace().setWallList(new ArrayList<Heading>() {{ add(Heading.EAST); }});
         gameController.directionMove(current, current.getHeading());
 
         Assertions.assertEquals(current, board.getSpace(0, 1).getPlayer(), "Player " + current.getName() + " should beSpace (0,0)!");
@@ -59,7 +60,7 @@ class WallsTest {
     void wallOnCurrentSpaceNotBlockingMoveForward2(){
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
-        current.getSpace().setWalls(new Walls(Heading.NORTH));
+        current.getSpace().setWallList(new ArrayList<Heading>() {{ add(Heading.NORTH); }});
         gameController.directionMove(current, current.getHeading());
 
         Assertions.assertEquals(current, board.getSpace(0, 1).getPlayer(), "Player " + current.getName() + " should beSpace (0,0)!");
@@ -70,7 +71,7 @@ class WallsTest {
     void wallOnNextSpaceBlockingMoveForward(){
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
-        current.board.getNeighbour(current.getSpace(),current.getHeading()).setWalls(new Walls(Heading.NORTH));
+        current.board.getNeighbour(current.getSpace(),current.getHeading()).setWallList(new ArrayList<Heading>() {{ add(Heading.NORTH); }});
         gameController.directionMove(current, current.getHeading());
 
         Assertions.assertEquals(current, board.getSpace(0, 0).getPlayer(), "Player " + current.getName() + " should beSpace (0,0)!");
@@ -81,7 +82,7 @@ class WallsTest {
     void wallOnNextSpaceNotBlockingMoveForward(){
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
-        current.board.getNeighbour(current.getSpace(),current.getHeading()).setWalls(new Walls(Heading.WEST));
+        current.board.getNeighbour(current.getSpace(),current.getHeading()).setWallList(new ArrayList<Heading>() {{ add(Heading.WEST); }});
         gameController.directionMove(current, current.getHeading());
 
         Assertions.assertEquals(current, board.getSpace(0, 1).getPlayer(), "Player " + current.getName() + " should beSpace (0,1)!");
@@ -92,7 +93,7 @@ class WallsTest {
     void wallOnNextSpaceNotBlockingMoveForward2(){
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
-        current.board.getNeighbour(current.getSpace(),current.getHeading()).setWalls(new Walls(Heading.SOUTH));
+        current.board.getNeighbour(current.getSpace(),current.getHeading()).setWallList(new ArrayList<Heading>() {{ add(Heading.SOUTH); }});
         gameController.directionMove(current, current.getHeading());
 
         Assertions.assertEquals(current, board.getSpace(0, 1).getPlayer(), "Player " + current.getName() + " should beSpace (0,1)!");
