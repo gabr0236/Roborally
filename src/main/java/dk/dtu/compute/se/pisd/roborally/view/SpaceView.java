@@ -75,90 +75,6 @@ public class SpaceView extends StackPane implements ViewObserver {
 
     private void updatePlayer() {
         dynamic.getChildren().clear();
-        if (!space.getWallList().isEmpty()) {
-            Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
-            GraphicsContext gc = canvas.getGraphicsContext2D();
-            gc.setStroke(Color.RED);
-            gc.setLineWidth(5);
-            gc.setLineCap(StrokeLineCap.ROUND);
-            for (Heading wall : space.getWallList()) {
-                switch (wall) {
-                    case NORTH -> gc.strokeLine(2, 2, SPACE_WIDTH - 2, 2);
-                    case EAST -> gc.strokeLine(SPACE_WIDTH - 2, 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
-                    case SOUTH -> gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
-                    case WEST -> gc.strokeLine(2, 2, 2, SPACE_HEIGHT - 2);
-                }
-            }
-            dynamic.getChildren().add(canvas);
-        }
-
-        if (space.getActivatableBoardElementList() != null) {
-            for (ActivatableBoardElement activatableBoardElement: space.getActivatableBoardElementList()) {
-
-                if (activatableBoardElement instanceof Conveyor) {
-                    //de er ikke helt centered 🤨🤨
-                    Conveyor conveyor = (Conveyor) activatableBoardElement;
-                    Polygon arrow = new Polygon(0.0, 0.0,
-                            16.0, 30.0,
-                            30.0, 0.0);
-                    if (conveyor.getCommand() == Command.FAST_FORWARD) {
-                        arrow.setFill(Color.LIGHTSKYBLUE);
-                    } else {
-                        arrow.setFill(Color.LIMEGREEN);
-                    }
-                    arrow.setRotate((90 * conveyor.getHeading().ordinal()) % 360);
-                    this.setStyle("-fx-background-color: Black");
-                    this.getChildren().add(arrow);
-                } else if (activatableBoardElement instanceof Gear) {
-                    // @author Tobias s205358
-                    Gear gear = (Gear) activatableBoardElement;
-                    Circle gearView = new Circle(0, 0, 17.5);
-                    gearView.setFill(Color.BLUE);
-                    Polygon arrowView = new Polygon(0.0, 0.0,
-                            8.0, 15.0,
-                            15.0, 0.0);
-                    arrowView.setFill(Color.YELLOW);
-                    Heading clock;
-                    if (gear.isClockwise()) {
-                        clock = Heading.WEST;
-                    } else {
-                        clock = Heading.EAST;
-                    }
-                    arrowView.setRotate((90 * clock.ordinal()) % 360);
-                    this.getChildren().add(gearView);
-                    this.setStyle("-fx-background-color: Black");
-                    this.getChildren().add(arrowView);
-                }
-            }
-        }
-
-
-        if (space.getActivatableBoardElementList() != null) {
-            for (ActivatableBoardElement activatableBoardElement:space.getActivatableBoardElementList()) {
-            if (activatableBoardElement instanceof Checkpoint) {
-                //de er ikke helt centered 🤨🤨
-                Checkpoint checkpoint = (Checkpoint) activatableBoardElement;
-                Circle arrow = new Circle();
-                arrow.setFill(Color.YELLOW);
-                arrow.setRadius(18);
-                this.setStyle("-fx-background-color: Black");
-                this.getChildren().add(arrow);
-                Text text = new Text();
-                text.setText("C");
-                //text.setTabSize(12);
-                this.getChildren().add(text);
-            }}
-        }
-
-        if (space.getReboot() != null) {
-            this.setStyle("-fx-background-color: greenyellow");
-            Text text = new Text();
-            text.setText("R");
-            //text.setTabSize(12);
-            this.getChildren().add(text);
-            }
-
-
         Player player = space.getPlayer();
         if (player != null) {
             Polygon arrow = new Polygon(0.0, 0.0,
@@ -194,6 +110,8 @@ public class SpaceView extends StackPane implements ViewObserver {
 
         if (space.getActivatableBoardElementList() != null) {
             for (ActivatableBoardElement activatableBoardElement:space.getActivatableBoardElementList()) {
+
+                // Draw Checkpoint
                 if (activatableBoardElement instanceof Checkpoint) {
                     Checkpoint checkpoint = (Checkpoint) activatableBoardElement;
                     Circle arrow = new Circle();
@@ -204,13 +122,9 @@ public class SpaceView extends StackPane implements ViewObserver {
                     Text text = new Text();
                     text.setText("C: " + checkpoint.getCheckpointNumber());
                     this.getChildren().add(text);
-                }}
-        }
 
-        if (space.getActivatableBoardElementList() != null) {
-            for (ActivatableBoardElement activatableBoardElement:space.getActivatableBoardElementList()) {
-
-                if (activatableBoardElement instanceof Conveyor) {
+                // Draw Conveyor
+                } else if (activatableBoardElement instanceof Conveyor) {
                     Conveyor conveyor = (Conveyor) activatableBoardElement;
                     Polygon arrow = new Polygon(0.0, 0.0,
                             16.0, 30.0,
@@ -223,9 +137,31 @@ public class SpaceView extends StackPane implements ViewObserver {
                     arrow.setRotate((90 * conveyor.heading.ordinal()) % 360);
                     this.setStyle("-fx-background-color: Black");
                     this.getChildren().add(arrow);
+
+                // Draw Gear
+                } else if (activatableBoardElement instanceof Gear) {
+                    // @author Tobias s205358
+                    Gear gear = (Gear) activatableBoardElement;
+                    Circle gearView = new Circle(0, 0, 17.5);
+                    gearView.setFill(Color.BLUE);
+                    Polygon arrowView = new Polygon(0.0, 0.0,
+                            8.0, 15.0,
+                            15.0, 0.0);
+                    arrowView.setFill(Color.YELLOW);
+                    Heading clock;
+                    if (gear.isClockwise()) {
+                        clock = Heading.WEST;
+                    } else {
+                        clock = Heading.EAST;
+                    }
+                    arrowView.setRotate((90 * clock.ordinal()) % 360);
+                    this.getChildren().add(gearView);
+                    this.setStyle("-fx-background-color: Black");
+                    this.getChildren().add(arrowView);
                 }
             }
         }
+
         if (!space.getWallList().isEmpty()) {
             Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
             GraphicsContext gc = canvas.getGraphicsContext2D();
