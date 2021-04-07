@@ -24,13 +24,14 @@ package dk.dtu.compute.se.pisd.roborally.controller;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+
 /**
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  */
 public class GameController {
-
 
     final public Board board;
 
@@ -39,17 +40,8 @@ public class GameController {
     }
 
     /**
-     * This is just some dummy controller operation to make a simple move to see something
-     * happening on the board. This method should eventually be deleted!
-     *
-     * @param space the space to which the current player should move
-     */
-
-    public void moveCurrentPlayerToSpace(@NotNull Space space) {
-    }
-
-    /**
-     * Ændre spillet til programmeringsfasen og itererer igennem for hver spiller og laver commandcard field og command cards
+     * Sets phase to programming, currentplayer to 0, and step to 0.
+     * Assigns random cards to each players hand.
      */
     public void startProgrammingPhase() {
         board.setPhase(Phase.PROGRAMMING);
@@ -74,11 +66,8 @@ public class GameController {
     }
 
     /**
-     * vælger et tilfældigt command ud af commandarray
-     *
-     * @return et commandcard med den tilfældige command
+     * @return random CommandCard
      */
-    // XXX: V2
     private CommandCard generateRandomCommandCard() {
         Command[] commands = Command.values();
         int random = (int) (Math.random() * commands.length);
@@ -86,9 +75,8 @@ public class GameController {
     }
 
     /**
-     * stopper programmeringsfasen gøre de lagte kort usynlige og ændre fase til activation phase
+     * Switches phase to activation
      */
-    // XXX: V2
     public void finishProgrammingPhase() {
         makeProgramFieldsInvisible();
         makeProgramFieldsVisible(0);
@@ -98,7 +86,6 @@ public class GameController {
 
     }
 
-    // XXX: V2
     private void makeProgramFieldsVisible(int register) {
         if (register >= 0 && register < Player.NO_REGISTERS) {
             for (int i = 0; i < board.getPlayersNumber(); i++) {
@@ -109,7 +96,6 @@ public class GameController {
         }
     }
 
-    // XXX: V2
     private void makeProgramFieldsInvisible() {
         for (int i = 0; i < board.getPlayersNumber(); i++) {
             Player player = board.getPlayer(i);
@@ -121,27 +107,24 @@ public class GameController {
     }
 
     /**
-     * sætter stepMode til false og kører continuePrograms()
+     * Sets stepMode to false, and execute all registers
      */
-    // XXX: V2
     public void executePrograms() {
         board.setStepMode(false);
         continuePrograms();
     }
 
     /**
-     * sætter stepMode til true og kører continuePrograms()
+     * Executes a single register
      */
-    // XXX: V2
     public void executeStep() {
         board.setStepMode(true);
         continuePrograms();
     }
 
     /**
-     * kører metoden executeNextStep() mens spillet er activation phase og stepMode er false
+     *Executes a single register or executes all registers depending on whether board isStepMode is true
      */
-    // XXX: V2
     private void continuePrograms() {
         do {
             executeNextStep();
@@ -149,12 +132,8 @@ public class GameController {
     }
 
     /**
-     * hvis det næste kort er et interaktionskort og spillet er i activation phase ændres fasen til interaktion og returnere.
-     * er kortet ikke interaktionskort bruges metoden executeCommand() på spilleren.
-     * sætter efterfølgende currentPlayer til den næste spiller. Hvis det ikke er den sidste spiller gøres kortene usynlige.
-     * til sidst startes progrmmeringsfasen.
+     * Executes the current register for the current player and calls nextPlayerOrPhase().
      */
-    // XXX: V2
     private void executeNextStep() {
         Player currentPlayer = board.getCurrentPlayer();
         if (board.getPhase() == Phase.ACTIVATION && currentPlayer != null) {
@@ -180,8 +159,13 @@ public class GameController {
         }
     }
 
-    // XXX: V2
-    public void executeCommand(@NotNull Player player,Heading heading, Command command) {
+    /**
+     * Calls the move method for a player corresponding to the command passed as param.
+     * @param player
+     * @param heading
+     * @param command
+     */
+    public void executeCommand(@NotNull Player player, Heading heading, Command command) {
         if (player != null && player.board == board && command != null) {
             // XXX This is a very simplistic way of dealing with some basic cards and
             //     their execution. This should eventually be done in a more elegant way
@@ -200,6 +184,13 @@ public class GameController {
                 case FAST_FORWARD:
                     this.fastForward(player, heading);
                     break;
+                case MOVE_x3:
+                    this.fastForward(player, heading);
+                    this.directionMove(player,heading);
+                    break;
+                case U_TURN:
+                    this.turnAround(player);
+                    break;
                 default:
                     // DO NOTHING (for now)
             }
@@ -207,50 +198,111 @@ public class GameController {
     }
 
     /**
-     * Rykker spiller et felt frem i en specifik retning
-     *
+     * Moves a player forward in a specific direction.
      * @param player
+     * @author Gabriel
      */
     public void directionMove(@NotNull Player player, @NotNull Heading heading) {
         Space current = player.getSpace();
         if (current != null && player.board == current.board) {
             Space target = current.board.getNeighbour(current, heading);
-            if (target != null && target.getPlayer() == null) {
-                if (isWallBlock(player, heading)) {
-                    player.setSpace(target);
+            if (target != null) {
+                if (notWallsBlock(player.getSpace(), heading)) {
+                    try{
+                        moveToSpace(player, target, heading);
+                    } catch (ImpossibleMoveException e){
+
+                    }
                 }
             }
         }
     }
+    //TODO: @gab optimise movetospace, direction move, og execute command, we can probably combine these methods somehow
 
-    private boolean isWallBlock(@NotNull Player player, Heading heading) {
-        return (!isCurrentSpaceWallBlockingDirection(player, heading)
-                && !isHeadingNeighbourWallBlockingDirection(player, heading));
+    /**
+     * Moves a player forward in a specific direction, and pushes, any player in the way, forward.
+     * @param player
+     * @param space
+     * @param heading
+     * @throws ImpossibleMoveException
+     */
+    public void moveToSpace(@NotNull Player player, @NotNull Space space, @NotNull Heading heading) throws ImpossibleMoveException {
+        assert board.getNeighbour(player.getSpace(), heading) == space; // make sure the move to here is possible in principle
+        Player other = space.getPlayer();
+        Space target = board.getNeighbour(space, heading);
+        if (other != null) {
+
+            if (target != null) {
+                if (notWallsBlock(other.getSpace(), heading)) {
+                    // XXX Note that there might be additional problems with
+                    //     infinite recursion here (in some special cases)!
+                    //     We will come back to that!
+
+                    moveToSpace(other, target, heading);
+
+                    // Note that we do NOT embed the above statement in a try catch block, since
+                    // the thrown exception is supposed to be passed on to the caller
+
+                    assert space.getPlayer() == null : space; // make sure target is free now
+                } else {
+                   throw new ImpossibleMoveException(player, space, heading);
+                }
+            }
+        }
+        player.setSpace(space);
+        fallIntoPit(player);
     }
 
-    //TODO: lav sammen med anden block metode evt.
-    public boolean isCurrentSpaceWallBlockingDirection(@NotNull Player player, Heading heading) {
-        Walls tempWalls = player.getSpace().getWall();
-        if (tempWalls != null && player.getSpace() != null) {
-            return tempWalls.getBlockingDirection().contains(heading);
+
+    /**
+     *Returns true if no walls is blocking a move in a specific direction
+     * @param space
+     * @param heading
+     * @return
+     * @author Gabriel, Daniel, Sebastian
+     */
+    public boolean notWallsBlock(@NotNull Space space, Heading heading) {
+        return (!isCurrentSpaceWallBlockingDirection(space, heading)
+                && !isHeadingNeighbourWallBlockingDirection(space, heading));
+    }
+
+    /**
+     *Returns true if a wall is blocking a player from moving on the players space.
+     * @param space
+     * @param heading
+     * @return
+     * @author Gabriel, Daniel, Sebastian
+     */
+    public boolean isCurrentSpaceWallBlockingDirection(@NotNull Space space, Heading heading) {
+        ArrayList<Heading> walls = space.getWallList();
+        if (!walls.isEmpty()) {
+            return walls.contains(heading);
         }
         return false;
     }
 
-    public boolean isHeadingNeighbourWallBlockingDirection(@NotNull Player player, Heading heading) {
-        Space neighbour = player.board.getNeighbour(player.getSpace(), heading);
-        if (neighbour != null && neighbour.getWall() != null) {
+    /**
+     *
+     * Returns true if a wall is blocking a player from moving on the players neighbours space.
+     * @param space
+     * @param heading
+     * @return
+     * @author Gabriel, Daniel, Sebastian
+     */
+    public boolean isHeadingNeighbourWallBlockingDirection(@NotNull Space space, Heading heading) {
+        Space neighbour = board.getNeighbour(space, heading);
+        if (neighbour != null && !neighbour.getWallList().isEmpty()) {
             Heading oppositeHeading = heading.oppositeHeading();
-            return neighbour.getWall().getBlockingDirection().contains(oppositeHeading);
+            return neighbour.getWallList().contains(oppositeHeading);
         }
         return false;
     }
 
 
     /**
-     * Rykker spiller to felter frem i den retning spilleren vender
-     *
+     * Moves a player 2 spaces forward.
      * @param player
+     * @author Gabriel, Sebastian
      */
     public void fastForward(@NotNull Player player, @NotNull Heading heading) {
         directionMove(player, heading);
@@ -258,9 +310,9 @@ public class GameController {
     }
 
     /**
-     * vender spillerens retning mod højre
-     *
+     * Turns a player to the right.
      * @param player
+     * @author Gabriel, Sebastian
      */
     public void turnRight(@NotNull Player player) {
         player.setHeading(player.getHeading().next());
@@ -268,20 +320,22 @@ public class GameController {
     }
 
     /**
-     * vender spillerens retning mod venstre
-     *
+     * Turns a player to the left.
      * @param player
+     * @author Gabriel, Sebastian
      */
     public void turnLeft(@NotNull Player player) {
         player.setHeading(player.getHeading().prev());
     }
 
+    public void turnAround(@NotNull Player player) {
+        player.setHeading(player.getHeading().oppositeHeading());
+    }
+
     /**
-     * Hvis spillet er i interaktionsfasen kaldes metoden executeCommand() og ændre spillets fase til aktieringsfasen
-     * sætter efterfølgende currentPlayer til den næste spiller. Hvis det ikke er den sidste spiller gøres kortene usynlige.
-     * til sidst startes programmeringsfasen.
-     *
-     * @param option er en af de muligheder som kortet tillader
+     * Executes a option from the optional CommandCard chosen by the player on the GUI.
+     * @param option
+     * @author Gabriel
      */
     public void executeCommandOptionAndContinue(@NotNull Command option) {
         Player currentPlayer = board.getCurrentPlayer();
@@ -293,12 +347,10 @@ public class GameController {
     }
 
     /**
-     * hvis spilleren har et kort på hånden og spiller dette kort på et field der ikke allereder har et kort
-     * byttes værdierne af disse kort. hermed bliver tagetCard = sourceCard og sourcecard = null.
-     *
-     * @param source er det commandCardField som spilleren har på hånden
-     * @param target er det commandCardField hvor spilleren kan spille sine kort.
-     * @return hvis de to fields bytter kortværdier returneres true og ellers false
+     * Moves a players CommandCard to a different position in hand.
+     * @param source
+     * @param target
+     * @return
      */
     public boolean moveCards(@NotNull CommandCardField source, @NotNull CommandCardField target) {
         CommandCard sourceCard = source.getCard();
@@ -312,6 +364,11 @@ public class GameController {
         }
     }
 
+    /**
+     * Changes phase if all players have completed all of their programs steps,
+     * otherwise change player to next player and change to next step
+     * @author Gabriel
+     */
     private void nextPlayerOrPhase() {
         Player currentPlayer = board.getCurrentPlayer();
         int nextPlayerNumber = board.getPlayerNumber(currentPlayer) + 1;
@@ -321,45 +378,115 @@ public class GameController {
             continuePrograms();
         } else {
             executeBoardElements();
+            updateAllReboot();
             step++;
             if (step < Player.NO_REGISTERS) {
                 makeProgramFieldsVisible(step);
                 board.setStep(step);
                 board.setCurrentPlayer(board.getPlayer(0));
             } else {
+                respawnPlayers();
                 startProgrammingPhase();
             }
         }
     }
 
+    /**
+     * Executes all ActivatableBoardElements activateElement methods
+     * @author Gabriel
+     */
     public void executeBoardElements() {
         if (board.getSpacesList() != null) {
             for (Space space : board.getSpacesList()) {
                 Player player = space.getPlayer();
-                if (player != null && space.getActivatableBoardElement() != null) {
-                    space.getActivatableBoardElement().activateElement(space.getPlayer(), this);
+                for (ActivatableBoardElement activatableBoardElement:space.getActivatableBoardElementList()) {
+                    if (player != null && activatableBoardElement != null) {
+                        activatableBoardElement.activateElement(space.getPlayer(), this);
+                    }
                 }
             }
         }
     }
 
+    /**
+     * Registers a players checkpoint in player, and calls findWinner() if player have gathered all checkpoints
+     * @param player
+     * @param checkpointNumber
+     * @author Gabriel
+     */
     public void registerCheckpoint(@NotNull Player player, int checkpointNumber) {
         if (player != null) {
             if (checkpointNumber == player.getLastCheckpointVisited() + 1) {
                 player.setLastCheckpointVisited(checkpointNumber);
+                findWinner(player);
             }
         }
-        findWinner(player);
     }
 
+    /**
+     * TODO: this need to be updated at some point to show a winning screen and maybe delete game from database?
+     * Prints out the winning player
+     * @param player
+     * @author Gabriel
+     */
     public void findWinner(@NotNull Player player) {
-        if (player.getLastCheckpointVisited() == Checkpoint.numberOfCheckpoints) {
+        if (player.getLastCheckpointVisited() == board.getNumberOfCheckpoints()) {
             player.setPlayerWin(true);
             System.out.println(player.getColor() + " har vundet!!");
         }
     }
 
-    //TODO: vis hvor mange checkpoints spiller har
-    //lav afslutningsfase når spiller har vundet
+    /**
+     * Updates every players reboot space if the player have left the startfield
+     * @author Gabriel
+     */
+    private void updateAllReboot() {
+        for (Player player : board.getPlayers()) {
+            Space current = player.getSpace();
+            if (current != null && current.x > current.board.rebootBorderX && player.getRebootSpace().getReboot().isStartField()) {
+                for (Space space : board.getRebootSpaceList()) {
+                    if (!space.getReboot().isStartField()) {
+                        player.setRebootSpace(space);
+                    }
+                }
+            }
+        }
+    }
 
+    /**
+     * Respawns all players
+     * @author Gabriel
+     */
+    public void respawnPlayers(){
+        for (Player player:board.getPlayers()) {
+            if(player.getSpace()==null){
+                teleportPlayerToReboot(player);
+            }
+        }
+    }
+
+    /**
+     * Teleports players to reboot space and pushes players forward if multiple players is respawning on the same space
+     * @param player the "dead" player with space null, will be respawned on the reboot space
+     * @author Gabriel
+     */
+    public void teleportPlayerToReboot(@NotNull Player player){
+        if (player.getRebootSpace().getPlayer() != null){
+            directionMove(player.getRebootSpace().getPlayer(), player.getRebootSpace().getReboot().REBOOT_HEADING);
+        }
+        player.setSpace(player.getRebootSpace());
+        player.setHeading(player.getRebootSpace().getReboot().REBOOT_HEADING);
+    }
+
+    /**
+     * Player falls into pit and is removed from the board
+     * @param player
+     */
+    private void fallIntoPit(@NotNull Player player){
+        if(player.getSpace().getPit())
+            player.setSpace(null);
+    }
 }
+
+
+

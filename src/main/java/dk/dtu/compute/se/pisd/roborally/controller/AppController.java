@@ -26,16 +26,22 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 
 import dk.dtu.compute.se.pisd.roborally.RoboRally;
 
+import dk.dtu.compute.se.pisd.roborally.dal.IRepository;
+import dk.dtu.compute.se.pisd.roborally.dal.RepositoryAccess;
+import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 
+import dk.dtu.compute.se.pisd.roborally.model.Reboot;
 import javafx.application.Platform;
-import javafx.scene.control.Alert;
+import javafx.event.ActionEvent;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceDialog;
+import javafx.scene.layout.HBox;
+import javafx.util.Pair;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -45,11 +51,11 @@ import java.util.Optional;
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  */
-public class AppController implements Observer {
+public class AppController implements Observer{
 
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
 
-    final private List<String> PLAYER_COLORS = Arrays.asList("red", "green", "blue", "orange", "grey", "magenta");
+    final private List<String> PLAYER_COLORS = Arrays.asList("Crimson", "LightGreen", "CornflowerBlue", "Aqua", "Aquamarine", "Magenta", "DarkCyan", "DarkGoldenRod", "DarkKhaki", "DarkMagenta", "DeepPink");
 
     final private RoboRally roboRally;
 
@@ -59,6 +65,10 @@ public class AppController implements Observer {
         this.roboRally = roboRally;
     }
 
+    /**
+     * Creates a new game by creating a board, gamecontroller, players, view. Also starts the programming phase.
+     * Also IRepository to create a game in DB.
+     */
     public void newGame() {
         ChoiceDialog<Integer> dialog = new ChoiceDialog<>(PLAYER_NUMBER_OPTIONS.get(0), PLAYER_NUMBER_OPTIONS);
         dialog.setTitle("Player number");
@@ -76,33 +86,89 @@ public class AppController implements Observer {
 
             // XXX the board should eventually be created programmatically or loaded from a file
             //     here we just create an empty board with the required number of players.
-            Board board = new Board(13, 10);
+            Board board = LoadBoard.loadBoard(null);
             gameController = new GameController(board);
             int no = result.get();
+
             for (int i = 0; i < no; i++) {
-                Player player = new Player(board, PLAYER_COLORS.get(i), "Player " + (i + 1));
+                Pair<String, String> playerChoice = costumizePlayer(i);
+                Player player = new Player(board, playerChoice.getValue(),playerChoice.getKey());
                 board.addPlayer(player);
-                player.setSpace(board.getSpace(i % board.width, i));
+                player.setSpace(board.getRebootSpaceList().get(i));
+                player.setRebootSpace(board.getRebootSpaceList().get(i));
             }
 
-            // XXX: V2
-            // board.setCurrentPlayer(board.getPlayer(0));
             gameController.startProgrammingPhase();
+
+            IRepository repository = RepositoryAccess.getRepository();
+            repository.createGameInDB(board);
 
             roboRally.createBoardView(gameController);
         }
     }
 
-    public void saveGame() {
-        // XXX needs to be implemented eventually
+    //TODO: @Gab do something with the cancel button
+    private Pair<String, String> costumizePlayer(int playerNumber){
+
+        boolean validName = false;
+        String name = "";
+
+        while (!validName) {
+                TextInputDialog textInputDialog = new TextInputDialog();
+                textInputDialog.setTitle("Naming players");
+                textInputDialog.getDialogPane().setContentText("Name:");
+                textInputDialog.setHeaderText("Player " + (playerNumber + 1) + " write your name:");
+                Optional<String> result = textInputDialog.showAndWait();
+                TextField input = textInputDialog.getEditor();
+
+                //TODO @Gab better inputvalidation
+                if(input.getText().toString().length()>=1){
+                    validName=true;
+                    name=input.getText();
+                }
+            }
+
+        boolean validColor = false;
+        String color = "";
+
+        while (!validColor) {
+            ChoiceDialog<String> dialog = new ChoiceDialog<>(PLAYER_COLORS.get(0), PLAYER_COLORS);
+            dialog.setTitle("Player color");
+            dialog.setHeaderText("Select color");
+            Optional<String> resultColor = dialog.showAndWait();
+            color= resultColor.get();
+
+            if(gameController.board.getPlayers().isEmpty()) {
+                validColor=true;
+            } else {
+                for (Player player:gameController.board.getPlayers()) {
+                    if(!player.getColor().equals(color)) {
+                        validColor=true;
+                    }
+                }
+            }
+        }
+
+        return new Pair<String, String>(name, color);
     }
 
+
+    public void saveGame() {
+        IRepository repository = RepositoryAccess.getRepository();
+        repository.updateGameInDB(this.gameController.board);
+    }
+
+
+    /**
+     * Loads game from DB, if no game is found this method creates a new game using newGame(); from above.
+     */
     public void loadGame() {
-        // XXX needs to be implememted eventually
-        // for now, we just create a new game
+        IRepository repository = RepositoryAccess.getRepository();
+        gameController=new GameController(repository.loadGameFromDB(4));
         if (gameController == null) {
             newGame();
         }
+        roboRally.createBoardView(gameController);
     }
 
     /**
@@ -127,6 +193,9 @@ public class AppController implements Observer {
         return false;
     }
 
+    /**
+     * Prompts the user access to close the game entirely. This will not save the game in the DB.
+     */
     public void exit() {
         if (gameController != null) {
             Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -155,5 +224,4 @@ public class AppController implements Observer {
     public void update(Subject subject) {
         // XXX do nothing for now
     }
-
 }

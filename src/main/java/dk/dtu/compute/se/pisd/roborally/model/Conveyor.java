@@ -3,12 +3,14 @@ package dk.dtu.compute.se.pisd.roborally.model;
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * @author Gabriel
+ */
 public class Conveyor extends ActivatableBoardElement {
-    //public final?
-    private final Heading heading;
-    private final Command command;
+    public final Heading heading;
+    public final Command command;
 
-    Conveyor(@NotNull Heading heading, @NotNull Command command) {
+    Conveyor(Heading heading, Command command) {
         this.heading = heading;
         this.command = command;
     }
@@ -17,14 +19,4 @@ public class Conveyor extends ActivatableBoardElement {
     public void activateElement(@NotNull Player player, @NotNull GameController gameController) {
         gameController.executeCommand(player,heading,command);
     }
-
-    public Heading getHeading() {
-        return heading;
-    }
-
-    public Command getCommand() {
-        return command;
-    }
-
-
 }

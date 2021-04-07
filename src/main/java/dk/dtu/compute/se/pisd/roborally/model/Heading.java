@@ -26,8 +26,6 @@ package dk.dtu.compute.se.pisd.roborally.model;
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  * <p>
- * Javadoc
- * @author Gabriel
  */
 public enum Heading {
 
@@ -50,7 +48,6 @@ public enum Heading {
     public Heading prev() {
         return values()[(this.ordinal() + values().length - 1) % values().length];
     }
-
 
     public Heading oppositeHeading() {
         return values()[(this.ordinal() + values().length - 2) % values().length];

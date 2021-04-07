@@ -35,16 +35,15 @@ import java.util.List;
  */
 public enum Command {
 
-
-    // This is a very simplistic way of realizing different commands.
     /**
-     * Enumeration konstanter ink. display names pr. konstant. Bruges i forbindelse med CommandCards
-     * til at bevæge spillere
+     * Enumeration canstants inclusive display names. Used in CommandCards for moving a player.
      */
     FORWARD("Fwd"),
     RIGHT("Turn Right"),
     LEFT("Turn Left"),
     FAST_FORWARD("Fast Fwd"),
+    MOVE_x3("Move x3"),
+    U_TURN("U-Turn"),
     OPTION_LEFT_RIGHT("Left OR Right", LEFT, RIGHT);
 
     final public String displayName;
@@ -52,7 +51,7 @@ public enum Command {
     final private List<Command> options;
 
     /**
-     * Sætter for params nedenfor, bruges til at initialisere enumerations konstanterne
+     * Setter for params, used for initialising the enum constants
      *
      * @param displayName
      * @param options
@@ -62,21 +61,9 @@ public enum Command {
         this.options = Collections.unmodifiableList(Arrays.asList(options));
     }
 
-    /**
-     * Returnere boolsk værdi der siger om et CommandCard er "Interactive" altså om spilleren bliver
-     * givet en mulighed for at vælge imellem en eller flere handlinger
-     *
-     * @return
-     */
     public boolean isInteractive() {
         return !options.isEmpty();
     }
-
-    /**
-     * Returnerer handlinger for en given enumerations konstant
-     *
-     * @return
-     */
     public List<Command> getOptions() {
         return options;
     }

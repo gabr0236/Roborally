@@ -25,9 +25,11 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static dk.dtu.compute.se.pisd.roborally.model.Heading.NORTH;
 import static dk.dtu.compute.se.pisd.roborally.model.Phase.INITIALISATION;
 
 /**
@@ -37,7 +39,6 @@ import static dk.dtu.compute.se.pisd.roborally.model.Phase.INITIALISATION;
  */
 public class Board extends Subject {
 
-    //tobias
     public final int width;
 
     public final int height;
@@ -64,10 +65,31 @@ public class Board extends Subject {
 
     private boolean stepMode;
 
+    public final int rebootBorderX;
+
+    private List<Space> rebootSpaceList = new ArrayList<>();
+
+    public int getNumberOfCheckpoints() {
+        return numberOfCheckpoints;
+    }
+
+    public void setNumberOfCheckpoints(int numberOfCheckpoints) {
+        this.numberOfCheckpoints = numberOfCheckpoints;
+    }
+
+    private int numberOfCheckpoints;
+
+    /**
+     * Creates a board with the size of width * height, and create spaces for the board
+     * @param width
+     * @param height
+     * @param boardName
+     */
     public Board(int width, int height, @NotNull String boardName) {
         this.boardName = boardName;
         this.width = width;
         this.height = height;
+        this.rebootBorderX=2;
         spaces = new Space[width][height];
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
@@ -76,15 +98,6 @@ public class Board extends Subject {
                 spacesList.add(space);
             }
         }
-
-        spaces[1][2].setWalls(new Walls(Heading.NORTH));
-        spaces[2][4].setWalls(new Walls(Heading.EAST));
-        spaces[2][5].setWalls(new Walls(Heading.EAST));
-        spaces[1][7].setWalls(new Walls(Heading.SOUTH));
-        spaces[2][0].setActivatableBoardElement(new Conveyor(Heading.EAST, Command.FORWARD));
-        spaces[5][5].setActivatableBoardElement(new Conveyor(Heading.NORTH, Command.FAST_FORWARD));
-        spaces[2][9].setActivatableBoardElement(new Conveyor(Heading.EAST, Command.FORWARD));
-        spaces[0][1].setActivatableBoardElement(new Checkpoint());
         this.stepMode = false;
     }
 
@@ -106,6 +119,12 @@ public class Board extends Subject {
         }
     }
 
+    /**
+     * returns a specific space depending on the params.
+     * @param x
+     * @param y
+     * @return
+     */
     public Space getSpace(int x, int y) {
         if (x >= 0 && x < width &&
                 y >= 0 && y < height) {
@@ -126,6 +145,11 @@ public class Board extends Subject {
         }
     }
 
+    /**
+     * returns a specific player depending on the params.
+     * @param i
+     * @return
+     */
     public Player getPlayer(int i) {
         if (i >= 0 && i < players.size()) {
             return players.get(i);
@@ -214,18 +238,18 @@ public class Board extends Subject {
                 break;
         }
 
-        return getSpace(x, y);
+        Space neighbour = getSpace(x, y);
+        return neighbour;
     }
 
     public String getStatusMessage() {
         // this is actually a view aspect, but for making assignment V1 easy for
         // the students, this method gives a string representation of the current
         // status of the game
-
-        // XXX: V2 changed the status so that it shows the phase, the player and the step
         return "Phase: " + getPhase().name() +
                 ", Player = " + getCurrentPlayer().getName() +
-                ", Step: " + getStep();
+                ", Step: " + getStep() +
+                ", Next checkpoint: " + (getCurrentPlayer().getLastCheckpointVisited()+1);
     }
 
     public List<Player> getPlayers() {
@@ -236,4 +260,6 @@ public class Board extends Subject {
         return Collections.unmodifiableList(spacesList);
     }
 
+    public List<Space> getRebootSpaceList() { return rebootSpaceList;
+    }
 }

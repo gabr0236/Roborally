@@ -22,7 +22,8 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
-import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
 
 /**
  * ...
@@ -31,33 +32,15 @@ import org.jetbrains.annotations.NotNull;
  */
 public class Space extends Subject {
 
-    //Gab,sab,dan
     public final Board board;
 
     public final int x;
     public final int y;
     private Player player;
-    private Walls walls;
-    private ActivatableBoardElement activatableBoardElement;
-
-
-    public ActivatableBoardElement getActivatableBoardElement() {
-        return activatableBoardElement;
-    }
-
-    public void setActivatableBoardElement(@NotNull ActivatableBoardElement activatableBoardElement) {
-        this.activatableBoardElement = activatableBoardElement;
-    }
-
-    public Walls getWall() {
-        return walls;
-    }
-
-    public void setWalls(@NotNull Walls walls) {
-        this.walls = walls;
-    }
-
-
+    private ArrayList<Heading> wallList;
+    private Reboot reboot;
+    private ArrayList<ActivatableBoardElement> activatableBoardElementList = new ArrayList<>();
+    private boolean isPit;
     /**
      * Konstruktøren til "Space", med "board", x og y som parametre
      * Sætter player til at være "null", hvilket betyder der ikke befinder sig en spiller på felter/Spacet
@@ -70,14 +53,20 @@ public class Space extends Subject {
         this.board = board;
         this.x = x;
         this.y = y;
+        this.wallList = new ArrayList<Heading>();
         player = null;
     }
 
-    public Space(Board board, int x, int y, Walls walls) {
+    public Space(Board board, int x, int y, ArrayList<Heading> wallList) {
         this.board = board;
         this.x = x;
         this.y = y;
+        this.wallList = wallList;
         player = null;
+    }
+
+    public Board getBoard() {
+        return board;
     }
 
     /**
@@ -121,6 +110,34 @@ public class Space extends Subject {
         // also need to update when some player attributes change, the player can
         // notify the space of these changes by calling this method.
         notifyChange();
+    }
+
+    public ArrayList<Heading> getWallList() {
+        return wallList;
+    }
+
+    public void setWallList(ArrayList<Heading> wallList) {
+        this.wallList = wallList;
+    }
+
+    public Reboot getReboot() {
+        return reboot;
+    }
+
+    public void setReboot(Reboot reboot) {
+        this.reboot = reboot;
+    }
+
+
+    public void setPit(){ isPit = true;}
+    public void setPit(boolean value){
+        this.isPit=value;
+    }
+
+    public boolean getPit(){ return isPit;}
+
+    public ArrayList<ActivatableBoardElement> getActivatableBoardElementList() {
+        return activatableBoardElementList;
     }
 
 }
