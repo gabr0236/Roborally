@@ -34,10 +34,9 @@ import dk.dtu.compute.se.pisd.roborally.model.Player;
 
 import dk.dtu.compute.se.pisd.roborally.model.Reboot;
 import javafx.application.Platform;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceDialog;
+import javafx.scene.layout.HBox;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -87,6 +86,9 @@ public class AppController implements Observer{
             Board board = LoadBoard.loadBoard(null);
             gameController = new GameController(board);
             int no = result.get();
+
+
+
             for (int i = 0; i < no; i++) {
                 Player player = new Player(board, PLAYER_COLORS.get(i), "Player " + (i + 1));
                 board.addPlayer(player);

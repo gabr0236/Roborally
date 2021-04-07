@@ -91,5 +91,4 @@ public class RoboRallyMenuBar extends MenuBar {
             loadGame.setVisible(true);
         }
     }
-
 }
