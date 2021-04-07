@@ -40,9 +40,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public class SpaceView extends StackPane implements ViewObserver {
 
-    //TODO: midlertidig løsning for at spillet kan blive inden for skærmen på mac
-    final public static int SPACE_HEIGHT = 45; // 60; // 75;
-    final public static int SPACE_WIDTH = 45;  // 60; // 75;
+    final public static int SPACE_HEIGHT = 45;
+    final public static int SPACE_WIDTH = 45;
 
     public final Space space;
 
@@ -74,9 +73,6 @@ public class SpaceView extends StackPane implements ViewObserver {
         update(space);
     }
 
-    /**
-     * @author Gabriel
-     */
     private void updatePlayer() {
         dynamic.getChildren().clear();
         Player player = space.getPlayer();
@@ -93,7 +89,6 @@ public class SpaceView extends StackPane implements ViewObserver {
             dynamic.getChildren().add(arrow);
         }
     }
-
 
     private void staticElements() {
         this.getChildren().clear();
@@ -127,7 +122,6 @@ public class SpaceView extends StackPane implements ViewObserver {
                     this.getChildren().add(arrow);
                     Text text = new Text();
                     text.setText("C");
-                    //text.setTabSize(12);
                     this.getChildren().add(text);
                 }}
         }
@@ -136,7 +130,6 @@ public class SpaceView extends StackPane implements ViewObserver {
             for (ActivatableBoardElement activatableBoardElement:space.getActivatableBoardElementList()) {
 
                 if (activatableBoardElement instanceof Conveyor) {
-                    //de er ikke helt centered 🤨🤨
                     Conveyor conveyor = (Conveyor) activatableBoardElement;
                     Polygon arrow = new Polygon(0.0, 0.0,
                             16.0, 30.0,
