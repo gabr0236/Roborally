@@ -39,7 +39,7 @@ public class SpaceTemplate {
     public List<Heading> walls = new ArrayList<>();
     public Reboot reboot;
     public ArrayList<ActivatableBoardElement> activatableBoardElementList;
-
+    public boolean isPit;
     public int x;
     public int y;
 }

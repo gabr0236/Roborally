@@ -33,8 +33,6 @@ import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.text.Text;
 import org.jetbrains.annotations.NotNull;
 
-import static dk.dtu.compute.se.pisd.roborally.model.Heading.WEST;
-
 /**
  * ...
  *
@@ -42,12 +40,12 @@ import static dk.dtu.compute.se.pisd.roborally.model.Heading.WEST;
  */
 public class SpaceView extends StackPane implements ViewObserver {
 
-    //TODO: midlertidig løsning for at spillet kan blive inden for skærmen på mac
-    final public static int SPACE_HEIGHT = 45; // 60; // 75;
-    final public static int SPACE_WIDTH = 45;  // 60; // 75;
+    final public static int SPACE_HEIGHT = 45;
+    final public static int SPACE_WIDTH = 45;
 
     public final Space space;
 
+    StackPane dynamic;
 
     public SpaceView(@NotNull Space space) {
         this.space = space;
@@ -66,17 +64,17 @@ public class SpaceView extends StackPane implements ViewObserver {
         } else {
             this.setStyle("-fx-background-color: SlateGrey");
         }
+        staticElements();
+        dynamic = new StackPane();
+        this.getChildren().add(dynamic);
         // updatePlayer();
         // This space view should listen to changes of the space
         space.attach(this);
         update(space);
     }
 
-    /**
-     * @author Gabriel
-     */
     private void updatePlayer() {
-        this.getChildren().clear();
+        dynamic.getChildren().clear();
         if (!space.getWallList().isEmpty()) {
             Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
             GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -91,7 +89,7 @@ public class SpaceView extends StackPane implements ViewObserver {
                     case WEST -> gc.strokeLine(2, 2, 2, SPACE_HEIGHT - 2);
                 }
             }
-            this.getChildren().add(canvas);
+            dynamic.getChildren().add(canvas);
         }
 
         if (space.getActivatableBoardElementList() != null) {
@@ -172,14 +170,77 @@ public class SpaceView extends StackPane implements ViewObserver {
                 arrow.setFill(Color.MEDIUMPURPLE);
             }
             arrow.setRotate((90 * player.getHeading().ordinal()) % 360);
-            this.getChildren().add(arrow);
+            dynamic.getChildren().add(arrow);
         }
+    }
+
+    private void staticElements() {
+        this.getChildren().clear();
 
         if (space.getPit()) {
             this.setStyle("-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #424341, #090703)");
             Text text = new Text();
             text.setText("PIT");
             this.getChildren().add(text);
+        }
+
+
+        if (space.getReboot() != null) {
+            this.setStyle("-fx-background-color: greenyellow");
+            Text text = new Text();
+            text.setText("R");
+            this.getChildren().add(text);
+        }
+
+        if (space.getActivatableBoardElementList() != null) {
+            for (ActivatableBoardElement activatableBoardElement:space.getActivatableBoardElementList()) {
+                if (activatableBoardElement instanceof Checkpoint) {
+                    Checkpoint checkpoint = (Checkpoint) activatableBoardElement;
+                    Circle arrow = new Circle();
+                    arrow.setFill(Color.YELLOW);
+                    arrow.setRadius(18);
+                    this.setStyle("-fx-background-color: Black");
+                    this.getChildren().add(arrow);
+                    Text text = new Text();
+                    text.setText("C: " + checkpoint.getCheckpointNumber());
+                    this.getChildren().add(text);
+                }}
+        }
+
+        if (space.getActivatableBoardElementList() != null) {
+            for (ActivatableBoardElement activatableBoardElement:space.getActivatableBoardElementList()) {
+
+                if (activatableBoardElement instanceof Conveyor) {
+                    Conveyor conveyor = (Conveyor) activatableBoardElement;
+                    Polygon arrow = new Polygon(0.0, 0.0,
+                            16.0, 30.0,
+                            30.0, 0.0);
+                    if (conveyor.command == Command.FAST_FORWARD) {
+                        arrow.setFill(Color.LIGHTSKYBLUE);
+                    } else {
+                        arrow.setFill(Color.LIMEGREEN);
+                    }
+                    arrow.setRotate((90 * conveyor.heading.ordinal()) % 360);
+                    this.setStyle("-fx-background-color: Black");
+                    this.getChildren().add(arrow);
+                }
+            }
+        }
+        if (!space.getWallList().isEmpty()) {
+            Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
+            GraphicsContext gc = canvas.getGraphicsContext2D();
+            gc.setStroke(Color.RED);
+            gc.setLineWidth(5);
+            gc.setLineCap(StrokeLineCap.ROUND);
+            for (Heading wall : space.getWallList()) {
+                switch (wall) {
+                    case NORTH -> gc.strokeLine(2, 2, SPACE_WIDTH - 2, 2);
+                    case EAST -> gc.strokeLine(SPACE_WIDTH - 2, 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
+                    case SOUTH -> gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
+                    case WEST -> gc.strokeLine(2, 2, 2, SPACE_HEIGHT - 2);
+                }
+            }
+            this.getChildren().add(canvas);
         }
     }
 

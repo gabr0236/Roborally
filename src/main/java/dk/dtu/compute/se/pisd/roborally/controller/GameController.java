@@ -259,7 +259,7 @@ public class GameController {
      * @param space
      * @param heading
      * @return
-     * @author Gabriel
+     * @author Gabriel, Daniel, Sebastian
      */
     public boolean notWallsBlock(@NotNull Space space, Heading heading) {
         return (!isCurrentSpaceWallBlockingDirection(space, heading)
@@ -271,7 +271,7 @@ public class GameController {
      * @param space
      * @param heading
      * @return
-     * @author Gabriel
+     * @author Gabriel, Daniel, Sebastian
      */
     public boolean isCurrentSpaceWallBlockingDirection(@NotNull Space space, Heading heading) {
         ArrayList<Heading> walls = space.getWallList();
@@ -287,7 +287,7 @@ public class GameController {
      * @param space
      * @param heading
      * @return
-     * @author Gabriel
+     * @author Gabriel, Daniel, Sebastian
      */
     public boolean isHeadingNeighbourWallBlockingDirection(@NotNull Space space, Heading heading) {
         Space neighbour = board.getNeighbour(space, heading);
@@ -302,7 +302,7 @@ public class GameController {
     /**
      * Moves a player 2 spaces forward.
      * @param player
-     * @author Gabriel
+     * @author Gabriel, Sebastian
      */
     public void fastForward(@NotNull Player player, @NotNull Heading heading) {
         directionMove(player, heading);
@@ -312,7 +312,7 @@ public class GameController {
     /**
      * Turns a player to the right.
      * @param player
-     * @author Gabriel
+     * @author Gabriel, Sebastian
      */
     public void turnRight(@NotNull Player player) {
         player.setHeading(player.getHeading().next());
@@ -322,7 +322,7 @@ public class GameController {
     /**
      * Turns a player to the left.
      * @param player
-     * @author Gabriel
+     * @author Gabriel, Sebastian
      */
     public void turnLeft(@NotNull Player player) {
         player.setHeading(player.getHeading().prev());
@@ -430,34 +430,22 @@ public class GameController {
      * @author Gabriel
      */
     public void findWinner(@NotNull Player player) {
-        if (player.getLastCheckpointVisited() == Checkpoint.getNumberOfCheckpoints()) {
+        if (player.getLastCheckpointVisited() == board.getNumberOfCheckpoints()) {
             player.setPlayerWin(true);
             System.out.println(player.getColor() + " har vundet!!");
         }
     }
 
     /**
-     * TODO: @Gab merge with the method below
-     * Calls updatePlayerRebootSpace for each player
+     * Updates every players reboot space if the player have left the startfield
      * @author Gabriel
      */
-    private void updateAllReboot(){
-        for (Player player :board.getPlayers()) {
-            updatePlayerRebootSpace(player);
-        }
-    }
-
-    /**
-     * Updates a players reboot space if the player have left the startfield
-     * @param player
-     * @author Gabriel
-     */
-    private void updatePlayerRebootSpace(@NotNull Player player){
-        Space current = player.getSpace();
-        if(current!=null){
-            if(current.x>current.board.rebootBorderX && player.getRebootSpace().getReboot().isStartField()){
-                for (Space space :board.getRebootSpaceList()) {
-                    if(!space.getReboot().isStartField()) {
+    private void updateAllReboot() {
+        for (Player player : board.getPlayers()) {
+            Space current = player.getSpace();
+            if (current != null && current.x > current.board.rebootBorderX && player.getRebootSpace().getReboot().isStartField()) {
+                for (Space space : board.getRebootSpaceList()) {
+                    if (!space.getReboot().isStartField()) {
                         player.setRebootSpace(space);
                     }
                 }
@@ -479,7 +467,8 @@ public class GameController {
 
     /**
      * Teleports players to reboot space and pushes players forward if multiple players is respawning on the same space
-     * @param player
+     * @param player the "dead" player with space null, will be respawned on the reboot space
+     * @author Gabriel
      */
     public void teleportPlayerToReboot(@NotNull Player player){
         if (player.getRebootSpace().getPlayer() != null){
@@ -498,7 +487,6 @@ public class GameController {
             player.setSpace(null);
     }
 }
-    //TODO: @GAB vis hvor mange checkpoints spiller har
-    //lav afslutningsfase når spiller har vundet
+
 
 

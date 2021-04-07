@@ -38,12 +38,12 @@ import java.io.*;
  */
 public class LoadBoard {
     private static final String BOARDSFOLDER = "boards";
-    private static final String DEFAULTBOARD = "defaultboard";
+    private static final String defaultboard = "defaultboard";
     private static final String JSON_EXT = "json";
 
     public static Board loadBoard(String boardname) {
         if (boardname == null) {
-            boardname = DEFAULTBOARD;
+            boardname = defaultboard;
         }
 
         ClassLoader classLoader = LoadBoard.class.getClassLoader();
@@ -67,11 +67,17 @@ public class LoadBoard {
 			BoardTemplate template = gson.fromJson(reader, BoardTemplate.class);
 
 			result = new Board(template.width, template.height);
+			result.setNumberOfCheckpoints(template.numberOfCheckpoints);
 			for (SpaceTemplate spaceTemplate: template.spaces) {
 			    Space space = result.getSpace(spaceTemplate.x, spaceTemplate.y);
 			    if (space != null) {
                     space.getActivatableBoardElementList().addAll(spaceTemplate.activatableBoardElementList);
                     space.getWallList().addAll(spaceTemplate.walls);
+                    space.setReboot(spaceTemplate.reboot);
+                    space.setPit(spaceTemplate.isPit);
+                    if(space.getReboot()!=null){
+                        result.getRebootSpaceList().add(space);
+                    }
                 }
             }
 			reader.close();

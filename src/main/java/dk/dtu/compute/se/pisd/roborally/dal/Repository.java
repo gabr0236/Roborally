@@ -21,6 +21,7 @@
  */
 package dk.dtu.compute.se.pisd.roborally.dal;
 
+import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 
 import java.sql.*;
@@ -70,7 +71,9 @@ class Repository implements IRepository {
 
 	private static final String CARDS_POSITION = "position";
 
-	private static final String CARDS_COMMAND = "command";
+	private static final String CARDS_COMMAND_HAND = "commandHand";
+
+	private static final String CARDS_COMMAND_REGISTER = "commandRegister";
 
 
 	private Connector connector;
@@ -202,7 +205,6 @@ class Repository implements IRepository {
 		return false;
 	}
 
-
 	@Override
 	public Board loadGameFromDB(int id) {
 		Board game;
@@ -223,10 +225,8 @@ class Repository implements IRepository {
 				// TODO and we should also store the used game board in the database
 				//      for now, we use the default game board
 
-				//TODO @Gab midlertidigt til at teste loading uden board load
-				game = new Board(13,10);
-				game.setBoard();
-				//game = LoadBoard.loadBoard(null);
+
+				game = LoadBoard.loadBoard(null);
 				if (game == null) {
 					return null;
 				}
@@ -329,7 +329,10 @@ class Repository implements IRepository {
 				rs.updateInt(CARDS_GAMEID, game.getGameId());
 				rs.updateInt(CARDS_PLAYERID, i);
 				rs.updateInt(CARDS_POSITION, j);
-				rs.updateInt(CARDS_COMMAND, player.getCardField(j).getCard().command.ordinal());
+				rs.updateInt(CARDS_COMMAND_HAND, player.getCardField(j).getCard().command.ordinal());
+				if(j<Player.NO_REGISTERS && player.getProgramField(j).getCard()!=null){
+					rs.updateInt(CARDS_COMMAND_REGISTER, player.getProgramField(j).getCard().command.ordinal());
+				}
 				rs.insertRow();
 			}
 		}
@@ -384,8 +387,19 @@ class Repository implements IRepository {
 		while (rs.next()) {
 			int playerId = rs.getInt(CARDS_PLAYERID);
 			int position = rs.getInt(CARDS_POSITION);
-			int card = rs.getInt(CARDS_COMMAND);
-			game.getPlayers().get(playerId).getCardField(position).setCard(new CommandCard(Command.values()[card]));
+
+			int cardHand = rs.getInt(CARDS_COMMAND_HAND);
+			boolean cardHandIsNull = rs.wasNull();
+			int cardRegister = rs.getInt(CARDS_COMMAND_REGISTER);
+			Player player =game.getPlayers().get(playerId);
+
+			if(!cardHandIsNull){
+				player.getCardField(position).setCard(new CommandCard(Command.values()[cardHand]));
+			}
+			else if (position<Player.NO_REGISTERS) {
+				player.getProgramField(position).setCard(new CommandCard(Command.values()[cardRegister]));
+			}
+
 		}
 		rs.close();
 	}
@@ -429,7 +443,16 @@ class Repository implements IRepository {
 			Player player = game.getPlayer(playerId);
 			int position = rs.getInt(CARDS_POSITION);
 
-			rs.updateInt(CARDS_COMMAND, player.getCardField(position).getCard().command.ordinal());
+			if(player.getCardField(position).getCard()!=null){
+				rs.updateInt(CARDS_COMMAND_HAND, player.getCardField(position).getCard().command.ordinal());
+			} else {
+				rs.updateNull(CARDS_COMMAND_HAND);
+			}
+			if(position<Player.NO_REGISTERS && player.getProgramField(position).getCard()!=null) {
+				rs.updateInt(CARDS_COMMAND_REGISTER, player.getProgramField(position).getCard().command.ordinal());
+			}else {
+				rs.updateNull(CARDS_COMMAND_REGISTER);
+			}
 			rs.updateRow();
 		}
 		rs.close();

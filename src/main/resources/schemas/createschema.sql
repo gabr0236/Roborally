@@ -37,12 +37,11 @@ CREATE TABLE IF NOT EXISTS Cards (
   playerID tinyint NOT NULL,
 
   position int NOT NULL,
-  command tinyint,
+  commandHand tinyint,
+  commandRegister tinyint,
 
   PRIMARY KEY (gameID, playerID, position),
   FOREIGN KEY (gameID, playerID) references Player(gameID, playerID)
 );;
 
 SET FOREIGN_KEY_CHECKS = 1;;
-
-# TODO still some stuff missing here

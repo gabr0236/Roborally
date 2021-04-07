@@ -130,6 +130,9 @@ public class Space extends Subject {
 
 
     public void setPit(){ isPit = true;}
+    public void setPit(boolean value){
+        this.isPit=value;
+    }
 
     public boolean getPit(){ return isPit;}
 

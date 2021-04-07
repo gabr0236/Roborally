@@ -28,17 +28,20 @@ import dk.dtu.compute.se.pisd.roborally.RoboRally;
 
 import dk.dtu.compute.se.pisd.roborally.dal.IRepository;
 import dk.dtu.compute.se.pisd.roborally.dal.RepositoryAccess;
+import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 
 import dk.dtu.compute.se.pisd.roborally.model.Reboot;
 import javafx.application.Platform;
-import javafx.scene.control.Alert;
+import javafx.event.ActionEvent;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceDialog;
+import javafx.scene.layout.HBox;
+import javafx.util.Pair;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -52,7 +55,7 @@ public class AppController implements Observer{
 
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
 
-    final private List<String> PLAYER_COLORS = Arrays.asList("red", "green", "blue", "orange", "grey", "magenta");
+    final private List<String> PLAYER_COLORS = Arrays.asList("Crimson", "LightGreen", "CornflowerBlue", "Aqua", "Aquamarine", "Magenta", "DarkCyan", "DarkGoldenRod", "DarkKhaki", "DarkMagenta", "DeepPink");
 
     final private RoboRally roboRally;
 
@@ -83,18 +86,18 @@ public class AppController implements Observer{
 
             // XXX the board should eventually be created programmatically or loaded from a file
             //     here we just create an empty board with the required number of players.
-            Board board = new Board(13, 10);
-            board.setBoard();
+            Board board = LoadBoard.loadBoard(null);
             gameController = new GameController(board);
             int no = result.get();
+
             for (int i = 0; i < no; i++) {
-                Player player = new Player(board, PLAYER_COLORS.get(i), "Player " + (i + 1));
+                Pair<String, String> playerChoice = costumizePlayer(i);
+                Player player = new Player(board, playerChoice.getValue(),playerChoice.getKey());
                 board.addPlayer(player);
                 player.setSpace(board.getRebootSpaceList().get(i));
                 player.setRebootSpace(board.getRebootSpaceList().get(i));
             }
 
-            // board.setCurrentPlayer(board.getPlayer(0));
             gameController.startProgrammingPhase();
 
             IRepository repository = RepositoryAccess.getRepository();
@@ -103,6 +106,52 @@ public class AppController implements Observer{
             roboRally.createBoardView(gameController);
         }
     }
+
+    //TODO: @Gab do something with the cancel button
+    private Pair<String, String> costumizePlayer(int playerNumber){
+
+        boolean validName = false;
+        String name = "";
+
+        while (!validName) {
+                TextInputDialog textInputDialog = new TextInputDialog();
+                textInputDialog.setTitle("Naming players");
+                textInputDialog.getDialogPane().setContentText("Name:");
+                textInputDialog.setHeaderText("Player " + (playerNumber + 1) + " write your name:");
+                Optional<String> result = textInputDialog.showAndWait();
+                TextField input = textInputDialog.getEditor();
+
+                //TODO @Gab better inputvalidation
+                if(input.getText().toString().length()>=1){
+                    validName=true;
+                    name=input.getText();
+                }
+            }
+
+        boolean validColor = false;
+        String color = "";
+
+        while (!validColor) {
+            ChoiceDialog<String> dialog = new ChoiceDialog<>(PLAYER_COLORS.get(0), PLAYER_COLORS);
+            dialog.setTitle("Player color");
+            dialog.setHeaderText("Select color");
+            Optional<String> resultColor = dialog.showAndWait();
+            color= resultColor.get();
+
+            if(gameController.board.getPlayers().isEmpty()) {
+                validColor=true;
+            } else {
+                for (Player player:gameController.board.getPlayers()) {
+                    if(!player.getColor().equals(color)) {
+                        validColor=true;
+                    }
+                }
+            }
+        }
+
+        return new Pair<String, String>(name, color);
+    }
+
 
     public void saveGame() {
         IRepository repository = RepositoryAccess.getRepository();
@@ -115,7 +164,7 @@ public class AppController implements Observer{
      */
     public void loadGame() {
         IRepository repository = RepositoryAccess.getRepository();
-        gameController=new GameController(repository.loadGameFromDB(1));
+        gameController=new GameController(repository.loadGameFromDB(4));
         if (gameController == null) {
             newGame();
         }
