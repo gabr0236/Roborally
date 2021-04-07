@@ -112,7 +112,12 @@ public class AppController implements Observer{
         }
     }
 
-    //TODO: @Gab do something with the cancel button
+    /**
+     * TODO: @Gab do something with the cancel button, add javadoc
+     * @param playerNumber
+     * @return
+     * @author Gabriel
+     */
     private Pair<String, String> costumizePlayer(int playerNumber){
 
         boolean validName = false;
@@ -230,6 +235,10 @@ public class AppController implements Observer{
         // XXX do nothing for now
     }
 
+    /**
+     * TODO: @Gab javadoc
+     * @author Gabriel
+     */
     public void newTestGame() {
         Board board = LoadBoard.loadBoard("defaultboard");
         gameController = new GameController(board);
