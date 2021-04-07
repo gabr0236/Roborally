@@ -173,4 +173,27 @@ class GameControllerTest {
         Assertions.assertNull(player1.getSpace());
     }
 
+    @Test
+    void moveThreeStepsForward() {
+        Board board = gameController.board;
+        Player current = board.getCurrentPlayer();
+
+        gameController.fastForward(current, current.getHeading());
+        gameController.directionMove(current, current.getHeading());
+
+        Assertions.assertEquals(current, board.getSpace(0, 3).getPlayer(), "Player " + current.getName() + " should beSpace (0,3)!");
+        Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
+        Assertions.assertNull(board.getSpace(0, 0).getPlayer(), "Space (0,0) should be empty!");
+    }
+
+    @Test
+    void turnAround() {
+        Board board = gameController.board;
+        Player current = board.getCurrentPlayer();
+
+        gameController.turnAround(current);
+
+        Assertions.assertEquals(current, board.getSpace(0, 0).getPlayer(), "Player " + current.getName() + " should beSpace (0,0)!");
+        Assertions.assertEquals(Heading.NORTH, current.getHeading(), "Player 0 should be heading South!");
+    }
 }

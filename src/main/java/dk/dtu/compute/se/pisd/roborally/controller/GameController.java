@@ -259,7 +259,7 @@ public class GameController {
      * @param space
      * @param heading
      * @return
-     * @author Gabriel
+     * @author Gabriel, Daniel, Sebastian
      */
     public boolean notWallsBlock(@NotNull Space space, Heading heading) {
         return (!isCurrentSpaceWallBlockingDirection(space, heading)
@@ -271,7 +271,7 @@ public class GameController {
      * @param space
      * @param heading
      * @return
-     * @author Gabriel
+     * @author Gabriel, Daniel, Sebastian
      */
     public boolean isCurrentSpaceWallBlockingDirection(@NotNull Space space, Heading heading) {
         ArrayList<Heading> walls = space.getWallList();
@@ -287,7 +287,7 @@ public class GameController {
      * @param space
      * @param heading
      * @return
-     * @author Gabriel
+     * @author Gabriel, Daniel, Sebastian
      */
     public boolean isHeadingNeighbourWallBlockingDirection(@NotNull Space space, Heading heading) {
         Space neighbour = board.getNeighbour(space, heading);
@@ -302,7 +302,7 @@ public class GameController {
     /**
      * Moves a player 2 spaces forward.
      * @param player
-     * @author Gabriel
+     * @author Gabriel, Sebastian
      */
     public void fastForward(@NotNull Player player, @NotNull Heading heading) {
         directionMove(player, heading);
@@ -312,7 +312,7 @@ public class GameController {
     /**
      * Turns a player to the right.
      * @param player
-     * @author Gabriel
+     * @author Gabriel, Sebastian
      */
     public void turnRight(@NotNull Player player) {
         player.setHeading(player.getHeading().next());
@@ -322,7 +322,7 @@ public class GameController {
     /**
      * Turns a player to the left.
      * @param player
-     * @author Gabriel
+     * @author Gabriel, Sebastian
      */
     public void turnLeft(@NotNull Player player) {
         player.setHeading(player.getHeading().prev());
