@@ -105,21 +105,23 @@ public class AppController implements Observer{
         }
     }
 
+    //TODO: @Gab do something with the cancel button
     private String namePlayers(int playerNumber){
         String name = "";
             boolean validName = false;
             while (!validName) {
                 TextInputDialog textInputDialog = new TextInputDialog();
 
-                textInputDialog.setTitle("Nameing players");
+                textInputDialog.setTitle("Naming players");
 
-                textInputDialog.getDialogPane().setContentText("Player " + (playerNumber + 1) + " write your name:");
+                textInputDialog.getDialogPane().setContentText("Name:");
 
+                textInputDialog.setHeaderText("Player " + (playerNumber + 1) + " write your name:");
                 Optional<String> result = textInputDialog.showAndWait();
 
                 TextField input = textInputDialog.getEditor();
 
-                //TODO @Gab lav bedre inputsikkerhed
+                //TODO @Gab better inputvalidation
                 if(input.getText().toString().length()>=1){
                     validName=true;
                     name=input.getText();
