@@ -105,14 +105,12 @@ public class SpaceView extends StackPane implements ViewObserver {
             this.setStyle("-fx-background-color: greenyellow");
             Text text = new Text();
             text.setText("R");
-            //text.setTabSize(12);
             this.getChildren().add(text);
         }
 
         if (space.getActivatableBoardElementList() != null) {
             for (ActivatableBoardElement activatableBoardElement:space.getActivatableBoardElementList()) {
                 if (activatableBoardElement instanceof Checkpoint) {
-                    //de er ikke helt centered 🤨🤨
                     Checkpoint checkpoint = (Checkpoint) activatableBoardElement;
                     Circle arrow = new Circle();
                     arrow.setFill(Color.YELLOW);
