@@ -141,12 +141,12 @@ public class SpaceView extends StackPane implements ViewObserver {
                     Polygon arrow = new Polygon(0.0, 0.0,
                             16.0, 30.0,
                             30.0, 0.0);
-                    if (conveyor.getCommand() == Command.FAST_FORWARD) {
+                    if (conveyor.command == Command.FAST_FORWARD) {
                         arrow.setFill(Color.LIGHTSKYBLUE);
                     } else {
                         arrow.setFill(Color.LIMEGREEN);
                     }
-                    arrow.setRotate((90 * conveyor.getHeading().ordinal()) % 360);
+                    arrow.setRotate((90 * conveyor.heading.ordinal()) % 360);
                     this.setStyle("-fx-background-color: Black");
                     this.getChildren().add(arrow);
                 }

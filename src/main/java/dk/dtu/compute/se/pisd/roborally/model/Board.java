@@ -101,32 +101,6 @@ public class Board extends Subject {
         this.stepMode = false;
     }
 
-    public void setBoard(){
-        spaces[1][2].setWallList(new ArrayList<Heading>() {{ add(Heading.NORTH); }});
-        spaces[2][4].setWallList(new ArrayList<Heading>() {{ add(Heading.EAST); }});
-        spaces[2][5].setWallList(new ArrayList<Heading>() {{ add(Heading.EAST); }});
-        spaces[1][7].setWallList(new ArrayList<Heading>() {{ add(Heading.SOUTH); }});
-        spaces[2][0].getActivatableBoardElementList().add(new Conveyor(Heading.EAST, Command.FORWARD));
-        spaces[5][5].getActivatableBoardElementList().add(new Conveyor(NORTH, Command.FAST_FORWARD));
-        spaces[2][9].getActivatableBoardElementList().add(new Conveyor(Heading.EAST, Command.FORWARD));
-        spaces[12][4].getActivatableBoardElementList().add(new Checkpoint(2));
-        spaces[0][1].getActivatableBoardElementList().add(new Checkpoint(1));
-        spaces[1][1].setReboot(new Reboot(Heading.EAST,true));
-        spaces[0][3].setReboot(new Reboot(Heading.EAST,true));
-        spaces[1][4].setReboot(new Reboot(Heading.EAST,true));
-        spaces[1][5].setReboot(new Reboot(Heading.EAST,true));
-        spaces[0][6].setReboot(new Reboot(Heading.EAST,true));
-        spaces[1][8].setReboot(new Reboot(Heading.EAST,true));
-        spaces[5][4].setReboot(new Reboot(Heading.EAST,false));
-        spaces[6][4].setPit();
-        spaces[10][7].setPit();
-        spaces[7][1].setPit();
-        spaces[4][3].getActivatableBoardElementList().add(new Gear(false));
-        //TODO: @gab reboot skal laves lidt på en anden måde mht. listen
-        rebootSpaceList=(Arrays.asList(spaces[1][1], spaces[0][3], spaces[1][4], spaces[1][5],
-                spaces[0][6], spaces[1][8],spaces[5][4]));
-    }
-
     public Board(int width, int height) {
         this(width, height, "defaultboard");
     }

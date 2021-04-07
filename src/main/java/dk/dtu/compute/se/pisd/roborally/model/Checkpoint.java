@@ -7,13 +7,6 @@ import dk.dtu.compute.se.pisd.roborally.controller.GameController;
  */
 public class Checkpoint extends ActivatableBoardElement {
 
-
-    //TODO @gab anden løsning end static :P
-
-    public int getCheckpointNumber() {
-        return checkpointNumber;
-    }
-
     private final int checkpointNumber;
 
     Checkpoint(int checkpointNumber) {
@@ -23,5 +16,9 @@ public class Checkpoint extends ActivatableBoardElement {
     @Override
     public void activateElement(Player player, GameController gameController) {
         gameController.registerCheckpoint(player, checkpointNumber);
+    }
+
+    public int getCheckpointNumber() {
+        return checkpointNumber;
     }
 }
