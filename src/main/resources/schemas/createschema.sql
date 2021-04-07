@@ -44,5 +44,3 @@ CREATE TABLE IF NOT EXISTS Cards (
 );;
 
 SET FOREIGN_KEY_CHECKS = 1;;
-
-# TODO still some stuff missing here
