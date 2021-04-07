@@ -76,6 +76,8 @@ public class RoboRallyMenuBar extends MenuBar {
         controlMenu.setOnShowing(e -> update());
         controlMenu.setOnShown(e -> this.updateBounds());
         update();
+
+
     }
 
     public void update() {
