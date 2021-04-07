@@ -55,7 +55,7 @@ public class AppController implements Observer{
 
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
 
-    final private List<String> PLAYER_COLORS = Arrays.asList("Crimson", "LightGreen", "CornflowerBlue", "Aqua", "Aquamarine", "Magenta", "DarkCyan", "DarkGoldenRod", "DarkKhaki", "DarkMagenta", "DeepPink");
+    final private List<String> PLAYER_COLORS = Arrays.asList("Crimson", "CornflowerBlue", "Aqua", "Aquamarine", "Magenta", "DarkCyan", "DarkGoldenRod", "DarkKhaki", "DarkMagenta", "DeepPink");
 
     final private RoboRally roboRally;
 
@@ -223,5 +223,23 @@ public class AppController implements Observer{
     @Override
     public void update(Subject subject) {
         // XXX do nothing for now
+    }
+
+    public void newTestGame() {
+        Board board = LoadBoard.loadBoard(null);
+        gameController = new GameController(board);
+
+        for (int i = 0; i < 3; i++) {
+            Player player = new Player(board, PLAYER_COLORS.get(i), "Player " + i);
+            board.addPlayer(player);
+            player.setSpace(board.getRebootSpaceList().get(i));
+            player.setRebootSpace(board.getRebootSpaceList().get(i));
+        }
+        gameController.startProgrammingPhase();
+
+        IRepository repository = RepositoryAccess.getRepository();
+        repository.createGameInDB(board);
+
+        roboRally.createBoardView(gameController);
     }
 }
