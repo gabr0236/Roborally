@@ -94,7 +94,6 @@ public class AppController implements Observer{
                 player.setRebootSpace(board.getRebootSpaceList().get(i));
             }
 
-            // board.setCurrentPlayer(board.getPlayer(0));
             gameController.startProgrammingPhase();
 
             IRepository repository = RepositoryAccess.getRepository();
@@ -115,7 +114,7 @@ public class AppController implements Observer{
      */
     public void loadGame() {
         IRepository repository = RepositoryAccess.getRepository();
-        gameController=new GameController(repository.loadGameFromDB(1));
+        gameController=new GameController(repository.loadGameFromDB(44));
         if (gameController == null) {
             newGame();
         }
