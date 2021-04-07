@@ -57,6 +57,8 @@ public class AppController implements Observer{
 
     final private List<String> PLAYER_COLORS = Arrays.asList("Crimson", "CornflowerBlue", "Aqua", "Aquamarine", "Magenta", "DarkCyan", "DarkGoldenRod", "DarkKhaki", "DarkMagenta", "DeepPink");
 
+    final private List<String> BOARDS = Arrays.asList("defaultboard","ChopShopChallenge");
+
     final private RoboRally roboRally;
 
     private GameController gameController;
@@ -70,8 +72,13 @@ public class AppController implements Observer{
      * Also IRepository to create a game in DB.
      */
     public void newGame() {
+        ChoiceDialog<String> boardDialog = new ChoiceDialog<>(BOARDS.get(0), BOARDS);
+        boardDialog.setTitle("Board selector");
+        boardDialog.setHeaderText("Select game board");
+        Optional<String> resultBoard = boardDialog.showAndWait();
+
         ChoiceDialog<Integer> dialog = new ChoiceDialog<>(PLAYER_NUMBER_OPTIONS.get(0), PLAYER_NUMBER_OPTIONS);
-        dialog.setTitle("Player number");
+        dialog.setTitle("Player count selector");
         dialog.setHeaderText("Select number of players");
         Optional<Integer> result = dialog.showAndWait();
 
@@ -84,12 +91,10 @@ public class AppController implements Observer{
                 }
             }
 
-            // XXX the board should eventually be created programmatically or loaded from a file
-            //     here we just create an empty board with the required number of players.
-            Board board = LoadBoard.loadBoard(null);
+            Board board = LoadBoard.loadBoard(resultBoard.get());
             gameController = new GameController(board);
-            int no = result.get();
 
+            int no = result.get();
             for (int i = 0; i < no; i++) {
                 Pair<String, String> playerChoice = costumizePlayer(i);
                 Player player = new Player(board, playerChoice.getValue(),playerChoice.getKey());
@@ -115,7 +120,7 @@ public class AppController implements Observer{
 
         while (!validName) {
                 TextInputDialog textInputDialog = new TextInputDialog();
-                textInputDialog.setTitle("Naming players");
+                textInputDialog.setTitle("Naming selector");
                 textInputDialog.getDialogPane().setContentText("Name:");
                 textInputDialog.setHeaderText("Player " + (playerNumber + 1) + " write your name:");
                 Optional<String> result = textInputDialog.showAndWait();
@@ -226,7 +231,7 @@ public class AppController implements Observer{
     }
 
     public void newTestGame() {
-        Board board = LoadBoard.loadBoard(null);
+        Board board = LoadBoard.loadBoard("defaultboard");
         gameController = new GameController(board);
 
         for (int i = 0; i < 3; i++) {
