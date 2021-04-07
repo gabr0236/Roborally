@@ -248,8 +248,8 @@ public class Board extends Subject {
         // status of the game
         return "Phase: " + getPhase().name() +
                 ", Player = " + getCurrentPlayer().getName() +
-                ", Step: " + getStep();
-        //TODO: @Gab vis checkpoints
+                ", Step: " + getStep() +
+                ", Next checkpoint: " + (getCurrentPlayer().getLastCheckpointVisited()+1);
     }
 
     public List<Player> getPlayers() {

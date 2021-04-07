@@ -203,7 +203,6 @@ class Repository implements IRepository {
 		return false;
 	}
 
-
 	@Override
 	public Board loadGameFromDB(int id) {
 		Board game;

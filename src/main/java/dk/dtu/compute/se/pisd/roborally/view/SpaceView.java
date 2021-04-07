@@ -100,14 +100,13 @@ public class SpaceView extends StackPane implements ViewObserver {
             this.getChildren().add(text);
         }
 
-        if (space.getActivatableBoardElementList() != null) {
-                if (space.getReboot() != null) {
-                    this.setStyle("-fx-background-color: greenyellow");
-                    Text text = new Text();
-                    text.setText("R");
-                    //text.setTabSize(12);
-                    this.getChildren().add(text);
-                }
+
+        if (space.getReboot() != null) {
+            this.setStyle("-fx-background-color: greenyellow");
+            Text text = new Text();
+            text.setText("R");
+            //text.setTabSize(12);
+            this.getChildren().add(text);
         }
 
         if (space.getActivatableBoardElementList() != null) {
@@ -121,7 +120,7 @@ public class SpaceView extends StackPane implements ViewObserver {
                     this.setStyle("-fx-background-color: Black");
                     this.getChildren().add(arrow);
                     Text text = new Text();
-                    text.setText("C");
+                    text.setText("C: " + checkpoint.getCheckpointNumber());
                     this.getChildren().add(text);
                 }}
         }
