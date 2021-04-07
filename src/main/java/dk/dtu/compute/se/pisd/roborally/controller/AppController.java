@@ -34,11 +34,13 @@ import dk.dtu.compute.se.pisd.roborally.model.Player;
 
 import dk.dtu.compute.se.pisd.roborally.model.Reboot;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -87,10 +89,8 @@ public class AppController implements Observer{
             gameController = new GameController(board);
             int no = result.get();
 
-
-
             for (int i = 0; i < no; i++) {
-                Player player = new Player(board, PLAYER_COLORS.get(i), "Player " + (i + 1));
+                Player player = new Player(board, PLAYER_COLORS.get(i), namePlayers(i));
                 board.addPlayer(player);
                 player.setSpace(board.getRebootSpaceList().get(i));
                 player.setRebootSpace(board.getRebootSpaceList().get(i));
@@ -103,6 +103,29 @@ public class AppController implements Observer{
 
             roboRally.createBoardView(gameController);
         }
+    }
+
+    private String namePlayers(int playerNumber){
+        String name = "";
+            boolean validName = false;
+            while (!validName) {
+                TextInputDialog textInputDialog = new TextInputDialog();
+
+                textInputDialog.setTitle("Nameing players");
+
+                textInputDialog.getDialogPane().setContentText("Player " + (playerNumber + 1) + " write your name:");
+
+                Optional<String> result = textInputDialog.showAndWait();
+
+                TextField input = textInputDialog.getEditor();
+
+                //TODO @Gab lav bedre inputsikkerhed
+                if(input.getText().toString().length()>=1){
+                    validName=true;
+                    name=input.getText();
+                }
+            }
+        return name;
     }
 
     public void saveGame() {
