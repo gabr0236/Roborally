@@ -40,9 +40,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public class SpaceView extends StackPane implements ViewObserver {
 
-    //TODO: midlertidig løsning for at spillet kan blive inden for skærmen på mac
-    final public static int SPACE_HEIGHT = 45; // 60; // 75;
-    final public static int SPACE_WIDTH = 45;  // 60; // 75;
+    final public static int SPACE_HEIGHT = 45;
+    final public static int SPACE_WIDTH = 45;
 
     public final Space space;
 
@@ -74,9 +73,6 @@ public class SpaceView extends StackPane implements ViewObserver {
         update(space);
     }
 
-    /**
-     * @author Gabriel
-     */
     private void updatePlayer() {
         dynamic.getChildren().clear();
         Player player = space.getPlayer();
@@ -94,7 +90,6 @@ public class SpaceView extends StackPane implements ViewObserver {
         }
     }
 
-
     private void staticElements() {
         this.getChildren().clear();
 
@@ -110,14 +105,12 @@ public class SpaceView extends StackPane implements ViewObserver {
             this.setStyle("-fx-background-color: greenyellow");
             Text text = new Text();
             text.setText("R");
-            //text.setTabSize(12);
             this.getChildren().add(text);
         }
 
         if (space.getActivatableBoardElementList() != null) {
             for (ActivatableBoardElement activatableBoardElement:space.getActivatableBoardElementList()) {
                 if (activatableBoardElement instanceof Checkpoint) {
-                    //de er ikke helt centered 🤨🤨
                     Checkpoint checkpoint = (Checkpoint) activatableBoardElement;
                     Circle arrow = new Circle();
                     arrow.setFill(Color.YELLOW);
@@ -125,8 +118,7 @@ public class SpaceView extends StackPane implements ViewObserver {
                     this.setStyle("-fx-background-color: Black");
                     this.getChildren().add(arrow);
                     Text text = new Text();
-                    text.setText("C");
-                    //text.setTabSize(12);
+                    text.setText("C: " + checkpoint.getCheckpointNumber());
                     this.getChildren().add(text);
                 }}
         }
@@ -135,17 +127,16 @@ public class SpaceView extends StackPane implements ViewObserver {
             for (ActivatableBoardElement activatableBoardElement:space.getActivatableBoardElementList()) {
 
                 if (activatableBoardElement instanceof Conveyor) {
-                    //de er ikke helt centered 🤨🤨
                     Conveyor conveyor = (Conveyor) activatableBoardElement;
                     Polygon arrow = new Polygon(0.0, 0.0,
                             16.0, 30.0,
                             30.0, 0.0);
-                    if (conveyor.getCommand() == Command.FAST_FORWARD) {
+                    if (conveyor.command == Command.FAST_FORWARD) {
                         arrow.setFill(Color.LIGHTSKYBLUE);
                     } else {
                         arrow.setFill(Color.LIMEGREEN);
                     }
-                    arrow.setRotate((90 * conveyor.getHeading().ordinal()) % 360);
+                    arrow.setRotate((90 * conveyor.heading.ordinal()) % 360);
                     this.setStyle("-fx-background-color: Black");
                     this.getChildren().add(arrow);
                 }
@@ -175,4 +166,5 @@ public class SpaceView extends StackPane implements ViewObserver {
             updatePlayer();
         }
     }
+
 }

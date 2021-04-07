@@ -67,11 +67,17 @@ public class LoadBoard {
 			BoardTemplate template = gson.fromJson(reader, BoardTemplate.class);
 
 			result = new Board(template.width, template.height);
+			result.setNumberOfCheckpoints(template.numberOfCheckpoints);
 			for (SpaceTemplate spaceTemplate: template.spaces) {
 			    Space space = result.getSpace(spaceTemplate.x, spaceTemplate.y);
 			    if (space != null) {
                     space.getActivatableBoardElementList().addAll(spaceTemplate.activatableBoardElementList);
                     space.getWallList().addAll(spaceTemplate.walls);
+                    space.setReboot(spaceTemplate.reboot);
+                    space.setPit(spaceTemplate.isPit);
+                    if(space.getReboot()!=null){
+                        result.getRebootSpaceList().add(space);
+                    }
                 }
             }
 			reader.close();
