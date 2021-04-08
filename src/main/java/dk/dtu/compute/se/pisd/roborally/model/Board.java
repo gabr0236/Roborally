@@ -47,6 +47,8 @@ public class Board extends Subject {
 
     private Integer gameId;
 
+    private String gameName;
+
     public Space[][] getSpaces() {
         return spaces;
     }
@@ -242,15 +244,17 @@ public class Board extends Subject {
         return neighbour;
     }
 
-    public String getStatusMessage() {
+    public String getStatusMessage(Player player) {
         // this is actually a view aspect, but for making assignment V1 easy for
         // the students, this method gives a string representation of the current
         // status of the game
         return "Phase: " + getPhase().name() +
-                ", Player = " + getCurrentPlayer().getName() +
+                ", Player: " + player.getName() +
                 ", Step: " + getStep() +
-                ", Next checkpoint: " + (getCurrentPlayer().getLastCheckpointVisited()+1);
+                ", Next checkpoint: " + (player.getLastCheckpointVisited()+1) +
+                ", Reboot at: R: " + player.getRebootSpace().getReboot().REBOOT_NUMBER;
     }
+
 
     public List<Player> getPlayers() {
         return Collections.unmodifiableList(players);
@@ -261,5 +265,13 @@ public class Board extends Subject {
     }
 
     public List<Space> getRebootSpaceList() { return rebootSpaceList;
+    }
+
+    public String getGameName() {
+        return gameName;
+    }
+
+    public void setGameName(String gameName) {
+        this.gameName = gameName;
     }
 }

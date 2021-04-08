@@ -67,6 +67,9 @@ public class PlayerView extends Tab implements ViewObserver {
 
     private final GameController gameController;
 
+    private final Label statusLabel;
+
+
     /**
      * Konstruktør, skaber de forskellige nødvendige GUI elementer for den enkelte spiller,
      * samt sammenfletter med GameController og henter de nødvendige oplysninger fra model klasserne
@@ -77,6 +80,8 @@ public class PlayerView extends Tab implements ViewObserver {
     public PlayerView(@NotNull GameController gameController, @NotNull Player player) {
         super(player.getName());
         this.setStyle("-fx-text-base-color: " + player.getColor() + ";");
+
+        statusLabel = new Label("<no status>");
 
         top = new VBox();
         this.setContent(top);
@@ -137,6 +142,7 @@ public class PlayerView extends Tab implements ViewObserver {
         top.getChildren().add(programPane);
         top.getChildren().add(cardsLabel);
         top.getChildren().add(cardsPane);
+        top.getChildren().add(statusLabel);
 
         if (player.board != null) {
             player.board.attach(this);
@@ -230,6 +236,7 @@ public class PlayerView extends Tab implements ViewObserver {
                     }
                 }
             }
+            statusLabel.setText(gameController.board.getStatusMessage(player));
         }
     }
 

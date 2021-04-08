@@ -26,6 +26,7 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 
 import dk.dtu.compute.se.pisd.roborally.RoboRally;
 
+import dk.dtu.compute.se.pisd.roborally.dal.GameInDB;
 import dk.dtu.compute.se.pisd.roborally.dal.IRepository;
 import dk.dtu.compute.se.pisd.roborally.dal.RepositoryAccess;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
@@ -39,6 +40,7 @@ import javafx.util.Pair;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,7 +53,7 @@ public class AppController implements Observer{
 
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
 
-    final private List<String> PLAYER_COLORS = Arrays.asList("Crimson", "CornflowerBlue", "Aqua", "Aquamarine", "Magenta", "DarkCyan", "DarkGoldenRod", "DarkKhaki", "DarkMagenta", "DeepPink");
+    private List<String> playerColors = new LinkedList<String>(Arrays.asList("Crimson", "CornflowerBlue", "PaleVioletRed", "PapayaWhip", "RebeccaPurple", "DarkCyan", "DarkGoldenRod", "DarkKhaki", "DarkMagenta", "DeepPink", "Coral"));
 
     final private List<String> BOARDS = Arrays.asList("defaultboard","ChopShopChallenge");
 
@@ -68,6 +70,9 @@ public class AppController implements Observer{
      * Also IRepository to create a game in DB.
      */
     public void newGame() {
+        String gameName = choseGameName();
+
+        //TODO; @Gab maybe do multiple smaller methods
         ChoiceDialog<String> boardDialog = new ChoiceDialog<>(BOARDS.get(0), BOARDS);
         boardDialog.setTitle("Board selector");
         boardDialog.setHeaderText("Select game board");
@@ -78,7 +83,7 @@ public class AppController implements Observer{
         dialog.setHeaderText("Select number of players");
         Optional<Integer> result = dialog.showAndWait();
 
-        if (result.isPresent()) {
+        if (result.isPresent() || resultBoard.isPresent()) {
             if (gameController != null) {
                 // The UI should not allow this, but in case this happens anyway.
                 // give the user the option to save the game or abort this operation!
@@ -88,11 +93,12 @@ public class AppController implements Observer{
             }
 
             Board board = LoadBoard.loadBoard(resultBoard.get());
+            board.setGameName(gameName);
             gameController = new GameController(board);
 
             int no = result.get();
             for (int i = 0; i < no; i++) {
-                Pair<String, String> playerChoice = costomizePlayer(i);
+                Pair<String, String> playerChoice = customizePlayer(i);
                 Player player = new Player(board, playerChoice.getValue(),playerChoice.getKey());
                 board.addPlayer(player);
                 player.setSpace(board.getRebootSpaceList().get(i));
@@ -109,12 +115,11 @@ public class AppController implements Observer{
     }
 
     /**
-     * TODO: @Gab do something with the cancel button, add javadoc
      * @param playerNumber
      * @return
      * @author Gabriel
      */
-    private Pair<String, String> costomizePlayer(int playerNumber){
+    private Pair<String, String> customizePlayer(int playerNumber){
 
         boolean validName = false;
         String name = "";
@@ -127,7 +132,7 @@ public class AppController implements Observer{
                 Optional<String> result = textInputDialog.showAndWait();
                 TextField input = textInputDialog.getEditor();
 
-                //TODO @Gab better inputvalidation
+                //TODO @Gab better inputvalidation, use regex
                 if(input.getText().toString().length()>=1){
                     validName=true;
                     name=input.getText();
@@ -138,11 +143,12 @@ public class AppController implements Observer{
         String color = "";
 
         while (!validColor) {
-            ChoiceDialog<String> dialog = new ChoiceDialog<>(PLAYER_COLORS.get(0), PLAYER_COLORS);
+            ChoiceDialog<String> dialog = new ChoiceDialog<>(playerColors.get(0), playerColors);
             dialog.setTitle("Player color");
             dialog.setHeaderText(name + " select a color");
             Optional<String> resultColor = dialog.showAndWait();
             color= resultColor.get();
+
 
             if(gameController.board.getPlayers().isEmpty()) {
                 validColor=true;
@@ -153,9 +159,36 @@ public class AppController implements Observer{
                     }
                 }
             }
+            playerColors.remove(color);
         }
 
         return new Pair<String, String>(name, color);
+    }
+
+    /**
+     *
+     * @return
+     * @auther @Gabriel
+     */
+    private String choseGameName(){
+        boolean validName = false;
+        String name = "";
+
+        while (!validName) {
+            TextInputDialog textInputDialog = new TextInputDialog();
+            textInputDialog.setTitle("Game naming selector");
+            textInputDialog.getDialogPane().setContentText("Game name:");
+            textInputDialog.setHeaderText("Write a name for your game:");
+            Optional<String> result = textInputDialog.showAndWait();
+            TextField input = textInputDialog.getEditor();
+
+            //TODO @Gab better inputvalidation, use regex
+            if(input.getText().toString().length()>=1){
+                validName=true;
+                name=input.getText();
+            }
+        }
+        return name;
     }
 
 
@@ -170,7 +203,15 @@ public class AppController implements Observer{
      */
     public void loadGame() {
         IRepository repository = RepositoryAccess.getRepository();
-        gameController=new GameController(repository.loadGameFromDB(4));
+
+        List<GameInDB> gameIDList = repository.getGames();
+        ChoiceDialog<GameInDB> dialog = new ChoiceDialog<>(gameIDList.get(0), gameIDList);
+        dialog.setTitle("Game selector");
+        dialog.setHeaderText("Select a game you want to continue");
+        Optional<GameInDB> result = dialog.showAndWait();
+
+        gameController = new GameController(repository.loadGameFromDB(result.get().id));
+
         if (gameController == null) {
             newGame();
         }
@@ -240,7 +281,7 @@ public class AppController implements Observer{
         gameController = new GameController(board);
 
         for (int i = 0; i < 3; i++) {
-            Player player = new Player(board, PLAYER_COLORS.get(i), "Player " + i);
+            Player player = new Player(board, playerColors.get(i), "Player " + i);
             board.addPlayer(player);
             player.setSpace(board.getRebootSpaceList().get(i));
             player.setRebootSpace(board.getRebootSpaceList().get(i));

@@ -26,13 +26,13 @@ public class RebootTest {
     void setUp() {
         Board board = new Board(TEST_WIDTH, TEST_HEIGHT);
 
-        board.getSpace(1,1).setReboot(new Reboot(Heading.EAST,true));
-        board.getSpace(0,3).setReboot(new Reboot(Heading.EAST,true));
-        board.getSpace(1,4).setReboot(new Reboot(Heading.EAST,true));
-        board.getSpace(1,5).setReboot(new Reboot(Heading.EAST,true));
-        board.getSpace(0,6).setReboot(new Reboot(Heading.EAST,true));
-        board.getSpace(1,8).setReboot(new Reboot(Heading.EAST,true));
-        board.getSpace(5,4).setReboot(new Reboot(Heading.EAST,false));
+        board.getSpace(1,1).setReboot(new Reboot(Heading.EAST,true,1));
+        board.getSpace(0,3).setReboot(new Reboot(Heading.EAST,true,2));
+        board.getSpace(1,4).setReboot(new Reboot(Heading.EAST,true,3));
+        board.getSpace(1,5).setReboot(new Reboot(Heading.EAST,true,4));
+        board.getSpace(0,6).setReboot(new Reboot(Heading.EAST,true,5));
+        board.getSpace(1,8).setReboot(new Reboot(Heading.EAST,true,6));
+        board.getSpace(5,4).setReboot(new Reboot(Heading.EAST,false,7));
 
        //board.getRebootSpaceList().add(board.getSpace(1,1));
        //board.getRebootSpaceList().add(board.getSpace(0,3));

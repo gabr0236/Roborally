@@ -46,7 +46,9 @@ class Repository implements IRepository {
 	private static final String GAME_PHASE = "phase";
 
 	private static final String GAME_STEP = "step";
-	
+
+	private static final String GAME_BOARD = "board";
+
 	private static final String PLAYER_PLAYERID = "playerID";
 	
 	private static final String PLAYER_NAME = "name";
@@ -94,10 +96,11 @@ class Repository implements IRepository {
 				// TODO: the name should eventually set by the user
 				//       for the game and should be then used 
 				//       game.getName();
-				ps.setString(1, "Date: " +  new Date()); // instead of name
+				ps.setString(1, game.getGameName()); // instead of name
 				ps.setNull(2, Types.TINYINT); // game.getPlayerNumber(game.getCurrentPlayer())); is inserted after players!
 				ps.setInt(3, game.getPhase().ordinal());
 				ps.setInt(4, game.getStep());
+				ps.setString(5,game.boardName);
 
 				// If you have a foreign key constraint for current players,
 				// the check would need to be temporarily disabled, since
@@ -218,15 +221,10 @@ class Repository implements IRepository {
 			ResultSet rs = ps.executeQuery();
 			int playerNo = -1;
 			if (rs.next()) {
-				// TODO the width and height could eventually come from the database
-				// int width = AppController.BOARD_WIDTH;
-				// int height = AppController.BOARD_HEIGHT;
-				// game = new Board(width,height);
 				// TODO and we should also store the used game board in the database
 				//      for now, we use the default game board
-
-
-				game = LoadBoard.loadBoard(null);
+				String board = rs.getString(GAME_BOARD);
+				game = LoadBoard.loadBoard(board);
 				if (game == null) {
 					return null;
 				}
@@ -387,19 +385,17 @@ class Repository implements IRepository {
 		while (rs.next()) {
 			int playerId = rs.getInt(CARDS_PLAYERID);
 			int position = rs.getInt(CARDS_POSITION);
-
-			int cardHand = rs.getInt(CARDS_COMMAND_HAND);
-			boolean cardHandIsNull = rs.wasNull();
-			int cardRegister = rs.getInt(CARDS_COMMAND_REGISTER);
 			Player player =game.getPlayers().get(playerId);
 
-			if(!cardHandIsNull){
+			int cardHand = rs.getInt(CARDS_COMMAND_HAND);
+			if(!rs.wasNull()){
 				player.getCardField(position).setCard(new CommandCard(Command.values()[cardHand]));
 			}
-			else if (position<Player.NO_REGISTERS) {
+
+			int cardRegister = rs.getInt(CARDS_COMMAND_REGISTER);
+			if(!rs.wasNull()){
 				player.getProgramField(position).setCard(new CommandCard(Command.values()[cardRegister]));
 			}
-
 		}
 		rs.close();
 	}
@@ -461,7 +457,7 @@ class Repository implements IRepository {
 	}
 
 	private static final String SQL_INSERT_GAME =
-			"INSERT INTO Game(name, currentPlayer, phase, step) VALUES (?, ?, ?, ?)";
+			"INSERT INTO Game(name, currentPlayer, phase, step,board) VALUES (?, ?, ?, ?,?)";
 
 	private PreparedStatement insert_game_stmt = null;
 

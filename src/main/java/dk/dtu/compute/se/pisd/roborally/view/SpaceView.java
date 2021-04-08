@@ -111,7 +111,7 @@ public class SpaceView extends StackPane implements ViewObserver {
             arrow.setRotate((90 * (space.getReboot().REBOOT_HEADING.ordinal()) % 360));
             this.getChildren().add(arrow);
             Text text = new Text();
-            text.setText("R");
+            text.setText("R: " + space.getReboot().REBOOT_NUMBER);
             this.getChildren().add(text);
 
         }
