@@ -71,7 +71,7 @@ public class Board extends Subject {
 
     public final int getRebootBorderX2;
 
-    private List<Space> rebootSpaceList = new ArrayList<>();
+    private final List<Space> rebootSpaceList = new ArrayList<>();
 
     public int getNumberOfCheckpoints() {
         return numberOfCheckpoints;

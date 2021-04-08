@@ -35,6 +35,7 @@ public class GameController {
 
     final public Board board;
 
+
     public GameController(@NotNull Board board) {
         this.board = board;
     }
@@ -377,8 +378,6 @@ public class GameController {
     }
 
     /**
-     * //TODO: bemærk at denne metode er ændret til at aktivere alle elementer spillere står på,
-     * TODO: for at undgå bugs med conveyors. Lasers skal nok have deres egen metode
      * Executes all ActivatableBoardElements activateElement methods
      * @author Gabriel
      */
@@ -425,7 +424,7 @@ public class GameController {
 
     /**
      * Updates every players reboot space if the player have left the startfield
-     * @author Gabriel
+     * @author Gabriel, Sebastian
      */
     private void updateAllReboot() {
         for (Player player : board.getPlayers()) {
@@ -462,7 +461,7 @@ public class GameController {
     /**
      * Teleports players to reboot space and pushes players forward if multiple players is respawning on the same space
      * @param player the "dead" player with space null, will be respawned on the reboot space
-     * @author Gabriel
+     * @author Gabriel, Sebastian
      */
     public void teleportPlayerToReboot(@NotNull Player player){
         if (player.getRebootSpace().getPlayer() != null){
