@@ -385,19 +385,17 @@ class Repository implements IRepository {
 		while (rs.next()) {
 			int playerId = rs.getInt(CARDS_PLAYERID);
 			int position = rs.getInt(CARDS_POSITION);
-
-			int cardHand = rs.getInt(CARDS_COMMAND_HAND);
-			boolean cardHandIsNull = rs.wasNull();
-			int cardRegister = rs.getInt(CARDS_COMMAND_REGISTER);
 			Player player =game.getPlayers().get(playerId);
 
-			if(!cardHandIsNull){
+			int cardHand = rs.getInt(CARDS_COMMAND_HAND);
+			if(!rs.wasNull()){
 				player.getCardField(position).setCard(new CommandCard(Command.values()[cardHand]));
 			}
-			else if (position<Player.NO_REGISTERS) {
+
+			int cardRegister = rs.getInt(CARDS_COMMAND_REGISTER);
+			if(!rs.wasNull()){
 				player.getProgramField(position).setCard(new CommandCard(Command.values()[cardRegister]));
 			}
-
 		}
 		rs.close();
 	}

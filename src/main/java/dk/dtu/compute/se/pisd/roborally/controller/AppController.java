@@ -173,7 +173,7 @@ public class AppController implements Observer{
      */
     public void loadGame() {
         IRepository repository = RepositoryAccess.getRepository();
-        gameController=new GameController(repository.loadGameFromDB(4));
+        gameController=new GameController(repository.loadGameFromDB(5));
         if (gameController == null) {
             newGame();
         }
