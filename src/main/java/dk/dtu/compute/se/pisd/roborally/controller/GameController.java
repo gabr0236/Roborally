@@ -167,32 +167,13 @@ public class GameController {
      */
     public void executeCommand(@NotNull Player player, Heading heading, Command command) {
         if (player != null && player.board == board && command != null) {
-            // XXX This is a very simplistic way of dealing with some basic cards and
-            //     their execution. This should eventually be done in a more elegant way
-            //     (this concerns the way cards are modelled as well as the way they are executed).
-
             switch (command) {
-                case FORWARD:
-                    this.directionMove(player, heading);
-                    break;
-                case RIGHT:
-                    this.turnRight(player);
-                    break;
-                case LEFT:
-                    this.turnLeft(player);
-                    break;
-                case FAST_FORWARD:
-                    this.fastForward(player, heading);
-                    break;
-                case MOVE_x3:
-                    this.fastForward(player, heading);
-                    this.directionMove(player,heading);
-                    break;
-                case U_TURN:
-                    this.turnAround(player);
-                    break;
-                default:
-                    // DO NOTHING (for now)
+                case FORWARD -> this.directionMove(player, heading);
+                case RIGHT -> this.turnRight(player);
+                case LEFT -> this.turnLeft(player);
+                case FAST_FORWARD -> this.fastForward(player, heading);
+                case MOVE_x3 -> this.tripleForward(player, heading);
+                case U_TURN -> this.turnAround(player);
             }
         }
     }
@@ -211,13 +192,12 @@ public class GameController {
                     try{
                         moveToSpace(player, target, heading);
                     } catch (ImpossibleMoveException e){
-
+                        System.out.println("impossible move in direction move");
                     }
                 }
             }
         }
     }
-    //TODO: @gab optimise movetospace, direction move, og execute command, we can probably combine these methods somehow
 
     /**
      * Moves a player forward in a specific direction, and pushes, any player in the way, forward.
@@ -309,6 +289,12 @@ public class GameController {
         directionMove(player, heading);
     }
 
+    public void tripleForward(@NotNull Player player, @NotNull Heading heading){
+        directionMove(player, heading);
+        directionMove(player, heading);
+        directionMove(player, heading);
+    }
+
     /**
      * Turns a player to the right.
      * @param player
@@ -316,7 +302,6 @@ public class GameController {
      */
     public void turnRight(@NotNull Player player) {
         player.setHeading(player.getHeading().next());
-
     }
 
     /**
@@ -392,21 +377,23 @@ public class GameController {
     }
 
     /**
+     * //TODO: bemærk at denne metode er ændret til at aktivere alle elementer spillere står på,
+     * TODO: for at undgå bugs med conveyors. Lasers skal nok have deres egen metode
      * Executes all ActivatableBoardElements activateElement methods
      * @author Gabriel
      */
     public void executeBoardElements() {
-        if (board.getSpacesList() != null) {
-            for (Space space : board.getSpacesList()) {
-                Player player = space.getPlayer();
-                for (ActivatableBoardElement activatableBoardElement:space.getActivatableBoardElementList()) {
-                    if (player != null && activatableBoardElement != null) {
-                        activatableBoardElement.activateElement(space.getPlayer(), this);
+        if (board.getPlayers() != null) {
+            for (Player player : board.getPlayers()) {
+                if(player.getSpace()!=null && player.getSpace().getActivatableBoardElementList()!=null) {
+                    for (ActivatableBoardElement activatableBoardElement : player.getSpace().getActivatableBoardElementList()) {
+                            activatableBoardElement.activateElement(player, this);
+                        }
                     }
                 }
             }
         }
-    }
+
 
     /**
      * Registers a players checkpoint in player, and calls findWinner() if player have gathered all checkpoints
