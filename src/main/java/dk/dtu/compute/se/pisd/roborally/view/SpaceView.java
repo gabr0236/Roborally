@@ -110,6 +110,8 @@ public class SpaceView extends StackPane implements ViewObserver {
 
         if (space.getActivatableBoardElementList() != null) {
             for (ActivatableBoardElement activatableBoardElement:space.getActivatableBoardElementList()) {
+
+                // Draw Checkpoint
                 if (activatableBoardElement instanceof Checkpoint) {
                     Checkpoint checkpoint = (Checkpoint) activatableBoardElement;
                     Circle arrow = new Circle();
@@ -120,13 +122,9 @@ public class SpaceView extends StackPane implements ViewObserver {
                     Text text = new Text();
                     text.setText("C: " + checkpoint.getCheckpointNumber());
                     this.getChildren().add(text);
-                }}
-        }
 
-        if (space.getActivatableBoardElementList() != null) {
-            for (ActivatableBoardElement activatableBoardElement:space.getActivatableBoardElementList()) {
-
-                if (activatableBoardElement instanceof Conveyor) {
+                // Draw Conveyor
+                } else if (activatableBoardElement instanceof Conveyor) {
                     Conveyor conveyor = (Conveyor) activatableBoardElement;
                     Polygon arrow = new Polygon(0.0, 0.0,
                             16.0, 30.0,
@@ -139,9 +137,31 @@ public class SpaceView extends StackPane implements ViewObserver {
                     arrow.setRotate((90 * conveyor.heading.ordinal()) % 360);
                     this.setStyle("-fx-background-color: Black");
                     this.getChildren().add(arrow);
+
+                // Draw Gear
+                } else if (activatableBoardElement instanceof Gear) {
+                    // @author Tobias s205358
+                    Gear gear = (Gear) activatableBoardElement;
+                    Circle gearView = new Circle(0, 0, 17.5);
+                    gearView.setFill(Color.BLUE);
+                    Polygon arrowView = new Polygon(0.0, 0.0,
+                            8.0, 15.0,
+                            15.0, 0.0);
+                    arrowView.setFill(Color.YELLOW);
+                    Heading clock;
+                    if (gear.isClockwise()) {
+                        clock = Heading.WEST;
+                    } else {
+                        clock = Heading.EAST;
+                    }
+                    arrowView.setRotate((90 * clock.ordinal()) % 360);
+                    this.getChildren().add(gearView);
+                    this.setStyle("-fx-background-color: Black");
+                    this.getChildren().add(arrowView);
                 }
             }
         }
+
         if (!space.getWallList().isEmpty()) {
             Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
             GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -166,5 +186,4 @@ public class SpaceView extends StackPane implements ViewObserver {
             updatePlayer();
         }
     }
-
 }

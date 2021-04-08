@@ -32,16 +32,12 @@ import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 
-import dk.dtu.compute.se.pisd.roborally.model.Reboot;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.HBox;
 import javafx.util.Pair;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -96,7 +92,7 @@ public class AppController implements Observer{
 
             int no = result.get();
             for (int i = 0; i < no; i++) {
-                Pair<String, String> playerChoice = costumizePlayer(i);
+                Pair<String, String> playerChoice = costomizePlayer(i);
                 Player player = new Player(board, playerChoice.getValue(),playerChoice.getKey());
                 board.addPlayer(player);
                 player.setSpace(board.getRebootSpaceList().get(i));
@@ -112,8 +108,13 @@ public class AppController implements Observer{
         }
     }
 
-    //TODO: @Gab do something with the cancel button
-    private Pair<String, String> costumizePlayer(int playerNumber){
+    /**
+     * TODO: @Gab do something with the cancel button, add javadoc
+     * @param playerNumber
+     * @return
+     * @author Gabriel
+     */
+    private Pair<String, String> costomizePlayer(int playerNumber){
 
         boolean validName = false;
         String name = "";
@@ -139,7 +140,7 @@ public class AppController implements Observer{
         while (!validColor) {
             ChoiceDialog<String> dialog = new ChoiceDialog<>(PLAYER_COLORS.get(0), PLAYER_COLORS);
             dialog.setTitle("Player color");
-            dialog.setHeaderText("Select color");
+            dialog.setHeaderText(name + " select a color");
             Optional<String> resultColor = dialog.showAndWait();
             color= resultColor.get();
 
@@ -230,6 +231,10 @@ public class AppController implements Observer{
         // XXX do nothing for now
     }
 
+    /**
+     * TODO: @Gab javadoc
+     * @author Gabriel
+     */
     public void newTestGame() {
         Board board = LoadBoard.loadBoard("defaultboard");
         gameController = new GameController(board);
