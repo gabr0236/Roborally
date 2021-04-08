@@ -249,9 +249,10 @@ public class Board extends Subject {
         // the students, this method gives a string representation of the current
         // status of the game
         return "Phase: " + getPhase().name() +
-                ", Player = " + player.getName() +
+                ", Player: " + player.getName() +
                 ", Step: " + getStep() +
-                ", Next checkpoint: " + (player.getLastCheckpointVisited()+1);
+                ", Next checkpoint: " + (player.getLastCheckpointVisited()+1) +
+                ", Reboot at: R: " + player.getRebootSpace().getReboot().REBOOT_NUMBER;
     }
 
 
