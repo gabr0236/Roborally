@@ -47,6 +47,8 @@ public class Board extends Subject {
 
     private Integer gameId;
 
+    private String gameName;
+
     public Space[][] getSpaces() {
         return spaces;
     }
@@ -261,5 +263,13 @@ public class Board extends Subject {
     }
 
     public List<Space> getRebootSpaceList() { return rebootSpaceList;
+    }
+
+    public String getGameName() {
+        return gameName;
+    }
+
+    public void setGameName(String gameName) {
+        this.gameName = gameName;
     }
 }

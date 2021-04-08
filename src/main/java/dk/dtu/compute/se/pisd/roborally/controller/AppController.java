@@ -69,6 +69,9 @@ public class AppController implements Observer{
      * Also IRepository to create a game in DB.
      */
     public void newGame() {
+        String gameName = choseGameName();
+
+        //TODO; @Gab maybe do multiple smaller methods
         ChoiceDialog<String> boardDialog = new ChoiceDialog<>(BOARDS.get(0), BOARDS);
         boardDialog.setTitle("Board selector");
         boardDialog.setHeaderText("Select game board");
@@ -89,6 +92,7 @@ public class AppController implements Observer{
             }
 
             Board board = LoadBoard.loadBoard(resultBoard.get());
+            board.setGameName(gameName);
             gameController = new GameController(board);
 
             int no = result.get();
@@ -98,8 +102,6 @@ public class AppController implements Observer{
                 board.addPlayer(player);
                 player.setSpace(board.getRebootSpaceList().get(i));
                 player.setRebootSpace(board.getRebootSpaceList().get(i));
-
-
             }
 
             gameController.startProgrammingPhase();
@@ -160,6 +162,27 @@ public class AppController implements Observer{
         }
 
         return new Pair<String, String>(name, color);
+    }
+
+    private String choseGameName(){
+        boolean validName = false;
+        String name = "";
+
+        while (!validName) {
+            TextInputDialog textInputDialog = new TextInputDialog();
+            textInputDialog.setTitle("Game naming selector");
+            textInputDialog.getDialogPane().setContentText("Game name:");
+            textInputDialog.setHeaderText("Write a name for your game:");
+            Optional<String> result = textInputDialog.showAndWait();
+            TextField input = textInputDialog.getEditor();
+
+            //TODO @Gab better inputvalidation, brug regex
+            if(input.getText().toString().length()>=1){
+                validName=true;
+                name=input.getText();
+            }
+        }
+        return name;
     }
 
 
