@@ -90,6 +90,7 @@ public class SpaceView extends StackPane implements ViewObserver {
         }
     }
 
+    //TODO: else if better for much of this
     private void staticElements() {
         this.getChildren().clear();
 
@@ -103,9 +104,16 @@ public class SpaceView extends StackPane implements ViewObserver {
 
         if (space.getReboot() != null) {
             this.setStyle("-fx-background-color: greenyellow");
+            Polygon arrow = new Polygon(0.0, 0.0,
+                    16.0, 30.0,
+                    30.0, 0.0);
+            arrow.setFill(Color.LAWNGREEN);
+            arrow.setRotate((90 * (space.getReboot().REBOOT_HEADING.ordinal()) % 360));
+            this.getChildren().add(arrow);
             Text text = new Text();
             text.setText("R");
             this.getChildren().add(text);
+
         }
 
         if (space.getActivatableBoardElementList() != null) {
@@ -114,11 +122,11 @@ public class SpaceView extends StackPane implements ViewObserver {
                 // Draw Checkpoint
                 if (activatableBoardElement instanceof Checkpoint) {
                     Checkpoint checkpoint = (Checkpoint) activatableBoardElement;
-                    Circle arrow = new Circle();
-                    arrow.setFill(Color.YELLOW);
-                    arrow.setRadius(18);
+                    Circle circle = new Circle();
+                    circle.setFill(Color.YELLOW);
+                    circle.setRadius(18);
                     this.setStyle("-fx-background-color: Black");
-                    this.getChildren().add(arrow);
+                    this.getChildren().add(circle);
                     Text text = new Text();
                     text.setText("C: " + checkpoint.getCheckpointNumber());
                     this.getChildren().add(text);

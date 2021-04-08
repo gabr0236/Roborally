@@ -8,7 +8,6 @@ import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 public class Reboot{
 
     public final Heading REBOOT_HEADING;
-
     private final boolean startField;
 
     public Reboot(Heading REBOOT_HEADING, boolean startField){
