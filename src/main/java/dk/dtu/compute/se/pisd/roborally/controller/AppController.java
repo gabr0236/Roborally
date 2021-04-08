@@ -26,6 +26,7 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 
 import dk.dtu.compute.se.pisd.roborally.RoboRally;
 
+import dk.dtu.compute.se.pisd.roborally.dal.GameInDB;
 import dk.dtu.compute.se.pisd.roborally.dal.IRepository;
 import dk.dtu.compute.se.pisd.roborally.dal.RepositoryAccess;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
@@ -173,7 +174,15 @@ public class AppController implements Observer{
      */
     public void loadGame() {
         IRepository repository = RepositoryAccess.getRepository();
-        gameController=new GameController(repository.loadGameFromDB(5));
+
+        List<GameInDB> gameIDList = repository.getGames();
+        ChoiceDialog<GameInDB> dialog = new ChoiceDialog<>(gameIDList.get(0), gameIDList);
+        dialog.setTitle("Game selector");
+        dialog.setHeaderText("Select a game you want to continue");
+        Optional<GameInDB> result = dialog.showAndWait();
+
+        gameController = new GameController(repository.loadGameFromDB(result.get().id));
+
         if (gameController == null) {
             newGame();
         }
