@@ -77,7 +77,7 @@
       "walls": [],
       "activatableBoardElementList": [],
       "reboot": {
-        "REBOOT_HEADING": "West",
+        "REBOOT_HEADING": "WEST",
         "startField": true
       },
       "x": 15,
@@ -987,6 +987,71 @@
       "activatableBoardElementList": [],
       "isPit": true,
       "x": 19,
+      "y": 8
+    },
+    {
+      "walls": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Gear",
+          "INSTANCE": {
+            "clockwise": false
+          }
+        }
+      ],
+      "x": 13,
+      "y": 2
+    },
+    {
+      "walls": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Gear",
+          "INSTANCE": {
+            "clockwise": true
+          }
+        }
+      ],
+      "x": 13,
+      "y": 7
+    },
+    {
+      "walls": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Gear",
+          "INSTANCE": {
+            "clockwise": false
+          }
+        }
+      ],
+      "x": 20,
+      "y": 0
+    },
+    {
+      "walls": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Gear",
+          "INSTANCE": {
+            "clockwise": true
+          }
+        }
+      ],
+      "x": 21,
+      "y": 4
+    },
+    {
+      "walls": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Gear",
+          "INSTANCE": {
+            "clockwise": false
+          }
+        }
+      ],
+      "x": 21,
       "y": 8
     }
   ]
