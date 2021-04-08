@@ -9,7 +9,8 @@
       "activatableBoardElementList": [],
       "reboot": {
         "REBOOT_HEADING": "EAST",
-        "startField": true
+        "startField": true,
+        "REBOOT_NUMBER": 1
       },
       "x": 1,
       "y": 1
@@ -19,7 +20,8 @@
       "activatableBoardElementList": [],
       "reboot": {
         "REBOOT_HEADING": "EAST",
-        "startField": true
+        "startField": true,
+        "REBOOT_NUMBER": 2
       },
       "x": 0,
       "y": 3
@@ -29,7 +31,8 @@
       "activatableBoardElementList": [],
       "reboot": {
         "REBOOT_HEADING": "EAST",
-        "startField": true
+        "startField": true,
+        "REBOOT_NUMBER": 3
       },
       "x": 1,
       "y": 4
@@ -39,7 +42,8 @@
       "activatableBoardElementList": [],
       "reboot": {
         "REBOOT_HEADING": "EAST",
-        "startField": true
+        "startField": true,
+        "REBOOT_NUMBER": 4
       },
       "x": 1,
       "y": 5
@@ -49,7 +53,8 @@
       "activatableBoardElementList": [],
       "reboot": {
         "REBOOT_HEADING": "EAST",
-        "startField": true
+        "startField": true,
+        "REBOOT_NUMBER": 5
       },
       "x": 0,
       "y": 6
@@ -59,7 +64,8 @@
       "activatableBoardElementList": [],
       "reboot": {
         "REBOOT_HEADING": "EAST",
-        "startField": true
+        "startField": true,
+        "REBOOT_NUMBER": 6
       },
       "x": 1,
       "y": 8
@@ -69,7 +75,8 @@
       "activatableBoardElementList": [],
       "reboot": {
         "REBOOT_HEADING": "EAST",
-        "startField": true
+        "startField": true,
+        "REBOOT_NUMBER": 7
       },
       "x": 4,
       "y": 9
@@ -79,7 +86,8 @@
       "activatableBoardElementList": [],
       "reboot": {
         "REBOOT_HEADING": "WEST",
-        "startField": true
+        "startField": true,
+        "REBOOT_NUMBER": 8
       },
       "x": 15,
       "y": 0
