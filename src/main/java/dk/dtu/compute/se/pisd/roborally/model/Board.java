@@ -244,15 +244,16 @@ public class Board extends Subject {
         return neighbour;
     }
 
-    public String getStatusMessage() {
+    public String getStatusMessage(Player player) {
         // this is actually a view aspect, but for making assignment V1 easy for
         // the students, this method gives a string representation of the current
         // status of the game
         return "Phase: " + getPhase().name() +
-                ", Player = " + getCurrentPlayer().getName() +
+                ", Player = " + player.getName() +
                 ", Step: " + getStep() +
-                ", Next checkpoint: " + (getCurrentPlayer().getLastCheckpointVisited()+1);
+                ", Next checkpoint: " + (player.getLastCheckpointVisited()+1);
     }
+
 
     public List<Player> getPlayers() {
         return Collections.unmodifiableList(players);

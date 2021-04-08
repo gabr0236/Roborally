@@ -53,7 +53,7 @@ public class AppController implements Observer{
 
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
 
-    private List<String> playerColors = new LinkedList<String>(Arrays.asList("Crimson", "CornflowerBlue", "PaleVioletRed", "PapayaWhip", "Magenta", "DarkCyan", "DarkGoldenRod", "DarkKhaki", "DarkMagenta", "DeepPink", "Coral"));
+    private List<String> playerColors = new LinkedList<String>(Arrays.asList("Crimson", "CornflowerBlue", "PaleVioletRed", "PapayaWhip", "RebeccaPurple", "DarkCyan", "DarkGoldenRod", "DarkKhaki", "DarkMagenta", "DeepPink", "Coral"));
 
     final private List<String> BOARDS = Arrays.asList("defaultboard","ChopShopChallenge");
 
@@ -115,7 +115,6 @@ public class AppController implements Observer{
     }
 
     /**
-     * TODO: @Gab do something with the cancel button, add javadoc
      * @param playerNumber
      * @return
      * @author Gabriel
@@ -133,7 +132,7 @@ public class AppController implements Observer{
                 Optional<String> result = textInputDialog.showAndWait();
                 TextField input = textInputDialog.getEditor();
 
-                //TODO @Gab better inputvalidation, brug regex
+                //TODO @Gab better inputvalidation, use regex
                 if(input.getText().toString().length()>=1){
                     validName=true;
                     name=input.getText();
@@ -166,6 +165,11 @@ public class AppController implements Observer{
         return new Pair<String, String>(name, color);
     }
 
+    /**
+     *
+     * @return
+     * @auther @Gabriel
+     */
     private String choseGameName(){
         boolean validName = false;
         String name = "";
@@ -178,7 +182,7 @@ public class AppController implements Observer{
             Optional<String> result = textInputDialog.showAndWait();
             TextField input = textInputDialog.getEditor();
 
-            //TODO @Gab better inputvalidation, brug regex
+            //TODO @Gab better inputvalidation, use regex
             if(input.getText().toString().length()>=1){
                 validName=true;
                 name=input.getText();

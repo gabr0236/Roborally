@@ -51,8 +51,6 @@ public class BoardView extends VBox implements ViewObserver {
 
     private final PlayersView playersView;
 
-    private final Label statusLabel;
-
     private final SpaceEventHandler spaceEventHandler;
 
     /**
@@ -66,11 +64,9 @@ public class BoardView extends VBox implements ViewObserver {
 
         mainBoardPane = new GridPane();
         playersView = new PlayersView(gameController);
-        statusLabel = new Label("<no status>");
 
         this.getChildren().add(mainBoardPane);
         this.getChildren().add(playersView);
-        this.getChildren().add(statusLabel);
 
         spaces = new SpaceView[board.width][board.height];
 
@@ -86,7 +82,6 @@ public class BoardView extends VBox implements ViewObserver {
                 spaceView.setOnMouseClicked(spaceEventHandler);
             }
         }
-
         board.attach(this);
         update(board);
     }
@@ -99,8 +94,6 @@ public class BoardView extends VBox implements ViewObserver {
     @Override
     public void updateView(Subject subject) {
         if (subject == board) {
-            Phase phase = board.getPhase();
-            statusLabel.setText(board.getStatusMessage());
         }
     }
 
