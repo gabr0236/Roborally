@@ -531,6 +531,19 @@
       ],
       "x": 9,
       "y": 8
+    },
+    {
+      "walls": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Gear",
+          "INSTANCE": {
+            "clockwise": true
+          }
+        }
+      ],
+      "x": 7,
+      "y": 5
     }
     ]
 }
