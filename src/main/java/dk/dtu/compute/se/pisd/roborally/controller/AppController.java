@@ -40,6 +40,7 @@ import javafx.util.Pair;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,7 +53,7 @@ public class AppController implements Observer{
 
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
 
-    final private List<String> PLAYER_COLORS = Arrays.asList("Crimson", "CornflowerBlue", "Aqua", "Aquamarine", "Magenta", "DarkCyan", "DarkGoldenRod", "DarkKhaki", "DarkMagenta", "DeepPink");
+    private List<String> playerColors = new LinkedList<String>(Arrays.asList("Crimson", "CornflowerBlue", "Aqua", "PapayaWhip", "Magenta", "DarkCyan", "DarkGoldenRod", "DarkKhaki", "DarkMagenta", "DeepPink"));
 
     final private List<String> BOARDS = Arrays.asList("defaultboard","ChopShopChallenge");
 
@@ -143,7 +144,7 @@ public class AppController implements Observer{
         String color = "";
 
         while (!validColor) {
-            ChoiceDialog<String> dialog = new ChoiceDialog<>(PLAYER_COLORS.get(0), PLAYER_COLORS);
+            ChoiceDialog<String> dialog = new ChoiceDialog<>(playerColors.get(0), playerColors);
             dialog.setTitle("Player color");
             dialog.setHeaderText(name + " select a color");
             Optional<String> resultColor = dialog.showAndWait();
@@ -159,6 +160,7 @@ public class AppController implements Observer{
                     }
                 }
             }
+            playerColors.remove(color);
         }
 
         return new Pair<String, String>(name, color);
@@ -275,7 +277,7 @@ public class AppController implements Observer{
         gameController = new GameController(board);
 
         for (int i = 0; i < 3; i++) {
-            Player player = new Player(board, PLAYER_COLORS.get(i), "Player " + i);
+            Player player = new Player(board, playerColors.get(i), "Player " + i);
             board.addPlayer(player);
             player.setSpace(board.getRebootSpaceList().get(i));
             player.setRebootSpace(board.getRebootSpaceList().get(i));
