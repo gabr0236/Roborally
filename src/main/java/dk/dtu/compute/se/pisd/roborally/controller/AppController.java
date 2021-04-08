@@ -55,7 +55,7 @@ public class AppController implements Observer{
 
     private List<String> playerColors = new LinkedList<String>(Arrays.asList("Crimson", "CornflowerBlue", "PaleVioletRed", "PapayaWhip", "RebeccaPurple", "DarkCyan", "DarkGoldenRod", "DarkKhaki", "DarkMagenta", "DeepPink", "Coral"));
 
-    final private List<String> BOARDS = Arrays.asList("CORRIDOR_BLITZ","ChopShopChallenge");
+    final private List<String> BOARDS = Arrays.asList("CORRIDOR BLITZ","ChopShopChallenge");
 
     final private RoboRally roboRally;
 
