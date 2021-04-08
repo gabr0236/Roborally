@@ -46,7 +46,9 @@ class Repository implements IRepository {
 	private static final String GAME_PHASE = "phase";
 
 	private static final String GAME_STEP = "step";
-	
+
+	private static final String GAME_BOARD = "board";
+
 	private static final String PLAYER_PLAYERID = "playerID";
 	
 	private static final String PLAYER_NAME = "name";
@@ -98,6 +100,7 @@ class Repository implements IRepository {
 				ps.setNull(2, Types.TINYINT); // game.getPlayerNumber(game.getCurrentPlayer())); is inserted after players!
 				ps.setInt(3, game.getPhase().ordinal());
 				ps.setInt(4, game.getStep());
+				ps.setString(5,game.boardName);
 
 				// If you have a foreign key constraint for current players,
 				// the check would need to be temporarily disabled, since
@@ -218,15 +221,10 @@ class Repository implements IRepository {
 			ResultSet rs = ps.executeQuery();
 			int playerNo = -1;
 			if (rs.next()) {
-				// TODO the width and height could eventually come from the database
-				// int width = AppController.BOARD_WIDTH;
-				// int height = AppController.BOARD_HEIGHT;
-				// game = new Board(width,height);
 				// TODO and we should also store the used game board in the database
 				//      for now, we use the default game board
-
-
-				game = LoadBoard.loadBoard(null);
+				String board = rs.getString(GAME_BOARD);
+				game = LoadBoard.loadBoard(board);
 				if (game == null) {
 					return null;
 				}
@@ -461,7 +459,7 @@ class Repository implements IRepository {
 	}
 
 	private static final String SQL_INSERT_GAME =
-			"INSERT INTO Game(name, currentPlayer, phase, step) VALUES (?, ?, ?, ?)";
+			"INSERT INTO Game(name, currentPlayer, phase, step,board) VALUES (?, ?, ?, ?,?)";
 
 	private PreparedStatement insert_game_stmt = null;
 

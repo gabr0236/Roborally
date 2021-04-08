@@ -2,6 +2,7 @@
   "width": 23,
   "height": 10,
   "numberOfCheckpoints": 6,
+  "boardName": "ChopShopChallenge",
   "spaces": [
     {
       "walls": [],

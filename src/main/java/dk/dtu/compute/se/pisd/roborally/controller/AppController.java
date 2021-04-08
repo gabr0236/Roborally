@@ -78,7 +78,7 @@ public class AppController implements Observer{
         dialog.setHeaderText("Select number of players");
         Optional<Integer> result = dialog.showAndWait();
 
-        if (result.isPresent()) {
+        if (result.isPresent() || resultBoard.isPresent()) {
             if (gameController != null) {
                 // The UI should not allow this, but in case this happens anyway.
                 // give the user the option to save the game or abort this operation!
@@ -92,11 +92,13 @@ public class AppController implements Observer{
 
             int no = result.get();
             for (int i = 0; i < no; i++) {
-                Pair<String, String> playerChoice = costomizePlayer(i);
+                Pair<String, String> playerChoice = customizePlayer(i);
                 Player player = new Player(board, playerChoice.getValue(),playerChoice.getKey());
                 board.addPlayer(player);
                 player.setSpace(board.getRebootSpaceList().get(i));
                 player.setRebootSpace(board.getRebootSpaceList().get(i));
+
+
             }
 
             gameController.startProgrammingPhase();
@@ -114,7 +116,7 @@ public class AppController implements Observer{
      * @return
      * @author Gabriel
      */
-    private Pair<String, String> costomizePlayer(int playerNumber){
+    private Pair<String, String> customizePlayer(int playerNumber){
 
         boolean validName = false;
         String name = "";
@@ -127,7 +129,7 @@ public class AppController implements Observer{
                 Optional<String> result = textInputDialog.showAndWait();
                 TextField input = textInputDialog.getEditor();
 
-                //TODO @Gab better inputvalidation
+                //TODO @Gab better inputvalidation, brug regex
                 if(input.getText().toString().length()>=1){
                     validName=true;
                     name=input.getText();
@@ -143,6 +145,7 @@ public class AppController implements Observer{
             dialog.setHeaderText(name + " select a color");
             Optional<String> resultColor = dialog.showAndWait();
             color= resultColor.get();
+
 
             if(gameController.board.getPlayers().isEmpty()) {
                 validColor=true;

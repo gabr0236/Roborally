@@ -35,4 +35,5 @@ public class BoardTemplate {
     public int height;
     public List<SpaceTemplate> spaces = new ArrayList<>();
     public int numberOfCheckpoints;
+    public String boardName;
 }
