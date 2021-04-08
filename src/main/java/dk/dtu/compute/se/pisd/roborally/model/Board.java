@@ -69,6 +69,8 @@ public class Board extends Subject {
 
     public final int rebootBorderX;
 
+    public final int getRebootBorderX2;
+
     private List<Space> rebootSpaceList = new ArrayList<>();
 
     public int getNumberOfCheckpoints() {
@@ -92,6 +94,7 @@ public class Board extends Subject {
         this.width = width;
         this.height = height;
         this.rebootBorderX=2;
+        this.getRebootBorderX2=12;
         spaces = new Space[width][height];
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {

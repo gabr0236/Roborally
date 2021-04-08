@@ -443,9 +443,16 @@ public class GameController {
     private void updateAllReboot() {
         for (Player player : board.getPlayers()) {
             Space current = player.getSpace();
-            if (current != null && current.x > current.board.rebootBorderX && player.getRebootSpace().getReboot().isStartField()) {
+            if (current != null && current.x > current.board.rebootBorderX && current.x < current.board.getRebootBorderX2) {
                 for (Space space : board.getRebootSpaceList()) {
-                    if (!space.getReboot().isStartField()) {
+                    if (!space.getReboot().isStartField() && space.x != 15) {
+                        player.setRebootSpace(space);
+                    }
+                }
+            }
+            if (current != null && current.x > current.board.getRebootBorderX2) {
+                for (Space space : board.getRebootSpaceList()) {
+                    if (!space.getReboot().isStartField() && space.x != 4) {
                         player.setRebootSpace(space);
                     }
                 }

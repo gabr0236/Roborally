@@ -75,7 +75,7 @@
       "activatableBoardElementList": [],
       "reboot": {
         "REBOOT_HEADING": "EAST",
-        "startField": true,
+        "startField": false,
         "REBOOT_NUMBER": 7
       },
       "x": 4,
@@ -86,7 +86,7 @@
       "activatableBoardElementList": [],
       "reboot": {
         "REBOOT_HEADING": "WEST",
-        "startField": true,
+        "startField": false,
         "REBOOT_NUMBER": 8
       },
       "x": 15,
