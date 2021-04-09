@@ -19,8 +19,8 @@ CREATE TABLE IF NOT EXISTS Player (
   gameID int NOT NULL,
   playerID tinyint NOT NULL,
 
-  name varchar(255),
-  colour varchar(31),
+  name varchar(35),
+  colour varchar(35),
   
   positionX int,
   positionY int,

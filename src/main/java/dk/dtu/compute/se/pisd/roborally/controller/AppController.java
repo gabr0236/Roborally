@@ -129,11 +129,12 @@ public class AppController implements Observer{
             textInputDialog.setTitle("Player name selector");
             textInputDialog.getDialogPane().setContentText("Player name:");
             textInputDialog.setHeaderText("Write your name:");
-            Optional<String> result = textInputDialog.showAndWait();
+            Optional<String> playerName = textInputDialog.showAndWait();
 
-            //TODO @Gab better inputvalidation, use regex
-            if(result.isPresent() && result.get().toString().length() >= 1) {
-                return result.get();
+            if(playerName.isPresent() && playerName.get().matches("^([ \\u00c0-\\u01ffa-zA-Z'\\-]){3,20}$")) {
+                return playerName.get();
+            } else if (playerName.isPresent()){
+                invalidName();
             } else {
                 return null;
             }
@@ -180,16 +181,25 @@ public class AppController implements Observer{
             textInputDialog.setTitle("Game naming selector");
             textInputDialog.getDialogPane().setContentText("Game name:");
             textInputDialog.setHeaderText("Write a name for your game:");
-            Optional<String> result = textInputDialog.showAndWait();
+            Optional<String> gameName = textInputDialog.showAndWait();
 
-            //TODO @Gab better inputvalidation, use regex
-            if(result.isPresent() && result.get().toString().length() >= 1) {
-                    return result.get();
+            if(gameName.isPresent() && gameName.get().matches("^([ \\u00c0-\\u01ffa-zA-Z'\\-]){3,20}$")) {
+                    return gameName.get();
+                } else if (gameName.isPresent()){
+                invalidName();
                 } else {
-                    return null;
-                }
+                return null;
+            }
         }
         return null;
+    }
+
+    private void invalidName(){
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Oh No!");
+        alert.setHeaderText("Invalid input");
+        alert.setContentText("Enter a valid name between 3-20 characters");
+        alert.showAndWait();
     }
 
     public void saveGame() {
