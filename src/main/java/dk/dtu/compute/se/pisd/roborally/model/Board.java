@@ -248,9 +248,6 @@ public class Board extends Subject {
     }
 
     public String getStatusMessage(Player player) {
-        // this is actually a view aspect, but for making assignment V1 easy for
-        // the students, this method gives a string representation of the current
-        // status of the game
         return "Phase: " + getPhase().name() +
                 ", Player: " + player.getName() +
                 ", Step: " + getStep() +
