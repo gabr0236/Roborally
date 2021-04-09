@@ -83,6 +83,8 @@ public class Board extends Subject {
 
     private int numberOfCheckpoints;
 
+
+
     /**
      * Creates a board with the size of width * height, and create spaces for the board
      * @param width
@@ -274,4 +276,5 @@ public class Board extends Subject {
     public void setGameName(String gameName) {
         this.gameName = gameName;
     }
+
 }

@@ -25,6 +25,7 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static dk.dtu.compute.se.pisd.roborally.model.Heading.EAST;
 import static dk.dtu.compute.se.pisd.roborally.model.Heading.SOUTH;
@@ -57,6 +58,8 @@ public class Player extends Subject {
     private int lastCheckpointVisited = 0;
 
     private Space rebootSpace;
+
+    public int antennaDistance;
 
 
     /**
@@ -215,5 +218,8 @@ public class Player extends Subject {
     public void setRebootSpace(Space rebootSpace) {
         this.rebootSpace = rebootSpace;
     }
+
+    public void setAntennaDistance(int antennaDistance){this.antennaDistance = antennaDistance;}
+    public int getAntennaDistance(){return antennaDistance;}
 
 }

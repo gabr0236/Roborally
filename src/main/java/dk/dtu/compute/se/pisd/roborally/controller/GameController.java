@@ -25,6 +25,9 @@ import dk.dtu.compute.se.pisd.roborally.model.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * ...
@@ -34,7 +37,7 @@ import java.util.ArrayList;
 public class GameController {
 
     final public Board board;
-
+    private List<Player> playerOrder = new ArrayList<>();
 
     public GameController(@NotNull Board board) {
         this.board = board;
@@ -149,7 +152,8 @@ public class GameController {
                     Command command = card.command;
                     executeCommand(currentPlayer,currentPlayer.getHeading(), command);
                 }
-                nextPlayerOrPhase();
+                playerStartingOrder();
+                nextPlayerOrPhase(playerOrder);
             } else {
                 // this should not happen
                 assert false;
@@ -328,7 +332,8 @@ public class GameController {
         if (currentPlayer != null && Phase.PLAYER_INTERACTION == board.getPhase() && option != null) {
             board.setPhase(Phase.ACTIVATION);
             executeCommand(currentPlayer,currentPlayer.getHeading(), option);
-            nextPlayerOrPhase();
+            playerStartingOrder();
+            nextPlayerOrPhase(playerOrder);
         }
     }
 
@@ -355,12 +360,11 @@ public class GameController {
      * otherwise change player to next player and change to next step
      * @author Gabriel
      */
-    private void nextPlayerOrPhase() {
-        Player currentPlayer = board.getCurrentPlayer();
-        int nextPlayerNumber = board.getPlayerNumber(currentPlayer) + 1;
+    private void nextPlayerOrPhase(List<Player> playerOrder) {
+        Player currentPlayer = playerOrder.get(0);
         int step = board.getStep();
-        if (nextPlayerNumber < board.getPlayersNumber()) {
-            board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
+        if (playerOrder.indexOf(currentPlayer) < playerOrder.size()) {
+            board.setCurrentPlayer(playerOrder.get(playerOrder.indexOf(currentPlayer)+1));
             continuePrograms();
         } else {
             executeBoardElements();
@@ -478,6 +482,24 @@ public class GameController {
     private void fallIntoPit(@NotNull Player player){
         if(player.getSpace().getPit())
             player.setSpace(null);
+    }
+
+    private void playerStartingOrder(){
+        Space antennaSpace = null;
+        for(Space space : board.getSpacesList()) {
+            if (space.getIsAntenna())
+                antennaSpace = space;
+        }
+        /*  trækker nuværende position fra koordinatset til antenne og tager positive værdi af dette.
+            tættest på 0 er tættest på antenne
+         */
+        for(Player player : board.getPlayers()){
+            player.setAntennaDistance(Math.abs(player.getSpace().x - antennaSpace.x) + Math.abs(player.getSpace().y - antennaSpace.y));
+        }
+
+        playerOrder = (List<Player>) board.getPlayers().stream()
+                .sorted(Comparator.comparingInt(Player::getAntennaDistance))
+                .collect(Collectors.toList());
     }
 }
 
