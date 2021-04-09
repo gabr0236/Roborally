@@ -48,13 +48,13 @@ import java.util.Optional;
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  */
-public class AppController implements Observer{
+public class AppController implements Observer {
 
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
 
-    private List<String> playerColors = new  LinkedList<>(Arrays.asList("Crimson", "CornflowerBlue", "PaleVioletRed", "PapayaWhip", "PLUM", "DarkCyan", "DarkGoldenRod", "DarkKhaki", "DarkMagenta", "DeepPink", "Coral"));
+    private List<String> playerColors = new LinkedList<>(Arrays.asList("Crimson", "CornflowerBlue", "PaleVioletRed", "PapayaWhip", "PLUM", "DarkCyan", "DarkGoldenRod", "DarkKhaki", "DarkMagenta", "DeepPink", "Coral"));
 
-    final private List<String> BOARDS = Arrays.asList("CORRIDOR BLITZ","ChopShopChallenge");
+    final private List<String> BOARDS = Arrays.asList("CORRIDOR BLITZ", "ChopShopChallenge");
 
     final private RoboRally roboRally;
 
@@ -70,58 +70,64 @@ public class AppController implements Observer{
      */
 
     public void newGame() {
-        playerColors= new  LinkedList<>(Arrays.asList("Crimson", "CornflowerBlue", "PaleVioletRed", "PapayaWhip", "PLUM", "DarkCyan", "DarkGoldenRod", "DarkKhaki", "DarkMagenta", "DeepPink", "Coral"));
+        playerColors = new LinkedList<>(Arrays.asList("Crimson", "CornflowerBlue", "PaleVioletRed", "PapayaWhip", "PLUM", "DarkCyan", "DarkGoldenRod", "DarkKhaki", "DarkMagenta", "DeepPink", "Coral"));
 
         String gameName = choseGameName();
-            if(gameName==null) return;
+        if (gameName == null) return;
         String gameBoard = choseBoard();
-            if(gameBoard==null) return;
+        if (gameBoard == null) return;
         Integer no = chosePlayerCount();
-            if(no==null) return;
+        if (no == null) return;
 
         Board board = LoadBoard.loadBoard(gameBoard);
         board.setGameName(gameName);
         gameController = new GameController(board);
 
         for (int i = 0; i < no; i++) {
-                String name = chosePlayerName();
-                if(name == null) {
-                    gameController=null;
-                    return;
-                }
-
-                String color = choseColor(name);
-                if(color == null) {
-                    gameController=null;
-                    return;
-                 }
-
-                Player player = new Player(board, color, name);
-                board.addPlayer(player);
-                player.setSpace(board.getRebootSpaceList().get(i));
-                player.setRebootSpace(board.getRebootSpaceList().get(i));
+            String name = chosePlayerName();
+            if (name == null) {
+                gameController = null;
+                return;
             }
 
-            gameController.startProgrammingPhase();
+            String color = choseColor(name);
+            if (color == null) {
+                gameController = null;
+                return;
+            }
 
-            IRepository repository = RepositoryAccess.getRepository();
-            repository.createGameInDB(board);
+            Player player = new Player(board, color, name);
+            board.addPlayer(player);
+            player.setSpace(board.getRebootSpaceList().get(i));
+            player.setRebootSpace(board.getRebootSpaceList().get(i));
+        }
 
-            roboRally.createBoardView(gameController);
+        gameController.startProgrammingPhase();
+
+        IRepository repository = RepositoryAccess.getRepository();
+        repository.createGameInDB(board);
+
+        roboRally.createBoardView(gameController);
     }
 
-
-
-    private String choseColor(String playerName){
+    private String choseColor(String playerName) {
+        boolean isColorChosen = false;
+        while (!isColorChosen) {
             ChoiceDialog<String> dialog = new ChoiceDialog<>(playerColors.get(0), playerColors);
             dialog.setTitle("Player color");
             dialog.setHeaderText(playerName + " select a color");
             Optional<String> resultColor = dialog.showAndWait();
             resultColor.ifPresent(s -> playerColors.remove(s));
-            return resultColor.orElse(null);
+            if (resultColor.isPresent()) {
+                return resultColor.get();
+            } else {
+                if (cancelGameSetup()) return null;
+            }
+        }
+        return null;
     }
 
-    private String chosePlayerName(){
+    private String chosePlayerName() {
         boolean validName = false;
 
         while (!validName) {
@@ -131,49 +137,62 @@ public class AppController implements Observer{
             textInputDialog.setHeaderText("Write your name:");
             Optional<String> playerName = textInputDialog.showAndWait();
 
-            if(playerName.isPresent() && playerName.get().matches("^([ \\u00c0-\\u01ffa-zA-Z'\\-]){3,20}$")) {
+            if (playerName.isPresent() && playerName.get().matches("^([ \\u00c0-\\u01ffa-zA-Z'\\-]){3,20}$")) {
                 return playerName.get();
-            } else if (playerName.isPresent()){
+            } else if (playerName.isPresent()) {
                 invalidName();
             } else {
-                return null;
+                if (cancelGameSetup()) return null;
             }
         }
         return null;
     }
 
     /**
-     *
      * @return
      * @author Gabriel
      */
-    private String choseBoard(){
-        ChoiceDialog<String> boardDialog = new ChoiceDialog<>(BOARDS.get(0), BOARDS);
-        boardDialog.setTitle("Board selector");
-        boardDialog.setHeaderText("Select game board");
-        Optional<String> resultBoard = boardDialog.showAndWait();
-        return resultBoard.orElse(null);
+    private String choseBoard() {
+        boolean validBoard = false;
+        while (!validBoard) {
+            ChoiceDialog<String> boardDialog = new ChoiceDialog<>(BOARDS.get(0), BOARDS);
+            boardDialog.setTitle("Board selector");
+            boardDialog.setHeaderText("Select game board");
+            Optional<String> resultBoard = boardDialog.showAndWait();
+            if (resultBoard.isPresent()) {
+                return resultBoard.get();
+            } else {
+                if (cancelGameSetup()) return null;
+            }
+        }
+        return null;
     }
 
     /**
-     *
      * @return
      * @author Gabriel
      */
-    private Integer chosePlayerCount(){
-        ChoiceDialog<Integer> dialog = new ChoiceDialog<>(PLAYER_NUMBER_OPTIONS.get(0), PLAYER_NUMBER_OPTIONS);
-        dialog.setTitle("Player count selector");
-        dialog.setHeaderText("Select number of players");
-        Optional<Integer> result = dialog.showAndWait();
-        return result.orElse(null);
+    private Integer chosePlayerCount() {
+        boolean playerCount = false;
+        while (!playerCount) {
+            ChoiceDialog<Integer> dialog = new ChoiceDialog<>(PLAYER_NUMBER_OPTIONS.get(0), PLAYER_NUMBER_OPTIONS);
+            dialog.setTitle("Player count selector");
+            dialog.setHeaderText("Select number of players");
+            Optional<Integer> result = dialog.showAndWait();
+            if (result.isPresent()) {
+                return result.get();
+            } else {
+                if (cancelGameSetup()) return null;
+            }
+        }
+        return null;
     }
 
     /**
-     *
      * @return
      * @auther @Gabriel
      */
-    private String choseGameName(){
+    private String choseGameName() {
         boolean validName = false;
 
         while (!validName) {
@@ -183,23 +202,35 @@ public class AppController implements Observer{
             textInputDialog.setHeaderText("Write a name for your game:");
             Optional<String> gameName = textInputDialog.showAndWait();
 
-            if(gameName.isPresent() && gameName.get().matches("^([ \\u00c0-\\u01ffa-zA-Z'\\-]){3,20}$")) {
-                    return gameName.get();
-                } else if (gameName.isPresent()){
+            if (gameName.isPresent() && gameName.get().matches("^([ \\u00c0-\\u01ffa-zA-Z'\\-]){3,20}$")) {
+                return gameName.get();
+            } else if (gameName.isPresent()) {
                 invalidName();
-                } else {
-                return null;
+            } else {
+                if (cancelGameSetup()) return null;
             }
         }
         return null;
     }
 
-    private void invalidName(){
-        Alert alert = new Alert(AlertType.INFORMATION);
+    private void invalidName() {
+        Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Oh No!");
-        alert.setHeaderText("Invalid input");
+        alert.setHeaderText(null);
         alert.setContentText("Enter a valid name between 3-20 characters");
         alert.showAndWait();
+    }
+
+    private boolean cancelGameSetup() {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Exit game setup");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure you want to exit the game setup?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            return true;
+        }
+        return false;
     }
 
     public void saveGame() {
@@ -282,7 +313,6 @@ public class AppController implements Observer{
     }
 
     /**
-     *
      * @author Gabriel
      */
     public void newTestGame() {

@@ -4,12 +4,12 @@ SET FOREIGN_KEY_CHECKS = 0;;
 CREATE TABLE IF NOT EXISTS Game (
   gameID int NOT NULL UNIQUE AUTO_INCREMENT,
   
-  name varchar(255),
+  name varchar(20),
 
   phase tinyint,
   step tinyint,
   currentPlayer tinyint NULL,
-  board varchar(35),
+  board varchar(50),
   
   PRIMARY KEY (gameID),
   FOREIGN KEY (gameID, currentPlayer) REFERENCES Player(gameID, playerID)
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS Player (
   gameID int NOT NULL,
   playerID tinyint NOT NULL,
 
-  name varchar(35),
+  name varchar(20),
   colour varchar(35),
   
   positionX int,
