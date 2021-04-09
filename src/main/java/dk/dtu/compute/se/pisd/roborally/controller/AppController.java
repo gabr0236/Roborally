@@ -53,7 +53,7 @@ public class AppController implements Observer{
 
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
 
-    private List<String> playerColors = new LinkedList<String>(Arrays.asList("Crimson", "CornflowerBlue", "PaleVioletRed", "PapayaWhip", "RebeccaPurple", "DarkCyan", "DarkGoldenRod", "DarkKhaki", "DarkMagenta", "DeepPink", "Coral"));
+    private List<String> playerColors = new LinkedList<String>(Arrays.asList("Crimson", "CornflowerBlue", "PaleVioletRed", "PapayaWhip", "PLUM", "DarkCyan", "DarkGoldenRod", "DarkKhaki", "DarkMagenta", "DeepPink", "Coral"));
 
     final private List<String> BOARDS = Arrays.asList("CORRIDOR BLITZ","ChopShopChallenge");
 
@@ -69,37 +69,33 @@ public class AppController implements Observer{
      * Creates a new game by creating a board, gamecontroller, players, view. Also starts the programming phase.
      * Also IRepository to create a game in DB.
      */
+
     public void newGame() {
         String gameName = choseGameName();
+            if(gameName==null) return;
+        String gameBoard = choseBoard();
+            if(gameBoard==null) return;
+        Integer no = chosePlayerCount();
+            if(no==null) return;
 
-        //TODO; @Gab maybe do multiple smaller methods
-        ChoiceDialog<String> boardDialog = new ChoiceDialog<>(BOARDS.get(0), BOARDS);
-        boardDialog.setTitle("Board selector");
-        boardDialog.setHeaderText("Select game board");
-        Optional<String> resultBoard = boardDialog.showAndWait();
+        Board board = LoadBoard.loadBoard(gameBoard);
+        board.setGameName(gameName);
+        gameController = new GameController(board);
 
-        ChoiceDialog<Integer> dialog = new ChoiceDialog<>(PLAYER_NUMBER_OPTIONS.get(0), PLAYER_NUMBER_OPTIONS);
-        dialog.setTitle("Player count selector");
-        dialog.setHeaderText("Select number of players");
-        Optional<Integer> result = dialog.showAndWait();
-
-        if (result.isPresent() || resultBoard.isPresent()) {
-            if (gameController != null) {
-                // The UI should not allow this, but in case this happens anyway.
-                // give the user the option to save the game or abort this operation!
-                if (!stopGame()) {
+        for (int i = 0; i < no; i++) {
+                String name = chosePlayerName();
+                if(name == null) {
+                    gameController=null;
                     return;
                 }
-            }
 
-            Board board = LoadBoard.loadBoard(resultBoard.get());
-            board.setGameName(gameName);
-            gameController = new GameController(board);
+                String color = choseColor(name);
+                if(color == null) {
+                    gameController=null;
+                    return;
+                 }
 
-            int no = result.get();
-            for (int i = 0; i < no; i++) {
-                Pair<String, String> playerChoice = customizePlayer(i);
-                Player player = new Player(board, playerChoice.getValue(),playerChoice.getKey());
+                Player player = new Player(board, name, color);
                 board.addPlayer(player);
                 player.setSpace(board.getRebootSpaceList().get(i));
                 player.setRebootSpace(board.getRebootSpaceList().get(i));
@@ -111,58 +107,63 @@ public class AppController implements Observer{
             repository.createGameInDB(board);
 
             roboRally.createBoardView(gameController);
+    }
+
+
+
+    private String choseColor(String playerName){
+            ChoiceDialog<String> dialog = new ChoiceDialog<>(playerColors.get(0), playerColors);
+            dialog.setTitle("Player color");
+            dialog.setHeaderText(playerName + " select a color");
+            Optional<String> resultColor = dialog.showAndWait();
+            resultColor.ifPresent(s -> playerColors.remove(s));
+            return resultColor.orElse(null);
+    }
+
+    private String chosePlayerName(){
+        boolean validName = false;
+
+        while (!validName) {
+            TextInputDialog textInputDialog = new TextInputDialog();
+            textInputDialog.setTitle("Player name selector");
+            textInputDialog.getDialogPane().setContentText("Player name:");
+            textInputDialog.setHeaderText("Write your name:");
+            Optional<String> result = textInputDialog.showAndWait();
+
+            //TODO @Gab better inputvalidation, use regex
+            if(result.isPresent() && result.get().toString().length() >= 1) {
+                return result.get();
+            } else {
+                return null;
+            }
         }
+        return null;
     }
 
     /**
-     * @param playerNumber
+     *
      * @return
      * @author Gabriel
      */
-    private Pair<String, String> customizePlayer(int playerNumber){
+    private String choseBoard(){
+        ChoiceDialog<String> boardDialog = new ChoiceDialog<>(BOARDS.get(0), BOARDS);
+        boardDialog.setTitle("Board selector");
+        boardDialog.setHeaderText("Select game board");
+        Optional<String> resultBoard = boardDialog.showAndWait();
+        return resultBoard.orElse(null);
+    }
 
-        boolean validName = false;
-        String name = "";
-
-        while (!validName) {
-                TextInputDialog textInputDialog = new TextInputDialog();
-                textInputDialog.setTitle("Naming selector");
-                textInputDialog.getDialogPane().setContentText("Name:");
-                textInputDialog.setHeaderText("Player " + (playerNumber + 1) + " write your name:");
-                Optional<String> result = textInputDialog.showAndWait();
-                TextField input = textInputDialog.getEditor();
-
-                //TODO @Gab better inputvalidation, use regex
-                if(input.getText().toString().length()>=1){
-                    validName=true;
-                    name=input.getText();
-                }
-            }
-
-        boolean validColor = false;
-        String color = "";
-
-        while (!validColor) {
-            ChoiceDialog<String> dialog = new ChoiceDialog<>(playerColors.get(0), playerColors);
-            dialog.setTitle("Player color");
-            dialog.setHeaderText(name + " select a color");
-            Optional<String> resultColor = dialog.showAndWait();
-            color= resultColor.get();
-
-
-            if(gameController.board.getPlayers().isEmpty()) {
-                validColor=true;
-            } else {
-                for (Player player:gameController.board.getPlayers()) {
-                    if(!player.getColor().equals(color)) {
-                        validColor=true;
-                    }
-                }
-            }
-            playerColors.remove(color);
-        }
-
-        return new Pair<String, String>(name, color);
+    /**
+     *
+     * @return
+     * @author Gabriel
+     */
+    private Integer chosePlayerCount(){
+        ChoiceDialog<Integer> dialog = new ChoiceDialog<>(PLAYER_NUMBER_OPTIONS.get(0), PLAYER_NUMBER_OPTIONS);
+        dialog.setTitle("Player count selector");
+        dialog.setHeaderText("Select number of players");
+        Optional<Integer> result = dialog.showAndWait();
+        return result.orElse(null);
     }
 
     /**
@@ -172,7 +173,6 @@ public class AppController implements Observer{
      */
     private String choseGameName(){
         boolean validName = false;
-        String name = "";
 
         while (!validName) {
             TextInputDialog textInputDialog = new TextInputDialog();
@@ -180,23 +180,21 @@ public class AppController implements Observer{
             textInputDialog.getDialogPane().setContentText("Game name:");
             textInputDialog.setHeaderText("Write a name for your game:");
             Optional<String> result = textInputDialog.showAndWait();
-            TextField input = textInputDialog.getEditor();
 
             //TODO @Gab better inputvalidation, use regex
-            if(input.getText().toString().length()>=1){
-                validName=true;
-                name=input.getText();
-            }
+            if(result.isPresent() && result.get().toString().length() >= 1) {
+                    return result.get();
+                } else {
+                    return null;
+                }
         }
-        return name;
+        return null;
     }
-
 
     public void saveGame() {
         IRepository repository = RepositoryAccess.getRepository();
         repository.updateGameInDB(this.gameController.board);
     }
-
 
     /**
      * Loads game from DB, if no game is found this method creates a new game using newGame(); from above.
