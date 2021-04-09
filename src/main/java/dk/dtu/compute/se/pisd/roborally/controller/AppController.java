@@ -95,7 +95,7 @@ public class AppController implements Observer{
                     return;
                  }
 
-                Player player = new Player(board, name, color);
+                Player player = new Player(board, color, name);
                 board.addPlayer(player);
                 player.setSpace(board.getRebootSpaceList().get(i));
                 player.setRebootSpace(board.getRebootSpaceList().get(i));
