@@ -252,7 +252,7 @@ public class Board extends Subject {
                 ", Player: " + player.getName() +
                 ", Step: " + getStep() +
                 ", Next checkpoint: " + (player.getLastCheckpointVisited()+1) +
-                ", Reboot at: R: " + player.getRebootSpace().getReboot().REBOOT_NUMBER;
+                ", R: " + player.getRebootSpace().getReboot().REBOOT_NUMBER;
     }
 
 
