@@ -68,7 +68,6 @@ public class AppController implements Observer {
      * Creates a new game by creating a board, gamecontroller, players, view. Also starts the programming phase.
      * Also IRepository to create a game in DB.
      */
-
     public void newGame() {
         playerColors = new LinkedList<>(Arrays.asList("Crimson", "CornflowerBlue", "PaleVioletRed", "PapayaWhip", "PLUM", "DarkCyan", "DarkGoldenRod", "DarkKhaki", "DarkMagenta", "DeepPink", "Coral"));
         //TODO: @Gab spørg ekki om alle de her retuns, rimlig sikker på at det er dårlig stil
@@ -110,6 +109,12 @@ public class AppController implements Observer {
         roboRally.createBoardView(gameController);
     }
 
+    /**
+     *
+     * @param playerName
+     * @return
+     * @author @Gabriel
+     */
     private String choseColor(String playerName) {
         boolean isColorChosen = false;
         while (!isColorChosen) {
@@ -127,9 +132,13 @@ public class AppController implements Observer {
         return null;
     }
 
+    /**
+     *
+     * @return
+     * @author @Gabriel
+     */
     private String chosePlayerName() {
         boolean validName = false;
-
         while (!validName) {
             TextInputDialog textInputDialog = new TextInputDialog();
             textInputDialog.setTitle("Player name selector");
@@ -213,6 +222,9 @@ public class AppController implements Observer {
         return null;
     }
 
+    /**
+     * @author @Gabriel
+     */
     private void invalidName() {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Oh No!");
@@ -221,6 +233,11 @@ public class AppController implements Observer {
         alert.showAndWait();
     }
 
+    /**
+     *
+     * @return
+     * @author @Gabriel
+     */
     private boolean cancelGameSetup() {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Exit game setup");
