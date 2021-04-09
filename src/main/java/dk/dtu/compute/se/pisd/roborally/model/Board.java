@@ -25,11 +25,9 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static dk.dtu.compute.se.pisd.roborally.model.Heading.NORTH;
 import static dk.dtu.compute.se.pisd.roborally.model.Phase.INITIALISATION;
 
 /**
@@ -48,10 +46,6 @@ public class Board extends Subject {
     private Integer gameId;
 
     private String gameName;
-
-    public Space[][] getSpaces() {
-        return spaces;
-    }
 
     private final List<Space> spacesList = new ArrayList<>();
 
@@ -229,22 +223,13 @@ public class Board extends Subject {
         int x = space.x;
         int y = space.y;
         switch (heading) {
-            case SOUTH:
-                y = (y + 1);
-                break;
-            case WEST:
-                x = (x - 1);
-                break;
-            case NORTH:
-                y = (y - 1);
-                break;
-            case EAST:
-                x = (x + 1);
-                break;
+            case SOUTH -> y = (y + 1);
+            case WEST -> x = (x - 1);
+            case NORTH -> y = (y - 1);
+            case EAST -> x = (x + 1);
         }
 
-        Space neighbour = getSpace(x, y);
-        return neighbour;
+        return getSpace(x, y);
     }
 
     public String getStatusMessage(Player player) {
