@@ -21,7 +21,6 @@
  */
 package dk.dtu.compute.se.pisd.roborally.controller;
 
-import dk.dtu.compute.se.pisd.designpatterns.observer.Observer;
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 
 import dk.dtu.compute.se.pisd.roborally.RoboRally;
@@ -48,7 +47,7 @@ import java.util.Optional;
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  */
-public class AppController implements Observer {
+public class AppController {
 
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
 
@@ -199,7 +198,7 @@ public class AppController implements Observer {
 
     /**
      * @return
-     * @auther @Gabriel
+     * @author @Gabriel
      */
     private String choseGameName() {
         boolean validName = false;
@@ -244,10 +243,7 @@ public class AppController implements Observer {
         alert.setHeaderText(null);
         alert.setContentText("Are you sure you want to exit the game setup?");
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            return true;
-        }
-        return false;
+        return result.get() == ButtonType.OK;
     }
 
     public void saveGame() {
@@ -261,16 +257,20 @@ public class AppController implements Observer {
     public void loadGame() {
         IRepository repository = RepositoryAccess.getRepository();
 
-        List<GameInDB> gameIDList = repository.getGames();
-        ChoiceDialog<GameInDB> dialog = new ChoiceDialog<>(gameIDList.get(0), gameIDList);
-        dialog.setTitle("Game selector");
-        dialog.setHeaderText("Select a game you want to continue");
-        Optional<GameInDB> result = dialog.showAndWait();
+        boolean gameChosen = false;
 
-        gameController = new GameController(repository.loadGameFromDB(result.get().id));
-
-        if (gameController == null) {
-            newGame();
+        while (!gameChosen) {
+            List<GameInDB> gameIDList = repository.getGames();
+            ChoiceDialog<GameInDB> dialog = new ChoiceDialog<>(gameIDList.get(0), gameIDList);
+            dialog.setTitle("Game selector");
+            dialog.setHeaderText("Select a game you want to continue");
+            Optional<GameInDB> result = dialog.showAndWait();
+            if (result.isPresent()) {
+                gameController = new GameController(repository.loadGameFromDB(result.get().id));
+                gameChosen=true;
+            } else {
+                if (cancelGameSetup()) return;
+            }
         }
         roboRally.createBoardView(gameController);
     }
@@ -324,10 +324,7 @@ public class AppController implements Observer {
     }
 
 
-    @Override
-    public void update(Subject subject) {
-        // XXX do nothing for now
-    }
+
 
     /**
      * @author Gabriel

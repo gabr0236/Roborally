@@ -67,14 +67,6 @@ public class Board extends Subject {
 
     private final List<Space> rebootSpaceList = new ArrayList<>();
 
-    public int getNumberOfCheckpoints() {
-        return numberOfCheckpoints;
-    }
-
-    public void setNumberOfCheckpoints(int numberOfCheckpoints) {
-        this.numberOfCheckpoints = numberOfCheckpoints;
-    }
-
     private int numberOfCheckpoints;
 
     /**
@@ -258,5 +250,12 @@ public class Board extends Subject {
 
     public void setGameName(String gameName) {
         this.gameName = gameName;
+    }
+    public int getNumberOfCheckpoints() {
+        return numberOfCheckpoints;
+    }
+
+    public void setNumberOfCheckpoints(int numberOfCheckpoints) {
+        this.numberOfCheckpoints = numberOfCheckpoints;
     }
 }
