@@ -71,7 +71,7 @@ public class AppController implements Observer {
 
     public void newGame() {
         playerColors = new LinkedList<>(Arrays.asList("Crimson", "CornflowerBlue", "PaleVioletRed", "PapayaWhip", "PLUM", "DarkCyan", "DarkGoldenRod", "DarkKhaki", "DarkMagenta", "DeepPink", "Coral"));
-
+        //TODO: @Gab spørg ekki om alle de her retuns, rimlig sikker på at det er dårlig stil
         String gameName = choseGameName();
         if (gameName == null) return;
         String gameBoard = choseBoard();
