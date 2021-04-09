@@ -18,5 +18,9 @@ public class Conveyor extends ActivatableBoardElement {
     @Override
     public void activateElement(@NotNull Player player, @NotNull GameController gameController) {
         gameController.executeCommand(player,heading,command);
+        Space target = player.board.getNeighbour(player.getSpace(), heading);
+        if(target == null){
+            player.setSpace(null);
+        }
     }
 }
