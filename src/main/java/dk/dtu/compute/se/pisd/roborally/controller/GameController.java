@@ -328,6 +328,7 @@ public class GameController {
         if (currentPlayer != null && Phase.PLAYER_INTERACTION == board.getPhase() && option != null) {
             board.setPhase(Phase.ACTIVATION);
             executeCommand(currentPlayer,currentPlayer.getHeading(), option);
+            board.setStepMode(false);
             nextPlayerOrPhase();
         }
     }
