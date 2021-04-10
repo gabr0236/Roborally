@@ -111,7 +111,7 @@ public class AppController {
     /**
      *
      * @param playerName
-     * @return
+     * @return string color or null
      * @author @Gabriel
      */
     private String choseColor(String playerName) {
