@@ -193,7 +193,7 @@ public class GameController {
                     try{
                         moveToSpace(player, target, heading);
                     } catch (ImpossibleMoveException e){
-                        System.out.println("impossible move in direction move");
+                        //TODO: error handling?
                     }
                 }
             }
