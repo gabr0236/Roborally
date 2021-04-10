@@ -311,7 +311,6 @@ public class AppController {
                 return; // return without exiting the application
             }
         }
-
         // If the user did not cancel, the RoboRally application will exit
         // after the option to save the game
         if (gameController == null || stopGame()) {

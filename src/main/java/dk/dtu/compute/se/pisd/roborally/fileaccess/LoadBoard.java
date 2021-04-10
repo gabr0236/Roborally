@@ -71,7 +71,7 @@ public class LoadBoard {
 			for (SpaceTemplate spaceTemplate: template.spaces) {
 			    Space space = result.getSpace(spaceTemplate.x, spaceTemplate.y);
 			    if (space != null) {
-                    space.getActivatableBoardElementList().addAll(spaceTemplate.activatableBoardElementList);
+                    space.ACTIVATABLE_ELEMENTS.addAll(spaceTemplate.activatableBoardElementList);
                     space.getWallList().addAll(spaceTemplate.walls);
                     space.setReboot(spaceTemplate.reboot);
                     space.setPit(spaceTemplate.isPit);
@@ -104,11 +104,11 @@ public class LoadBoard {
         template.height = board.height;
 
         for (Space space:board.getSpacesList()) {
-                if (!space.getWallList().isEmpty() || space.getActivatableBoardElementList()!=null) {
+                if (!space.getWallList().isEmpty() || space.ACTIVATABLE_ELEMENTS!=null) {
                     SpaceTemplate spaceTemplate = new SpaceTemplate();
                     spaceTemplate.x = space.x;
                     spaceTemplate.y = space.y;
-                    spaceTemplate.activatableBoardElementList.addAll(space.getActivatableBoardElementList());
+                    spaceTemplate.activatableBoardElementList.addAll(space.ACTIVATABLE_ELEMENTS);
                     spaceTemplate.walls.addAll(space.getWallList());
                     spaceTemplate.reboot=space.getReboot();
                     template.spaces.add(spaceTemplate);

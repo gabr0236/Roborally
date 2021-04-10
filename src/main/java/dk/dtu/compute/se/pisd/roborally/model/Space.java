@@ -39,7 +39,7 @@ public class Space extends Subject {
     private Player player;
     private ArrayList<Heading> wallList;
     private Reboot reboot;
-    private ArrayList<ActivatableBoardElement> activatableBoardElementList = new ArrayList<>();
+    public final ArrayList<ActivatableBoardElement> ACTIVATABLE_ELEMENTS = new ArrayList<>();
     private boolean isPit;
     /**
      * Konstruktøren til "Space", med "board", x og y som parametre
@@ -53,7 +53,7 @@ public class Space extends Subject {
         this.board = board;
         this.x = x;
         this.y = y;
-        this.wallList = new ArrayList<Heading>();
+        this.wallList = new ArrayList<>();
         player = null;
     }
 
@@ -135,9 +135,5 @@ public class Space extends Subject {
     }
 
     public boolean getPit(){ return isPit;}
-
-    public ArrayList<ActivatableBoardElement> getActivatableBoardElementList() {
-        return activatableBoardElementList;
-    }
 
 }

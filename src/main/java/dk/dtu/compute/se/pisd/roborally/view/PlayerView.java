@@ -32,9 +32,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Collections;
-import java.util.List;
-
 /**
  * ...
  *
@@ -188,31 +185,29 @@ public class PlayerView extends Tab implements ViewObserver {
                     programPane.getChildren().remove(playerInteractionPanel);
                     programPane.add(buttonPanel, Player.NO_REGISTERS, 0);
                 }
+                // XXX just to make sure that there is a way for the player to get
+                //     from the initialization phase to the programming phase somehow!
                 switch (player.board.getPhase()) {
-                    case INITIALISATION:
+                    case INITIALISATION -> {
                         finishButton.setDisable(true);
-                        // XXX just to make sure that there is a way for the player to get
-                        //     from the initialization phase to the programming phase somehow!
                         executeButton.setDisable(false);
                         stepButton.setDisable(true);
-                        break;
-
-                    case PROGRAMMING:
+                    }
+                    case PROGRAMMING -> {
                         finishButton.setDisable(false);
                         executeButton.setDisable(true);
                         stepButton.setDisable(true);
-                        break;
-
-                    case ACTIVATION:
+                    }
+                    case ACTIVATION -> {
                         finishButton.setDisable(true);
                         executeButton.setDisable(false);
                         stepButton.setDisable(false);
-                        break;
-
-                    default:
+                    }
+                    default -> {
                         finishButton.setDisable(true);
                         executeButton.setDisable(true);
                         stepButton.setDisable(true);
+                    }
                 }
 
 

@@ -116,12 +116,11 @@ public class SpaceView extends StackPane implements ViewObserver {
 
         }
 
-        if (space.getActivatableBoardElementList() != null) {
-            for (ActivatableBoardElement activatableBoardElement:space.getActivatableBoardElementList()) {
+        if (!space.ACTIVATABLE_ELEMENTS.isEmpty()) {
+            for (ActivatableBoardElement activatableBoardElement:space.ACTIVATABLE_ELEMENTS) {
 
                 // Draw Checkpoint
-                if (activatableBoardElement instanceof Checkpoint) {
-                    Checkpoint checkpoint = (Checkpoint) activatableBoardElement;
+                if (activatableBoardElement instanceof Checkpoint checkpoint) {
                     Circle circle = new Circle();
                     circle.setFill(Color.YELLOW);
                     circle.setRadius(18);
@@ -132,8 +131,7 @@ public class SpaceView extends StackPane implements ViewObserver {
                     this.getChildren().add(text);
 
                 // Draw Conveyor
-                } else if (activatableBoardElement instanceof Conveyor) {
-                    Conveyor conveyor = (Conveyor) activatableBoardElement;
+                } else if (activatableBoardElement instanceof Conveyor conveyor) {
                     Polygon arrow = new Polygon(0.0, 0.0,
                             16.0, 30.0,
                             30.0, 0.0);
@@ -147,9 +145,8 @@ public class SpaceView extends StackPane implements ViewObserver {
                     this.getChildren().add(arrow);
 
                 // Draw Gear
-                } else if (activatableBoardElement instanceof Gear) {
+                } else if (activatableBoardElement instanceof Gear gear) {
                     // @author Tobias s205358
-                    Gear gear = (Gear) activatableBoardElement;
                     Circle gearView = new Circle(0, 0, 17.5);
                     gearView.setFill(Color.BLUE);
                     Polygon arrowView = new Polygon(0.0, 0.0,

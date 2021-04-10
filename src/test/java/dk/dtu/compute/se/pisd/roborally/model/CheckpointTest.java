@@ -36,7 +36,7 @@ public class CheckpointTest {
         Board board = gameController.board;
         board.setNumberOfCheckpoints(1);
         Player current = board.getCurrentPlayer();
-        board.getSpace(0,1).getActivatableBoardElementList().add(new Checkpoint(1));
+        board.getSpace(0,1).ACTIVATABLE_ELEMENTS.add(new Checkpoint(1));
         gameController.directionMove(current, current.getHeading());
         gameController.executeBoardElements();
 
@@ -51,8 +51,8 @@ public class CheckpointTest {
         Board board = gameController.board;
         board.setNumberOfCheckpoints(2);
         Player current = board.getCurrentPlayer();
-        board.getSpace(0,1).getActivatableBoardElementList().add(new Checkpoint(1));
-        board.getSpace(0,2).getActivatableBoardElementList().add(new Checkpoint(2));
+        board.getSpace(0,1).ACTIVATABLE_ELEMENTS.add(new Checkpoint(1));
+        board.getSpace(0,2).ACTIVATABLE_ELEMENTS.add(new Checkpoint(2));
         gameController.directionMove(current, current.getHeading());
         gameController.executeBoardElements();
         gameController.directionMove(current, current.getHeading());
@@ -69,9 +69,9 @@ public class CheckpointTest {
         Board board = gameController.board;
         board.setNumberOfCheckpoints(3);
         Player current = board.getCurrentPlayer();
-        board.getSpace(0,1).getActivatableBoardElementList().add(new Checkpoint(1));
-        board.getSpace(0,3).getActivatableBoardElementList().add(new Checkpoint(2));
-        board.getSpace(0,2).getActivatableBoardElementList().add(new Checkpoint(3));
+        board.getSpace(0,1).ACTIVATABLE_ELEMENTS.add(new Checkpoint(1));
+        board.getSpace(0,3).ACTIVATABLE_ELEMENTS.add(new Checkpoint(2));
+        board.getSpace(0,2).ACTIVATABLE_ELEMENTS.add(new Checkpoint(3));
         gameController.directionMove(current, current.getHeading());
         gameController.executeBoardElements();
         gameController.directionMove(current, current.getHeading());
