@@ -34,7 +34,7 @@ class LaserTest {
     }
 
     @Test
-    void laserTest(){
+    void laserTestPlayerKill(){
         Space space = gameController.board.getSpace(0,5);
         space.setLaser(new Laser(Heading.NORTH));
 
@@ -43,6 +43,18 @@ class LaserTest {
         gameController.fireLasers(Arrays.asList(space));
 
         Assertions.assertNull(player.getSpace());
+    }
 
+    @Test
+    void laserTestPlayerProtectedByWall(){
+        Space space = gameController.board.getSpace(0,5);
+        space.setLaser(new Laser(Heading.NORTH));
+
+        space.getWallList().add(Heading.NORTH);
+        Player player = gameController.board.getPlayer(0);
+
+        gameController.fireLasers(Arrays.asList(space));
+
+        Assertions.assertNotNull(player.getSpace());
     }
 }

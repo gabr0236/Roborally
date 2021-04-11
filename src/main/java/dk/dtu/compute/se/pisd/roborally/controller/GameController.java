@@ -503,7 +503,7 @@ public class GameController {
         if (!laserSpaces.isEmpty()) {
             for (Space space : laserSpaces) {
                 Heading shootingDirection = space.getLaser().getShootingDirection();
-                Space projectile = board.getNeighbour(space, shootingDirection);
+                Space projectile = space;
 
                 boolean hit = false;
                 do {
