@@ -563,6 +563,13 @@ public class GameController {
         //sorts players after antenna distance
         Collections.sort(board.getPlayers());
     }
+
+    public void registerEnergySpace (@NotNull Player player, boolean energyAvailable){
+        if(energyAvailable || board.getStep() == 5) {
+            player.addEnergy();
+            energyAvailable=true;
+        }
+    }
 }
 
 

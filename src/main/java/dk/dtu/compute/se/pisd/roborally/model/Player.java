@@ -60,6 +60,8 @@ public class Player extends Subject implements Comparable<Player> {
 
     public int antennaDistance;
 
+    private int energyBank = 0;
+
 
     /**
      * Player konstruktør, Initialisere spiller og tilknytter board, sætter farve og sætter navn.
@@ -227,6 +229,16 @@ public class Player extends Subject implements Comparable<Player> {
         //Order is random if equal distance from antenna
         else if(o.getAntennaDistance()==antennaDistance) return ((int)(Math.round(Math.random()*1))==1) ? -1 : 1;
         else return -1;
+    }
 
+    public int getEnergyBank() { return energyBank; }
+
+    public void addEnergy (){
+        energyBank++;
+    }
+
+    public void subtractEnergy (int i){
+        if (i<0) {return;}
+        energyBank=energyBank-i;
     }
 }
