@@ -244,8 +244,7 @@ public class Board extends Subject {
         return Collections.unmodifiableList(spacesList);
     }
 
-    public List<Space> getRebootSpaceList() { return rebootSpaceList;
-    }
+    public List<Space> getRebootSpaceList() { return rebootSpaceList; }
 
     public String getGameName() {
         return gameName;
@@ -254,6 +253,7 @@ public class Board extends Subject {
     public void setGameName(String gameName) {
         this.gameName = gameName;
     }
+
     public int getNumberOfCheckpoints() {
         return numberOfCheckpoints;
     }
@@ -262,7 +262,5 @@ public class Board extends Subject {
         this.numberOfCheckpoints = numberOfCheckpoints;
     }
 
-    public List<Space> getLaserSpaceList() {
-        return laserSpaceList;
-    }
+    public List<Space> getLaserSpaceList() { return laserSpaceList; }
 }
