@@ -3,20 +3,28 @@ package dk.dtu.compute.se.pisd.roborally.model;
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author Gabriel
  */
 public class PushPanel extends ActivatableBoardElement {
-    public final Heading heading;
-    private Boolean[] activatingTurns = new Boolean[4];
+    public final Heading pushingDirection;
 
-    PushPanel(Heading heading, Boolean...activatingTurns) {
-        this.heading = heading;
-        this.activatingTurns = activatingTurns;
+    private final List<Integer> activatingTurns;
+
+    public PushPanel(Heading pushingDirection, Integer... activatingTurns) {
+        this.pushingDirection = pushingDirection;
+        this.activatingTurns = Arrays.asList(activatingTurns);
     }
 
     @Override
     public void activateElement(@NotNull Player player, @NotNull GameController gameController) {
-        gameController.activatePushPanel(player, heading, activatingTurns);
+        gameController.activatePushPanel(player, pushingDirection, activatingTurns);
+    }
+
+    public List<Integer> getActivatingTurns() {
+        return activatingTurns;
     }
 }

@@ -564,9 +564,9 @@ public class GameController {
         Collections.sort(board.getPlayers());
     }
 
-    public void activatePushPanel(Player player, Heading heading, Boolean[] activatingTurns) {
-        if(activatingTurns[board.getStep()]!=null && player!=null && player.getSpace()!=null){
-            if(activatingTurns[board.getStep()]){
+    public void activatePushPanel(Player player, Heading heading, List<Integer> activatingTurns) {
+        if(!activatingTurns.isEmpty() && player!=null && player.getSpace()!=null){
+            if(activatingTurns.contains(board.getStep())){
             directionMove(player,heading);
             }
         }

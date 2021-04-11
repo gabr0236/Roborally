@@ -69,7 +69,6 @@ public class Board extends Subject {
 
     private final List<Space> laserSpaceList = new ArrayList<>();
 
-
     private int numberOfCheckpoints;
 
     /**

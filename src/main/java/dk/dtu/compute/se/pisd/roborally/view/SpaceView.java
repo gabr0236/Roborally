@@ -23,6 +23,9 @@ package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.model.*;
+import javafx.css.Size;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
@@ -30,8 +33,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * ...
@@ -171,6 +179,30 @@ public class SpaceView extends StackPane implements ViewObserver {
                     this.setStyle("-fx-background-color: Black");
                     this.getChildren().add(arrowView);
                 }
+                else if (activatableBoardElement instanceof PushPanel){
+                    PushPanel pushPanel = (PushPanel) activatableBoardElement;
+                    Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
+                    GraphicsContext gc = canvas.getGraphicsContext2D();
+                    gc.setStroke(Color.YELLOW);
+                    gc.setLineWidth(18);
+                    gc.setLineCap(StrokeLineCap.ROUND);
+                    switch (pushPanel.pushingDirection.oppositeHeading()) {
+                        case NORTH -> {gc.strokeLine(2, 2, SPACE_WIDTH - 2, 2);
+                            this.getChildren().add(combinePushPanelListToString(pushPanel.getActivatingTurns()));
+                        }
+                        case EAST -> {gc.strokeLine(SPACE_WIDTH - 2, 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
+                            this.getChildren().add(combinePushPanelListToString(pushPanel.getActivatingTurns()));
+                        }
+                        case SOUTH -> {gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
+                            this.getChildren().add(combinePushPanelListToString(pushPanel.getActivatingTurns()));
+                        }
+                        case WEST -> {gc.strokeLine(2, 2, 2, SPACE_HEIGHT - 2);
+                            this.getChildren().add(combinePushPanelListToString(pushPanel.getActivatingTurns()));
+                        }
+                    }
+
+                    this.getChildren().add(canvas);
+                }
             }
         }
 
@@ -211,6 +243,11 @@ public class SpaceView extends StackPane implements ViewObserver {
             this.getChildren().add(drawWalls(space));
         }
     }
+    private Text combinePushPanelListToString(List<Integer> integerList){
+       Text text = new Text(integerList.stream().map(i->i.toString()).collect(Collectors.joining(", ")));
+       text.setFont(new Font(SPACE_HEIGHT/5));
+       return text;
+    }
 
     private Canvas drawWalls(Space space) {
         if (!space.getWallList().isEmpty()) {
@@ -238,4 +275,5 @@ public class SpaceView extends StackPane implements ViewObserver {
             updatePlayer();
         }
     }
+
 }

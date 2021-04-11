@@ -38,7 +38,7 @@ class PushPanelTest {
             Player current = board.getCurrentPlayer();
             board.setStep(0);
 
-            current.getSpace().getActivatableBoardElements().add(new PushPanel(Heading.SOUTH,true,false,false,false,false));
+            current.getSpace().getActivatableBoardElements().add(new PushPanel(Heading.SOUTH,0));
             gameController.executeBoardElements();
             Assertions.assertEquals(current, board.getSpace(0, 1).getPlayer(), "Player " + current.getName() + " should beSpace (0,1)!");
             Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
@@ -51,7 +51,7 @@ class PushPanelTest {
         Player current = board.getCurrentPlayer();
         board.setStep(1);
 
-        current.getSpace().getActivatableBoardElements().add(new PushPanel(Heading.SOUTH,true,false,true,true,true));
+        current.getSpace().getActivatableBoardElements().add(new PushPanel(Heading.SOUTH,0,2,3,4));
         gameController.executeBoardElements();
         Assertions.assertEquals(current, board.getSpace(0, 0).getPlayer(), "Player " + current.getName() + " should beSpace (0,0)!");
         Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading NORTH!");

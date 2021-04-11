@@ -30,8 +30,10 @@ import dk.dtu.compute.se.pisd.roborally.dal.IRepository;
 import dk.dtu.compute.se.pisd.roborally.dal.RepositoryAccess;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
+import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 
+import dk.dtu.compute.se.pisd.roborally.model.PushPanel;
 import javafx.application.Platform;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
@@ -339,6 +341,7 @@ public class AppController {
             player.setSpace(board.getRebootSpaceList().get(i));
             player.setRebootSpace(board.getRebootSpaceList().get(i));
         }
+
         gameController.startProgrammingPhase();
 
         IRepository repository = RepositoryAccess.getRepository();
@@ -356,6 +359,7 @@ public class AppController {
             player.setSpace(board.getRebootSpaceList().get(i));
             player.setRebootSpace(board.getRebootSpaceList().get(i));
         }
+
         gameController.startProgrammingPhase();
 
         IRepository repository = RepositoryAccess.getRepository();
