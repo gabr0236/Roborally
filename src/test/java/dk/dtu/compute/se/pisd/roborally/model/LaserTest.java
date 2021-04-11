@@ -34,7 +34,7 @@ class LaserTest {
     }
 
     @Test
-    void lasertTest(){
+    void laserTest(){
         Space space = gameController.board.getSpace(0,5);
         space.setLaser(new Laser(Heading.NORTH));
 

@@ -494,6 +494,11 @@ public class GameController {
             player.setSpace(null);
     }
 
+    /**
+     *
+     * @param laserSpaces
+     * @author Tobias s205358
+     */
     public void fireLasers(@NotNull List<Space> laserSpaces) {
         if (!laserSpaces.isEmpty()) {
             for (Space space : laserSpaces) {
