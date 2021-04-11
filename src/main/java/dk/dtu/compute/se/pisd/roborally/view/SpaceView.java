@@ -101,6 +101,13 @@ public class SpaceView extends StackPane implements ViewObserver {
             this.getChildren().add(text);
         }
 
+        if (space.getIsAntenna()) {
+            this.setStyle("-fx-background-color: blue");
+            Text text = new Text();
+            text.setText("Antenna");
+            this.getChildren().add(text);
+        }
+
 
         if (space.getReboot() != null) {
             this.setStyle("-fx-background-color: greenyellow");

@@ -426,7 +426,7 @@
     {
       "walls": [],
       "activatableBoardElementList": [],
-      "isPit": true,
+      "isAntenna": true,
       "x": 4,
       "y": 5
     },
