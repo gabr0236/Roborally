@@ -23,8 +23,10 @@ package dk.dtu.compute.se.pisd.roborally.fileaccess.model;
 
 import dk.dtu.compute.se.pisd.roborally.model.ActivatableBoardElement;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
+import dk.dtu.compute.se.pisd.roborally.model.Laser;
 import dk.dtu.compute.se.pisd.roborally.model.Reboot;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +41,7 @@ public class SpaceTemplate {
     public Reboot reboot;
     public ArrayList<ActivatableBoardElement> activatableBoardElementList;
     public boolean isPit;
+    public Laser laser;
     public int x;
     public int y;
 }

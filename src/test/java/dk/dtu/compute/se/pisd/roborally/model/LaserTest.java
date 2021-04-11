@@ -6,6 +6,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 class LaserTest {
     private final int TEST_WIDTH = 12;
     private final int TEST_HEIGHT = 12;
@@ -33,12 +36,11 @@ class LaserTest {
     @Test
     void lasertTest(){
         Space space = gameController.board.getSpace(0,5);
-        space.getActivatableBoardElements().add(new Laser(Heading.NORTH,space,space.board));
-        Laser laser = (Laser) space.getActivatableBoardElements().get(0);
+        space.setLaser(new Laser(Heading.NORTH));
 
         Player player = gameController.board.getPlayer(0);
 
-        laser.fire(gameController);
+        gameController.fireLasers(Arrays.asList(space));
 
         Assertions.assertNull(player.getSpace());
 

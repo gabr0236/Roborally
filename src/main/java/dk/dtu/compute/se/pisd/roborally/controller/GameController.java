@@ -25,6 +25,7 @@ import dk.dtu.compute.se.pisd.roborally.model.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * ...
@@ -383,6 +384,7 @@ public class GameController {
                 board.setStep(step);
                 board.setCurrentPlayer(board.getPlayer(0));
             } else {
+                fireLasers(board.getLaserSpaceList());
                 respawnPlayers();
                 startProgrammingPhase();
             }
@@ -490,6 +492,33 @@ public class GameController {
     private void fallIntoPit(@NotNull Player player){
         if(player.getSpace().getPit())
             player.setSpace(null);
+    }
+
+    public void fireLasers(@NotNull List<Space> laserSpaces) {
+        if (!laserSpaces.isEmpty()) {
+            for (Space space : laserSpaces) {
+                Heading shootingDirection = space.getLaser().getShootingDirection();
+                Space projectile = board.getNeighbour(space, shootingDirection);
+
+                boolean hit = false;
+                do {
+                    if (projectile == null) {
+                        hit = true;
+                    } else if (notWallsBlock(projectile, shootingDirection)) {
+                        if (projectile.getPlayer() != null) {
+                            Player player = projectile.getPlayer();
+                            // Should be changed if players can take damage.
+                            player.setSpace(null);
+                            hit = true;
+                        } else {
+                            projectile = board.getNeighbour(projectile, shootingDirection);
+                        }
+                    } else {
+                        hit = true;
+                    }
+                } while (!hit);
+            }
+        }
     }
 }
 

@@ -75,8 +75,11 @@ public class LoadBoard {
                     space.getWallList().addAll(spaceTemplate.walls);
                     space.setReboot(spaceTemplate.reboot);
                     space.setPit(spaceTemplate.isPit);
+                    space.setLaser(spaceTemplate.laser);
                     if(space.getReboot()!=null){
                         result.getRebootSpaceList().add(space);
+                    } else if(space.getLaser()!=null){
+                        result.getLaserSpaceList().add(space);
                     }
                 }
             }

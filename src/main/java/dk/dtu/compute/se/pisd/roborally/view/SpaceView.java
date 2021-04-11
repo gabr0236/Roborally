@@ -25,8 +25,6 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -173,15 +171,16 @@ public class SpaceView extends StackPane implements ViewObserver {
             this.getChildren().add(drawWalls(space));
         }
         // draws laser
-        else if (space.getLaser()!=null && space.getWallList().contains(space.getLaser().getDirection())){
+        else if (space.getLaser()!=null && space.getWallList().contains(space.getLaser().getShootingDirection())){
             Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
             GraphicsContext gc = canvas.getGraphicsContext2D();
             gc.setStroke(Color.DARKRED);
             gc.setLineWidth(7);
             gc.setLineCap(StrokeLineCap.ROUND);
-            Heading heading = space.getLaser().getDirection();
+            Heading shootingDirection = space.getLaser().getShootingDirection();
 
-            switch (heading) {
+            //to get the direction from where the laser is placed on a wall
+            switch (shootingDirection.next().next()) {
                 case NORTH -> {gc.strokeLine(SPACE_WIDTH/2,2,SPACE_WIDTH/2,SPACE_HEIGHT/4);
                     gc.setStroke(Color.LIME);
                     gc.setLineWidth(4);

@@ -67,6 +67,9 @@ public class Board extends Subject {
 
     private final List<Space> rebootSpaceList = new ArrayList<>();
 
+    private final List<Space> laserSpaceList = new ArrayList<>();
+
+
     private int numberOfCheckpoints;
 
     /**
@@ -90,19 +93,6 @@ public class Board extends Subject {
             }
         }
         this.stepMode = false;
-
-        //TODO: @Gab midlertidigt
-        spaces[2][2].setLaser(new Laser(Heading.NORTH,spaces[2][2], this));
-        spaces[2][2].getWallList().add(Heading.NORTH);
-
-        spaces[2][3].setLaser(new Laser(Heading.EAST,spaces[2][3], this));
-        spaces[2][3].getWallList().add(Heading.EAST);
-
-        spaces[2][4].setLaser(new Laser(Heading.WEST,spaces[2][4], this));
-        spaces[2][4].getWallList().add(Heading.WEST);
-
-        spaces[2][5].setLaser(new Laser(Heading.SOUTH,spaces[2][5], this));
-        spaces[2][5].getWallList().add(Heading.SOUTH);
     }
 
     public Board(int width, int height) {
@@ -270,5 +260,9 @@ public class Board extends Subject {
 
     public void setNumberOfCheckpoints(int numberOfCheckpoints) {
         this.numberOfCheckpoints = numberOfCheckpoints;
+    }
+
+    public List<Space> getLaserSpaceList() {
+        return laserSpaceList;
     }
 }
