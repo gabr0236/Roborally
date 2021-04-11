@@ -18,7 +18,7 @@ public class Conveyor extends ActivatableBoardElement {
     @Override
     public void activateElement(@NotNull Player player, @NotNull GameController gameController) {
         gameController.executeCommand(player,heading,command);
-        //TODO: @Gab
+        //TODO: @Gab evt conveyor move metode der checker for getneighbour == null før den kalder direction move
         Space target = player.board.getNeighbour(player.getSpace(), heading);
         if(target == null){
             player.setSpace(null);
