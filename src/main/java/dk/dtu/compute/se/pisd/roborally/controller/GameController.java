@@ -563,6 +563,14 @@ public class GameController {
         //sorts players after antenna distance
         Collections.sort(board.getPlayers());
     }
+
+    public void activatePushPanel(Player player, Heading heading, Boolean[] activatingTurns) {
+        if(activatingTurns[board.getStep()]!=null && player!=null && player.getSpace()!=null){
+            if(activatingTurns[board.getStep()]){
+            directionMove(player,heading);
+            }
+        }
+    }
 }
 
 
