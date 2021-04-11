@@ -179,6 +179,7 @@ public class SpaceView extends StackPane implements ViewObserver {
                     this.setStyle("-fx-background-color: Black");
                     this.getChildren().add(arrowView);
                 }
+                //TODO: @Gab går ikke igennem første if vvvv
                 else if (activatableBoardElement instanceof PushPanel){
                     PushPanel pushPanel = (PushPanel) activatableBoardElement;
                     if(pushPanel.getActivatingTurns()!=null) {
@@ -188,21 +189,13 @@ public class SpaceView extends StackPane implements ViewObserver {
                         gc.setLineWidth(18);
                         gc.setLineCap(StrokeLineCap.ROUND);
                         switch (pushPanel.pushingDirection.oppositeHeading()) {
-                            case NORTH -> {
-                                gc.strokeLine(2, 2, SPACE_WIDTH - 2, 2);
-                            }
-                            case EAST -> {
-                                gc.strokeLine(SPACE_WIDTH - 2, 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
-                            }
-                            case SOUTH -> {
-                                gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
-                            }
-                            case WEST -> {
-                                gc.strokeLine(2, 2, 2, SPACE_HEIGHT - 2);
-                            }
+                            case NORTH -> gc.strokeLine(2, 2, SPACE_WIDTH - 2, 2);
+                            case EAST -> gc.strokeLine(SPACE_WIDTH - 2, 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
+                            case SOUTH -> gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
+                            case WEST -> gc.strokeLine(2, 2, 2, SPACE_HEIGHT - 2);
                         }
                         this.getChildren().add(canvas);
-                        this.getChildren().add(combinePushPanelListToString(pushPanel.getActivatingTurns()));
+                        //this.getChildren().add(combinePushPanelListToString(pushPanel.getActivatingTurns()));
                     }
                 }
             }
