@@ -92,4 +92,23 @@ class ConveyorTest {
         Assertions.assertEquals(Heading.NORTH, current.getHeading(), "Player 0 should be heading NORTH!");
         Assertions.assertNull(board.getSpace(0, 1).getPlayer(), "Space (0,0) should be empty!");
     }
+
+    /**
+     * @author Sebastian
+     */
+    @Test
+    void conveyorPushingPlayerOutOfField() {
+        Board board = gameController.board;
+        Player current = board.getCurrentPlayer();
+        current.setSpace(board.getSpace(3,0));
+        board.getSpace(3,5).setReboot(new Reboot(Heading.EAST,false,6));
+        board.getRebootSpaceList().add(board.getSpace(3,5));
+        current.getSpace().getActivatableBoardElements().add(new Conveyor(Heading.NORTH,Command.FORWARD));
+        gameController.updateAllReboot();
+        gameController.executeBoardElements();
+        gameController.respawnPlayers();
+        Assertions.assertEquals(current, board.getSpace(3, 5).getPlayer(), "Player " + current.getName() + " should beSpace (3,5)!");
+        Assertions.assertEquals(Heading.EAST, current.getHeading(), "Player 0 should be heading EAST!");
+    }
+
 }

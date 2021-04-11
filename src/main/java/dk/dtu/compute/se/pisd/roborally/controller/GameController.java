@@ -440,7 +440,7 @@ public class GameController {
      * Updates every players reboot space if the player have left the startfield
      * @author Gabriel, Sebastian
      */
-    private void updateAllReboot() {
+    public void updateAllReboot() {
         for (Player player : board.getPlayers()) {
             Space current = player.getSpace();
             if (current != null && current.x > current.board.rebootBorderX && current.x < current.board.getRebootBorderX2) {
