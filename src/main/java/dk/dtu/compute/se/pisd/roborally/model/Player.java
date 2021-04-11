@@ -226,6 +226,5 @@ public class Player extends Subject implements Comparable<Player> {
         if(o.getAntennaDistance()>antennaDistance) return 1;
         else if(o.getAntennaDistance()==antennaDistance) return o.getSpace().y<this.getSpace().x ? 1 : -1;
         else return -1;
-
     }
 }
