@@ -26,9 +26,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * ...
@@ -38,7 +35,6 @@ import java.util.stream.Collectors;
 public class GameController {
 
     final public Board board;
-    private List<Player> playerOrder = new ArrayList<>();
 
     public GameController(@NotNull Board board) {
         this.board = board;
@@ -153,8 +149,7 @@ public class GameController {
                     Command command = card.command;
                     executeCommand(currentPlayer,currentPlayer.getHeading(), command);
                 }
-                playerStartingOrder();
-                nextPlayerOrPhase(playerOrder);
+                nextPlayerOrPhase();
             } else {
                 // this should not happen
                 assert false;
@@ -333,8 +328,7 @@ public class GameController {
         if (currentPlayer != null && Phase.PLAYER_INTERACTION == board.getPhase() && option != null) {
             board.setPhase(Phase.ACTIVATION);
             executeCommand(currentPlayer,currentPlayer.getHeading(), option);
-            playerStartingOrder();
-            nextPlayerOrPhase(playerOrder);
+            nextPlayerOrPhase();
         }
     }
 
@@ -361,11 +355,12 @@ public class GameController {
      * otherwise change player to next player and change to next step
      * @author Gabriel
      */
-    private void nextPlayerOrPhase(List<Player> playerOrder) {
-        Player currentPlayer = playerOrder.get(0);
+    private void nextPlayerOrPhase() {
+        Player currentPlayer = board.getCurrentPlayer();
+        int nextPlayerNumber = board.getPlayerNumber(currentPlayer) + 1;
         int step = board.getStep();
-        if (playerOrder.indexOf(currentPlayer) < playerOrder.size()) {
-            board.setCurrentPlayer(playerOrder.get(playerOrder.indexOf(currentPlayer)+1));
+        if (nextPlayerNumber < board.getPlayersNumber()) {
+            board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
             continuePrograms();
         } else {
             executeBoardElements();
@@ -377,6 +372,7 @@ public class GameController {
                 board.setCurrentPlayer(board.getPlayer(0));
             } else {
                 respawnPlayers();
+                sortPlayersAfterAntennaDistance();
                 startProgrammingPhase();
             }
         }
@@ -485,7 +481,7 @@ public class GameController {
             player.setSpace(null);
     }
 
-    private void playerStartingOrder(){
+    private void sortPlayersAfterAntennaDistance(){
         Space antennaSpace = null;
         for(Space space : board.getSpacesList()) {
             if (space.getIsAntenna())
@@ -499,7 +495,7 @@ public class GameController {
         }
 
         //sorts players after antenna distance
-        Collections.sort(playerOrder);
+        Collections.sort(board.getPlayers());
     }
 }
 
