@@ -31,6 +31,9 @@ public class CheckpointTest {
         gameController = null;
     }
 
+    /**
+     * @author @Gabriel
+     */
     @Test
     void oneCheckpoint() {
         Board board = gameController.board;
@@ -46,6 +49,9 @@ public class CheckpointTest {
         Assertions.assertTrue(current.isPlayerWin(), "Playerwin should be true");
     }
 
+    /**
+     * @author @Gabriel
+     */
     @Test
     void twoCheckpoints() {
         Board board = gameController.board;
@@ -64,6 +70,9 @@ public class CheckpointTest {
 
     }
 
+    /**
+     * @author @Gabriel
+     */
     @Test
     void threeCheckpointsOrder132() {
         Board board = gameController.board;

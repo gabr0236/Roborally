@@ -34,6 +34,9 @@ class GameControllerTest {
     }
 
 
+    /**
+     * @author @Gabriel
+     */
     @Test
     void moveForward() {
         Board board = gameController.board;
@@ -47,6 +50,9 @@ class GameControllerTest {
     }
 
 
+    /**
+     * @author @Gabriel
+     */
     @Test
     void fastForward() {
         Board board = gameController.board;
@@ -61,6 +67,9 @@ class GameControllerTest {
 
 
 
+    /**
+     * @author @Gabriel
+     */
     @Test
     void turnRight() {
         Board board = gameController.board;
@@ -72,6 +81,9 @@ class GameControllerTest {
         Assertions.assertEquals(Heading.WEST, current.getHeading(), "Player 0 should be heading WEST!");
     }
 
+    /**
+     * @author @Gabriel
+     */
     @Test
     void turnLeft() {
         Board board = gameController.board;
@@ -98,7 +110,6 @@ class GameControllerTest {
         Assertions.assertEquals(pushedPlayer, board.getSpace(1, 2).getPlayer(), "Player " + pushedPlayer.getName() + " should beSpace (1,1)!");
     }
 
-
     @Test
     void pushPlayerWallBlock() {
         Board board = gameController.board;
@@ -116,7 +127,9 @@ class GameControllerTest {
     }
 
 
-
+    /**
+     * @author @Gabriel
+     */
     @Test
     void push5Players() {
         Board board = gameController.board;
