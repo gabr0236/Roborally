@@ -165,7 +165,7 @@ public class AppController {
     private String choseBoard() {
         boolean validBoard = false;
         while (!validBoard) {
-            ChoiceDialog<String> boardDialog = new ChoiceDialog<>(BOARDS.get(0), BOARDS);
+            ChoiceDialog<String> boardDialog = new ChoiceDialog<>(BOARDS.get(1), BOARDS);
             boardDialog.setTitle("Board selector");
             boardDialog.setHeaderText("Select game board");
             Optional<String> resultBoard = boardDialog.showAndWait();

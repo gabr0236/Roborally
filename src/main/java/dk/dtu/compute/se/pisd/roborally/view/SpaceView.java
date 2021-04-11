@@ -181,27 +181,29 @@ public class SpaceView extends StackPane implements ViewObserver {
                 }
                 else if (activatableBoardElement instanceof PushPanel){
                     PushPanel pushPanel = (PushPanel) activatableBoardElement;
-                    Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
-                    GraphicsContext gc = canvas.getGraphicsContext2D();
-                    gc.setStroke(Color.YELLOW);
-                    gc.setLineWidth(18);
-                    gc.setLineCap(StrokeLineCap.ROUND);
-                    switch (pushPanel.pushingDirection.oppositeHeading()) {
-                        case NORTH -> {gc.strokeLine(2, 2, SPACE_WIDTH - 2, 2);
-                            this.getChildren().add(combinePushPanelListToString(pushPanel.getActivatingTurns()));
+                    if(pushPanel.getActivatingTurns()!=null) {
+                        Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
+                        GraphicsContext gc = canvas.getGraphicsContext2D();
+                        gc.setStroke(Color.YELLOW);
+                        gc.setLineWidth(18);
+                        gc.setLineCap(StrokeLineCap.ROUND);
+                        switch (pushPanel.pushingDirection.oppositeHeading()) {
+                            case NORTH -> {
+                                gc.strokeLine(2, 2, SPACE_WIDTH - 2, 2);
+                            }
+                            case EAST -> {
+                                gc.strokeLine(SPACE_WIDTH - 2, 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
+                            }
+                            case SOUTH -> {
+                                gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
+                            }
+                            case WEST -> {
+                                gc.strokeLine(2, 2, 2, SPACE_HEIGHT - 2);
+                            }
                         }
-                        case EAST -> {gc.strokeLine(SPACE_WIDTH - 2, 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
-                            this.getChildren().add(combinePushPanelListToString(pushPanel.getActivatingTurns()));
-                        }
-                        case SOUTH -> {gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
-                            this.getChildren().add(combinePushPanelListToString(pushPanel.getActivatingTurns()));
-                        }
-                        case WEST -> {gc.strokeLine(2, 2, 2, SPACE_HEIGHT - 2);
-                            this.getChildren().add(combinePushPanelListToString(pushPanel.getActivatingTurns()));
-                        }
+                        this.getChildren().add(canvas);
+                        this.getChildren().add(combinePushPanelListToString(pushPanel.getActivatingTurns()));
                     }
-
-                    this.getChildren().add(canvas);
                 }
             }
         }
