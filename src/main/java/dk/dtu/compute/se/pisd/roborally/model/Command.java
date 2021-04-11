@@ -58,7 +58,7 @@ public enum Command {
      */
     Command(String displayName, Command... options) {
         this.displayName = displayName;
-        this.options = Collections.unmodifiableList(Arrays.asList(options));
+        this.options = List.of(options);
     }
 
     public boolean isInteractive() {

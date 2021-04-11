@@ -84,7 +84,11 @@ class Repository implements IRepository {
 		this.connector = connector;
 	}
 
-
+	/**
+	 * creates data corresponding to the current game when starting a new game
+	 * @param game which is created in database
+	 * @return true if game is created successfully in database
+	 */
 	@Override
 	public boolean createGameInDB(Board game) {
 		if (game.getGameId() == null) {
@@ -161,7 +165,12 @@ class Repository implements IRepository {
 		}
 		return false;
 	}
-		
+
+	/**
+	 * Updates game table in database
+	 * @param game which is being updated in database
+	 * @return true if the game was successfully updated
+	 */
 	@Override
 	public boolean updateGameInDB(Board game) {
 		assert game.getGameId() != null;
@@ -208,6 +217,11 @@ class Repository implements IRepository {
 		return false;
 	}
 
+	/**
+	 * Loads a game from the database
+	 * @param id the game id
+	 * @return board loaded from database
+	 */
 	@Override
 	public Board loadGameFromDB(int id) {
 		Board game;
@@ -262,6 +276,10 @@ class Repository implements IRepository {
 	}
 
 
+	/**
+	 * Gets all game names from database
+	 * @return list of game names
+	 */
 	@Override
 	public List<GameInDB> getGames() {
 		// TODO when there many games in the DB, fetching all available games
@@ -285,6 +303,11 @@ class Repository implements IRepository {
 		return result;		
 	}
 
+	/**
+	 * creates data corresponding to the current game when starting a new game
+	 * @param game used to get information and send to database
+	 * @throws SQLException
+	 */
 	private void createPlayersInDB(Board game) throws SQLException {
 		// TODO code should be more defensive
 		PreparedStatement ps = getSelectPlayersStatementU();
@@ -309,8 +332,9 @@ class Repository implements IRepository {
 	}
 
 	/**
-	 *
-	 * @param game
+	 * creates data corresponding to the current game players cards
+	 * when starting a new game
+	 * @param game used to get information and send to database
 	 * @throws SQLException
 	 * @author Gabriel
 	 */
@@ -336,7 +360,12 @@ class Repository implements IRepository {
 		}
 		rs.close();
 	}
-	
+
+	/**
+	 * loads player data corresponding to the current game id
+	 * @param game used to get the game id
+	 * @throws SQLException
+	 */
 	private void loadPlayersFromDB(Board game) throws SQLException {
 		PreparedStatement ps = getSelectPlayersASCStatement();
 		ps.setInt(1, game.getGameId());
@@ -371,8 +400,8 @@ class Repository implements IRepository {
 	}
 
 	/**
-	 *
-	 * @param game
+	 * loads cardField data corresponding to the current game id
+	 * @param game used to get the game id
 	 * @throws SQLException
 	 * @author Gabriel
 	 */
@@ -399,7 +428,12 @@ class Repository implements IRepository {
 		}
 		rs.close();
 	}
-	
+
+	/**
+	 * updates player data corresponding to the current game id
+	 * @param game used to get the current game id
+	 * @throws SQLException
+	 */
 	private void updatePlayersInDB(Board game) throws SQLException {
 		PreparedStatement ps = getSelectPlayersStatementU();
 		ps.setInt(1, game.getGameId());
@@ -424,8 +458,8 @@ class Repository implements IRepository {
 
 
 	/**
-	 *
-	 * @param game
+	 * updates register card data corresponding to the current game id
+	 * @param game used to get the current game id
 	 * @throws SQLException
 	 * @author Gabriel
 	 */
@@ -461,6 +495,9 @@ class Repository implements IRepository {
 
 	private PreparedStatement insert_game_stmt = null;
 
+	/**
+	 * @return a prepared statement for inserting a game
+	 */
 	private PreparedStatement getInsertGameStatementRGK() {
 		if (insert_game_stmt == null) {
 			Connection connection = connector.getConnection();
@@ -480,7 +517,10 @@ class Repository implements IRepository {
 			"SELECT * FROM Game WHERE gameID = ?";
 	
 	private PreparedStatement select_game_stmt = null;
-	
+
+	/**
+	 * @return a prepared statement for selecting a specific game
+	 */
 	private PreparedStatement getSelectGameStatementU() {
 		if (select_game_stmt == null) {
 			Connection connection = connector.getConnection();
@@ -501,6 +541,9 @@ class Repository implements IRepository {
 			"SELECT * FROM Player WHERE gameID = ?";
 	private PreparedStatement select_players_stmt = null;
 
+	/**
+	 * @return a prepared statement for selecting players from a specific game id
+	 */
 	private PreparedStatement getSelectPlayersStatementU() {
 		if (select_players_stmt == null) {
 			Connection connection = connector.getConnection();
@@ -524,7 +567,7 @@ class Repository implements IRepository {
 
 	/**
 	 *
-	 * @return
+	 * @return a prepared statement for selecting cards corresponding to a specific game id
 	 * @author Gabriel
 	 */
 	private PreparedStatement getSelectCardsStatementU() {
@@ -548,6 +591,10 @@ class Repository implements IRepository {
 			"SELECT * FROM Player WHERE gameID = ? ORDER BY playerID ASC";
 	private PreparedStatement select_players_asc_stmt = null;
 
+	/**
+	 * @return a prepared statement for selecting all players
+	 * from a specific gameid in ascending order
+	 */
 	private PreparedStatement getSelectPlayersASCStatement() {
 		if (select_players_asc_stmt == null) {
 			Connection connection = connector.getConnection();
@@ -569,8 +616,8 @@ class Repository implements IRepository {
 	private PreparedStatement select_cards_asc_stmt = null;
 
 	/**
-	 *
-	 * @return
+	 * @return a prepared statement for selecting all players cards
+	 * from a specific gameid in ascending order
 	 * @author Gabriel
 	 */
 	private PreparedStatement getSelectCardsASCStatement() {
@@ -593,7 +640,10 @@ class Repository implements IRepository {
 			"SELECT gameID, name FROM Game";
 	
 	private PreparedStatement select_games_stmt = null;
-	
+
+	/**
+	 * @return a prepared statement for selecting all games from the table
+	 */
 	private PreparedStatement getSelectGameIdsStatement() {
 		if (select_games_stmt == null) {
 			Connection connection = connector.getConnection();

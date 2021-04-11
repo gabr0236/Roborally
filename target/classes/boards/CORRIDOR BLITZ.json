@@ -472,7 +472,10 @@
       ],
       "activatableBoardElementList": [],
       "x": 6,
-      "y": 2
+      "y": 2,
+      "laser": {
+        "shootingDirection": "EAST"
+      }
     },
     {
       "walls": [
@@ -488,7 +491,10 @@
       ],
       "activatableBoardElementList": [],
       "x": 10,
-      "y": 3
+      "y": 3,
+      "laser": {
+        "shootingDirection": "SOUTH"
+      }
     },
     {
       "walls": [
@@ -504,7 +510,10 @@
       ],
       "activatableBoardElementList": [],
       "x": 9,
-      "y": 7
+      "y": 7,
+      "laser": {
+        "shootingDirection": "WEST"
+      }
     },
     {
       "walls": [
@@ -520,7 +529,11 @@
       ],
       "activatableBoardElementList": [],
       "x": 5,
-      "y": 6
+      "y": 6,
+      "laser": {
+      "shootingDirection": "NORTH"
+      }
+
     },
     {
       "walls": [],

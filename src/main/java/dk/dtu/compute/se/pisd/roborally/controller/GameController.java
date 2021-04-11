@@ -26,6 +26,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * ...
@@ -162,9 +163,9 @@ public class GameController {
 
     /**
      * Calls the move method for a player corresponding to the command passed as param.
-     * @param player
-     * @param heading
-     * @param command
+     * @param player the player being moved
+     * @param heading the heading of the move
+     * @param command the command being executed
      */
     public void executeCommand(@NotNull Player player, Heading heading, Command command) {
         if (player != null && player.board == board && command != null) {
@@ -181,7 +182,7 @@ public class GameController {
 
     /**
      * Moves a player forward in a specific direction.
-     * @param player
+     * @param player the player being moved
      * @author Gabriel
      */
     public void directionMove(@NotNull Player player, @NotNull Heading heading) {
@@ -193,7 +194,7 @@ public class GameController {
                     try{
                         moveToSpace(player, target, heading);
                     } catch (ImpossibleMoveException e){
-                        System.out.println("impossible move in direction move");
+                        //TODO: error handling?
                     }
                 }
             }
@@ -202,9 +203,9 @@ public class GameController {
 
     /**
      * Moves a player forward in a specific direction, and pushes, any player in the way, forward.
-     * @param player
-     * @param space
-     * @param heading
+     * @param player the player being moved
+     * @param space the space which the player is moving towards
+     * @param heading the direction heading of the move
      * @throws ImpossibleMoveException
      */
     public void moveToSpace(@NotNull Player player, @NotNull Space space, @NotNull Heading heading) throws ImpossibleMoveException {
@@ -237,9 +238,9 @@ public class GameController {
 
     /**
      *Returns true if no walls is blocking a move in a specific direction
-     * @param space
-     * @param heading
-     * @return
+     * @param space the space checked
+     * @param heading the direction checked
+     * @return true if no wall(s) is blocking the path
      * @author Gabriel, Daniel, Sebastian
      */
     public boolean notWallsBlock(@NotNull Space space, Heading heading) {
@@ -249,9 +250,9 @@ public class GameController {
 
     /**
      *Returns true if a wall is blocking a player from moving on the players space.
-     * @param space
-     * @param heading
-     * @return
+     * @param space the space checked
+     * @param heading the direction checked
+     * @return true if a wall is blocking the path
      * @author Gabriel, Daniel, Sebastian
      */
     public boolean isCurrentSpaceWallBlockingDirection(@NotNull Space space, Heading heading) {
@@ -265,9 +266,9 @@ public class GameController {
     /**
      *
      * Returns true if a wall is blocking a player from moving on the players neighbours space.
-     * @param space
-     * @param heading
-     * @return
+     * @param space the space checked
+     * @param heading the direction checked
+     * @return true if a wall is blocking the path
      * @author Gabriel, Daniel, Sebastian
      */
     public boolean isHeadingNeighbourWallBlockingDirection(@NotNull Space space, Heading heading) {
@@ -282,7 +283,8 @@ public class GameController {
 
     /**
      * Moves a player 2 spaces forward.
-     * @param player
+     * @param player who is being moved
+     * @param heading the direction of the move
      * @author Gabriel, Sebastian
      */
     public void fastForward(@NotNull Player player, @NotNull Heading heading) {
@@ -290,6 +292,12 @@ public class GameController {
         directionMove(player, heading);
     }
 
+    /**
+     *
+     * @param player who is being moved
+     * @param heading the direction of the move
+     * @author @Gabriel
+     */
     public void tripleForward(@NotNull Player player, @NotNull Heading heading){
         directionMove(player, heading);
         directionMove(player, heading);
@@ -298,7 +306,7 @@ public class GameController {
 
     /**
      * Turns a player to the right.
-     * @param player
+     * @param player who is affected
      * @author Gabriel, Sebastian
      */
     public void turnRight(@NotNull Player player) {
@@ -307,20 +315,24 @@ public class GameController {
 
     /**
      * Turns a player to the left.
-     * @param player
+     * @param player who is affected
      * @author Gabriel, Sebastian
      */
     public void turnLeft(@NotNull Player player) {
         player.setHeading(player.getHeading().prev());
     }
 
+    /**
+     *
+     * @param player who is affected
+     */
     public void turnAround(@NotNull Player player) {
         player.setHeading(player.getHeading().oppositeHeading());
     }
 
     /**
      * Executes a option from the optional CommandCard chosen by the player on the GUI.
-     * @param option
+     * @param option list of different commands
      * @author Gabriel
      */
     public void executeCommandOptionAndContinue(@NotNull Command option) {
@@ -328,15 +340,16 @@ public class GameController {
         if (currentPlayer != null && Phase.PLAYER_INTERACTION == board.getPhase() && option != null) {
             board.setPhase(Phase.ACTIVATION);
             executeCommand(currentPlayer,currentPlayer.getHeading(), option);
+            board.setStepMode(false);
             nextPlayerOrPhase();
         }
     }
 
     /**
      * Moves a players CommandCard to a different position in hand.
-     * @param source
-     * @param target
-     * @return
+     * @param source the original position
+     * @param target the new position
+     * @return true if card is moved
      */
     public boolean moveCards(@NotNull CommandCardField source, @NotNull CommandCardField target) {
         CommandCard sourceCard = source.getCard();
@@ -371,6 +384,7 @@ public class GameController {
                 board.setStep(step);
                 board.setCurrentPlayer(board.getPlayer(0));
             } else {
+                fireLasers(board.getLaserSpaceList());
                 respawnPlayers();
                 sortPlayersAfterAntennaDistance();
                 startProgrammingPhase();
@@ -385,8 +399,8 @@ public class GameController {
     public void executeBoardElements() {
         if (board.getPlayers() != null) {
             for (Player player : board.getPlayers()) {
-                if(player.getSpace()!=null && player.getSpace().getActivatableBoardElementList()!=null) {
-                    for (ActivatableBoardElement activatableBoardElement : player.getSpace().getActivatableBoardElementList()) {
+                if(player.getSpace()!=null && !player.getSpace().getActivatableBoardElements().isEmpty()) {
+                    for (ActivatableBoardElement activatableBoardElement : player.getSpace().getActivatableBoardElements()) {
                             activatableBoardElement.activateElement(player, this);
                         }
                     }
@@ -397,8 +411,8 @@ public class GameController {
 
     /**
      * Registers a players checkpoint in player, and calls findWinner() if player have gathered all checkpoints
-     * @param player
-     * @param checkpointNumber
+     * @param player who landed on the checkpoint
+     * @param checkpointNumber to compare with players next checkpoint number
      * @author Gabriel
      */
     public void registerCheckpoint(@NotNull Player player, int checkpointNumber) {
@@ -413,7 +427,7 @@ public class GameController {
     /**
      * TODO: this need to be updated at some point to show a winning screen and maybe delete game from database?
      * Prints out the winning player
-     * @param player
+     * @param player who is is checked for winning
      * @author Gabriel
      */
     public void findWinner(@NotNull Player player) {
@@ -427,7 +441,7 @@ public class GameController {
      * Updates every players reboot space if the player have left the startfield
      * @author Gabriel, Sebastian
      */
-    private void updateAllReboot() {
+    public void updateAllReboot() {
         for (Player player : board.getPlayers()) {
             Space current = player.getSpace();
             if (current != null && current.x > current.board.rebootBorderX && current.x < current.board.getRebootBorderX2) {
@@ -474,11 +488,43 @@ public class GameController {
 
     /**
      * Player falls into pit and is removed from the board
-     * @param player
+     * @param player who is affected
      */
     private void fallIntoPit(@NotNull Player player){
         if(player.getSpace().getPit())
             player.setSpace(null);
+    }
+
+    /**
+     *
+     * @param laserSpaces
+     * @author Tobias s205358
+     */
+    public void fireLasers(@NotNull List<Space> laserSpaces) {
+        if (!laserSpaces.isEmpty()) {
+            for (Space space : laserSpaces) {
+                Heading shootingDirection = space.getLaser().getShootingDirection();
+                Space projectile = space;
+
+                boolean hit = false;
+                do {
+                    if (projectile == null) {
+                        hit = true;
+                    } else if (notWallsBlock(projectile, shootingDirection)) {
+                        if (projectile.getPlayer() != null) {
+                            Player player = projectile.getPlayer();
+                            // Should be changed if players can take damage.
+                            player.setSpace(null);
+                            hit = true;
+                        } else {
+                            projectile = board.getNeighbour(projectile, shootingDirection);
+                        }
+                    } else {
+                        hit = true;
+                    }
+                } while (!hit);
+            }
+        }
     }
 
     private void sortPlayersAfterAntennaDistance(){

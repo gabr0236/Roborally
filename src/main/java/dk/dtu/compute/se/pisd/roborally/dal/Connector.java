@@ -45,8 +45,11 @@ class Connector {
     private static final String DELIMITER = ";;";
     
     private Connection connection;
-        
-    Connector() {
+
+	/**
+	 * Connects computer to database
+	 */
+	Connector() {
         try {
 			// String url = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE;
 			String url = "jdbc:mysql://" + HOST + ":" + PORT + "/" + DATABASE + "?serverTimezone=UTC";
@@ -60,8 +63,11 @@ class Connector {
 			// Platform.exit();
 		}
     }
-    
-    private void createDatabaseSchema() {
+
+	/**
+	 * Creates schema for the game data using the sql file in the resources folder
+	 */
+	private void createDatabaseSchema() {
     	String createTablesStatement =
 				IOUtil.readResource("schemas/createschema.sql");
 

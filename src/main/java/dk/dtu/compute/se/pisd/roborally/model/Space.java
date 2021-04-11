@@ -39,8 +39,9 @@ public class Space extends Subject {
     private Player player;
     private ArrayList<Heading> wallList;
     private Reboot reboot;
-    private ArrayList<ActivatableBoardElement> activatableBoardElementList = new ArrayList<>();
+    private final ArrayList<ActivatableBoardElement> activatableBoardElements = new ArrayList<>();
     private boolean isPit;
+    private Laser laser;
 
     public void setAntenna(boolean antenna) {
         isAntenna = antenna;
@@ -60,7 +61,7 @@ public class Space extends Subject {
         this.board = board;
         this.x = x;
         this.y = y;
-        this.wallList = new ArrayList<Heading>();
+        this.wallList = new ArrayList<>();
         player = null;
     }
 
@@ -147,8 +148,14 @@ public class Space extends Subject {
     public boolean getIsAntenna(){return  isAntenna;}
 
 
-    public ArrayList<ActivatableBoardElement> getActivatableBoardElementList() {
-        return activatableBoardElementList;
+    public ArrayList<ActivatableBoardElement> getActivatableBoardElements() {
+        return activatableBoardElements;
+    }
+    public Laser getLaser() {
+        return laser;
     }
 
+    public void setLaser(Laser laser) {
+        this.laser = laser;
+    }
 }

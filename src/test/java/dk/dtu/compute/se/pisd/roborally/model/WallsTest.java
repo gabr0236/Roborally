@@ -32,8 +32,9 @@ class WallsTest {
         gameController = null;
     }
 
-
-
+    /**
+     * @author @Gabriel
+     */
     @Test
     void wallOnCurrentSpaceBlockingMoveForward(){
         Board board = gameController.board;
@@ -45,6 +46,9 @@ class WallsTest {
         Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
     }
 
+    /**
+     * @author @Gabriel
+     */
     @Test
     void wallOnCurrentSpaceNotBlockingMoveForward(){
         Board board = gameController.board;
@@ -56,6 +60,9 @@ class WallsTest {
         Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
     }
 
+    /**
+     * @author @Gabriel
+     */
     @Test
     void wallOnCurrentSpaceNotBlockingMoveForward2(){
         Board board = gameController.board;
@@ -67,6 +74,9 @@ class WallsTest {
         Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
     }
 
+    /**
+     * @author @Gabriel
+     */
     @Test
     void wallOnNextSpaceBlockingMoveForward(){
         Board board = gameController.board;
@@ -78,6 +88,9 @@ class WallsTest {
         Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
     }
 
+    /**
+     * @author @Gabriel
+     */
     @Test
     void wallOnNextSpaceNotBlockingMoveForward(){
         Board board = gameController.board;
@@ -89,6 +102,9 @@ class WallsTest {
         Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
     }
 
+    /**
+     * @author @Gabriel
+     */
     @Test
     void wallOnNextSpaceNotBlockingMoveForward2(){
         Board board = gameController.board;
