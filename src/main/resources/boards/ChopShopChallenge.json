@@ -596,6 +596,118 @@
       "y": 3
     },
     {
+      "walls": [
+        "NORTH"
+      ],
+      "activatableBoardElementList": [],
+      "x": 4,
+      "y": 1
+    },
+    {
+      "walls": [
+        "WEST"
+      ],
+      "activatableBoardElementList": [],
+      "x": 4,
+      "y": 8
+    },
+    {
+      "walls": [
+        "SOUTH"
+      ],
+      "activatableBoardElementList": [],
+      "x": 5,
+      "y": 7
+    },
+    {
+      "walls": [
+        "WEST"
+      ],
+      "activatableBoardElementList": [],
+      "x": 5,
+      "y": 2
+    },
+    {
+      "walls": [
+        "WEST"
+      ],
+      "activatableBoardElementList": [],
+      "x": 7,
+      "y": 3
+    },
+    {
+      "walls": [
+        "EAST"
+      ],
+      "activatableBoardElementList": [],
+      "x": 7,
+      "y": 4
+    },
+    {
+      "walls": [
+        "EAST"
+      ],
+      "activatableBoardElementList": [],
+      "x": 8,
+      "y": 6
+    },
+    {
+      "walls": [
+        "WEST"
+      ],
+      "activatableBoardElementList": [],
+      "x": 9,
+      "y": 4
+    },
+    {
+      "walls": [
+        "NORTH"
+      ],
+      "activatableBoardElementList": [],
+      "x": 10,
+      "y": 2
+    },
+    {
+      "walls": [
+        "EAST"
+      ],
+      "activatableBoardElementList": [],
+      "x": 10,
+      "y": 7
+    },
+    {
+      "walls": [
+        "EAST"
+      ],
+      "activatableBoardElementList": [],
+      "x": 11,
+      "y": 1
+    },
+    {
+      "walls": [
+        "SOUTH"
+      ],
+      "activatableBoardElementList": [],
+      "x": 11,
+      "y": 8
+    },
+    {
+      "walls": [
+        "EAST"
+      ],
+      "activatableBoardElementList": [],
+      "x": 15,
+      "y": 4
+    },
+    {
+      "walls": [
+        "WEST"
+      ],
+      "activatableBoardElementList": [],
+      "x": 19,
+      "y": 4
+    },
+    {
       "walls": [],
       "activatableBoardElementList": [
         {
