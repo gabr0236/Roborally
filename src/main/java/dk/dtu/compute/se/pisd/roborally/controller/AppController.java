@@ -326,10 +326,28 @@ public class AppController {
 
 
     /**
+     * For testing a game quickly
      * @author Gabriel
      */
-    public void newTestGame() {
+    public void newTestGameCorridorBlitz() {
         Board board = LoadBoard.loadBoard("CORRIDOR BLITZ");
+        gameController = new GameController(board);
+
+        for (int i = 0; i < 3; i++) {
+            Player player = new Player(board, playerColors.get(i), "Player " + i);
+            board.addPlayer(player);
+            player.setSpace(board.getRebootSpaceList().get(i));
+            player.setRebootSpace(board.getRebootSpaceList().get(i));
+        }
+        gameController.startProgrammingPhase();
+
+        IRepository repository = RepositoryAccess.getRepository();
+        repository.createGameInDB(board);
+
+        roboRally.createBoardView(gameController);
+    }
+    public void newTestGameChopShopChallenge() {
+        Board board = LoadBoard.loadBoard("ChopShopChallenge");
         gameController = new GameController(board);
 
         for (int i = 0; i < 3; i++) {

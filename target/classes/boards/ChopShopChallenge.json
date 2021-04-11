@@ -18,6 +18,13 @@
     {
       "walls": [],
       "activatableBoardElementList": [],
+      "isAntenna": true,
+      "x": 0,
+      "y": 4
+    },
+    {
+      "walls": [],
+      "activatableBoardElementList": [],
       "reboot": {
         "REBOOT_HEADING": "EAST",
         "startField": true,
@@ -927,6 +934,18 @@
       ],
       "x": 22,
       "y": 9
+    },{
+      "walls": [],
+      "activatableBoardElementList": [],
+      "isPit": true,
+      "x": 6,
+      "y": 2
+    },{
+      "walls": [],
+      "activatableBoardElementList": [],
+      "isPit": true,
+      "x": 10,
+      "y": 3
     },
     {
       "walls": [],

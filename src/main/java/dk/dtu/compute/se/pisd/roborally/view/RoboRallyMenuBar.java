@@ -41,7 +41,9 @@ public class RoboRallyMenuBar extends MenuBar {
 
     private final MenuItem newGame;
 
-    private final MenuItem newTestGame;
+    private final MenuItem newTestGameCorridorBlitz;
+
+    private final MenuItem newTestGameChopShopChallenge;
 
     private final MenuItem loadGame;
 
@@ -59,9 +61,13 @@ public class RoboRallyMenuBar extends MenuBar {
         newGame.setOnAction(e -> this.appController.newGame());
         controlMenu.getItems().add(newGame);
 
-        newTestGame = new MenuItem("New Test Game");
-        newTestGame.setOnAction(e -> this.appController.newTestGame());
-        controlMenu.getItems().add(newTestGame);
+        newTestGameCorridorBlitz = new MenuItem("New Test Game CORRIDOR BLITZ");
+        newTestGameCorridorBlitz.setOnAction(e -> this.appController.newTestGameCorridorBlitz());
+        controlMenu.getItems().add(newTestGameCorridorBlitz);
+
+        newTestGameChopShopChallenge = new MenuItem("New Test Game ChopShopChallenge");
+        newTestGameChopShopChallenge.setOnAction(e -> this.appController.newTestGameChopShopChallenge());
+        controlMenu.getItems().add(newTestGameChopShopChallenge);
 
         stopGame = new MenuItem("Stop Game");
         stopGame.setOnAction(e -> this.appController.stopGame());
@@ -90,10 +96,10 @@ public class RoboRallyMenuBar extends MenuBar {
             stopGame.setVisible(true);
             saveGame.setVisible(true);
             loadGame.setVisible(false);
-            newTestGame.setVisible(false);
+            newTestGameCorridorBlitz.setVisible(false);
         } else {
             newGame.setVisible(true);
-            newTestGame.setVisible(true);
+            newTestGameCorridorBlitz.setVisible(true);
             stopGame.setVisible(false);
             saveGame.setVisible(false);
             loadGame.setVisible(true);
