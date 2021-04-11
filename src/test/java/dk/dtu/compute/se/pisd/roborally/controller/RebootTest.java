@@ -71,7 +71,7 @@ public class RebootTest {
         Board board = gameController.board;
         Player pushedPlayer = board.getCurrentPlayer();
         Player current = board.getPlayer(1);
-
+        board.getSpace(4,4).setAntenna(true);
 
         pushedPlayer.setSpace(board.getSpace(0,0));
         current.setSpace(board.getSpace(0,1));
@@ -79,8 +79,6 @@ public class RebootTest {
         gameController.directionMove(current, current.getHeading());
         board.setPhase(Phase.ACTIVATION);
         gameController.executePrograms();
-
-
 
         Assertions.assertEquals(pushedPlayer, board.getSpace(1, 1).getPlayer(), "Player " + current.getName() + " should beSpace (1,1)!");
 

@@ -178,7 +178,7 @@ public class SpaceView extends StackPane implements ViewObserver {
             this.getChildren().add(drawWalls(space));
         }
         // draws laser
-        else if (space.getLaser()!=null && space.getWallList().contains(space.getLaser().getShootingDirection())){
+        else if (space.getLaser()!=null && space.getWallList().contains(space.getLaser().getShootingDirection().next().next())){
             Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
             GraphicsContext gc = canvas.getGraphicsContext2D();
             gc.setStroke(Color.DARKRED);
