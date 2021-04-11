@@ -172,6 +172,94 @@
       "y": 3
     },
     {
+      "walls": [
+        "NORTH"
+      ],
+      "activatableBoardElementList": [],
+      "x": 17,
+      "y": 0,
+      "laser": {
+        "shootingDirection": "SOUTH"
+      }
+    },
+    {
+      "walls": [
+        "SOUTH"
+      ],
+      "activatableBoardElementList": [],
+      "x": 17,
+      "y": 1,
+      "laser": {
+        "shootingDirection": "NORTH"
+      }
+    },
+    {
+      "walls": [
+        "NORTH"
+      ],
+      "activatableBoardElementList": [],
+      "x": 14,
+      "y": 4,
+      "laser": {
+        "shootingDirection": "SOUTH"
+      }
+    },
+    {
+      "walls": [
+        "SOUTH"
+      ],
+      "activatableBoardElementList": [],
+      "x": 14,
+      "y": 5,
+      "laser": {
+        "shootingDirection": "NORTH"
+      }
+    },
+    {
+      "walls": [
+        "SOUTH"
+      ],
+      "activatableBoardElementList": [],
+      "x": 17,
+      "y": 9,
+      "laser": {
+        "shootingDirection": "NORTH"
+      }
+    },
+    {
+      "walls": [
+        "NORTH"
+      ],
+      "activatableBoardElementList": [],
+      "x": 17,
+      "y": 7,
+      "laser": {
+        "shootingDirection": "SOUTH"
+      }
+    },
+    {
+      "walls": [
+        "EAST"
+      ],
+      "activatableBoardElementList": [],
+      "x": 22,
+      "y": 6,
+      "laser": {
+        "shootingDirection": "WEST"
+      }
+    },
+    {
+      "walls": [
+        "WEST"
+      ],
+      "activatableBoardElementList": [],
+      "x": 19,
+      "y": 6,
+      "laser": {
+        "shootingDirection": "EAST"
+      }
+    },
+    {
       "walls": [],
       "activatableBoardElementList": [
         {
