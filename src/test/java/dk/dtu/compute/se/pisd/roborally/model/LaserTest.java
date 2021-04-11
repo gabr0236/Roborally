@@ -43,7 +43,7 @@ class LaserTest {
 
         Player player = gameController.board.getPlayer(0);
 
-        gameController.fireLasers(Arrays.asList(space));
+        gameController.fireLaser(space,space.getLaser().getShootingDirection());
 
         Assertions.assertNull(player.getSpace());
     }
@@ -59,7 +59,7 @@ class LaserTest {
         space.getWallList().add(Heading.NORTH);
         Player player = gameController.board.getPlayer(0);
 
-        gameController.fireLasers(Arrays.asList(space));
+        gameController.fireLaser(space,space.getLaser().getShootingDirection());
 
         Assertions.assertNotNull(player.getSpace());
     }
@@ -76,7 +76,7 @@ class LaserTest {
         otherPlayer.setSpace(gameController.board.getSpace(0,1));
         Player player = gameController.board.getPlayer(0);
 
-        gameController.fireLasers(Arrays.asList(space));
+        gameController.fireLaser(space,space.getLaser().getShootingDirection());
 
         Assertions.assertNotNull(player.getSpace());
         Assertions.assertNull(otherPlayer.getSpace());

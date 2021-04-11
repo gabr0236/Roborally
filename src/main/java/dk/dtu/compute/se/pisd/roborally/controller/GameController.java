@@ -384,7 +384,7 @@ public class GameController {
                 board.setStep(step);
                 board.setCurrentPlayer(board.getPlayer(0));
             } else {
-                fireLasers(board.getLaserSpaceList());
+                fireAllLasers(board.getLaserSpaceList(),board.getPlayers());
                 respawnPlayers();
                 sortPlayersAfterAntennaDistance();
                 startProgrammingPhase();
@@ -495,17 +495,29 @@ public class GameController {
             player.setSpace(null);
     }
 
-    /**
-     *
-     * @param laserSpaces
-     * @author Tobias s205358
-     */
-    public void fireLasers(@NotNull List<Space> laserSpaces) {
+    public void fireAllLasers(@NotNull List<Space> laserSpaces, List<Player> players) {
         if (!laserSpaces.isEmpty()) {
             for (Space space : laserSpaces) {
-                Heading shootingDirection = space.getLaser().getShootingDirection();
-                Space projectile = space;
+                fireLaser(space,space.getLaser().getShootingDirection());
+            }
+        }
+        if(!players.isEmpty()){
+            for (Player player : players) {
+                if(player.getSpace()!=null) {
+                    Space neighbourSpace = board.getNeighbour(player.getSpace(), player.getHeading());
+                    if (neighbourSpace != null) fireLaser(neighbourSpace, player.getHeading());
+                }
+            }
+        }
+    }
 
+    /**
+     * @param projectile
+     * @param shootingDirection
+     * @author Tobias s205358
+     */
+    public void fireLaser(Space projectile, Heading shootingDirection) {
+        if (projectile!=null) {
                 boolean hit = false;
                 do {
                     if (projectile == null) {
@@ -524,9 +536,12 @@ public class GameController {
                     }
                 } while (!hit);
             }
-        }
     }
 
+
+    /**
+     * @author @Daniel
+     */
     private void sortPlayersAfterAntennaDistance(){
         Space antennaSpace = null;
         for(Space space : board.getSpacesList()) {
@@ -539,7 +554,6 @@ public class GameController {
         for(Player player : board.getPlayers()){
             player.setAntennaDistance(Math.abs(player.getSpace().x - antennaSpace.x) + Math.abs(player.getSpace().y - antennaSpace.y));
         }
-
         //sorts players after antenna distance
         Collections.sort(board.getPlayers());
     }
