@@ -41,13 +41,13 @@ public class LoadBoard {
     private static final String defaultboard = "CORRIDOR BLITZ";
     private static final String JSON_EXT = "json";
 
-    public static Board loadBoard(String boardname) {
-        if (boardname == null) {
-            boardname = defaultboard;
+    public static Board loadBoard(String boardName) {
+        if (boardName == null) {
+            boardName = defaultboard;
         }
 
         ClassLoader classLoader = LoadBoard.class.getClassLoader();
-        InputStream inputStream = classLoader.getResourceAsStream(BOARDSFOLDER + "/" + boardname + "." + JSON_EXT);
+        InputStream inputStream = classLoader.getResourceAsStream(BOARDSFOLDER + "/" + boardName + "." + JSON_EXT);
         if (inputStream == null) {
             // TODO these constants should be defined somewhere
             return new Board(13,10);

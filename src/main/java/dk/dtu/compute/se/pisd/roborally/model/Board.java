@@ -65,7 +65,7 @@ public class Board extends Subject {
 
     public final int getRebootBorderX2;
 
-    private final List<Space> rebootSpaceList = new ArrayList<>();
+    private List<Space> rebootSpaceList = new ArrayList<>();
 
     private final List<Space> laserSpaceList = new ArrayList<>();
 
