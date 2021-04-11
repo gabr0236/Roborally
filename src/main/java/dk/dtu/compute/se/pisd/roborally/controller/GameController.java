@@ -396,8 +396,8 @@ public class GameController {
     public void executeBoardElements() {
         if (board.getPlayers() != null) {
             for (Player player : board.getPlayers()) {
-                if(player.getSpace()!=null && !player.getSpace().ACTIVATABLE_ELEMENTS.isEmpty()) {
-                    for (ActivatableBoardElement activatableBoardElement : player.getSpace().ACTIVATABLE_ELEMENTS) {
+                if(player.getSpace()!=null && !player.getSpace().getActivatableBoardElements().isEmpty()) {
+                    for (ActivatableBoardElement activatableBoardElement : player.getSpace().getActivatableBoardElements()) {
                             activatableBoardElement.activateElement(player, this);
                         }
                     }

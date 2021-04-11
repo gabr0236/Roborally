@@ -6,6 +6,7 @@ import dk.dtu.compute.se.pisd.roborally.controller.GameController;
  * @author Tobias s205358
  */
 public class Laser extends ActivatableBoardElement {
+
     private Heading direction;
     private Space location;
     private Board board;
@@ -36,7 +37,7 @@ public class Laser extends ActivatableBoardElement {
                 if (projectile.getPlayer() != null) {
                     Player player = projectile.getPlayer();
                     // Should be changed if players can take damage.
-                    gameController.teleportPlayerToReboot(player);
+                    player.setSpace(null);
                     hit = !hit;
                     return;
                 } else {
@@ -48,4 +49,9 @@ public class Laser extends ActivatableBoardElement {
             }
         } while(!hit);
     }
+
+    public Heading getDirection() {
+        return direction;
+    }
+
 }

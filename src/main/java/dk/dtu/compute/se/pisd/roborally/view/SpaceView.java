@@ -25,6 +25,8 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -116,8 +118,8 @@ public class SpaceView extends StackPane implements ViewObserver {
 
         }
 
-        if (!space.ACTIVATABLE_ELEMENTS.isEmpty()) {
-            for (ActivatableBoardElement activatableBoardElement:space.ACTIVATABLE_ELEMENTS) {
+        if (!space.getActivatableBoardElements().isEmpty()) {
+            for (ActivatableBoardElement activatableBoardElement:space.getActivatableBoardElements()) {
 
                 // Draw Checkpoint
                 if (activatableBoardElement instanceof Checkpoint checkpoint) {
@@ -167,6 +169,44 @@ public class SpaceView extends StackPane implements ViewObserver {
             }
         }
 
+        if (space.getLaser()==null && !space.getWallList().isEmpty()){
+            this.getChildren().add(drawWalls(space));
+        }
+        // draws laser
+        else if (space.getLaser()!=null && space.getWallList().contains(space.getLaser().getDirection())){
+            Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
+            GraphicsContext gc = canvas.getGraphicsContext2D();
+            gc.setStroke(Color.DARKRED);
+            gc.setLineWidth(7);
+            gc.setLineCap(StrokeLineCap.ROUND);
+            Heading heading = space.getLaser().getDirection();
+
+            switch (heading) {
+                case NORTH -> {gc.strokeLine(SPACE_WIDTH/2,2,SPACE_WIDTH/2,SPACE_HEIGHT/4);
+                    gc.setStroke(Color.LIME);
+                    gc.setLineWidth(4);
+                    gc.strokeLine(SPACE_WIDTH/2,SPACE_HEIGHT/4.5,SPACE_WIDTH/2,SPACE_HEIGHT/4);}
+                case WEST -> {gc.strokeLine(2, SPACE_HEIGHT/2, SPACE_WIDTH/4, SPACE_HEIGHT/2);
+                    gc.setStroke(Color.LIME);
+                    gc.setLineWidth(4);
+                    gc.strokeLine(SPACE_WIDTH/4.5, SPACE_HEIGHT/2, SPACE_WIDTH/4, SPACE_HEIGHT/2);}
+
+                case SOUTH -> {gc.strokeLine(SPACE_WIDTH/2,SPACE_HEIGHT,SPACE_WIDTH/2,SPACE_HEIGHT-(SPACE_HEIGHT/4));
+                    gc.setStroke(Color.LIME);
+                    gc.setLineWidth(4);
+                    gc.strokeLine(SPACE_WIDTH/2,SPACE_HEIGHT-(SPACE_HEIGHT/4),SPACE_WIDTH/2,SPACE_HEIGHT-(SPACE_HEIGHT/4.5));}
+
+                case EAST -> {gc.strokeLine(SPACE_WIDTH, SPACE_HEIGHT/2, SPACE_WIDTH-(SPACE_WIDTH/4), SPACE_HEIGHT/2);
+                    gc.setStroke(Color.LIME);
+                    gc.setLineWidth(4);
+                    gc.strokeLine(SPACE_WIDTH-(SPACE_WIDTH/4.5), SPACE_HEIGHT/2, SPACE_WIDTH-(SPACE_WIDTH/4), SPACE_HEIGHT/2);}
+            }
+            this.getChildren().add(canvas);
+            this.getChildren().add(drawWalls(space));
+        }
+    }
+
+    private Canvas drawWalls(Space space) {
         if (!space.getWallList().isEmpty()) {
             Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
             GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -181,8 +221,9 @@ public class SpaceView extends StackPane implements ViewObserver {
                     case WEST -> gc.strokeLine(2, 2, 2, SPACE_HEIGHT - 2);
                 }
             }
-            this.getChildren().add(canvas);
+            return canvas;
         }
+        return null;
     }
 
     @Override
