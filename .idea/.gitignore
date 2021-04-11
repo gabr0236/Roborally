@@ -8,3 +8,5 @@
 /httpRequests/
 # Compiled code
 ../target/
+# .Class files
+*.class
