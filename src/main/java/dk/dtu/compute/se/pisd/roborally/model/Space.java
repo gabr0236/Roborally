@@ -41,6 +41,11 @@ public class Space extends Subject {
     private Reboot reboot;
     private ArrayList<ActivatableBoardElement> activatableBoardElementList = new ArrayList<>();
     private boolean isPit;
+
+    public void setAntenna(boolean antenna) {
+        isAntenna = antenna;
+    }
+
     private boolean isAntenna;
 
     /**

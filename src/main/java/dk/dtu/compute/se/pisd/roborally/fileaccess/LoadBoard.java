@@ -75,6 +75,7 @@ public class LoadBoard {
                     space.getWallList().addAll(spaceTemplate.walls);
                     space.setReboot(spaceTemplate.reboot);
                     space.setPit(spaceTemplate.isPit);
+                    space.setAntenna(spaceTemplate.isAntenna);
                     if(space.getReboot()!=null){
                         result.getRebootSpaceList().add(space);
                     }

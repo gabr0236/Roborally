@@ -25,6 +25,7 @@ import dk.dtu.compute.se.pisd.roborally.model.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -497,9 +498,8 @@ public class GameController {
             player.setAntennaDistance(Math.abs(player.getSpace().x - antennaSpace.x) + Math.abs(player.getSpace().y - antennaSpace.y));
         }
 
-        playerOrder = (List<Player>) board.getPlayers().stream()
-                .sorted(Comparator.comparingInt(Player::getAntennaDistance))
-                .collect(Collectors.toList());
+        //sorts players after antenna distance
+        Collections.sort(playerOrder);
     }
 }
 

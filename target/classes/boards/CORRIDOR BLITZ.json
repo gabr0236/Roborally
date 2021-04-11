@@ -14,6 +14,13 @@
       "y": 7
     },
     {
+      "walls": [],
+      "activatableBoardElementList": [],
+      "x": 0,
+      "y": 4,
+      "isAntenna": true
+    },
+    {
       "walls": [
         "EAST"
       ],
@@ -426,7 +433,7 @@
     {
       "walls": [],
       "activatableBoardElementList": [],
-      "isAntenna": true,
+      "isPit": true,
       "x": 4,
       "y": 5
     },

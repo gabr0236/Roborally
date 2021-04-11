@@ -40,6 +40,7 @@ public class SpaceTemplate {
     public Reboot reboot;
     public ArrayList<ActivatableBoardElement> activatableBoardElementList;
     public boolean isPit;
+    public boolean isAntenna;
     public int x;
     public int y;
 }

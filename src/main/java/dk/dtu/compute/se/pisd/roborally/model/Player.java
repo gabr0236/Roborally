@@ -37,7 +37,7 @@ import static dk.dtu.compute.se.pisd.roborally.model.Heading.SOUTH;
  * Javadoc
  * @author Gabriel
  */
-public class Player extends Subject {
+public class Player extends Subject implements Comparable<Player> {
 
     final public static int NO_REGISTERS = 5;
     final public static int NO_CARDS = 8;
@@ -222,4 +222,12 @@ public class Player extends Subject {
     public void setAntennaDistance(int antennaDistance){this.antennaDistance = antennaDistance;}
     public int getAntennaDistance(){return antennaDistance;}
 
+    @Override
+    public int compareTo(@NotNull Player o) {
+        if(o.getAntennaDistance()<antennaDistance) return 1;
+        //Order is random if equal distance from antenna
+        else if(o.getAntennaDistance()==antennaDistance) return ((int)(Math.round(Math.random()*1))==1) ? -1 : 1;
+        else return -1;
+
+    }
 }
