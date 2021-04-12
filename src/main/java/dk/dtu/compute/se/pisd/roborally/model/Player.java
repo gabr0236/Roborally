@@ -215,7 +215,7 @@ public class Player extends Subject implements Comparable<Player> {
     }
 
     public void setRebootSpace(Space rebootSpace) {
-        this.rebootSpace = rebootSpace;
+        this.rebootSpace=rebootSpace;
     }
 
     public void setAntennaDistance(int antennaDistance){this.antennaDistance = antennaDistance;}

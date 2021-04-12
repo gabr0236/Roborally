@@ -377,6 +377,7 @@ public class GameController {
             board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
             continuePrograms();
         } else {
+            updateAllReboot();
             executeBoardElements();
             updateAllReboot();
             step++;
@@ -444,22 +445,17 @@ public class GameController {
     public void updateAllReboot() {
         for (Player player : board.getPlayers()) {
             Space current = player.getSpace();
-            int j = 0;
-            for (Integer i:board.rebootBorderXValues) {
-                if(current!=null && current.x > i){
-                    for (Space space : board.getRebootSpaceList()) {
-                        if (!space.getReboot().isStartField() && board.rebootBorderXValues.size()==j) {
-                            player.setRebootSpace(space);
-                            return;
-                        } else if (!space.getReboot().isStartField() && board.rebootBorderXValues.get(j+1)!=null){
-                            if(current.x>i && current.x<board.rebootBorderXValues.get(j+1)){
-                                player.setRebootSpace(space);
-                                return;
-                            }
-                        }
+            if(current!=null) {
+                int lastRebootBorder = 0;
+                for (Integer i : board.rebootBorderXValues) {
+                    if (current.x > i) lastRebootBorder = i;
+                }
+                for (Space rebootSpace : board.getRebootSpaceList()) {
+                    if(!rebootSpace.getReboot().isStartField() && rebootSpace.x>lastRebootBorder && rebootSpace.x<=lastRebootBorder+10
+                    && player.getRebootSpace().x<rebootSpace.x){
+                        player.setRebootSpace(rebootSpace);
                     }
                 }
-                j++;
             }
         }
     }
