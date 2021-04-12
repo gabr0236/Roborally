@@ -7,6 +7,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 class GameControllerTest {
 
@@ -208,7 +210,6 @@ class GameControllerTest {
         Assertions.assertNull(board.getSpace(0, 0).getPlayer(), "Space (0,0) should be empty!");
     }
 
-
     /**
      * @author Sebastian
      */
@@ -222,4 +223,67 @@ class GameControllerTest {
         Assertions.assertEquals(current, board.getSpace(0, 0).getPlayer(), "Player " + current.getName() + " should beSpace (0,0)!");
         Assertions.assertEquals(Heading.NORTH, current.getHeading(), "Player 0 should be heading South!");
     }
+
+    /**
+     * @author @Gabriel
+     */
+    @Test
+    void antennaPlayerOrderingTest(){
+         Board board = gameController.board;
+
+         board.getSpace(2,0).setAntenna(true);
+
+         gameController.sortPlayersAfterAntennaDistance();
+
+         Assertions.assertEquals("Player 2",board.getPlayers().get(0).getName());
+         Assertions.assertEquals("Player 1",board.getPlayers().get(1).getName());
+         Assertions.assertEquals("Player 0",board.getPlayers().get(2).getName());
+         Assertions.assertEquals("Player 3",board.getPlayers().get(3).getName());
+         Assertions.assertEquals("Player 4",board.getPlayers().get(4).getName());
+         Assertions.assertEquals("Player 5",board.getPlayers().get(5).getName());
+
+     }
+
+    /**
+     * @author @Gabriel
+     */
+    @Test
+    void antennaPlayerOrderingTest2(){
+        Board board = gameController.board;
+
+        board.getSpace(4,5).setAntenna(true);
+
+        gameController.sortPlayersAfterAntennaDistance();
+
+        Assertions.assertEquals("Player 5",board.getPlayers().get(0).getName());
+        Assertions.assertEquals("Player 4",board.getPlayers().get(1).getName());
+        Assertions.assertEquals("Player 3",board.getPlayers().get(2).getName());
+        Assertions.assertEquals("Player 2",board.getPlayers().get(3).getName());
+        Assertions.assertEquals("Player 1",board.getPlayers().get(4).getName());
+        Assertions.assertEquals("Player 0",board.getPlayers().get(5).getName());
+
+    }
+
+    /**
+     * All equal distance
+     * @author @Gabriel
+     */
+    @Test
+    void antennaPlayerOrderingTest3(){
+        Board board = gameController.board;
+
+        board.getSpace(5,0).setAntenna(true);
+
+        gameController.sortPlayersAfterAntennaDistance();
+
+        Assertions.assertEquals("Player 5",board.getPlayers().get(0).getName());
+        Assertions.assertEquals("Player 4",board.getPlayers().get(1).getName());
+        Assertions.assertEquals("Player 3",board.getPlayers().get(2).getName());
+        Assertions.assertEquals("Player 2",board.getPlayers().get(3).getName());
+        Assertions.assertEquals("Player 1",board.getPlayers().get(4).getName());
+        Assertions.assertEquals("Player 0",board.getPlayers().get(5).getName());
+
+    }
+
+
 }

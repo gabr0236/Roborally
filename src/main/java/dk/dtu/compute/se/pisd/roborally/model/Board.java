@@ -61,15 +61,11 @@ public class Board extends Subject {
 
     private boolean stepMode;
 
-    public final int rebootBorderX;
-
-    public final int getRebootBorderX2;
+    public final List<Integer> rebootBorderXValues = new ArrayList<>();
 
     private List<Space> rebootSpaceList = new ArrayList<>();
 
     private final List<Space> laserSpaceList = new ArrayList<>();
-
-    private final List<Space> energySpaceList = new ArrayList<>();
 
 
     private int numberOfCheckpoints;
@@ -84,8 +80,6 @@ public class Board extends Subject {
         this.boardName = boardName;
         this.width = width;
         this.height = height;
-        this.rebootBorderX=2;
-        this.getRebootBorderX2=12;
         spaces = new Space[width][height];
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
@@ -265,5 +259,7 @@ public class Board extends Subject {
     }
 
     public List<Space> getLaserSpaceList() { return laserSpaceList; }
+
+    public List<Integer> getRebootBorderXValues() { return rebootBorderXValues; }
 
 }
