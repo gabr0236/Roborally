@@ -548,9 +548,9 @@ public class GameController {
     /**
      * @author @Daniel
      */
-    private void sortPlayersAfterAntennaDistance(){
+    public void sortPlayersAfterAntennaDistance(){
         Space antennaSpace = null;
-        for(Space space : board.getSpacesList()) {
+        for(Space space : this.board.getSpacesList()) {
             if (space.getIsAntenna())
                 antennaSpace = space;
         }
@@ -558,7 +558,7 @@ public class GameController {
             tættest på 0 er tættest på antenne
          */
         for(Player player : board.getPlayers()){
-            player.setAntennaDistance(Math.abs(player.getSpace().x+1 - antennaSpace.x+1 + player.getSpace().y+1 - antennaSpace.y+1));
+            player.setAntennaDistance((Math.abs(player.getSpace().x - antennaSpace.x)) + (Math.abs(player.getSpace().y - antennaSpace.y)));
         }
         //sorts players after antenna distance
         Collections.sort(board.getPlayers());

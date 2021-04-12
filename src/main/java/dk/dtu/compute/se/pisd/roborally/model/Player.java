@@ -221,10 +221,15 @@ public class Player extends Subject implements Comparable<Player> {
     public void setAntennaDistance(int antennaDistance){this.antennaDistance = antennaDistance;}
     public int getAntennaDistance(){return antennaDistance;}
 
+    /**
+     * @param o
+     * @return
+     * @author @Gabriel
+     */
     @Override
     public int compareTo(@NotNull Player o) {
-        if(o.getAntennaDistance()>antennaDistance) return 1;
-        else if(o.getAntennaDistance()==antennaDistance) return o.getSpace().y < this.getSpace().x ? 1 : -1;
-        else return -1;
+        if(o.getAntennaDistance()>antennaDistance) return -1;
+        else if(o.getAntennaDistance()==antennaDistance) return o.getSpace().y < space.y ? -1 : 1;
+        else return 1;
     }
 }
