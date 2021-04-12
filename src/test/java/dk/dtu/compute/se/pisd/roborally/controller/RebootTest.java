@@ -33,17 +33,10 @@ public class RebootTest {
         board.getSpace(0,6).setReboot(new Reboot(Heading.EAST,true,5));
         board.getSpace(1,8).setReboot(new Reboot(Heading.EAST,true,6));
         board.getSpace(5,4).setReboot(new Reboot(Heading.EAST,false,7));
+        board.getSpace(8,4).setReboot(new Reboot(Heading.EAST,false,8));
 
-       //board.getRebootSpaceList().add(board.getSpace(1,1));
-       //board.getRebootSpaceList().add(board.getSpace(0,3));
-       //board.getRebootSpaceList().add(board.getSpace(1,4));
-       //board.getRebootSpaceList().add(board.getSpace(1,5));
-       //board.getRebootSpaceList().add(board.getSpace(0,6));
-       //board.getRebootSpaceList().add(board.getSpace(1,8));
-       //board.getRebootSpaceList().add(board.getSpace(5,4));
-
-        rebootSpaceListTest=(Arrays.asList(board.getSpace(1,1), board.getSpace(0,3), board.getSpace(1,4), board.getSpace(1,5),
-                board.getSpace(0,6), board.getSpace(1,8),board.getSpace(5,4)));
+        board.getRebootSpaceList().addAll(Arrays.asList(board.getSpace(1,1), board.getSpace(0,3), board.getSpace(1,4), board.getSpace(1,5),
+                board.getSpace(0,6), board.getSpace(1,8),board.getSpace(5,4), board.getSpace(8,4)));
 
         gameController = new GameController(board);
         for (int i = 0; i < 6; i++) {
@@ -51,12 +44,13 @@ public class RebootTest {
             board.addPlayer(player);
             player.setSpace(board.getSpace(i, i));
             player.setHeading(Heading.values()[i % Heading.values().length]);
-            player.setRebootSpace(rebootSpaceListTest.get(i));
-
+            player.setRebootSpace(board.getRebootSpaceList().get(i));
             }
 
         board.setCurrentPlayer(board.getPlayer(0));
+
     }
+
 
 
     @AfterEach
@@ -84,23 +78,74 @@ public class RebootTest {
 
     }
 
-//TODO @DANI
-    /*@Test
-    void teleportToNormalBoardReboot() {
+    /**
+     * @author @Gabriel
+     */
+    @Test
+    void updateReboot() {
         Board board = gameController.board;
-        Player pushedPlayer = board.getCurrentPlayer();
-        Player current = board.getPlayer(1);
-
-
-        pushedPlayer.setSpace(board.getSpace(5, 0));
-        current.setSpace(board.getSpace(5, 1));
+        board.rebootBorderXValues.add(2);
+        Player player = board.getCurrentPlayer();
+        board.getSpace(4,0).setPlayer(player);
         gameController.updateAllReboot();
-        current.setHeading(Heading.NORTH);
-        gameController.directionMove(current, current.getHeading());
-        gameController.respawnPlayers();
 
 
-        Assertions.assertEquals(pushedPlayer, board.getSpace(5, 4).getPlayer(), "Player " + pushedPlayer.getName() + " should beSpace (5,4)!");
+        Assertions.assertEquals(player.getRebootSpace(),board.getSpace(5,4));
+    }
 
-    }*/
+    /**
+     * @author @Gabriel
+     */
+    @Test
+    void dontUpdateRebootWhenGoingBackToEarlierBoard() {
+        Board board = gameController.board;
+        board.rebootBorderXValues.add(2);
+        Player player = board.getCurrentPlayer();
+        board.getSpace(4,0).setPlayer(player);
+        gameController.updateAllReboot();
+
+        board.getSpace(0,0).setPlayer(player);
+        updateReboot();
+
+        Assertions.assertEquals(player.getRebootSpace(),board.getSpace(5,4));
+    }
+
+    /**
+     * @author @Gabriel
+     */
+    @Test
+    void updateRebootMultipleBorders() {
+        Board board = gameController.board;
+        board.rebootBorderXValues.add(2);
+        board.rebootBorderXValues.add(5);
+        Player player = board.getCurrentPlayer();
+        board.getSpace(4,0).setPlayer(player);
+        gameController.updateAllReboot();
+        board.getSpace(9,0).setPlayer(player);
+        gameController.updateAllReboot();
+
+        Assertions.assertEquals(player.getRebootSpace(),board.getSpace(8,4));
+    }
+
+    /**
+     * @author @Gabriel
+     */
+    @Test
+    void updateRebootMultipleBordersDontUpdateWhenGoingBack() {
+        Board board = gameController.board;
+        board.rebootBorderXValues.add(2);
+        board.rebootBorderXValues.add(5);
+        Player player = board.getCurrentPlayer();
+        board.getSpace(4,0).setPlayer(player);
+        gameController.updateAllReboot();
+        board.getSpace(9,0).setPlayer(player);
+        gameController.updateAllReboot();
+
+        board.getSpace(4,0).setPlayer(player);
+        gameController.updateAllReboot();
+
+        Assertions.assertEquals(player.getRebootSpace(),board.getSpace(8,4));
+    }
+
+
 }

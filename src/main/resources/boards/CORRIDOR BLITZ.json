@@ -4,7 +4,7 @@
   "height": 10,
   "numberOfCheckpoints": 2,
   "boardName": "CORRIDOR BLITZ",
-  "rebootBorderXValues" : [2,12],
+  "rebootBorderXValues" : [2],
   "spaces": [
     {
       "walls": [
