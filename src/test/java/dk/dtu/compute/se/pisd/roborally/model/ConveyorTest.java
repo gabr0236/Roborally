@@ -113,5 +113,4 @@ class ConveyorTest {
         Assertions.assertEquals(current, board.getSpace(3, 5).getPlayer(), "Player " + current.getName() + " should beSpace (3,5)!");
         Assertions.assertEquals(Heading.EAST, current.getHeading(), "Player 0 should be heading EAST!");
     }
-
 }
