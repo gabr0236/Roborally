@@ -76,6 +76,15 @@ public class SpaceView extends StackPane implements ViewObserver {
 
     private void updatePlayer() {
         dynamic.getChildren().clear();
+            for (ActivatableBoardElement a: space.getActivatableBoardElements()) {
+                if(a instanceof EnergySpace){
+                    if(((EnergySpace) a).isEnergyAvailable()) {
+                        Rectangle energyCube = new Rectangle(0, 0, 25, 25);
+                        energyCube.setFill(Color.ORANGE);
+                        dynamic.getChildren().add(energyCube);
+                    }
+                }
+            }
         Player player = space.getPlayer();
         if (player != null) {
             Polygon arrow = new Polygon(0.0, 0.0,
@@ -178,11 +187,6 @@ public class SpaceView extends StackPane implements ViewObserver {
                     Rectangle energySpaceView = new Rectangle(0,0,35,35);
                     energySpaceView.setFill(Color.DIMGRAY);
                     this.getChildren().add(energySpaceView);
-                    if(energySpace.isEnergyAvailable()==true){
-                        Rectangle energyCube = new Rectangle(0,0,25,25);
-                        energyCube.setFill(Color.ORANGE);
-                        this.getChildren().add(energyCube);
-                    }
                 }
             }
         }

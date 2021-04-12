@@ -42,7 +42,6 @@ public class Space extends Subject {
     private final ArrayList<ActivatableBoardElement> activatableBoardElements = new ArrayList<>();
     private boolean isPit;
     private Laser laser;
-    private EnergySpace energySpace;
 
     public void setAntenna(boolean antenna) {
         isAntenna = antenna;
@@ -146,9 +145,6 @@ public class Space extends Subject {
 
     public void setAntenna(){this.isAntenna = true;}
     public boolean getIsAntenna(){return  isAntenna;}
-
-    public void setEnergySpace(EnergySpace energySpace){this.energySpace=energySpace;}
-    public EnergySpace getEnergySpace(){return energySpace;}
 
 
     public ArrayList<ActivatableBoardElement> getActivatableBoardElements() {
