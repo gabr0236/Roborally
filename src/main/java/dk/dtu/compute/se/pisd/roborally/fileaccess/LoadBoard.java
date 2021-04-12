@@ -68,6 +68,7 @@ public class LoadBoard {
 
 			result = new Board(template.width, template.height,template.boardName);
 			result.setNumberOfCheckpoints(template.numberOfCheckpoints);
+			result.rebootBorderXValues.addAll(template.rebootBorderXValues);
 			for (SpaceTemplate spaceTemplate: template.spaces) {
 			    Space space = result.getSpace(spaceTemplate.x, spaceTemplate.y);
 			    if (space != null) {

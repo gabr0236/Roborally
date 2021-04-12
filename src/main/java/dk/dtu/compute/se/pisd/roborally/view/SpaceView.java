@@ -185,7 +185,6 @@ public class SpaceView extends StackPane implements ViewObserver {
                     this.setStyle("-fx-background-color: Black");
                     this.getChildren().add(arrowView);
                 }
-                //TODO: @Gab går ikke igennem første if vvvv
                 else if (activatableBoardElement instanceof PushPanel){
                     PushPanel pushPanel = (PushPanel) activatableBoardElement;
                     if(pushPanel.getActivatingTurns()!=null) {
@@ -245,7 +244,7 @@ public class SpaceView extends StackPane implements ViewObserver {
         }
     }
     private Text combinePushPanelListToString(List<Integer> integerList){
-       Text text = new Text(integerList.stream().map(i->i.toString()).collect(Collectors.joining(", ")));
+       Text text = new Text(integerList.stream().map(i->(i).toString()).collect(Collectors.joining(", ")));
        text.setFont(new Font(SPACE_HEIGHT/5));
        return text;
     }

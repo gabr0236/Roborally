@@ -3,6 +3,7 @@
   "height": 10,
   "numberOfCheckpoints": 6,
   "boardName": "ChopShopChallenge",
+  "rebootBorderXValues" : [2,12],
   "spaces": [
     {
       "walls": [],

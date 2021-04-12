@@ -3,6 +3,7 @@
   "height": 10,
   "numberOfCheckpoints": 6,
   "boardName": "ChopShopChallenge",
+  "rebootBorderXValues" : [2,12],
   "spaces": [
     {
       "walls": [],
@@ -700,7 +701,7 @@
           "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.PushPanel",
           "INSTANCE": {
             "pushingDirection": "WEST",
-            "activatingTurns": [4,5]
+            "activatingTurns": [0,4]
           }
         }
       ],
@@ -716,7 +717,7 @@
           "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.PushPanel",
           "INSTANCE": {
             "pushingDirection": "EAST",
-            "activatingTurns": [1,4]
+            "activatingTurns": [2,3]
           }
         }
       ],

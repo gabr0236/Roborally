@@ -21,6 +21,7 @@
  */
 package dk.dtu.compute.se.pisd.roborally.fileaccess.model;
 
+import javax.swing.plaf.LabelUI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +35,7 @@ public class BoardTemplate {
     public int width;
     public int height;
     public List<SpaceTemplate> spaces = new ArrayList<>();
+    public List<Integer> rebootBorderXValues = new ArrayList<>();
     public int numberOfCheckpoints;
     public String boardName;
 }
