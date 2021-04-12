@@ -1281,6 +1281,18 @@
       ],
       "x": 21,
       "y": 8
+    },
+    {
+      "walls": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.EnergySpace",
+          "INSTANCE": {
+          }
+        }
+      ],
+      "x": 5,
+      "y": 3
     }
   ]
 }

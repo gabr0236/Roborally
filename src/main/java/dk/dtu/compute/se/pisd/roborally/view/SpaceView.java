@@ -29,6 +29,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.text.Text;
 import org.jetbrains.annotations.NotNull;
@@ -170,6 +171,18 @@ public class SpaceView extends StackPane implements ViewObserver {
                     this.getChildren().add(gearView);
                     this.setStyle("-fx-background-color: Black");
                     this.getChildren().add(arrowView);
+                }
+
+                //Draw EnergySpace
+                else if (activatableBoardElement instanceof EnergySpace energySpace){
+                    Rectangle energySpaceView = new Rectangle(0,0,35,35);
+                    energySpaceView.setFill(Color.DIMGRAY);
+                    this.getChildren().add(energySpaceView);
+                    if(energySpace.isEnergyAvailable()==true){
+                        Rectangle energyCube = new Rectangle(0,0,25,25);
+                        energyCube.setFill(Color.ORANGE);
+                        this.getChildren().add(energyCube);
+                    }
                 }
             }
         }
