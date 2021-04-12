@@ -13,8 +13,8 @@ import java.util.List;
 public class RebootTest {
 
 
-    private final int TEST_WIDTH = 12;
-    private final int TEST_HEIGHT = 12;
+    private final int TEST_WIDTH = 15;
+    private final int TEST_HEIGHT = 15;
 
     private List<Space> rebootSpaceListTest = new ArrayList<>();
 
@@ -36,7 +36,7 @@ public class RebootTest {
         board.getSpace(8,4).setReboot(new Reboot(Heading.EAST,false,8));
 
         board.getRebootSpaceList().addAll(Arrays.asList(board.getSpace(1,1), board.getSpace(0,3), board.getSpace(1,4), board.getSpace(1,5),
-                board.getSpace(0,6), board.getSpace(1,8),board.getSpace(5,4), board.getSpace(8,4)));
+                board.getSpace(0,6), board.getSpace(1,8),board.getSpace(5,4)));
 
         gameController = new GameController(board);
         for (int i = 0; i < 6; i++) {
@@ -85,6 +85,8 @@ public class RebootTest {
     void updateReboot() {
         Board board = gameController.board;
         board.rebootBorderXValues.add(2);
+        board.rebootBorderXValues.add(5);
+
         Player player = board.getCurrentPlayer();
         board.getSpace(4,0).setPlayer(player);
         gameController.updateAllReboot();
@@ -100,6 +102,7 @@ public class RebootTest {
     void dontUpdateRebootWhenGoingBackToEarlierBoard() {
         Board board = gameController.board;
         board.rebootBorderXValues.add(2);
+
         Player player = board.getCurrentPlayer();
         board.getSpace(4,0).setPlayer(player);
         gameController.updateAllReboot();
@@ -118,6 +121,7 @@ public class RebootTest {
         Board board = gameController.board;
         board.rebootBorderXValues.add(2);
         board.rebootBorderXValues.add(5);
+        board.getRebootSpaceList().add(board.getSpace(8,4));
         Player player = board.getCurrentPlayer();
         board.getSpace(4,0).setPlayer(player);
         gameController.updateAllReboot();
@@ -135,6 +139,7 @@ public class RebootTest {
         Board board = gameController.board;
         board.rebootBorderXValues.add(2);
         board.rebootBorderXValues.add(5);
+        board.getRebootSpaceList().add(board.getSpace(8,4));
         Player player = board.getCurrentPlayer();
         board.getSpace(4,0).setPlayer(player);
         gameController.updateAllReboot();

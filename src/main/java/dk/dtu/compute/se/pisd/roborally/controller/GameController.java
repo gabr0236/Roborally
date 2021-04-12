@@ -577,6 +577,15 @@ public class GameController {
             }
         }
     }
+
+    public void conveyorMove(Player player, Heading heading, Command command) {
+        Space target = player.board.getNeighbour(player.getSpace(), heading);
+        if(target == null && notWallsBlock(player.getSpace(),heading)){
+            player.setSpace(null);
+        }else {
+            executeCommand(player,heading,command);
+        }
+    }
 }
 
 
