@@ -251,6 +251,7 @@ public class AppController {
 
     /**
      * Loads game from DB, if no game is found this method creates a new game using newGame(); from above.
+     * @author @Gabriel
      */
     public void loadGame() {
         IRepository repository = RepositoryAccess.getRepository();
@@ -345,6 +346,11 @@ public class AppController {
 
         roboRally.createBoardView(gameController);
     }
+
+    /**
+     * For testing a game quickly
+     * @author Gabriel
+     */
     public void newTestGameChopShopChallenge() {
         Board board = LoadBoard.loadBoard("ChopShopChallenge");
         gameController = new GameController(board);

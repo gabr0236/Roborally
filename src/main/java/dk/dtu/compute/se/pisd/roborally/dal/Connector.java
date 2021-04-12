@@ -79,7 +79,6 @@ class Connector {
     				statement.executeUpdate(sql);
     			}
     		}
-
     		statement.close();
     		connection.commit();
     	} catch (SQLException e) {

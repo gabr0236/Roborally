@@ -89,6 +89,10 @@ public class GameController {
 
     }
 
+    /**
+     *
+     * @param register
+     */
     private void makeProgramFieldsVisible(int register) {
         if (register >= 0 && register < Player.NO_REGISTERS) {
             for (int i = 0; i < board.getPlayersNumber(); i++) {
@@ -99,6 +103,9 @@ public class GameController {
         }
     }
 
+    /**
+     *
+     */
     private void makeProgramFieldsInvisible() {
         for (int i = 0; i < board.getPlayersNumber(); i++) {
             Player player = board.getPlayer(i);
@@ -297,7 +304,7 @@ public class GameController {
      *
      * @param player who is being moved
      * @param heading the direction of the move
-     * @author @Gabriel
+     * @author Gabriel
      */
     public void tripleForward(@NotNull Player player, @NotNull Heading heading){
         directionMove(player, heading);
@@ -564,7 +571,6 @@ public class GameController {
     }
 
     /**
-     *
      * @param player
      * @param heading
      * @param activatingTurns
@@ -578,6 +584,13 @@ public class GameController {
         }
     }
 
+    /**
+     *
+     * @param player
+     * @param heading
+     * @param command
+     * @author Gabriel
+     */
     public void conveyorMove(Player player, Heading heading, Command command) {
         Space target = player.board.getNeighbour(player.getSpace(), heading);
         if(target == null && notWallsBlock(player.getSpace(),heading)){
