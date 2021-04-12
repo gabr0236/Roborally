@@ -46,6 +46,7 @@ public class GameController {
      * Assigns random cards to each players hand.
      */
     public void startProgrammingPhase() {
+        sortPlayersAfterAntennaDistance();
         board.setPhase(Phase.PROGRAMMING);
         board.setCurrentPlayer(board.getPlayer(0));
         board.setStep(0);
@@ -386,7 +387,6 @@ public class GameController {
             } else {
                 fireAllLasers(board.getLaserSpaceList(),board.getPlayers());
                 respawnPlayers();
-                sortPlayersAfterAntennaDistance();
                 startProgrammingPhase();
             }
         }
@@ -509,7 +509,7 @@ public class GameController {
         }
         if(!players.isEmpty()){
             for (Player player : players) {
-                if(player.getSpace()!=null) {
+                if(player.getSpace()!=null && notWallsBlock(player.getSpace(),player.getHeading())) {
                     Space neighbourSpace = board.getNeighbour(player.getSpace(), player.getHeading());
                     if (neighbourSpace != null) fireLaser(neighbourSpace, player.getHeading());
                 }
@@ -558,12 +558,19 @@ public class GameController {
             tættest på 0 er tættest på antenne
          */
         for(Player player : board.getPlayers()){
-            player.setAntennaDistance(Math.abs(player.getSpace().x - antennaSpace.x) + Math.abs(player.getSpace().y - antennaSpace.y));
+            player.setAntennaDistance(Math.abs(player.getSpace().x+1 - antennaSpace.x+1 + player.getSpace().y+1 - antennaSpace.y+1));
         }
         //sorts players after antenna distance
         Collections.sort(board.getPlayers());
     }
 
+    /**
+     *
+     * @param player
+     * @param heading
+     * @param activatingTurns
+     * @author @Gabriel
+     */
     public void activatePushPanel(Player player, Heading heading, List<Integer> activatingTurns) {
         if(!activatingTurns.isEmpty() && player!=null && player.getSpace()!=null){
             if(activatingTurns.contains(board.getStep())){

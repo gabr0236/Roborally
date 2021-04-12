@@ -110,7 +110,13 @@ public class SpaceView extends StackPane implements ViewObserver {
         }
 
         if (space.getIsAntenna()) {
-            this.setStyle("-fx-background-color: #35d0e5");
+            this.setStyle("-fx-background-color: #25b5b5");
+            Polygon arrow = new Polygon(0.0, 0.0,
+                    16.0, 30.0,
+                    30.0, 0.0);
+            arrow.setFill(Color.POWDERBLUE);
+            arrow.setRotate(270);
+            this.getChildren().add(arrow);
             Text text = new Text();
             text.setText("Antenna");
             this.getChildren().add(text);
@@ -195,7 +201,7 @@ public class SpaceView extends StackPane implements ViewObserver {
                             case WEST -> gc.strokeLine(2, 2, 2, SPACE_HEIGHT - 2);
                         }
                         this.getChildren().add(canvas);
-                        //this.getChildren().add(combinePushPanelListToString(pushPanel.getActivatingTurns()));
+                        this.getChildren().add(combinePushPanelListToString(pushPanel.getActivatingTurns()));
                     }
                 }
             }

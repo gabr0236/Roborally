@@ -604,7 +604,7 @@
           "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.PushPanel",
           "INSTANCE": {
             "pushingDirection": "SOUTH",
-            "activtingTurns": ["0","1","2","3","4"]
+            "activatingTurns": [0,1,2,3,4]
           }
         }
       ],
@@ -636,7 +636,7 @@
           "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.PushPanel",
           "INSTANCE": {
             "pushingDirection": "EAST",
-            "activtingTurns": ["2","3"]
+            "activatingTurns": [1,3]
           }
         }
       ],

@@ -208,7 +208,6 @@ class GameControllerTest {
         Assertions.assertNull(board.getSpace(0, 0).getPlayer(), "Space (0,0) should be empty!");
     }
 
-
     /**
      * @author Sebastian
      */
@@ -222,4 +221,9 @@ class GameControllerTest {
         Assertions.assertEquals(current, board.getSpace(0, 0).getPlayer(), "Player " + current.getName() + " should beSpace (0,0)!");
         Assertions.assertEquals(Heading.NORTH, current.getHeading(), "Player 0 should be heading South!");
     }
+
+     @Test
+    void antennaDistanceTest(){
+
+     }
 }
