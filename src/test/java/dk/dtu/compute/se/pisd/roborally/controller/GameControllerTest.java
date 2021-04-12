@@ -263,7 +263,7 @@ class GameControllerTest {
     }
 
     /**
-     * All equal distance
+     * All equal distance, deciding order from y value
      * @author @Gabriel
      */
     @Test
