@@ -604,7 +604,7 @@
           "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.PushPanel",
           "INSTANCE": {
             "pushingDirection": "SOUTH",
-            "activatingTurns": [0,1,2,3,4]
+            "activatingTurns": [1,4]
           }
         }
       ],
@@ -615,7 +615,15 @@
       "walls": [
         "WEST"
       ],
-      "activatableBoardElementList": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.PushPanel",
+          "INSTANCE": {
+            "pushingDirection": "EAST",
+            "activatingTurns": [2,3]
+          }
+        }
+      ],
       "x": 4,
       "y": 8
     },
@@ -623,7 +631,15 @@
       "walls": [
         "SOUTH"
       ],
-      "activatableBoardElementList": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.PushPanel",
+          "INSTANCE": {
+            "pushingDirection": "NORTH",
+            "activatingTurns": [3,4]
+          }
+        }
+      ],
       "x": 5,
       "y": 7
     },
@@ -647,7 +663,15 @@
       "walls": [
         "WEST"
       ],
-      "activatableBoardElementList": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.PushPanel",
+          "INSTANCE": {
+            "pushingDirection": "EAST",
+            "activatingTurns": [2,4]
+          }
+        }
+      ],
       "x": 7,
       "y": 3
     },
@@ -655,7 +679,15 @@
       "walls": [
         "EAST"
       ],
-      "activatableBoardElementList": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.PushPanel",
+          "INSTANCE": {
+            "pushingDirection": "WEST",
+            "activatingTurns": [1,4]
+          }
+        }
+      ],
       "x": 7,
       "y": 4
     },
@@ -663,7 +695,15 @@
       "walls": [
         "EAST"
       ],
-      "activatableBoardElementList": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.PushPanel",
+          "INSTANCE": {
+            "pushingDirection": "WEST",
+            "activatingTurns": [0,4]
+          }
+        }
+      ],
       "x": 8,
       "y": 6
     },
@@ -671,7 +711,15 @@
       "walls": [
         "WEST"
       ],
-      "activatableBoardElementList": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.PushPanel",
+          "INSTANCE": {
+            "pushingDirection": "EAST",
+            "activatingTurns": [2,3]
+          }
+        }
+      ],
       "x": 9,
       "y": 4
     },
@@ -679,7 +727,15 @@
       "walls": [
         "NORTH"
       ],
-      "activatableBoardElementList": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.PushPanel",
+          "INSTANCE": {
+            "pushingDirection": "SOUTH",
+            "activatingTurns": [2,3]
+          }
+        }
+      ],
       "x": 10,
       "y": 2
     },
@@ -687,7 +743,15 @@
       "walls": [
         "EAST"
       ],
-      "activatableBoardElementList": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.PushPanel",
+          "INSTANCE": {
+            "pushingDirection": "WEST",
+            "activatingTurns": [1,4]
+          }
+        }
+      ],
       "x": 10,
       "y": 7
     },
@@ -695,7 +759,15 @@
       "walls": [
         "EAST"
       ],
-      "activatableBoardElementList": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.PushPanel",
+          "INSTANCE": {
+            "pushingDirection": "WEST",
+            "activatingTurns": [0,1]
+          }
+        }
+      ],
       "x": 11,
       "y": 1
     },
@@ -703,7 +775,15 @@
       "walls": [
         "SOUTH"
       ],
-      "activatableBoardElementList": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.PushPanel",
+          "INSTANCE": {
+            "pushingDirection": "NORTH",
+            "activatingTurns": [0,2]
+          }
+        }
+      ],
       "x": 11,
       "y": 8
     },
@@ -711,7 +791,15 @@
       "walls": [
         "EAST"
       ],
-      "activatableBoardElementList": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.PushPanel",
+          "INSTANCE": {
+            "pushingDirection": "WEST",
+            "activatingTurns": [2,3]
+          }
+        }
+      ],
       "x": 15,
       "y": 4
     },
@@ -719,7 +807,15 @@
       "walls": [
         "WEST"
       ],
-      "activatableBoardElementList": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.PushPanel",
+          "INSTANCE": {
+            "pushingDirection": "EAST",
+            "activatingTurns": [2,3]
+          }
+        }
+      ],
       "x": 19,
       "y": 4
     },
