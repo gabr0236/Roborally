@@ -177,6 +177,14 @@
         "NORTH"
       ],
       "activatableBoardElementList": [],
+      "x": 20,
+      "y": 9
+    },
+    {
+      "walls": [
+        "NORTH"
+      ],
+      "activatableBoardElementList": [],
       "x": 17,
       "y": 0,
       "laser": {
@@ -1406,6 +1414,114 @@
       ],
       "x": 5,
       "y": 3
+    },
+    {
+      "walls": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.EnergySpace",
+          "INSTANCE": {
+          }
+        }
+      ],
+      "x": 6,
+      "y": 4
+    },
+    {
+      "walls": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.EnergySpace",
+          "INSTANCE": {
+          }
+        }
+      ],
+      "x": 6,
+      "y": 7
+    },
+    {
+      "walls": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.EnergySpace",
+          "INSTANCE": {
+          }
+        }
+      ],
+      "x": 9,
+      "y": 2
+    },
+    {
+      "walls": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.EnergySpace",
+          "INSTANCE": {
+          }
+        }
+      ],
+      "x": 10,
+      "y": 6
+    },
+    {
+      "walls": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.EnergySpace",
+          "INSTANCE": {
+          }
+        }
+      ],
+      "x": 14,
+      "y": 6
+    },
+    {
+      "walls": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.EnergySpace",
+          "INSTANCE": {
+          }
+        }
+      ],
+      "x": 16,
+      "y": 1
+    },
+    {
+      "walls": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.EnergySpace",
+          "INSTANCE": {
+          }
+        }
+      ],
+      "x": 17,
+      "y": 4
+    },
+    {
+      "walls": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.EnergySpace",
+          "INSTANCE": {
+          }
+        }
+      ],
+      "x": 20,
+      "y": 8
+    },
+    {
+      "walls": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.EnergySpace",
+          "INSTANCE": {
+          }
+        }
+      ],
+      "x": 22,
+      "y": 2
     }
   ]
 }
