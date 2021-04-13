@@ -497,7 +497,7 @@ class Repository implements IRepository {
 	}
 
 	private static final String SQL_INSERT_GAME =
-			"INSERT INTO Game(name, currentPlayer, phase, step,board) VALUES (?, ?, ?, ?,?)";
+			"INSERT INTO Game(name, currentPlayer, phase, step,board) VALUES (?, ?, ?, ?, ?)";
 
 	private PreparedStatement insert_game_stmt = null;
 
