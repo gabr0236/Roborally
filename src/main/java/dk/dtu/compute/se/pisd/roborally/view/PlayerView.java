@@ -238,8 +238,13 @@ public class PlayerView extends Tab implements ViewObserver, Comparable<PlayerVi
 
     @Override
     public int compareTo(@NotNull PlayerView o) {
-        if(o.player.getAntennaDistance()>player.getAntennaDistance()) return -1;
-        else if(o.player.getAntennaDistance()==player.getAntennaDistance()) return o.player.getSpace().y < player.getSpace().y ? -1 : 1;
-        else return 1;
+        if(player.getSpace() == null) return -1;
+        else if (o.player.getSpace()==null) return 1;
+        else {
+            if (o.player.getAntennaDistance() > player.getAntennaDistance()) return -1;
+            else if (o.player.getAntennaDistance() == player.getAntennaDistance())
+                return o.player.getSpace().y < player.getSpace().y ? -1 : 1;
+            else return 1;
+        }
     }
 }
