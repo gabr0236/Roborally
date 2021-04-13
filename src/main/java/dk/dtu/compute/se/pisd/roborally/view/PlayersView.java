@@ -27,6 +27,9 @@ import dk.dtu.compute.se.pisd.roborally.model.Board;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import javafx.scene.control.TabPane;
 
+import java.util.*;
+import java.util.stream.Stream;
+
 /**
  * ...
  *
@@ -37,7 +40,9 @@ public class PlayersView extends TabPane implements ViewObserver {
 
     private final Board board;
 
-    private final PlayerView[] playerViews;
+    private List<PlayerView> playerViews = new ArrayList<>();
+
+    private GameController gameController;
 
     /**
      * Contructor der indsætter en PlayerView for hver spiller i et PlayerView-array
@@ -46,13 +51,12 @@ public class PlayersView extends TabPane implements ViewObserver {
      */
     public PlayersView(GameController gameController) {
         board = gameController.board;
-
+        this.gameController=gameController;
         this.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
 
-        playerViews = new PlayerView[board.getPlayersNumber()];
         for (int i = 0; i < board.getPlayersNumber(); i++) {
-            playerViews[i] = new PlayerView(gameController, board.getPlayer(i));
-            this.getTabs().add(playerViews[i]);
+            playerViews.add(new PlayerView(gameController, board.getPlayer(i)));
+            this.getTabs().add(playerViews.get(i));
         }
         board.attach(this);
         update(board);
@@ -64,6 +68,14 @@ public class PlayersView extends TabPane implements ViewObserver {
         if (subject == board) {
             Player current = board.getCurrentPlayer();
             this.getSelectionModel().select(board.getPlayerNumber(current));
+
+            if (board.getStep()==4){
+                Collections.sort(playerViews);
+                this.getTabs().clear();
+                for (int i = 0; i < board.getPlayersNumber(); i++) {
+                    this.getTabs().add(playerViews.get(i));
+                }
+            }
         }
     }
 

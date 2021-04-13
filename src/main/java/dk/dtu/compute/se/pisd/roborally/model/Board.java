@@ -232,6 +232,11 @@ public class Board extends Subject {
                 ", Energy cubes ⚡" + player.getEnergyBank();
     }
 
+    public void sortPlayersAntennaDistance(){
+        Collections.sort(players);
+        notifyChange();
+    }
+
 
     public List<Player> getPlayers() {
         return players;

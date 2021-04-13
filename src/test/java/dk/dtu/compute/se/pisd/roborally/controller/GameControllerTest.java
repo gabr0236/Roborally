@@ -231,7 +231,7 @@ class GameControllerTest {
 
          board.getSpace(2,0).setAntenna(true);
 
-         gameController.sortPlayersAfterAntennaDistance();
+         gameController.updatePlayersAntennaDistance();
 
          Assertions.assertEquals("Player 2",board.getPlayers().get(0).getName());
          Assertions.assertEquals("Player 1",board.getPlayers().get(1).getName());
@@ -251,7 +251,7 @@ class GameControllerTest {
 
         board.getSpace(4,5).setAntenna(true);
 
-        gameController.sortPlayersAfterAntennaDistance();
+        gameController.updatePlayersAntennaDistance();
 
         Assertions.assertEquals("Player 5",board.getPlayers().get(0).getName());
         Assertions.assertEquals("Player 4",board.getPlayers().get(1).getName());
@@ -272,7 +272,7 @@ class GameControllerTest {
 
         board.getSpace(5,0).setAntenna(true);
 
-        gameController.sortPlayersAfterAntennaDistance();
+        gameController.updatePlayersAntennaDistance();
 
         Assertions.assertEquals("Player 5",board.getPlayers().get(0).getName());
         Assertions.assertEquals("Player 4",board.getPlayers().get(1).getName());
