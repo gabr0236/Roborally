@@ -472,9 +472,11 @@ public class GameController {
      * @author Gabriel
      */
     public void respawnPlayers(){
-        for (Player player:board.getPlayers()) {
-            if(player.getSpace()==null){
-                teleportPlayerToReboot(player);
+        if(board.getStep()==4) {
+            for (Player player : board.getPlayers()) {
+                if (player.getSpace() == null) {
+                    teleportPlayerToReboot(player);
+                }
             }
         }
     }

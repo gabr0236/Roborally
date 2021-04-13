@@ -383,10 +383,15 @@ class Repository implements IRepository {
 				
 				int x = rs.getInt(PLAYER_POSITION_X);
 				int y = rs.getInt(PLAYER_POSITION_Y);
+				if(!rs.wasNull()){
+					player.setSpace(game.getSpace(x,y));
+				} else{
+					player.setSpace(null);
+				}
 				int rebootPosX = rs.getInt(PLAYER_REBOOT_POSITION_X);
 				int rebootPosY = rs.getInt(PLAYER_REBOOT_POSITION_Y);
-				player.setSpace(game.getSpace(x,y));
 				player.setRebootSpace(game.getSpace(rebootPosX,rebootPosY));
+
 				int heading = rs.getInt(PLAYER_HEADING);
 				player.setHeading(Heading.values()[heading]);
 
@@ -443,9 +448,10 @@ class Repository implements IRepository {
 			int playerId = rs.getInt(PLAYER_PLAYERID);
 			// TODO should be more defensive
 			Player player = game.getPlayer(playerId);
-			// rs.updateString(PLAYER_NAME, player.getName()); // not needed: player's names does not change
-			rs.updateInt(PLAYER_POSITION_X, player.getSpace().x);
-			rs.updateInt(PLAYER_POSITION_Y, player.getSpace().y);
+			if(player.getSpace()!=null) {
+				rs.updateInt(PLAYER_POSITION_X, player.getSpace().x);
+				rs.updateInt(PLAYER_POSITION_Y, player.getSpace().y);
+			}
 			rs.updateInt(PLAYER_HEADING, player.getHeading().ordinal());
 			rs.updateInt(PLAYER_REBOOT_POSITION_X, player.getRebootSpace().x);
 			rs.updateInt(PLAYER_REBOOT_POSITION_Y, player.getRebootSpace().y);
