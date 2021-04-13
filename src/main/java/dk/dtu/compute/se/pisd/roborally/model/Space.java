@@ -143,6 +143,7 @@ public class Space extends Subject {
     }
     public boolean getPit(){ return isPit;}
 
+
     public void setAntenna(){this.isAntenna = true;}
     public boolean getIsAntenna(){return  isAntenna;}
 

@@ -304,7 +304,7 @@ public class GameController {
      *
      * @param player who is being moved
      * @param heading the direction of the move
-     * @author @Gabriel
+     * @author Gabriel
      */
     public void tripleForward(@NotNull Player player, @NotNull Heading heading){
         directionMove(player, heading);
@@ -574,7 +574,6 @@ public class GameController {
     }
 
     /**
-     *
      * @param player
      * @param heading
      * @param activatingTurns

@@ -67,7 +67,6 @@ public class Board extends Subject {
 
     private final List<Space> laserSpaceList = new ArrayList<>();
 
-
     private int numberOfCheckpoints;
 
     /**
@@ -229,7 +228,8 @@ public class Board extends Subject {
                 ", Player: " + player.getName() +
                 ", Step: " + getStep() +
                 ", Next checkpoint: " + (player.getLastCheckpointVisited()+1) +
-                ", R: " + player.getRebootSpace().getReboot().REBOOT_NUMBER;
+                ", R: " + player.getRebootSpace().getReboot().REBOOT_NUMBER +
+                ", Energy cubes ⚡" + player.getEnergyBank();
     }
 
 

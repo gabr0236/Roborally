@@ -21,7 +21,10 @@
  */
 package dk.dtu.compute.se.pisd.roborally.fileaccess.model;
 
-import dk.dtu.compute.se.pisd.roborally.model.*;
+import dk.dtu.compute.se.pisd.roborally.model.ActivatableBoardElement;
+import dk.dtu.compute.se.pisd.roborally.model.Heading;
+import dk.dtu.compute.se.pisd.roborally.model.Laser;
+import dk.dtu.compute.se.pisd.roborally.model.Reboot;
 
 import java.awt.*;
 import java.util.ArrayList;
