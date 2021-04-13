@@ -25,7 +25,6 @@ import dk.dtu.compute.se.pisd.roborally.model.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -46,7 +45,7 @@ public class GameController {
      * Assigns random cards to each players hand.
      */
     public void startProgrammingPhase() {
-        sortPlayersAfterAntennaDistance();
+        updatePlayersAntennaDistance();
         board.setPhase(Phase.PROGRAMMING);
         board.setCurrentPlayer(board.getPlayer(0));
         board.setStep(0);
@@ -555,7 +554,7 @@ public class GameController {
     /**
      * @author @Daniel
      */
-    public void sortPlayersAfterAntennaDistance(){
+    public void updatePlayersAntennaDistance(){
         Space antennaSpace = null;
         for(Space space : this.board.getSpacesList()) {
             if (space.getIsAntenna())
@@ -568,9 +567,7 @@ public class GameController {
             player.setAntennaDistance((Math.abs(player.getSpace().x - antennaSpace.x)) + (Math.abs(player.getSpace().y - antennaSpace.y)));
         }
         //sorts players after antenna distance
-        Collections.sort(board.getPlayers());
-
-        //TODO: lav ændring i rækkefølge i board + notifychange
+        board.sortPlayersAntennaDistance();
     }
 
     /**

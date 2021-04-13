@@ -231,6 +231,11 @@ public class Board extends Subject {
                 ", R: " + player.getRebootSpace().getReboot().REBOOT_NUMBER;
     }
 
+    public void sortPlayersAntennaDistance(){
+        Collections.sort(players);
+        notifyChange();
+    }
+
 
     public List<Player> getPlayers() {
         return players;

@@ -40,7 +40,7 @@ import org.jetbrains.annotations.NotNull;
  * Javadoc
  * @author Gabriel
  */
-public class PlayerView extends Tab implements ViewObserver {
+public class PlayerView extends Tab implements ViewObserver, Comparable<PlayerView> {
 
     private final Player player;
 
@@ -233,5 +233,13 @@ public class PlayerView extends Tab implements ViewObserver {
             }
             statusLabel.setText(gameController.board.getStatusMessage(player));
         }
+    }
+
+
+    @Override
+    public int compareTo(@NotNull PlayerView o) {
+        if(o.player.getAntennaDistance()>player.getAntennaDistance()) return -1;
+        else if(o.player.getAntennaDistance()==player.getAntennaDistance()) return o.player.getSpace().y < player.getSpace().y ? -1 : 1;
+        else return 1;
     }
 }
