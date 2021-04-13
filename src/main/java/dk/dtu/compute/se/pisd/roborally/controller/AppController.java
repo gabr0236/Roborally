@@ -35,10 +35,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * ...
@@ -67,7 +64,7 @@ public class AppController {
      */
     public void newGame() {
         playerColors = new LinkedList<>(Arrays.asList("Crimson", "CornflowerBlue", "PaleVioletRed", "PapayaWhip", "PLUM", "DarkCyan", "DarkGoldenRod", "DarkKhaki", "DarkMagenta", "DeepPink", "Coral"));
-        //TODO: @Gab spørg ekki om alle de her retuns, rimlig sikker på at det er dårlig stil
+
         String gameName = choseGameName();
         if (gameName == null) return;
         String gameBoard = choseBoard();

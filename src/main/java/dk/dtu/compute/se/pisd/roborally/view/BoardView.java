@@ -39,7 +39,7 @@ import org.jetbrains.annotations.NotNull;
  * Javadoc
  * @author Gabriel
  */
-public class BoardView extends VBox {
+public class BoardView extends VBox implements ViewObserver{
 
     private final Board board;
 
@@ -73,6 +73,16 @@ public class BoardView extends VBox {
                 mainBoardPane.add(spaceView, x, y);
             }
         }
+        board.attach(this);
     }
+
+
+    @Override
+    public void updateView(Subject subject) {
+        if(subject==board){
+            //TODO: winning screen
+        }
+    }
+
 
 }

@@ -552,7 +552,6 @@ public class GameController {
             }
     }
 
-
     /**
      * @author @Daniel
      */
@@ -570,6 +569,8 @@ public class GameController {
         }
         //sorts players after antenna distance
         Collections.sort(board.getPlayers());
+
+        //TODO: lav ændring i rækkefølge i board + notifychange
     }
 
     /**
