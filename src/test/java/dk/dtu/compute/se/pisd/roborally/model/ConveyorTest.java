@@ -105,6 +105,8 @@ class ConveyorTest {
         board.getSpace(3,5).setReboot(new Reboot(Heading.EAST,false,6));
         current.setRebootSpace(board.getSpace(3,5));
         current.getSpace().getActivatableBoardElements().add(new Conveyor(Heading.NORTH,Command.FORWARD));
+
+        board.setStep(4);
         gameController.updateAllReboot();
         gameController.executeBoardElements();
         gameController.respawnPlayers();
