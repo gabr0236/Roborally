@@ -128,6 +128,7 @@ public class Board extends Subject {
         return players.size();
     }
 
+
     public void addPlayer(@NotNull Player player) {
         if (player.board == this && !players.contains(player)) {
             players.add(player);

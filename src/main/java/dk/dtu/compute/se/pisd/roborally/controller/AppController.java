@@ -21,8 +21,6 @@
  */
 package dk.dtu.compute.se.pisd.roborally.controller;
 
-import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
-
 import dk.dtu.compute.se.pisd.roborally.RoboRally;
 
 import dk.dtu.compute.se.pisd.roborally.dal.GameInDB;
@@ -30,10 +28,8 @@ import dk.dtu.compute.se.pisd.roborally.dal.IRepository;
 import dk.dtu.compute.se.pisd.roborally.dal.RepositoryAccess;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
-import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 
-import dk.dtu.compute.se.pisd.roborally.model.PushPanel;
 import javafx.application.Platform;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
@@ -255,6 +251,7 @@ public class AppController {
 
     /**
      * Loads game from DB, if no game is found this method creates a new game using newGame(); from above.
+     * @author @Gabriel
      */
     public void loadGame() {
         IRepository repository = RepositoryAccess.getRepository();
@@ -349,6 +346,11 @@ public class AppController {
 
         roboRally.createBoardView(gameController);
     }
+
+    /**
+     * For testing a game quickly
+     * @author Gabriel
+     */
     public void newTestGameChopShopChallenge() {
         Board board = LoadBoard.loadBoard("ChopShopChallenge");
         gameController = new GameController(board);

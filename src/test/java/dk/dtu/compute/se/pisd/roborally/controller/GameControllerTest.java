@@ -7,8 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 class GameControllerTest {
 
@@ -265,7 +263,7 @@ class GameControllerTest {
     }
 
     /**
-     * All equal distance
+     * All equal distance, deciding order from y value
      * @author @Gabriel
      */
     @Test

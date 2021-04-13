@@ -26,8 +26,6 @@ package dk.dtu.compute.se.pisd.roborally.model;
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  * <p>
- * Javadoc
- * @author Gabriel
  */
 public enum Phase {
     /**

@@ -46,6 +46,7 @@ public class GameController {
      * Assigns random cards to each players hand.
      */
     public void startProgrammingPhase() {
+        sortPlayersAfterAntennaDistance();
         board.setPhase(Phase.PROGRAMMING);
         board.setCurrentPlayer(board.getPlayer(0));
         board.setStep(0);
@@ -88,6 +89,10 @@ public class GameController {
 
     }
 
+    /**
+     *
+     * @param register
+     */
     private void makeProgramFieldsVisible(int register) {
         if (register >= 0 && register < Player.NO_REGISTERS) {
             for (int i = 0; i < board.getPlayersNumber(); i++) {
@@ -98,6 +103,9 @@ public class GameController {
         }
     }
 
+    /**
+     *
+     */
     private void makeProgramFieldsInvisible() {
         for (int i = 0; i < board.getPlayersNumber(); i++) {
             Player player = board.getPlayer(i);
@@ -376,6 +384,7 @@ public class GameController {
             board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
             continuePrograms();
         } else {
+            updateAllReboot();
             executeBoardElements();
             updateAllReboot();
             step++;
@@ -386,7 +395,6 @@ public class GameController {
             } else {
                 fireAllLasers(board.getLaserSpaceList(),board.getPlayers());
                 respawnPlayers();
-                sortPlayersAfterAntennaDistance();
                 startProgrammingPhase();
             }
         }
@@ -444,17 +452,15 @@ public class GameController {
     public void updateAllReboot() {
         for (Player player : board.getPlayers()) {
             Space current = player.getSpace();
-            if (current != null && current.x > current.board.rebootBorderX && current.x < current.board.getRebootBorderX2) {
-                for (Space space : board.getRebootSpaceList()) {
-                    if (!space.getReboot().isStartField() && space.x != 15) {
-                        player.setRebootSpace(space);
-                    }
+            if(current!=null) {
+                int lastRebootBorder = 0;
+                for (Integer i : board.rebootBorderXValues) {
+                    if (current.x > i) lastRebootBorder = i;
                 }
-            }
-            if (current != null && current.x > current.board.getRebootBorderX2) {
-                for (Space space : board.getRebootSpaceList()) {
-                    if (!space.getReboot().isStartField() && space.x != 4) {
-                        player.setRebootSpace(space);
+                for (Space rebootSpace : board.getRebootSpaceList()) {
+                    if(!rebootSpace.getReboot().isStartField() && rebootSpace.x>lastRebootBorder && rebootSpace.x<=lastRebootBorder+10
+                    && player.getRebootSpace().x<rebootSpace.x){
+                        player.setRebootSpace(rebootSpace);
                     }
                 }
             }
@@ -466,9 +472,11 @@ public class GameController {
      * @author Gabriel
      */
     public void respawnPlayers(){
-        for (Player player:board.getPlayers()) {
-            if(player.getSpace()==null){
-                teleportPlayerToReboot(player);
+        if(board.getStep()==4) {
+            for (Player player : board.getPlayers()) {
+                if (player.getSpace() == null) {
+                    teleportPlayerToReboot(player);
+                }
             }
         }
     }
@@ -509,7 +517,7 @@ public class GameController {
         }
         if(!players.isEmpty()){
             for (Player player : players) {
-                if(player.getSpace()!=null) {
+                if(player.getSpace()!=null && notWallsBlock(player.getSpace(),player.getHeading())) {
                     Space neighbourSpace = board.getNeighbour(player.getSpace(), player.getHeading());
                     if (neighbourSpace != null) fireLaser(neighbourSpace, player.getHeading());
                 }
@@ -548,9 +556,9 @@ public class GameController {
     /**
      * @author @Daniel
      */
-    private void sortPlayersAfterAntennaDistance(){
+    public void sortPlayersAfterAntennaDistance(){
         Space antennaSpace = null;
-        for(Space space : board.getSpacesList()) {
+        for(Space space : this.board.getSpacesList()) {
             if (space.getIsAntenna())
                 antennaSpace = space;
         }
@@ -558,12 +566,26 @@ public class GameController {
             tættest på 0 er tættest på antenne
          */
         for(Player player : board.getPlayers()){
-            player.setAntennaDistance(Math.abs(player.getSpace().x - antennaSpace.x) + Math.abs(player.getSpace().y - antennaSpace.y));
+            player.setAntennaDistance((Math.abs(player.getSpace().x - antennaSpace.x)) + (Math.abs(player.getSpace().y - antennaSpace.y)));
         }
         //sorts players after antenna distance
         Collections.sort(board.getPlayers());
     }
 
+    /**
+     *
+     * @param player
+     * @param heading
+     * @param activatingTurns
+     * @author @Gabriel
+     */
+    public void activatePushPanel(Player player, Heading heading, List<Integer> activatingTurns) {
+        if(!activatingTurns.isEmpty() && player!=null && player.getSpace()!=null){
+            if(activatingTurns.contains(board.getStep())){
+            directionMove(player,heading);
+            }
+        }
+    }
     /**
      * @author Sebastian
      * @param player
@@ -576,6 +598,21 @@ public class GameController {
                 player.addEnergy();
                 energySpace.setEnergyAvailable(false);
             }
+        }
+    }
+    /**
+     *
+     * @param player
+     * @param heading
+     * @param command
+     * @author Gabriel
+     */
+    public void conveyorMove(Player player, Heading heading, Command command) {
+        Space target = player.board.getNeighbour(player.getSpace(), heading);
+        if(target == null && notWallsBlock(player.getSpace(),heading)){
+            player.setSpace(null);
+        }else {
+            executeCommand(player,heading,command);
         }
     }
 }
