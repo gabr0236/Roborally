@@ -441,6 +441,7 @@ public class GameController {
     public void findWinner(@NotNull Player player) {
         if (player.getLastCheckpointVisited() == board.getNumberOfCheckpoints()) {
             player.setPlayerWin(true);
+            board.setPhase(Phase.GAME_WON);
             System.out.println(player.getName() + " har vundet!!");
         }
     }

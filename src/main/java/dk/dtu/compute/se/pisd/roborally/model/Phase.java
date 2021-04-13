@@ -31,5 +31,5 @@ public enum Phase {
     /**
      * Enumerationskonstanter der bruges til at identificere spillets nuværende stadie
      */
-    INITIALISATION, PROGRAMMING, ACTIVATION, PLAYER_INTERACTION
+    INITIALISATION, PROGRAMMING, ACTIVATION, PLAYER_INTERACTION, GAME_WON
 }

@@ -9,7 +9,7 @@ public class Checkpoint extends ActivatableBoardElement {
 
     private final int checkpointNumber;
 
-    Checkpoint(int checkpointNumber) {
+    public Checkpoint(int checkpointNumber) {
         this.checkpointNumber=checkpointNumber;
     }
 

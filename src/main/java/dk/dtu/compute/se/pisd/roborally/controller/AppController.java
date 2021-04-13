@@ -27,8 +27,7 @@ import dk.dtu.compute.se.pisd.roborally.dal.GameInDB;
 import dk.dtu.compute.se.pisd.roborally.dal.IRepository;
 import dk.dtu.compute.se.pisd.roborally.dal.RepositoryAccess;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
-import dk.dtu.compute.se.pisd.roborally.model.Board;
-import dk.dtu.compute.se.pisd.roborally.model.Player;
+import dk.dtu.compute.se.pisd.roborally.model.*;
 
 import javafx.application.Platform;
 import javafx.scene.control.*;
@@ -336,6 +335,7 @@ public class AppController {
             player.setRebootSpace(board.getRebootSpaceList().get(i));
         }
 
+
         gameController.startProgrammingPhase();
 
         IRepository repository = RepositoryAccess.getRepository();
@@ -359,6 +359,32 @@ public class AppController {
             player.setRebootSpace(board.getRebootSpaceList().get(i));
         }
 
+        gameController.startProgrammingPhase();
+
+        IRepository repository = RepositoryAccess.getRepository();
+        repository.createGameInDB(board);
+
+        roboRally.createBoardView(gameController);
+    }
+
+    /**
+     * For testing a game quickly
+     * @author Gabriel
+     */
+    public void newTestGameWin() {
+        Board board = LoadBoard.loadBoard("CORRIDOR BLITZ");
+        gameController = new GameController(board);
+
+        for (int i = 0; i < 3; i++) {
+            Player player = new Player(board, playerColors.get(i), "Player " + i);
+            board.addPlayer(player);
+            player.setSpace(board.getRebootSpaceList().get(i));
+            player.setRebootSpace(board.getRebootSpaceList().get(i));
+        }
+        board.getSpace(2,1).getActivatableBoardElements().add(new Checkpoint(2));
+        board.setNumberOfCheckpoints(2);
+        board.getPlayers().get(0).setLastCheckpointVisited(1);
+        board.setCurrentPlayer(board.getPlayer(0));
         gameController.startProgrammingPhase();
 
         IRepository repository = RepositoryAccess.getRepository();
