@@ -585,7 +585,20 @@ public class GameController {
             }
         }
     }
-
+    /**
+     * @author Sebastian
+     * @param player
+     * @param energyAvailable
+     * @param energySpace
+     */
+    public void registerEnergySpace(@NotNull Player player, boolean energyAvailable, EnergySpace energySpace){
+        if (player != null) {
+            if (energyAvailable || board.getStep() == 4) {
+                player.addEnergy();
+                energySpace.setEnergyAvailable(false);
+            }
+        }
+    }
     /**
      *
      * @param player

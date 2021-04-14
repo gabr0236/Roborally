@@ -32,6 +32,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -83,6 +84,15 @@ public class SpaceView extends StackPane implements ViewObserver {
 
     private void updatePlayer() {
         dynamic.getChildren().clear();
+            for (ActivatableBoardElement a: space.getActivatableBoardElements()) {
+                if(a instanceof EnergySpace){
+                    if(((EnergySpace) a).isEnergyAvailable()) {
+                        Rectangle energyCube = new Rectangle(0, 0, 25, 25);
+                        energyCube.setFill(Color.ORANGE);
+                        dynamic.getChildren().add(energyCube);
+                    }
+                }
+            }
         Player player = space.getPlayer();
         if (player != null) {
             Polygon arrow = new Polygon(0.0, 0.0,
@@ -185,6 +195,14 @@ public class SpaceView extends StackPane implements ViewObserver {
                     this.setStyle("-fx-background-color: Black");
                     this.getChildren().add(arrowView);
                 }
+
+                //Draw EnergySpace
+                else if (activatableBoardElement instanceof EnergySpace energySpace){
+                    Rectangle energySpaceView = new Rectangle(0,0,35,35);
+                    energySpaceView.setFill(Color.DIMGRAY);
+                    this.getChildren().add(energySpaceView);
+                }
+
                 else if (activatableBoardElement instanceof PushPanel){
                     PushPanel pushPanel = (PushPanel) activatableBoardElement;
                     if(pushPanel.getActivatingTurns()!=null) {
