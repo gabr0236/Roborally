@@ -39,6 +39,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -280,7 +281,11 @@ public class SpaceView extends StackPane implements ViewObserver {
      * @return the text being written
      */
     private Text combinePushPanelListToString(List<Integer> integerList){
-       Text text = new Text(integerList.stream().map(i->(i).toString()).collect(Collectors.joining(", ")));
+        List<Integer> pushPanelNumbers = new ArrayList<>();
+        for(int i = 0; i < integerList.size(); i++){
+            pushPanelNumbers.add(integerList.get(i)+1);
+        }
+       Text text = new Text(pushPanelNumbers.stream().map(i->(i).toString()).collect(Collectors.joining(", ")));
        text.setFont(new Font(SPACE_HEIGHT/5));
        return text;
     }
