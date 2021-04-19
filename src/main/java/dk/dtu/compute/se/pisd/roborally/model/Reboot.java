@@ -1,6 +1,9 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
 /**
+ * A class used for creating a reboot space, which represents the place where a player appears if
+ * his/hers robot position is null.
+ *
  * @author Gabriel
  */
 public class Reboot{

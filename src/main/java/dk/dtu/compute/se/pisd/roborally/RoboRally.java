@@ -32,7 +32,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * ...
+ * This class sets the game up when a player decides to run the game
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  */
