@@ -614,6 +614,7 @@ public class GameController {
             if (energyAvailable || board.getStep() == 4) {
                 player.addEnergy();
                 energySpace.setEnergyAvailable(false);
+                player.getSpace().playerChanged();
             }
         }
     }

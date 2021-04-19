@@ -43,7 +43,8 @@ public class CheckpointTest {
         gameController.directionMove(current, current.getHeading());
         gameController.executeBoardElements();
 
-        Assertions.assertEquals(current, board.getSpace(0, 1).getPlayer(), "Player " + current.getName() + " should beSpace (0,1)!");
+        Assertions.assertEquals(current, board.getSpace(0, 1).getPlayer()
+                , "Player " + current.getName() + " should beSpace (0,1)!");
         Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
         Assertions.assertNull(board.getSpace(0, 0).getPlayer(), "Space (0,0) should be empty!");
         Assertions.assertTrue(current.isPlayerWin(), "Playerwin should be true");
