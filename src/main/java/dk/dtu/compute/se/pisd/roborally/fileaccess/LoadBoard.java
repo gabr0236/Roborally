@@ -41,6 +41,12 @@ public class LoadBoard {
     private static final String defaultboard = "CORRIDOR BLITZ";
     private static final String JSON_EXT = "json";
 
+    /**
+     * Loads the game board corresponding with the param string using Json and Gson from the boards folder in resources.
+     * If the boardName is not found, creates a new board.
+     * @param boardName
+     * @return
+     */
     public static Board loadBoard(String boardName) {
         if (boardName == null) {
             boardName = defaultboard;
@@ -102,7 +108,7 @@ public class LoadBoard {
 		}
 		return null;
     }
-
+    
     public static void saveBoard(Board board, String name) {
         BoardTemplate template = new BoardTemplate();
         template.width = board.width;

@@ -38,7 +38,7 @@ import javafx.scene.paint.Color;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * ...
+ * CardFieldView.
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  */

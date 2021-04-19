@@ -22,7 +22,7 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
 /**
- * ...
+ * Enumeration. The phases are used to determine which actions should happen during the game.
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  * <p>

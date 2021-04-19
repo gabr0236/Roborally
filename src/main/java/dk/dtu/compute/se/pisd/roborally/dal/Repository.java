@@ -85,8 +85,8 @@ class Repository implements IRepository {
 	}
 
 	/**
-	 * creates data corresponding to the current game when starting a new game
-	 * @param game which is created in database
+	 * creates data in DB corresponding to the current game when starting a new game
+	 * @param game which is created in database (Board)
 	 * @return true if game is created successfully in database
 	 */
 	@Override
@@ -277,7 +277,7 @@ class Repository implements IRepository {
 
 
 	/**
-	 * Gets all game names from database
+	 * Gets all game names from database, used for choosing what game to load
 	 * @return list of game names
 	 */
 	@Override
@@ -304,7 +304,7 @@ class Repository implements IRepository {
 	}
 
 	/**
-	 * creates data corresponding to the current game when starting a new game
+	 * creates data corresponding to the current games players
 	 * @param game used to get information and send to database
 	 * @throws SQLException
 	 */
@@ -407,7 +407,6 @@ class Repository implements IRepository {
 	/**
 	 * loads cardField data corresponding to the current game id
 	 * @param game used to get the game id
-	 * @throws SQLException
 	 * @author Gabriel
 	 */
 	private void loadCardFieldsFromDB(Board game) throws SQLException{
@@ -466,7 +465,6 @@ class Repository implements IRepository {
 	/**
 	 * updates register card data corresponding to the current game id
 	 * @param game used to get the current game id
-	 * @throws SQLException
 	 * @author Gabriel
 	 */
 	private void updateCardsInDB(Board game) throws SQLException {

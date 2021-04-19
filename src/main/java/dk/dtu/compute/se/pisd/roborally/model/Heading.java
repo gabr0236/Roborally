@@ -22,7 +22,7 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
 /**
- * ...
+ * Enumeration for realising different directions easily.
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  * <p>
@@ -32,18 +32,18 @@ public enum Heading {
     SOUTH, WEST, NORTH, EAST;
 
     /**
-     * Æmdre en spillers retning 90 grader mod højre
+     * Changes a heading 90 degrees to the right.
      *
-     * @return
+     * @return the right heading
      */
     public Heading next() {
         return values()[(this.ordinal() + 1) % values().length];
     }
 
     /**
-     * Æmdre en spillers retning 90 grader mod venstre
+     * Changes a heading 90 degrees to the right.
      *
-     * @return
+     * @return the left heading
      */
     public Heading prev() {
         return values()[(this.ordinal() + values().length - 1) % values().length];

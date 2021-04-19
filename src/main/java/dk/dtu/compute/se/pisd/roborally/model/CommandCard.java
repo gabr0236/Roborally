@@ -25,7 +25,7 @@ import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * ...
+ * The commandcard which are dealt to each player in the start of the round.
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  * <p>

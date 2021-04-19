@@ -59,7 +59,7 @@ public class AppController {
 
     /**
      * Creates a new game by creating a board, gamecontroller, players, view. Also starts the programming phase.
-     * Also IRepository to create a game in DB.
+     * IRepository creates the game in the DB.
      */
     public void newGame() {
         playerColors = new LinkedList<>(Arrays.asList("Crimson", "CornflowerBlue", "PaleVioletRed", "PapayaWhip", "PLUM", "DarkCyan", "DarkGoldenRod", "DarkKhaki", "DarkMagenta", "DeepPink", "Coral"));
@@ -103,8 +103,8 @@ public class AppController {
     }
 
     /**
-     *
-     * @param playerName
+     * Shows dialog in which a player choses their color
+     * @param playerName name for display on dialog
      * @return string color or null
      * @author @Gabriel
      */
@@ -126,8 +126,8 @@ public class AppController {
     }
 
     /**
-     *
-     * @return
+     * Shows dialog in which a player choses their name
+     * @return the chosen name or null
      * @author @Gabriel
      */
     private String chosePlayerName() {
@@ -151,7 +151,8 @@ public class AppController {
     }
 
     /**
-     * @return
+     * Shows dialog in which the players can pick between diffrent boards
+     * @return string with boardname
      * @author Gabriel
      */
     private String choseBoard() {
@@ -171,7 +172,8 @@ public class AppController {
     }
 
     /**
-     * @return
+     * Shows dialog in which the players can pick how many players the game should have (min 2, max 6)
+     * @return returns the number of players chosen
      * @author Gabriel
      */
     private Integer chosePlayerCount() {
@@ -191,7 +193,8 @@ public class AppController {
     }
 
     /**
-     * @return
+     * Shows dialog in which the players can pick a name for the game used for storing in DB and when loading a game
+     * @return string with gamename
      * @author @Gabriel
      */
     private String choseGameName() {
@@ -216,6 +219,7 @@ public class AppController {
     }
 
     /**
+     * Used as errorhandler when a player enters a name that doesnt fit the regex (used both when picking playername and boardname)
      * @author @Gabriel
      */
     private void invalidName() {
@@ -227,8 +231,8 @@ public class AppController {
     }
 
     /**
-     *
-     * @return
+     * Alert box which appears whenever a player tries to exit the gamesetup. To make sure a player doesnt exit the setup accidentally.
+     * @return boolean. True if player presses OK to exit setup
      * @author @Gabriel
      */
     private boolean cancelGameSetup() {
@@ -240,6 +244,9 @@ public class AppController {
         return result.get() == ButtonType.OK;
     }
 
+    /**
+     * Updates game in DB
+     */
     public void saveGame() {
         IRepository repository = RepositoryAccess.getRepository();
         repository.updateGameInDB(this.gameController.board);

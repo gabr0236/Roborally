@@ -37,8 +37,6 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  * <p>
- * Javadoc
- * @author Gabriel
  */
 public class PlayerView extends Tab implements ViewObserver, Comparable<PlayerView> {
 
@@ -68,11 +66,10 @@ public class PlayerView extends Tab implements ViewObserver, Comparable<PlayerVi
 
 
     /**
-     * Konstruktør, skaber de forskellige nødvendige GUI elementer for den enkelte spiller,
-     * samt sammenfletter med GameController og henter de nødvendige oplysninger fra model klasserne
+     * Constructs the different necessary GUI elements for the player, including CardFieldview and buttons for executing registers.
      *
-     * @param gameController
-     * @param player
+     * @param gameController used to get set this gamecontroller and pass along to CardFieldView
+     * @param player the player of the generated PlayerView.
      */
     public PlayerView(@NotNull GameController gameController, @NotNull Player player) {
         super(player.getName());
@@ -149,10 +146,10 @@ public class PlayerView extends Tab implements ViewObserver, Comparable<PlayerVi
 
 
     /**
-     * Opdaterer spillerens view ud fra modellers nuværende stat, herunder modeller som Board, CardFieldView,
-     * og GUI elementer som Buttons
+     * Updates the players view from the current state, including Board, CardFieldView,
+     * and GUI elementer like Buttons.
      *
-     * @param subject
+     * @param subject the player
      */
     @Override
     public void updateView(Subject subject) {
@@ -236,6 +233,11 @@ public class PlayerView extends Tab implements ViewObserver, Comparable<PlayerVi
     }
 
 
+    /**
+     * For sorting the PlayerView in antenna order (distance from antenna).
+     * @param o the PlayerView for comparing
+     * @return int
+     */
     @Override
     public int compareTo(@NotNull PlayerView o) {
         if(player.getSpace() == null) return -1;

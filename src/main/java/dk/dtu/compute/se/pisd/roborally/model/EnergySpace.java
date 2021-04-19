@@ -3,6 +3,9 @@ package dk.dtu.compute.se.pisd.roborally.model;
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 
 /**
+ * EnergySpace. Is an ActivatableBoardElement. Used for giving players energy for
+ * upgrades when ending a turn/round on this space
+ *
  * @author Sebastian
  */
 public class EnergySpace extends ActivatableBoardElement{

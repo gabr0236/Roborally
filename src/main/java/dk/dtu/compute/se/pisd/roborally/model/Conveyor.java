@@ -4,6 +4,8 @@ import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import org.jetbrains.annotations.NotNull;
 
 /**
+ * Conveyor class. Holds a heading and a Command.
+ *
  * @author Gabriel, Sebastian
  */
 public class Conveyor extends ActivatableBoardElement {

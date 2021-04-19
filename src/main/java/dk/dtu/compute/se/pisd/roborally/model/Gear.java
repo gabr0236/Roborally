@@ -4,6 +4,9 @@ import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import org.jetbrains.annotations.NotNull;
 
 /**
+ * Gear. Is an ActivatableBoardElement. When a player ends a register on a
+ * space with this element they should be turned right or left.
+ *
  * @author Tobias s205358
  */
 public class Gear extends ActivatableBoardElement {

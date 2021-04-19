@@ -45,7 +45,7 @@ public class PlayersView extends TabPane implements ViewObserver {
     private GameController gameController;
 
     /**
-     * Contructor der indsætter en PlayerView for hver spiller i et PlayerView-array
+     * Constructs a PlayerView for each player.
      *
      * @param gameController
      */
@@ -62,7 +62,9 @@ public class PlayersView extends TabPane implements ViewObserver {
         update(board);
     }
 
-
+    /**
+     * Updates the view with the player tabs sorted in antenna order (after the distance from antenna).
+     */
     @Override
     public void updateView(Subject subject) {
         if (subject == board) {

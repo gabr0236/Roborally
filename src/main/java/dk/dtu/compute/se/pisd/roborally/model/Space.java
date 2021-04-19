@@ -33,7 +33,6 @@ import java.util.ArrayList;
 public class Space extends Subject {
 
     public final Board board;
-
     public final int x;
     public final int y;
     private Player player;
@@ -42,21 +41,8 @@ public class Space extends Subject {
     private final ArrayList<ActivatableBoardElement> activatableBoardElements = new ArrayList<>();
     private boolean isPit;
     private Laser laser;
-
-    public void setAntenna(boolean antenna) {
-        isAntenna = antenna;
-    }
-
     private boolean isAntenna;
 
-    /**
-     * Konstruktøren til "Space", med "board", x og y som parametre
-     * Sætter player til at være "null", hvilket betyder der ikke befinder sig en spiller på felter/Spacet
-     *
-     * @param board
-     * @param x
-     * @param y
-     */
     public Space(Board board, int x, int y) {
         this.board = board;
         this.x = x;
@@ -77,19 +63,13 @@ public class Space extends Subject {
         return board;
     }
 
-    /**
-     * En "getter" som retunerer spilleren, bruges til at tjekke om der befinder sig en spiller på feltet/spacet
-     *
-     * @return
-     */
     public Player getPlayer() {
         return player;
     }
 
     /**
-     * En "setter" som bruges til at sætte feltet/spacet til enten at være true eller false afhængigt af om en
-     * spiller befinder sig på feltet/spacet
-     *
+     * Sets player to this space and removes player from old space.
+     * Calls notifyChange() to update view.
      * @param player
      */
     public void setPlayer(Player player) {
@@ -136,23 +116,24 @@ public class Space extends Subject {
         this.reboot = reboot;
     }
 
-
-    public void setPit(){ this.isPit = true;}
     public void setPit(boolean value){
         this.isPit=value;
     }
+
     public boolean getPit(){ return isPit;}
 
-
-    public void setAntenna(){this.isAntenna = true;}
     public boolean getIsAntenna(){return  isAntenna;}
-
 
     public ArrayList<ActivatableBoardElement> getActivatableBoardElements() {
         return activatableBoardElements;
     }
+
     public Laser getLaser() {
         return laser;
+    }
+
+    public void setAntenna(boolean antenna) {
+        isAntenna = antenna;
     }
 
     public void setLaser(Laser laser) {

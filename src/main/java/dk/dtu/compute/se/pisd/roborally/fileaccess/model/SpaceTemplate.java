@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ...
+ * This class is used for loading the game objects from the .json files
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  *

@@ -34,7 +34,7 @@ import java.util.List;
 public enum Command {
 
     /**
-     * Enumeration canstants inclusive display names. Used in CommandCards for moving a player.
+     * Enumeration constants inclusive display names. Used in CommandCards for moving a player.
      */
     FORWARD("Fwd"),
     RIGHT("Turn Right"),
@@ -50,9 +50,8 @@ public enum Command {
 
     /**
      * Setter for params, used for initialising the enum constants
-     *
-     * @param displayName
-     * @param options
+     * @param displayName string shown on commandcard
+     * @param options one or more commands in case of optional command like "Left OR Right"
      */
     Command(String displayName, Command... options) {
         this.displayName = displayName;

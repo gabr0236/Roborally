@@ -9,6 +9,10 @@ public class Checkpoint extends ActivatableBoardElement {
 
     private final int checkpointNumber;
 
+    /**
+     * sets the checkpoint number
+     * @param checkpointNumber current number
+     */
     public Checkpoint(int checkpointNumber) {
         this.checkpointNumber=checkpointNumber;
     }
