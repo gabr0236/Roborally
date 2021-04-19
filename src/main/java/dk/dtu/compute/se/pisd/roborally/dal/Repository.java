@@ -385,7 +385,11 @@ class Repository implements IRepository {
 				int x = rs.getInt(PLAYER_POSITION_X);
 				int y = rs.getInt(PLAYER_POSITION_Y);
 				if(!rs.wasNull()){
-					player.setSpace(game.getSpace(x,y));
+					if(x>=0 || y>=0) {
+						player.setSpace(game.getSpace(x, y));
+					} else {
+						player.setSpace(null);
+					}
 				} else{
 					player.setSpace(null);
 				}
@@ -395,8 +399,6 @@ class Repository implements IRepository {
 
 				int heading = rs.getInt(PLAYER_HEADING);
 				player.setHeading(Heading.values()[heading]);
-
-				// TODO  should also load players program and hand here
 			} else {
 				// TODO error handling
 				System.err.println("Game in DB does not have a player with id " + i +"!");
@@ -451,6 +453,9 @@ class Repository implements IRepository {
 			if(player.getSpace()!=null) {
 				rs.updateInt(PLAYER_POSITION_X, player.getSpace().x);
 				rs.updateInt(PLAYER_POSITION_Y, player.getSpace().y);
+			} else {
+				rs.updateInt(PLAYER_POSITION_X, -1);
+				rs.updateInt(PLAYER_POSITION_Y, -1);
 			}
 			rs.updateInt(PLAYER_HEADING, player.getHeading().ordinal());
 			rs.updateInt(PLAYER_REBOOT_POSITION_X, player.getRebootSpace().x);

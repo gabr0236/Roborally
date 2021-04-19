@@ -47,6 +47,7 @@ public class GameController {
      * Assigns random cards to each players hand.
      */
     public void startProgrammingPhase() {
+        respawnPlayers();
         updatePlayersAntennaDistance();
         board.setPhase(Phase.PROGRAMMING);
         board.setCurrentPlayer(board.getPlayer(0));
@@ -396,7 +397,6 @@ public class GameController {
                 board.setCurrentPlayer(board.getPlayer(0));
             } else {
                 fireAllLasers(board.getLaserSpaceList(),board.getPlayers());
-                respawnPlayers();
                 startProgrammingPhase();
             }
         }
