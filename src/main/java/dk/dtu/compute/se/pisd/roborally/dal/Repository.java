@@ -23,6 +23,7 @@ package dk.dtu.compute.se.pisd.roborally.dal;
 
 import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
 import dk.dtu.compute.se.pisd.roborally.model.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -76,7 +77,6 @@ class Repository implements IRepository {
 	private static final String CARDS_COMMAND_HAND = "commandHand";
 
 	private static final String CARDS_COMMAND_REGISTER = "commandRegister";
-
 
 	private Connector connector;
 	
@@ -494,6 +494,20 @@ class Repository implements IRepository {
 		// TODO error handling/consistency check: check whether all cards were updated
 	}
 
+	@Override
+	public void deleteGameInDB(@NotNull Board game) {
+		try {
+			PreparedStatement ps = deleteGameStatement();
+			ps.setInt(1, game.getGameId());
+
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException e){
+			//TODO: errorhandling
+			e.printStackTrace();
+		}
+	}
+
 	private static final String SQL_INSERT_GAME =
 			"INSERT INTO Game(name, currentPlayer, phase, step,board) VALUES (?, ?, ?, ?, ?)";
 
@@ -660,5 +674,27 @@ class Repository implements IRepository {
 			}
 		}
 		return select_games_stmt;
+	}
+
+	private static final String SQL_DELETE_GAME =
+			"DELETE FROM GAME where gameID = ?";
+
+	private PreparedStatement sql_delete_game = null;
+
+	/**
+	 * Deletes a game from the DB
+	 */
+	private PreparedStatement deleteGameStatement() {
+		if (sql_delete_game == null) {
+			Connection connection = connector.getConnection();
+			try {
+				sql_delete_game = connection.prepareStatement(
+						SQL_DELETE_GAME);
+			} catch (SQLException e) {
+				// TODO error handling
+				e.printStackTrace();
+			}
+		}
+		return sql_delete_game;
 	}
 }

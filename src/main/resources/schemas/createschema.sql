@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS Game (
   board varchar(50),
   
   PRIMARY KEY (gameID),
-  FOREIGN KEY (gameID, currentPlayer) REFERENCES Player(gameID, playerID)
+  FOREIGN KEY (gameID, currentPlayer) REFERENCES Player(gameID, playerID) on delete cascade
 );;
   
 CREATE TABLE IF NOT EXISTS Player (
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS Player (
   rebootPosY int,
   
   PRIMARY KEY (gameID, playerID),
-  FOREIGN KEY (gameID) REFERENCES Game(gameID)
+  FOREIGN KEY (gameID) REFERENCES Game(gameID) on delete cascade
 );;
 
 CREATE TABLE IF NOT EXISTS Cards (
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS Cards (
   commandRegister tinyint,
 
   PRIMARY KEY (gameID, playerID, position),
-  FOREIGN KEY (gameID, playerID) references Player(gameID, playerID)
+  FOREIGN KEY (gameID, playerID) references Player(gameID, playerID) on delete cascade
 );;
 
 SET FOREIGN_KEY_CHECKS = 1;;

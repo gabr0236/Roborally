@@ -21,6 +21,8 @@
  */
 package dk.dtu.compute.se.pisd.roborally.controller;
 
+import dk.dtu.compute.se.pisd.roborally.dal.IRepository;
+import dk.dtu.compute.se.pisd.roborally.dal.RepositoryAccess;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import org.jetbrains.annotations.NotNull;
 
@@ -433,7 +435,6 @@ public class GameController {
     }
 
     /**
-     * TODO: this need to be updated at some point to show a winning screen and maybe delete game from database?
      * Prints out the winning player
      * @param player who is is checked for winning
      * @author Gabriel
@@ -442,7 +443,8 @@ public class GameController {
         if (player.getLastCheckpointVisited() == board.getNumberOfCheckpoints()) {
             player.setPlayerWin(true);
             board.setPhase(Phase.GAME_WON);
-            System.out.println(player.getName() + " har vundet!!");
+            IRepository repository = RepositoryAccess.getRepository();
+            repository.deleteGameInDB(board);
         }
     }
 
