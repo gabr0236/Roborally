@@ -495,8 +495,10 @@ public class GameController {
         if (player.getRebootSpace().getPlayer() != null){
             directionMove(player.getRebootSpace().getPlayer(), player.getRebootSpace().getReboot().REBOOT_HEADING);
         }
-        player.setSpace(player.getRebootSpace());
-        player.setHeading(player.getRebootSpace().getReboot().REBOOT_HEADING);
+        if(player.getRebootSpace() != null) {
+            player.setSpace(player.getRebootSpace());
+            player.setHeading(player.getRebootSpace().getReboot().REBOOT_HEADING);
+        }
     }
 
     /**
@@ -505,8 +507,10 @@ public class GameController {
      * @author Daniel
      */
     private void fallIntoPit(@NotNull Player player){
-        if(player.getSpace().getPit())
-            player.setSpace(null);
+        if(player != null) {
+            if (player.getSpace().getPit())
+                player.setSpace(null);
+        }
     }
 
     /**
@@ -567,18 +571,22 @@ public class GameController {
     public void updatePlayersAntennaDistance(){
         Space antennaSpace = null;
         for(Space space : this.board.getSpacesList()) {
-            if (space.getIsAntenna())
+            if (space.getIsAntenna() && space != null)
                 antennaSpace = space;
         }
         /*  trækker nuværende position fra koordinatset til antenne og tager positive værdi af dette.
             tættest på 0 er tættest på antenne
          */
-        for(Player player : board.getPlayers()){
-            player.setAntennaDistance((Math.abs(player.getSpace().x - antennaSpace.x)) + (Math.abs(player.getSpace().y - antennaSpace.y)));
+        if(antennaSpace != null) {
+            for (Player player : board.getPlayers()) {
+                player.setAntennaDistance((Math.abs(player.getSpace().x - antennaSpace.x)) + (Math.abs(player.getSpace().y - antennaSpace.y)));
+
+            }
+            //sorts players after antenna distance
+            board.sortPlayersAntennaDistance();
         }
-        //sorts players after antenna distance
-        board.sortPlayersAntennaDistance();
     }
+
 
     /**
      * Sets off the push panel

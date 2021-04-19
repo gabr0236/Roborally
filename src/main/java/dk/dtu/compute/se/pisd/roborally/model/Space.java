@@ -134,6 +134,13 @@ public class Space extends Subject {
 
     public void setAntenna(boolean antenna) {
         isAntenna = antenna;
+        if(this.isAntenna==true) {
+            wallList.add(Heading.EAST);
+            wallList.add(Heading.WEST);
+            wallList.add(Heading.NORTH);
+            wallList.add(Heading.SOUTH);
+            setWallList(wallList);
+        }
     }
 
     public void setLaser(Laser laser) {

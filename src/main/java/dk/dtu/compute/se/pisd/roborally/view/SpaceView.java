@@ -157,7 +157,6 @@ public class SpaceView extends StackPane implements ViewObserver {
             Text text = new Text();
             text.setText("R: " + space.getReboot().REBOOT_NUMBER);
             this.getChildren().add(text);
-
         }
 
         if (!space.getActivatableBoardElements().isEmpty()) {
