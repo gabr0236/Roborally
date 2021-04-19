@@ -89,7 +89,7 @@ public class GameController {
     }
 
     /**
-     *
+     * Makes the CommandCardField specified by the parameter visible
      * @param register
      */
     private void makeProgramFieldsVisible(int register) {
@@ -103,7 +103,7 @@ public class GameController {
     }
 
     /**
-     *
+     * sets all CommandCardFields to invisible for all players
      */
     private void makeProgramFieldsInvisible() {
         for (int i = 0; i < board.getPlayersNumber(); i++) {
@@ -292,7 +292,7 @@ public class GameController {
      * Moves a player 2 spaces forward.
      * @param player who is being moved
      * @param heading the direction of the move
-     * @author Gabriel, Sebastian
+     * @author Gabriel, Sebastian, Daniel
      */
     public void fastForward(@NotNull Player player, @NotNull Heading heading) {
         directionMove(player, heading);
@@ -314,7 +314,7 @@ public class GameController {
     /**
      * Turns a player to the right.
      * @param player who is affected
-     * @author Gabriel, Sebastian
+     * @author Gabriel, Sebastian, Daniel
      */
     public void turnRight(@NotNull Player player) {
         player.setHeading(player.getHeading().next());
@@ -323,7 +323,7 @@ public class GameController {
     /**
      * Turns a player to the left.
      * @param player who is affected
-     * @author Gabriel, Sebastian
+     * @author Gabriel, Sebastian, Daniel
      */
     public void turnLeft(@NotNull Player player) {
         player.setHeading(player.getHeading().prev());
@@ -332,13 +332,14 @@ public class GameController {
     /**
      *
      * @param player who is affected
+     * @author Daniel
      */
     public void turnAround(@NotNull Player player) {
         player.setHeading(player.getHeading().oppositeHeading());
     }
 
     /**
-     * Executes a option from the optional CommandCard chosen by the player on the GUI.
+     * Executes an option from the optional CommandCard chosen by the player on the GUI.
      * @param option list of different commands
      * @author Gabriel
      */
@@ -468,7 +469,7 @@ public class GameController {
     }
 
     /**
-     * Respawns all players
+     * Respawns all dead players
      * @author Gabriel
      */
     public void respawnPlayers(){
@@ -497,6 +498,7 @@ public class GameController {
     /**
      * Player falls into pit and is removed from the board
      * @param player who is affected
+     * @author Daniel
      */
     private void fallIntoPit(@NotNull Player player){
         if(player.getSpace().getPit())
@@ -504,9 +506,9 @@ public class GameController {
     }
 
     /**
-     *
-     * @param laserSpaces
-     * @param players
+     * fires all lasers
+     * @param laserSpaces is the wall lasers being fired
+     * @param players List of the players firing a laser
      * @author @Gabriel
      */
     public void fireAllLasers(@NotNull List<Space> laserSpaces, List<Player> players) {
@@ -526,8 +528,9 @@ public class GameController {
     }
 
     /**
-     * @param projectile
-     * @param shootingDirection
+     * fires a single laser
+     * @param projectile the space of the projectile
+     * @param shootingDirection is the direction the laser shoots
      * @author Tobias s205358
      */
     public void fireLaser(Space projectile, Heading shootingDirection) {
@@ -553,6 +556,8 @@ public class GameController {
     }
 
     /**
+     * compares all players' distance to the antenna and orders them in a list from closest to the
+     * antenna to furthest away from the antenna.
      * @author @Daniel
      */
     public void updatePlayersAntennaDistance(){
@@ -572,9 +577,10 @@ public class GameController {
     }
 
     /**
-     * @param player
-     * @param heading
-     * @param activatingTurns
+     * Sets off the push panel
+     * @param player is the player being pushed
+     * @param heading is the heading of the pushpanel
+     * @param activatingTurns is the steps in which the pushpanel activates
      * @author @Gabriel
      */
     public void activatePushPanel(Player player, Heading heading, List<Integer> activatingTurns) {
@@ -585,10 +591,11 @@ public class GameController {
         }
     }
     /**
+     * Gives players energy
      * @author Sebastian
-     * @param player
-     * @param energyAvailable
-     * @param energySpace
+     * @param player is the player being given energy
+     * @param energyAvailable dertermines whether the player should get energy from the energySpace
+     * @param energySpace is the space that rewards palyers with energy
      */
     public void registerEnergySpace(@NotNull Player player, boolean energyAvailable, EnergySpace energySpace){
         if (player != null) {
@@ -599,10 +606,10 @@ public class GameController {
         }
     }
     /**
-     *
-     * @param player
-     * @param heading
-     * @param command
+     * Moves a player on a conveyor belt
+     * @param player is the player being moved
+     * @param heading is the direction the player is moved
+     * @param command determines how many spaces the players is moved
      * @author Gabriel
      */
     public void conveyorMove(Player player, Heading heading, Command command) {

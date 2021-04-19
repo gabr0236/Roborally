@@ -64,15 +64,14 @@ public class Player extends Subject implements Comparable<Player> {
 
 
     /**
-     * Player konstruktør, Initialisere spiller og tilknytter board, sætter farve og sætter navn.
+     * Player constructor, Initializes player, defines the board of the player, set the color and name og the player.
      * <p>
-     * Herefter oprettes først et CommandCardField Array med plads til at holde en robots registers
-     * Der oprettes herefter CommandCardField Array med plads til at holde en robots tilfældige
-     * programmeringskort der tildeles i starten af hver programmeringsfase.
+     * Creates an CommandCardField array to hold the cards being played
+     * creates CommandCardField array to hold the cards given at the start of each round.
      *
-     * @param board
-     * @param color
-     * @param name
+     * @param board is the players' board
+     * @param color is the color of the player
+     * @param name is the name of the player
      */
     public Player(@NotNull Board board,@NotNull String color, @NotNull String name) {
         this.board = board;
@@ -93,18 +92,15 @@ public class Player extends Subject implements Comparable<Player> {
     }
 
     /**
-     * Returnerer navn
-     *
-     * @return
+     * @return the name of the player
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Sætter navn samt kalder observerens notifyChange() til at opdatere GUI
-     *
-     * @param name
+     * sets the name of a player and updates this in the GUI
+     * @param name is the name given and displayed
      */
     public void setName(String name) {
         if (name != null && !name.equals(this.name)) {
@@ -121,9 +117,8 @@ public class Player extends Subject implements Comparable<Player> {
     }
 
     /**
-     * Sætter farve samt kalder observerens notifyChange() til at opdatere GUI
-     *
-     * @param color
+     * sets the color of a player and updates this in the GUI
+     * @param color is the color given and displayed
      */
     public void setColor(String color) {
         this.color = color;
@@ -138,9 +133,8 @@ public class Player extends Subject implements Comparable<Player> {
     }
 
     /**
-     * Metode til at tilknytte spiller til Space
-     *
-     * @param space
+     * set the space of a player
+     * @param space is the space the player i set to
      */
     public void setSpace(Space space) {
         Space oldSpace = this.space;
@@ -170,9 +164,8 @@ public class Player extends Subject implements Comparable<Player> {
     }
 
     /**
-     * Metode til at sætte spillers "retning"
-     *
-     * @param heading
+     * sets the heading of a player
+     * @param heading is the heading given to the player
      */
     public void setHeading(@NotNull Heading heading) {
         if (heading != this.heading) {
@@ -193,19 +186,18 @@ public class Player extends Subject implements Comparable<Player> {
     }
 
     /**
-     * Henter et specifikt registreringskort, vælges ud fra paramereten i
-     *
-     * @param i
-     * @return
+     * get a specific CommandCardField that had been played
+     * @param i is the CommandCardField returned
+     * @return a CommandCardField specified by the param
      */
     public CommandCardField getProgramField(int i) {
         return program[i];
     }
 
     /**
-     * Henter et specifikt kort spilleren har på hånden, vælges ud fra paramereten i
-     * @param i
-     * @return
+     * get a specific CommandCardField from the players hand
+     * @param i is the CommandCardField returned
+     * @return a CommandCardField specified by the param
      */
 
     public CommandCardField getCardField(int i) {
@@ -230,8 +222,9 @@ public class Player extends Subject implements Comparable<Player> {
     public int getEnergyBank() { return energyBank; }
 
     /**
-     * @param o
-     * @return
+     * compares two players in regards to their distance from the antenna
+     * @param o is the player being compared to the player the method is called upon
+     * @return the order direction the player should move in the list
      * @author @Gabriel
      */
     @Override
