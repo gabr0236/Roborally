@@ -171,7 +171,7 @@ class GameControllerTest {
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
         current.setSpace(board.getSpace(1,0));
-        board.getSpace(1,1).setPit();
+        board.getSpace(1,1).setPit(true);
         current.setHeading(Heading.SOUTH);
         gameController.directionMove(current, current.getHeading());
         Assertions.assertNull(current.getSpace());
@@ -184,7 +184,7 @@ class GameControllerTest {
         current.setSpace(board.getSpace(1,0));
         Player player1 = board.getPlayer(1);
         player1.setSpace(board.getSpace(1,1));
-        board.getSpace(1,2).setPit();
+        board.getSpace(1,2).setPit(true);
         current.setHeading(Heading.SOUTH);
         gameController.directionMove(current, current.getHeading());
         gameController.directionMove(current, current.getHeading());
