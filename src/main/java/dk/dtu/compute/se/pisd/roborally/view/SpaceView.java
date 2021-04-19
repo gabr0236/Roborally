@@ -34,9 +34,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
+import javafx.scene.text.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -142,6 +140,7 @@ public class SpaceView extends StackPane implements ViewObserver {
             this.getChildren().add(arrow);
             Text text = new Text();
             text.setText("Antenna");
+            text.setFont(Font.font("Arial, Helvetica, sans-serif", FontWeight.BOLD, FontPosture.REGULAR, 10));
             this.getChildren().add(text);
         }
 
