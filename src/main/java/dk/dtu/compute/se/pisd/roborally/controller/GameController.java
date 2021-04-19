@@ -40,7 +40,6 @@ public class GameController {
     public GameController(@NotNull Board board) {
         this.board = board;
     }
-
     /**
      * Sets phase to programming, currentplayer to 0, and step to 0.
      * Assigns random cards to each players hand.

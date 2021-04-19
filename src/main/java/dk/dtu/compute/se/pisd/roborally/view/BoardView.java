@@ -28,17 +28,21 @@ import dk.dtu.compute.se.pisd.roborally.model.Phase;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import org.jetbrains.annotations.NotNull;
 
-import java.awt.*;
-import java.awt.geom.Rectangle2D;
 
 /**
  * ...
@@ -93,13 +97,17 @@ public class BoardView extends VBox implements ViewObserver{
             for (Player p:board.getPlayers()) {
                 if(p.isPlayerWin()) player=p;
             }
-            Pane pane = new Pane();
-            pane.setAccessibleText("Player: " + player.getName());
-            pane.setStyle("-fx-background-color: " + player.getColor());
-            pane.setPrefSize(1000,1000);
-
-            this.getChildren().clear();
-            this.getChildren().add(pane);
+            Canvas canvas = new Canvas((board.height*SpaceView.SPACE_HEIGHT*2), (board.width*SpaceView.SPACE_WIDTH*2));
+            this.getChildren().add(canvas);
+            this.setStyle("-fx-background-color: #25b5b5");
+            GraphicsContext gc = canvas.getGraphicsContext2D();
+            gc.setFill(Paint.valueOf(player.getColor()));
+            gc.setStroke(Paint.valueOf("White"));
+            gc.setLineWidth(1);
+            Font theFont = Font.font("Arial", FontWeight.BOLD, SpaceView.SPACE_HEIGHT);
+            gc.setFont(theFont);
+            gc.fillText( player.getName()+" har vundet!!!",60,50);
+            gc.strokeText(player.getName()+" har vundet!!!",60,50);
 
         }
     }
