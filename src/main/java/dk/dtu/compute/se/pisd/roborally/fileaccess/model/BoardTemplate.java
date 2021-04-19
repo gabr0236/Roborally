@@ -26,7 +26,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ...
+ * Creates the template for the board and has:
+ * width/height - the size of the board
+ * spaces - a list of spaces that represents each space on the board
+ * rebootBorderXValues - a list used to identify were players should reboot
+ * numberOfCheckpoints - used to identify the amount of checkpoints a player needs in order to win
+ * boardName - used to identify each board
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  *

@@ -56,6 +56,12 @@ public class SpaceView extends StackPane implements ViewObserver {
 
     StackPane dynamic;
 
+    /**
+     * Creates a SpaceView with the specified width and height and set the color of the spaceView
+     * calls staticElements() and creates a stackPane for dynamic elements
+     * @param space
+     */
+
     public SpaceView(@NotNull Space space) {
         this.space = space;
 
@@ -82,6 +88,9 @@ public class SpaceView extends StackPane implements ViewObserver {
         update(space);
     }
 
+    /**
+     * clears and draws the robot and energyCubes and adds these to the stackPane
+     */
     private void updatePlayer() {
         dynamic.getChildren().clear();
             for (ActivatableBoardElement a: space.getActivatableBoardElements()) {
@@ -108,6 +117,9 @@ public class SpaceView extends StackPane implements ViewObserver {
         }
     }
 
+    /**
+     * draws all static elements such as pits, antenna, reboots spaces, laser and activatableBoardElements.
+     */
     //TODO: else if better for much of this
     private void staticElements() {
         this.getChildren().clear();
@@ -261,12 +273,23 @@ public class SpaceView extends StackPane implements ViewObserver {
             this.getChildren().add(drawWalls(space));
         }
     }
+
+    /**
+     * Writes the step on which a pushPanel is active on the PushPanel
+     * @param integerList is the list of steps the PushPanel is active on
+     * @return the text being written
+     */
     private Text combinePushPanelListToString(List<Integer> integerList){
        Text text = new Text(integerList.stream().map(i->(i).toString()).collect(Collectors.joining(", ")));
        text.setFont(new Font(SPACE_HEIGHT/5));
        return text;
     }
 
+    /**
+     * draws the walls of a space
+     * @param space is the space which walls are drawn
+     * @returns the canvas with the wall drawing if the space has walls
+     */
     private Canvas drawWalls(Space space) {
         if (!space.getWallList().isEmpty()) {
             Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);

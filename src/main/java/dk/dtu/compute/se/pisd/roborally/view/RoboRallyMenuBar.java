@@ -53,6 +53,10 @@ public class RoboRallyMenuBar extends MenuBar {
 
     private final MenuItem exitApp;
 
+    /**
+     * This method creates the view for the menubar which is seen when opening the game
+     * @param appController - uses the appController to decide what to show
+     */
     public RoboRallyMenuBar(AppController appController) {
         this.appController = appController;
 
@@ -96,6 +100,10 @@ public class RoboRallyMenuBar extends MenuBar {
         update();
     }
 
+    /**
+     * checks if the appController is running, depending on whether or not it selects which
+     * options the player cna choose from
+     */
     public void update() {
         if (appController.isGameRunning()) {
             newGame.setVisible(false);

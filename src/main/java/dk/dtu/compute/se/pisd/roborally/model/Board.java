@@ -31,7 +31,6 @@ import java.util.List;
 import static dk.dtu.compute.se.pisd.roborally.model.Phase.INITIALISATION;
 
 /**
- * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  */
@@ -90,6 +89,11 @@ public class Board extends Subject {
         this.stepMode = false;
     }
 
+    /**
+     * Used to create a certain board, used for quick tests
+     * @param width
+     * @param height
+     */
     public Board(int width, int height) {
         this(width, height, "defaultboard");
     }
@@ -123,6 +127,10 @@ public class Board extends Subject {
         }
     }
 
+    /**
+     *
+     * @return - returns the size of the players list which represents the amount of players playing
+     */
     public int getPlayersNumber() {
         return players.size();
     }
@@ -148,10 +156,18 @@ public class Board extends Subject {
         }
     }
 
+    /**
+     *
+     * @return - returns the player currently moving
+     */
     public Player getCurrentPlayer() {
         return current;
     }
 
+    /**
+     * Sets a player to be the player currently playing
+     * @param player - used to decide which player to set as current
+     */
     public void setCurrentPlayer(Player player) {
         if (player != this.current && players.contains(player)) {
             this.current = player;
@@ -159,10 +175,18 @@ public class Board extends Subject {
         }
     }
 
+    /**
+     *
+     * @return - returns the phase of the game
+     */
     public Phase getPhase() {
         return phase;
     }
 
+    /**
+     *
+     * @param phase - sets the phase of the game
+     */
     public void setPhase(Phase phase) {
         if (phase != this.phase) {
             this.phase = phase;
@@ -170,10 +194,18 @@ public class Board extends Subject {
         }
     }
 
+    /**
+     *
+     * @return - returns a int representing the register
+     */
     public int getStep() {
         return step;
     }
 
+    /**
+     *
+     * @param step - sets the register to be a certain number
+     */
     public void setStep(int step) {
         if (step != this.step) {
             this.step = step;
@@ -181,10 +213,18 @@ public class Board extends Subject {
         }
     }
 
+    /**
+     *
+     * @return - returns true or false depending on if players are on the move
+     */
     public boolean isStepMode() {
         return stepMode;
     }
 
+    /**
+     *
+     * @param stepMode - sets stepmode representing a phase in the game
+     */
     public void setStepMode(boolean stepMode) {
         if (stepMode != this.stepMode) {
             this.stepMode = stepMode;
@@ -192,6 +232,11 @@ public class Board extends Subject {
         }
     }
 
+    /**
+     * Returns the players number
+     * @param player - used to identify which player to find
+     * @return
+     */
     public int getPlayerNumber(@NotNull Player player) {
         if (player.board == this) {
             return players.indexOf(player);
@@ -223,6 +268,12 @@ public class Board extends Subject {
         return getSpace(x, y);
     }
 
+    /**
+     * Returns the information that is seen at the bottom of the screen seen when playing
+     * makes it easy for the player to know his/hers status in the game
+     * @param player - used to identify the player in question
+     * @return
+     */
     public String getStatusMessage(Player player) {
         return "Phase: " + getPhase().name() +
                 ", Player: " + player.getName() +
@@ -232,40 +283,79 @@ public class Board extends Subject {
                 ", Energy cubes ⚡" + player.getEnergyBank();
     }
 
+    /**
+     * sorts the list of players, depending on who is closet to the antenna by calling the sort method
+     * and therefore decides the order in which players take their turns
+     */
     public void sortPlayersAntennaDistance(){
         Collections.sort(players);
         notifyChange();
     }
 
-
+    /**
+     *
+     * @return - returns the list containing the players playing
+     */
     public List<Player> getPlayers() {
         return players;
     }
 
+    /**
+     *
+     * @return - returns the list of spaces on the board that the players are playing on
+     */
     public List<Space> getSpacesList() {
         return Collections.unmodifiableList(spacesList);
     }
 
+    /**
+     *
+     * @return - returns the list of all the reboot spaces where the player can respawn
+     */
     public List<Space> getRebootSpaceList() { return rebootSpaceList; }
 
+    /**
+     *
+     * @return - returns the gamename
+     */
     public String getGameName() {
         return gameName;
     }
 
+    /**
+     *
+     * @param gameName sets the gamename to the gamename of the instans selected
+     */
     public void setGameName(String gameName) {
         this.gameName = gameName;
     }
 
+    /**
+     *
+     * @return - returns the number of checkpoints
+     */
     public int getNumberOfCheckpoints() {
         return numberOfCheckpoints;
     }
 
+    /**
+     *
+     * @param numberOfCheckpoints - sets the number of checkpoints to the instans selected
+     */
     public void setNumberOfCheckpoints(int numberOfCheckpoints) {
         this.numberOfCheckpoints = numberOfCheckpoints;
     }
 
+    /**
+     *
+     * @return - returns the spaces where a laser is located
+     */
     public List<Space> getLaserSpaceList() { return laserSpaceList; }
 
+    /**
+     *
+     * @return - returns the values in the rebootBorderXValues list
+     */
     public List<Integer> getRebootBorderXValues() { return rebootBorderXValues; }
 
 }

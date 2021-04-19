@@ -45,12 +45,9 @@ import org.jetbrains.annotations.NotNull;
 
 
 /**
- * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  * <p>
- * Javadoc
- * @author Gabriel
  */
 public class BoardView extends VBox implements ViewObserver{
 
@@ -62,8 +59,7 @@ public class BoardView extends VBox implements ViewObserver{
     private final PlayersView playersView;
 
     /**
-     * Skaber GUI for Board, herunder ternede felter, samt PlayerView
-     * Bruger gameController til at opsætte dette.
+     * Creates GUI for Board, therefore also the drawn spaces and PlayerView by using the gameController
      *
      * @param gameController
      */
@@ -89,7 +85,10 @@ public class BoardView extends VBox implements ViewObserver{
         board.attach(this);
     }
 
-
+    /**
+     * Checks if a playr has won, if a player has won a winning screen appears
+     * @param subject - used to upadte board, playerview and spaces
+     */
     @Override
     public void updateView(Subject subject) {
         if(subject==board && board.getPhase()==Phase.GAME_WON){

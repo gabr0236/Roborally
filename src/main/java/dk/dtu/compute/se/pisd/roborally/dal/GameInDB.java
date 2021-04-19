@@ -22,7 +22,10 @@
 package dk.dtu.compute.se.pisd.roborally.dal;
 
 /**
- * ...
+ * A class used to name and identify each game in the database (there can be more than one ongoing game)
+ *
+ * @Params id - id used to identify each game in databse
+ * @Params name - a string which represents the name player wants to call a instans of his/her game
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  *
@@ -36,6 +39,10 @@ public class GameInDB {
         this.name = name;
     }
 
+    /**
+     *
+     * @return - returns the id and name of a game
+     */
     @Override
     public String toString() {
         return id + ": " + name;
