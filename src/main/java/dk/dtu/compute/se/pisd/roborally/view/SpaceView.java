@@ -98,6 +98,9 @@ public class SpaceView extends StackPane implements ViewObserver {
                         Rectangle energyCube = new Rectangle(0, 0, 25, 25);
                         energyCube.setFill(Color.ORANGE);
                         dynamic.getChildren().add(energyCube);
+                        Text text = new Text();
+                        text.setText("E");
+                        dynamic.getChildren().add(text);
                     }
                 }
             }
@@ -212,6 +215,9 @@ public class SpaceView extends StackPane implements ViewObserver {
                     Rectangle energySpaceView = new Rectangle(0,0,35,35);
                     energySpaceView.setFill(Color.DIMGRAY);
                     this.getChildren().add(energySpaceView);
+                    Text text = new Text();
+                    text.setText("E");
+                    this.getChildren().add(text);
                 }
 
                 else if (activatableBoardElement instanceof PushPanel){
