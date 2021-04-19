@@ -86,7 +86,7 @@ public class BoardView extends VBox implements ViewObserver{
     }
 
     /**
-     * Checks if a playr has won, if a player has won a winning screen appears
+     * Checks if a player has won, if a player has won a winning screen appears
      * @param subject - used to upadte board, playerview and spaces
      */
     @Override
@@ -107,9 +107,6 @@ public class BoardView extends VBox implements ViewObserver{
             gc.setFont(theFont);
             gc.fillText( player.getName()+" har vundet!!!",60,50);
             gc.strokeText(player.getName()+" har vundet!!!",60,50);
-
         }
     }
-
-
 }

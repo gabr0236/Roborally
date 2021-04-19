@@ -8,8 +8,6 @@ public class Laser {
 
     private Heading shootingDirection;
 
-
-
     public Laser(Heading shootingDirection) {
         this.shootingDirection = shootingDirection;
     }

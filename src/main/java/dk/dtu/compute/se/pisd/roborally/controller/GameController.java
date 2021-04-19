@@ -443,8 +443,10 @@ public class GameController {
         if (player.getLastCheckpointVisited() == board.getNumberOfCheckpoints()) {
             player.setPlayerWin(true);
             board.setPhase(Phase.GAME_WON);
-            IRepository repository = RepositoryAccess.getRepository();
-            repository.deleteGameInDB(board);
+            if(board.getGameId()!=null) {
+                IRepository repository = RepositoryAccess.getRepository();
+                repository.deleteGameInDB(board);
+            }
         }
     }
 
