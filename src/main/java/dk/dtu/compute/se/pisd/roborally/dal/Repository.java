@@ -300,7 +300,8 @@ class Repository implements IRepository {
 			// TODO proper error handling
 			e.printStackTrace();
 		}
-		return result;		
+
+		return result.isEmpty() ? null : result;
 	}
 
 	/**
@@ -496,15 +497,17 @@ class Repository implements IRepository {
 
 	@Override
 	public void deleteGameInDB(@NotNull Board game) {
-		try {
-			PreparedStatement ps = deleteGameStatement();
-			ps.setInt(1, game.getGameId());
+		if(game.getPhase()==Phase.GAME_WON) {
+			try {
+				PreparedStatement ps = deleteGameStatement();
+				ps.setInt(1, game.getGameId());
 
-			ps.executeUpdate();
-			ps.close();
-		} catch (SQLException e){
-			//TODO: errorhandling
-			e.printStackTrace();
+				ps.executeUpdate();
+				ps.close();
+			} catch (SQLException e) {
+				//TODO: errorhandling
+				e.printStackTrace();
+			}
 		}
 	}
 

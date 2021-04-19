@@ -262,16 +262,22 @@ public class AppController {
         boolean gameChosen = false;
 
         while (!gameChosen) {
+
             List<GameInDB> gameIDList = repository.getGames();
-            ChoiceDialog<GameInDB> dialog = new ChoiceDialog<>(gameIDList.get(0), gameIDList);
-            dialog.setTitle("Game selector");
-            dialog.setHeaderText("Select a game you want to continue");
-            Optional<GameInDB> result = dialog.showAndWait();
-            if (result.isPresent()) {
-                gameController = new GameController(repository.loadGameFromDB(result.get().id));
-                gameChosen=true;
-            } else {
-                if (cancelGameSetup()) return;
+            if (gameIDList!=null) {
+                ChoiceDialog<GameInDB> dialog = new ChoiceDialog<>(gameIDList.get(0), gameIDList);
+                dialog.setTitle("Game selector");
+                dialog.setHeaderText("Select a game you want to continue");
+                Optional<GameInDB> result = dialog.showAndWait();
+                if (result.isPresent()) {
+                    gameController = new GameController(repository.loadGameFromDB(result.get().id));
+                    gameChosen = true;
+                } else {
+                    if (cancelGameSetup()) return;
+                }
+            }
+            else {
+                return;
             }
         }
         roboRally.createBoardView(gameController);
