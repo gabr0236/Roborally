@@ -22,6 +22,7 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
+import dk.dtu.compute.se.pisd.roborally.model.upgrade.Upgrade;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -61,6 +62,8 @@ public class Player extends Subject implements Comparable<Player> {
     public int antennaDistance;
 
     private int energyBank = 0;
+
+    private List<Upgrade> upgrades = new ArrayList<>();
 
 
     /**
@@ -220,6 +223,10 @@ public class Player extends Subject implements Comparable<Player> {
     }
 
     public int getEnergyBank() { return energyBank; }
+
+    public List<Upgrade> getUpgrades() {
+        return upgrades;
+    }
 
     /**
      * compares two players in regards to their distance from the antenna
