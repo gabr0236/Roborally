@@ -23,9 +23,6 @@ package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.model.*;
-import javafx.css.Size;
-import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
@@ -91,7 +88,6 @@ public class SpaceView extends StackPane implements ViewObserver {
      * clears and draws the robot and energyCubes and adds these to the stackPane
      */
     private void updatePlayer() {
-        dynamic.getChildren().clear();
             for (ActivatableBoardElement a: space.getActivatableBoardElements()) {
                 if(a instanceof EnergySpace){
                     if(((EnergySpace) a).isEnergyAvailable()) {
@@ -322,6 +318,7 @@ public class SpaceView extends StackPane implements ViewObserver {
     @Override
     public void updateView(Subject subject) {
         if (subject == this.space) {
+            dynamic.getChildren().clear();
             updatePlayer();
         }
     }

@@ -12,7 +12,7 @@ public class Conveyor extends ActivatableBoardElement {
     public final Heading heading;
     public final Command command;
 
-    Conveyor(Heading heading, Command command) {
+    public Conveyor(Heading heading, Command command) {
         this.heading = heading;
         this.command = command;
     }

@@ -24,10 +24,10 @@ package dk.dtu.compute.se.pisd.roborally.controller;
 import dk.dtu.compute.se.pisd.roborally.dal.IRepository;
 import dk.dtu.compute.se.pisd.roborally.dal.RepositoryAccess;
 import dk.dtu.compute.se.pisd.roborally.model.*;
+import dk.dtu.compute.se.pisd.roborally.model.ActivatableBoardElement;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -508,10 +508,19 @@ public class GameController {
      */
     private void fallIntoPit(@NotNull Player player){
         if(player != null) {
+            /*for (upgrade u:player.Upgrades) {
+                if(u.responsible(pit)){
+                    u.doAction(player, this);
+                    return;
+                }
+                //Loop igennem klasser
+            }*/
             if (player.getSpace().getPit())
                 player.setSpace(null);
         }
     }
+
+
 
     /**
      * fires all lasers

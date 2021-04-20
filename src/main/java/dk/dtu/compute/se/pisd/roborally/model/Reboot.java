@@ -1,5 +1,7 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
+import dk.dtu.compute.se.pisd.roborally.model.Heading;
+
 /**
  * A class used for creating a reboot space, which represents the place where a player appears if
  * his/hers robot position is null.

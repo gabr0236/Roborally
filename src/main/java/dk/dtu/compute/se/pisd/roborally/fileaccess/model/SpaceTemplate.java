@@ -26,7 +26,6 @@ import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Laser;
 import dk.dtu.compute.se.pisd.roborally.model.Reboot;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 

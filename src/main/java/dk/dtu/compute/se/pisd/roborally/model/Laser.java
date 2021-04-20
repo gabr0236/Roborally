@@ -1,5 +1,7 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
+import dk.dtu.compute.se.pisd.roborally.model.Heading;
+
 /**
  * laser that shoots players
  * @author Tobias s205358

@@ -8,7 +8,7 @@ import dk.dtu.compute.se.pisd.roborally.controller.GameController;
  *
  * @author Sebastian
  */
-public class EnergySpace extends ActivatableBoardElement{
+public class EnergySpace extends ActivatableBoardElement {
 
     private boolean energyAvailable= true;
 
