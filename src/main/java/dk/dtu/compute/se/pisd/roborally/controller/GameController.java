@@ -25,6 +25,8 @@ import dk.dtu.compute.se.pisd.roborally.dal.IRepository;
 import dk.dtu.compute.se.pisd.roborally.dal.RepositoryAccess;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.model.ActivatableBoardElement;
+import dk.dtu.compute.se.pisd.roborally.model.upgrade.Upgrade;
+import dk.dtu.compute.se.pisd.roborally.model.upgrade.UpgradeResponsibility;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -196,6 +198,12 @@ public class GameController {
      * @author Gabriel
      */
     public void directionMove(@NotNull Player player, @NotNull Heading heading) {
+        for (Upgrade u:player.getUpgrades()) {
+            if(u.responsible(UpgradeResponsibility.TELEPORT_PLAYER)){
+                u.doAction(player,this);
+                return;
+            }
+        }
         Space current = player.getSpace();
         if (current != null && player.board == current.board) {
             Space target = current.board.getNeighbour(current, heading);
