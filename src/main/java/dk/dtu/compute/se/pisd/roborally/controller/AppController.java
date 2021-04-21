@@ -349,7 +349,7 @@ public class AppController {
             player.setSpace(board.getRebootSpaceList().get(i));
             player.setRebootSpace(board.getRebootSpaceList().get(i));
         }
-
+        board.getPlayer(0).setNumberOfCards(9);
         gameController.startProgrammingPhase();
         IRepository repository = RepositoryAccess.getRepository();
         repository.createGameInDB(board);

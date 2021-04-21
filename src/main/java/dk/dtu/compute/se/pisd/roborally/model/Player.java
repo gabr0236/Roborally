@@ -40,7 +40,10 @@ import static dk.dtu.compute.se.pisd.roborally.model.Heading.EAST;
 public class Player extends Subject implements Comparable<Player> {
 
     final public static int NO_REGISTERS = 5;
-    final public static int NO_CARDS = 8;
+
+    private int numberOfCards = 8;
+
+    final public static int NO_OF_STARTING_CARDS = 8;
 
     final public Board board;
 
@@ -51,7 +54,8 @@ public class Player extends Subject implements Comparable<Player> {
     private Heading heading = EAST;
 
     private final CommandCardField[] program;
-    private final CommandCardField[] cards;
+
+    private final List<CommandCardField> cards = new ArrayList<>(8);
 
     private boolean playerWin = false;
 
@@ -88,9 +92,8 @@ public class Player extends Subject implements Comparable<Player> {
             program[i] = new CommandCardField(this);
         }
 
-        cards = new CommandCardField[NO_CARDS];
-        for (int i = 0; i < cards.length; i++) {
-            cards[i] = new CommandCardField(this);
+        for (int i = 0; i < numberOfCards; i++) {
+            cards.add(new CommandCardField(this));
         }
     }
 
@@ -203,10 +206,6 @@ public class Player extends Subject implements Comparable<Player> {
      * @return a CommandCardField specified by the param
      */
 
-    public CommandCardField getCardField(int i) {
-        return cards[i];
-    }
-
     public Space getRebootSpace() {
         return rebootSpace;
     }
@@ -226,6 +225,18 @@ public class Player extends Subject implements Comparable<Player> {
 
     public List<Upgrade> getUpgrades() {
         return upgrades;
+    }
+
+    public int getNumberOfCards() {
+        return numberOfCards;
+    }
+
+    public void setNumberOfCards(int numberOfCards) {
+        this.numberOfCards = numberOfCards;
+    }
+
+    public List<CommandCardField> getCards() {
+        return cards;
     }
 
     /**

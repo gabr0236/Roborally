@@ -63,10 +63,9 @@ public class GameController {
                     field.setCard(null);
                     field.setVisible(true);
                 }
-                for (int j = 0; j < Player.NO_CARDS; j++) {
-                    CommandCardField field = player.getCardField(j);
-                    field.setCard(generateRandomCommandCard());
-                    field.setVisible(true);
+                for (CommandCardField cardField:player.getCards()) {
+                    cardField.setCard(generateRandomCommandCard());
+                    cardField.setVisible(true);
                 }
             }
         }
