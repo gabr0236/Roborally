@@ -200,12 +200,6 @@ public class Player extends Subject implements Comparable<Player> {
         return program[i];
     }
 
-    /**
-     * get a specific CommandCardField from the players hand
-     * @param i is the CommandCardField returned
-     * @return a CommandCardField specified by the param
-     */
-
     public Space getRebootSpace() {
         return rebootSpace;
     }
@@ -233,6 +227,9 @@ public class Player extends Subject implements Comparable<Player> {
 
     public void setNumberOfCards(int numberOfCards) {
         this.numberOfCards = numberOfCards;
+        if(numberOfCards>cards.size()){
+            cards.add(new CommandCardField(this));
+        }
     }
 
     public List<CommandCardField> getCards() {
