@@ -12,8 +12,18 @@ public class RearLaser extends Upgrade{
 
     @Override
     public void doAction(Player player, GameController gameController) {
+        boolean hasRailGun = false;
+        for(Upgrade u : player.getUpgrades()){
+            if(u.responsible(UpgradeResponsibility.RAIL_GUN))
+                hasRailGun = true;
+        }
+
         Space rearNeighbour = gameController.board.getNeighbour(player.getSpace(), player.getHeading().oppositeHeading());
-        gameController.fireLaser(rearNeighbour, player.getHeading().oppositeHeading());
+        if(hasRailGun)
+            gameController.fireRailGun(rearNeighbour, player.getHeading().oppositeHeading());
+        else
+            gameController.fireLaser(rearNeighbour, player.getHeading().oppositeHeading());
+
 
     }
 }
