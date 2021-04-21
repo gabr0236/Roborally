@@ -182,7 +182,7 @@ public class GameController {
      */
     public void executeCommand(@NotNull Player player, Heading heading, Command command) {
         if (player != null && player.board == board && command != null) {
-            player.setFinalDestination(calculateDestination(player,command));
+            player.setFinalDestination(calculateDestination(player,heading,command));
             switch (command) {
                 case FORWARD -> this.directionMove(player, heading);
                 case RIGHT -> this.turnRight(player);
@@ -734,10 +734,10 @@ public class GameController {
      * @param command
      * @return
      */
-    public Space calculateDestination(Player player, Command command){
-        Space move = board.getNeighbour(player.getSpace(),player.getHeading());
-        Space movex2 = board.getNeighbour(move,player.getHeading());
-        Space movex3 = board.getNeighbour(movex2,player.getHeading());
+    public Space calculateDestination(Player player, Heading heading, Command command){
+        Space move = board.getNeighbour(player.getSpace(),heading);
+        Space movex2 = board.getNeighbour(move,heading);
+        Space movex3 = board.getNeighbour(movex2,heading);
         Space finalmove = switch (command) {
             case FORWARD -> move;
             case FAST_FORWARD -> movex2;
