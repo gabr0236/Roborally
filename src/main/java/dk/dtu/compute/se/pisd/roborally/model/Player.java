@@ -234,11 +234,9 @@ public class Player extends Subject implements Comparable<Player> {
         return numberOfCards;
     }
 
-    public void setNumberOfCards(int numberOfCards) {
-        this.numberOfCards = numberOfCards;
-        if(numberOfCards>cards.size()){
+    public void setExtraHandCard() {
             cards.add(new CommandCardField(this));
-        }
+            numberOfCards++;
     }
 
     public List<CommandCardField> getCards() {

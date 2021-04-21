@@ -25,6 +25,7 @@ import dk.dtu.compute.se.pisd.roborally.dal.IRepository;
 import dk.dtu.compute.se.pisd.roborally.dal.RepositoryAccess;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.model.ActivatableBoardElement;
+import dk.dtu.compute.se.pisd.roborally.model.upgrade.ExtraHandCard;
 import dk.dtu.compute.se.pisd.roborally.model.upgrade.Upgrade;
 import dk.dtu.compute.se.pisd.roborally.model.upgrade.UpgradeResponsibility;
 import org.jetbrains.annotations.NotNull;
@@ -199,6 +200,9 @@ public class GameController {
      * @author Gabriel
      */
     public void directionMove(@NotNull Player player, @NotNull Heading heading) {
+       //TODO: SLET DET HER; DET ER EN TEST
+       player.getUpgrades().add(new ExtraHandCard());
+
         for (Upgrade u:player.getUpgrades()) {
             if(u.responsible(UpgradeResponsibility.TELEPORT_PLAYER)){
                 u.doAction(player,this);
@@ -414,6 +418,15 @@ public class GameController {
                 board.setCurrentPlayer(board.getPlayer(0));
             } else {
                 fireAllLasers(board.getLaserSpaceList(),board.getPlayers());
+
+                //Should eventually be somewhere with upgrade phase logic
+                for (Player p: board.getPlayers()) {
+                    for (Upgrade u:p.getUpgrades()) {
+                        if(u.responsible(UpgradeResponsibility.EXTRA_HAND_CARD)){
+                            u.doAction(p,this);
+                        }
+                    }
+                }
                 startProgrammingPhase();
             }
         }

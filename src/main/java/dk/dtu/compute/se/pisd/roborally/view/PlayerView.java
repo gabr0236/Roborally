@@ -154,7 +154,7 @@ public class PlayerView extends Tab implements ViewObserver, Comparable<PlayerVi
 
     /**
      * Updates the players view from the current state, including Board, CardFieldView,
-     * and GUI elementer like Buttons.
+     * and GUI elements like Buttons.
      *
      * @param subject the player
      */
@@ -183,11 +183,14 @@ public class PlayerView extends Tab implements ViewObserver, Comparable<PlayerVi
                     }
                 }
             }
-            //TODO: @Gab se her!!
-            /*if(player.getNumberOfCards()==8){
-                cardViews.add(new CardFieldView(gameController, player.getCards().get(8)));
-                cardsPane.add(cardViews.get(8), 8, 0);
-            }*/
+
+            if(player.getNumberOfCards()==9 && cardViews.size()!=9){
+                        CommandCardField cardField = player.getCards().get(8);
+                        if (cardField != null) {
+                            cardViews.add(new CardFieldView(gameController, cardField,player));
+                            cardsPane.add(cardViews.get(8), 8, 0);
+                        }
+                    }
 
             if (player.board.getPhase() != Phase.PLAYER_INTERACTION) {
                 if (!programPane.getChildren().contains(buttonPanel)) {

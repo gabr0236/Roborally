@@ -11,7 +11,8 @@ public class ExtraHandCard extends Upgrade {
 
     @Override
     public void doAction(Player player, GameController gameController) {
-        player.setNumberOfCards(9);
-
+        if (player.getNumberOfCards() == 8) {
+            player.setExtraHandCard();
+        }
     }
 }
