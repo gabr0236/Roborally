@@ -349,7 +349,6 @@ public class AppController {
             player.setSpace(board.getRebootSpaceList().get(i));
             player.setRebootSpace(board.getRebootSpaceList().get(i));
         }
-        //board.getPlayer(0).setExtraHandCard();
         gameController.startProgrammingPhase();
         IRepository repository = RepositoryAccess.getRepository();
         repository.createGameInDB(board);
