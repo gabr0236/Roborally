@@ -5,5 +5,6 @@ public enum UpgradeResponsibility {
     PUSH_LEFT_OR_RIGHT,
     RAIL_GUN,
     LASER,
-    PIT_AVOIDER
+    PIT_AVOIDER,
+    MODULAR_CHASSIS
 }

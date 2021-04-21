@@ -245,6 +245,9 @@ public class GameController {
                             board.setPhase(Phase.PLAYER_INTERACTION);
                             return;
                         }
+                        if(u.responsible(UpgradeResponsibility.MODULAR_CHASSIS) && other != null){
+                            u.doAction(player, this);
+                        }
                     }
 
                     moveToSpace(other, target, heading);
@@ -574,6 +577,30 @@ public class GameController {
     }
 
     /**
+     * swap cardd when pushing this player if the pushing player har modular chassis upgrade.
+     * @author Daniel
+     * @param player is the pushing player with modular chassis upgrad
+     * @param pushedPlayer is the player swapping a random card for the pushing players' modular chassis upgrade
+     */
+    public void stealUpgradeCard(@NotNull Player player, @NotNull Player pushedPlayer){
+        if(pushedPlayer != null && !pushedPlayer.getUpgrades().isEmpty()){
+            for(Upgrade u : player.getUpgrades()){
+                if(u.responsible(UpgradeResponsibility.MODULAR_CHASSIS)) {
+                    player.getUpgrades().remove(u);
+                    pushedPlayer.getUpgrades().add(u);
+
+                    int randomUpgradeNumber = (int)Math.random()*pushedPlayer.getUpgrades().size();
+
+                    player.getUpgrades().add(pushedPlayer.getUpgrades().get(randomUpgradeNumber));
+                    pushedPlayer.getUpgrades().remove(randomUpgradeNumber);
+                }
+            }
+
+
+        }
+    }
+
+    /**
      * fires a single laser and checks for laser upgrades and adjusts accordingly
      * @param projectile the space of the projectile
      * @param shootingDirection is the direction the laser shoots
@@ -599,6 +626,7 @@ public class GameController {
                 } while (!hit);
             }
         }
+
 
     /**
      * compares all players' distance to the antenna and orders them in a list from closest to the
@@ -652,6 +680,7 @@ public class GameController {
                 player.addEnergy();
                 energySpace.setEnergyAvailable(false);
                 player.getSpace().playerChanged();
+
             }
         }
     }
