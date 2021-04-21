@@ -4,22 +4,21 @@ import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 
-
 /**
- * Upgrade that swaps this upgrade for a random upgrade from the pushed player
+ * Upgrade that deals damage to players when pushing them
  * @author Daniel
  */
-public class ModularChassis extends Upgrade{
 
+public class RammingGear extends Upgrade{
     @Override
     public boolean responsible(UpgradeResponsibility upgradeResponsibility) {
-        return upgradeResponsibility == UpgradeResponsibility.MODULAR_CHASSIS;
+        return upgradeResponsibility == UpgradeResponsibility.RAMMING_GEAR;
     }
 
     @Override
     public void doAction(Player player, GameController gameController) {
         Space neighbour = gameController.board.getNeighbour(player.getSpace(), player.getHeading());
-        gameController.stealUpgradeCard(player, neighbour.getPlayer());
+        gameController.rammingGearPush(player, neighbour.getPlayer());
 
     }
 }

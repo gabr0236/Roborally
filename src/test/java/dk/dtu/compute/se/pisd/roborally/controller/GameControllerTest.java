@@ -3,6 +3,7 @@ package dk.dtu.compute.se.pisd.roborally.controller;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.model.upgrade.ModularChassis;
 import dk.dtu.compute.se.pisd.roborally.model.upgrade.RailGun;
+import dk.dtu.compute.se.pisd.roborally.model.upgrade.RammingGear;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -350,6 +351,27 @@ class GameControllerTest {
         gameController.directionMove(current, current.getHeading());
 
         Assertions.assertFalse(player1.getUpgrades().contains(modularChassis));
+    }
+
+    /**
+     * @author Daniel
+     */
+    @Test
+    void rammingGearPushTest(){
+        Board board = gameController.board;
+        RammingGear rammingGear = new RammingGear();
+
+        Player current = board.getCurrentPlayer();
+        current.setSpace(board.getSpace(1,0));
+        current.setHeading(Heading.SOUTH);
+        current.getUpgrades().add(rammingGear);
+
+        Player player1 = board.getPlayer(1);
+        player1.setSpace(board.getSpace(1,1));
+
+        gameController.directionMove(current, current.getHeading());
+
+        Assertions.assertNull(player1.getSpace());
     }
 
 

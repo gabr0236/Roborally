@@ -8,6 +8,6 @@ public enum UpgradeResponsibility {
     PIT_AVOIDER,
     MODULAR_CHASSIS,
     PUSH_PANEL_DODGER,
-    EXTRA_HAND_CARD
-
+    EXTRA_HAND_CARD,
+    RAMMING_GEAR
 }

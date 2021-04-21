@@ -248,10 +248,14 @@ public class GameController {
                         if(u.responsible(UpgradeResponsibility.MODULAR_CHASSIS) && other != null){
                             u.doAction(player, this);
                         }
+                        if(u.responsible(UpgradeResponsibility.RAMMING_GEAR) && other != null){
+                            u.doAction(player, this);
+                            return;
+                        }
                     }
-
-                    moveToSpace(other, target, heading);
-
+                    if(other.getSpace() != null) {
+                        moveToSpace(other, target, heading);
+                    }
 
                     // Note that we do NOT embed the above statement in a try catch block, since
                     // the thrown exception is supposed to be passed on to the caller
@@ -609,6 +613,20 @@ public class GameController {
         }
     }
 
+    public void rammingGearPush(@NotNull Player player, @NotNull Player pushedPlayer){
+        if(pushedPlayer != null){
+            for(Upgrade u : player.getUpgrades()){
+                if(u.responsible(UpgradeResponsibility.RAMMING_GEAR)) {
+                    //TODO Dani lav med damageCards når implementeret
+                    pushedPlayer.setSpace(null);
+
+                }
+            }
+
+        }
+
+    }
+
     /**
      * fires a single laser and checks for laser upgrades and adjusts accordingly
      * @param projectile the space of the projectile
@@ -758,7 +776,6 @@ public class GameController {
         };
         return  finalmove;
     }
-
 }
 
 
