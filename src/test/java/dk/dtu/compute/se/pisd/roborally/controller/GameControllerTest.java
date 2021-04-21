@@ -1,6 +1,8 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
 import dk.dtu.compute.se.pisd.roborally.model.*;
+import dk.dtu.compute.se.pisd.roborally.model.upgrade.ModularChassis;
+import dk.dtu.compute.se.pisd.roborally.model.upgrade.RailGun;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -287,6 +289,67 @@ class GameControllerTest {
         Assertions.assertEquals("Player 1",board.getPlayers().get(4).getName());
         Assertions.assertEquals("Player 0",board.getPlayers().get(5).getName());
 
+    }
+    /**
+     * @author Daniel
+     */
+    @Test
+    void modularChassisPush(){
+        Board board = gameController.board;
+        ModularChassis modularChassis = new ModularChassis();
+        RailGun railGun = new RailGun();
+
+        Player current = board.getCurrentPlayer();
+        current.setSpace(board.getSpace(1,0));
+        current.setHeading(Heading.SOUTH);
+        current.getUpgrades().add(modularChassis);
+
+        Player player1 = board.getPlayer(1);
+        player1.setSpace(board.getSpace(1,1));
+        player1.getUpgrades().add(railGun);
+
+        gameController.directionMove(current, current.getHeading());
+
+        Assertions.assertTrue(player1.getUpgrades().contains(modularChassis));
+        Assertions.assertTrue(current.getUpgrades().contains(railGun));
+    }
+    /**
+     * @author Daniel
+     */
+    @Test
+    void modularChassisNoPushedPlayer(){
+        Board board = gameController.board;
+        ModularChassis modularChassis = new ModularChassis();
+
+        Player current = board.getCurrentPlayer();
+        current.setSpace(board.getSpace(1,0));
+        current.setHeading(Heading.SOUTH);
+        current.getUpgrades().add(modularChassis);
+
+        gameController.directionMove(current, current.getHeading());
+
+        Assertions.assertTrue(current.getUpgrades().contains(modularChassis));
+    }
+
+    /**
+     * @author Daniel
+     */
+    @Test
+    void modularChassisPushedPlayerNoUpgrades(){
+        Board board = gameController.board;
+        ModularChassis modularChassis = new ModularChassis();
+
+        Player current = board.getCurrentPlayer();
+        current.setSpace(board.getSpace(1,0));
+        current.setHeading(Heading.SOUTH);
+        current.getUpgrades().add(modularChassis);
+
+        Player player1 = board.getPlayer(1);
+        player1.setSpace(board.getSpace(1,1));
+
+        gameController.directionMove(current, current.getHeading());
+
+        Assertions.assertFalse(player1.getUpgrades().contains(modularChassis));
     }
 
 

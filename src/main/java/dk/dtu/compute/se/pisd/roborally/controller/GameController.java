@@ -25,7 +25,6 @@ import dk.dtu.compute.se.pisd.roborally.dal.IRepository;
 import dk.dtu.compute.se.pisd.roborally.dal.RepositoryAccess;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.model.ActivatableBoardElement;
-import dk.dtu.compute.se.pisd.roborally.model.upgrade.ExtraHandCard;
 import dk.dtu.compute.se.pisd.roborally.model.upgrade.Upgrade;
 import dk.dtu.compute.se.pisd.roborally.model.upgrade.UpgradeResponsibility;
 import org.jetbrains.annotations.NotNull;
@@ -182,7 +181,7 @@ public class GameController {
      */
     public void executeCommand(@NotNull Player player, Heading heading, Command command) {
         if (player != null && player.board == board && command != null) {
-            player.setFinalDestination(calculateDestination(player,command));
+            player.setFinalDestination(calculateDestination(player,heading,command));
             switch (command) {
                 case FORWARD -> this.directionMove(player, heading);
                 case RIGHT -> this.turnRight(player);
@@ -247,6 +246,9 @@ public class GameController {
                         if (u.responsible(UpgradeResponsibility.PUSH_LEFT_OR_RIGHT)) {
                             board.setPhase(Phase.PLAYER_INTERACTION);
                             return;
+                        }
+                        if(u.responsible(UpgradeResponsibility.MODULAR_CHASSIS) && other != null){
+                            u.doAction(player, this);
                         }
                     }
 
@@ -586,6 +588,30 @@ public class GameController {
     }
 
     /**
+     * swap cardd when pushing this player if the pushing player har modular chassis upgrade.
+     * @author Daniel
+     * @param player is the pushing player with modular chassis upgrad
+     * @param pushedPlayer is the player swapping a random card for the pushing players' modular chassis upgrade
+     */
+    public void stealUpgradeCard(@NotNull Player player, @NotNull Player pushedPlayer){
+        if(pushedPlayer != null && !pushedPlayer.getUpgrades().isEmpty()){
+            for(Upgrade u : player.getUpgrades()){
+                if(u.responsible(UpgradeResponsibility.MODULAR_CHASSIS)) {
+                    player.getUpgrades().remove(u);
+                    pushedPlayer.getUpgrades().add(u);
+
+                    int randomUpgradeNumber = (int)Math.random()*pushedPlayer.getUpgrades().size();
+
+                    player.getUpgrades().add(pushedPlayer.getUpgrades().get(randomUpgradeNumber));
+                    pushedPlayer.getUpgrades().remove(randomUpgradeNumber);
+                }
+            }
+
+
+        }
+    }
+
+    /**
      * fires a single laser and checks for laser upgrades and adjusts accordingly
      * @param projectile the space of the projectile
      * @param shootingDirection is the direction the laser shoots
@@ -647,6 +673,11 @@ public class GameController {
     public void activatePushPanel(Player player, Heading heading, List<Integer> activatingTurns) {
         if(!activatingTurns.isEmpty() && player!=null && player.getSpace()!=null){
             if(activatingTurns.contains(board.getStep())){
+                for(Upgrade u : player.getUpgrades()){
+                    if(u.responsible(UpgradeResponsibility.PUSH_PANEL_DODGER)){
+                        return;
+                    }
+                }
             directionMove(player,heading);
             }
         }
@@ -717,10 +748,10 @@ public class GameController {
      * @param command
      * @return
      */
-    public Space calculateDestination(Player player, Command command){
-        Space move = board.getNeighbour(player.getSpace(),player.getHeading());
-        Space movex2 = board.getNeighbour(move,player.getHeading());
-        Space movex3 = board.getNeighbour(movex2,player.getHeading());
+    public Space calculateDestination(Player player, Heading heading, Command command){
+        Space move = board.getNeighbour(player.getSpace(),heading);
+        Space movex2 = board.getNeighbour(move,heading);
+        Space movex3 = board.getNeighbour(movex2,heading);
         Space finalmove = switch (command) {
             case FORWARD -> move;
             case FAST_FORWARD -> movex2;

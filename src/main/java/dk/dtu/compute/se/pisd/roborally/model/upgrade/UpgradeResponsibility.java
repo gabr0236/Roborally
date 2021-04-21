@@ -6,5 +6,8 @@ public enum UpgradeResponsibility {
     RAIL_GUN,
     LASER,
     PIT_AVOIDER,
+    MODULAR_CHASSIS,
+    PUSH_PANEL_DODGER,
     EXTRA_HAND_CARD
+
 }
