@@ -182,6 +182,7 @@ public class GameController {
      */
     public void executeCommand(@NotNull Player player, Heading heading, Command command) {
         if (player != null && player.board == board && command != null) {
+            player.setFinalDestination(calculateDestination(player,command));
             switch (command) {
                 case FORWARD -> this.directionMove(player, heading);
                 case RIGHT -> this.turnRight(player);
@@ -525,13 +526,12 @@ public class GameController {
      */
     private void fallIntoPit(@NotNull Player player){
         if(player != null) {
-            /*for (upgrade u:player.Upgrades) {
-                if(u.responsible(pit)){
-                    u.doAction(player, this);
+            for (Upgrade u:player.getUpgrades()) {
+                if(u.responsible(UpgradeResponsibility.PIT_AVOIDER) && player.getSpace() != player.getFinalDestination()){
                     return;
                 }
-                //Loop igennem klasser
-            }*/
+
+            }
             if (player.getSpace().getPit())
                 player.setSpace(null);
         }
@@ -684,18 +684,41 @@ public class GameController {
             shootingPlayer = board.getNeighbour(projectile, shootingDirection.oppositeHeading()).getPlayer();
         }
         if (shootingPlayer != null) {
-                    while (!hit) {
-                        if (projectile.getPlayer() != null) {
-                            Player player = projectile.getPlayer();
-                            // Should be changed if players can take damage.
-                            player.setSpace(null);
-                        }
-                        projectile = board.getNeighbour(projectile, shootingDirection);
-
-                        if (projectile == null)
-                            hit = true;
-                    }
+            while (!hit) {
+                if (projectile.getPlayer() != null) {
+                    Player player = projectile.getPlayer();
+                    // Should be changed if players can take damage.
+                    player.setSpace(null);
                 }
+                projectile = board.getNeighbour(projectile, shootingDirection);
+
+                if (projectile == null)
+                    hit = true;
             }
         }
+    }
+
+    /**
+     * This method calculates and returns the your ending position
+     * @author Sebastian
+     * @param player
+     * @param command
+     * @return
+     */
+    public Space calculateDestination(Player player, Command command){
+        Space move = board.getNeighbour(player.getSpace(),player.getHeading());
+        Space movex2 = board.getNeighbour(move,player.getHeading());
+        Space movex3 = board.getNeighbour(movex2,player.getHeading());
+        Space finalmove = switch (command) {
+            case FORWARD -> move;
+            case FAST_FORWARD -> movex2;
+            case MOVE_x3 -> movex3;
+            default -> null;
+        };
+        return  finalmove;
+    }
+
+}
+
+
 

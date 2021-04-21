@@ -65,6 +65,17 @@ public class Player extends Subject implements Comparable<Player> {
 
     private List<Upgrade> upgrades = new ArrayList<>();
 
+    private Space finalDestination;
+
+    public Space getFinalDestination() {
+        return finalDestination;
+    }
+
+    public void setFinalDestination(Space finalDestination) {
+        this.finalDestination = finalDestination;
+    }
+
+
 
     /**
      * Player constructor, Initializes player, defines the board of the player, set the color and name og the player.

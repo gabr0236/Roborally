@@ -4,5 +4,6 @@ public enum UpgradeResponsibility {
     TELEPORT_PLAYER,
     PUSH_LEFT_OR_RIGHT,
     RAIL_GUN,
-    LASER
+    LASER,
+    PIT_AVOIDER
 }
