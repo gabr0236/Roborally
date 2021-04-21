@@ -2,6 +2,7 @@ package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import dk.dtu.compute.se.pisd.roborally.model.upgrade.RailGun;
+import dk.dtu.compute.se.pisd.roborally.model.upgrade.RearLaser;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -117,6 +118,26 @@ class LaserTest {
 
         Player killedPlayer = gameController.board.getPlayer(1);
         killedPlayer.setSpace(gameController.board.getSpace(0,2));
+        killedPlayer.setHeading(Heading.EAST);
+
+
+        gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
+
+        Assertions.assertNull(killedPlayer.getSpace());
+    }
+
+    @Test
+    void rearLaserUpgrade(){
+        RearLaser rearLaser = new RearLaser();
+
+        Player shootingPlayer = gameController.board.getPlayer(0);
+        shootingPlayer.setSpace(gameController.board.getSpace(0,0));
+        shootingPlayer.setHeading(Heading.WEST);
+        shootingPlayer.getUpgrades().add(rearLaser);
+
+
+        Player killedPlayer = gameController.board.getPlayer(1);
+        killedPlayer.setSpace(gameController.board.getSpace(1,0));
         killedPlayer.setHeading(Heading.EAST);
 
 

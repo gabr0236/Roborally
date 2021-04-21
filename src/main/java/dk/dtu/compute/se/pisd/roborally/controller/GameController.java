@@ -546,8 +546,9 @@ public class GameController {
      * @author @Gabriel
      */
     public void fireAllLasers(@NotNull List<Space> laserSpaces, List<Player> players) {
-        if(board.isLasersActive()) {
-            boolean laserUpgrade = false;
+        if (board.isLasersActive()) {
+            boolean railGunUpgrade = false;
+            boolean rearLaserUpgrade = false;
 
             if (!laserSpaces.isEmpty()) {
                 for (Space space : laserSpaces) {
@@ -557,13 +558,18 @@ public class GameController {
             if (!players.isEmpty()) {
                 for (Player player : players) {
                     for (Upgrade u : player.getUpgrades()) {
-                        if (u.responsible(UpgradeResponsibility.laser)) {
-                            laserUpgrade = true;
+                        if (u.responsible(UpgradeResponsibility.RAIL_GUN)) {
+                            u.doAction(player, this);
+                        }
+                        if (u.responsible(UpgradeResponsibility.REAR_LASER)) {
+                            u.doAction(player, this);
                         }
                     }
-                    if (player.getSpace() != null && (notWallsBlock(player.getSpace(), player.getHeading()) || laserUpgrade)) {
+                    if (player.getSpace() != null && notWallsBlock(player.getSpace(), player.getHeading())) {
                         Space neighbourSpace = board.getNeighbour(player.getSpace(), player.getHeading());
-                        if (neighbourSpace != null) fireLaser(neighbourSpace, player.getHeading());
+                        if (neighbourSpace != null) {
+                            fireLaser(neighbourSpace, player.getHeading());
+                        }
                     }
                 }
             }
@@ -571,57 +577,31 @@ public class GameController {
     }
 
     /**
-     * fires a single laser
+     * fires a single laser and checks for laser upgrades and adjusts accordingly
      * @param projectile the space of the projectile
      * @param shootingDirection is the direction the laser shoots
-     * @author Tobias s205358
+     * @author Tobias s205358, @Daniel
      */
     public void fireLaser(Space projectile, @NotNull Heading shootingDirection) {
-        Player shootingPlayer = null;
-        if(board.getNeighbour(projectile, shootingDirection.oppositeHeading()).getLaser() == null) {
-            shootingPlayer = board.getNeighbour(projectile, shootingDirection.oppositeHeading()).getPlayer();
-        }
-
-        if (projectile!=null) {
-                boolean hit = false;
-
-            if(shootingPlayer != null) {
-                for (Upgrade u : shootingPlayer.getUpgrades()){
-                    if (u.responsible(UpgradeResponsibility.laser)) {
-                        while (!hit) {
-                            u.doAction(shootingPlayer, this);
-                            if (projectile.getPlayer() != null) {
-                                Player player = projectile.getPlayer();
-                                // Should be changed if players can take damage.
-                                player.setSpace(null);
-                            }
-                            projectile = board.getNeighbour(projectile, shootingDirection);
-
-                            if (projectile == null)
-                                hit = true;
-                        }
-                    }
-                }
-            }
+        if (projectile != null) {
+            boolean hit = false;
                 do {
                     if (projectile == null) {
                         hit = true;
-                    }
-                    else if (notWallsBlock(projectile, shootingDirection)) {
-                            if (projectile.getPlayer() != null) {
-                                Player player = projectile.getPlayer();
-                                // Should be changed if players can take damage.
-                                player.setSpace(null);
-                                    hit = true;
-                            } else {
-                                projectile = board.getNeighbour(projectile, shootingDirection);
-                            }
-                    }
-                    else
+                    } else if (notWallsBlock(projectile, shootingDirection)) {
+                        if (projectile.getPlayer() != null) {
+                            Player player = projectile.getPlayer();
+                            // Should be changed if players can take damage.
+                            player.setSpace(null);
+                            hit = true;
+                        } else {
+                            projectile = board.getNeighbour(projectile, shootingDirection);
+                        }
+                    } else
                         hit = true;
                 } while (!hit);
+            }
         }
-    }
 
     /**
      * compares all players' distance to the antenna and orders them in a list from closest to the
@@ -693,7 +673,26 @@ public class GameController {
             executeCommand(player,heading,command);
         }
     }
-}
 
+    public void fireRailGun(Space projectile, Heading shootingDirection) {
+        boolean hit = false;
+        Player shootingPlayer = null;
+        if (board.getNeighbour(projectile, shootingDirection.oppositeHeading()).getLaser() == null) {
+            shootingPlayer = board.getNeighbour(projectile, shootingDirection.oppositeHeading()).getPlayer();
+        }
+        if (shootingPlayer != null) {
+                    while (!hit) {
+                        if (projectile.getPlayer() != null) {
+                            Player player = projectile.getPlayer();
+                            // Should be changed if players can take damage.
+                            player.setSpace(null);
+                        }
+                        projectile = board.getNeighbour(projectile, shootingDirection);
 
+                        if (projectile == null)
+                            hit = true;
+                    }
+                }
+            }
+        }
 
