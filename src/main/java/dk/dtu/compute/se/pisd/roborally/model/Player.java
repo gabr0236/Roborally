@@ -43,8 +43,6 @@ public class Player extends Subject implements Comparable<Player> {
 
     private int numberOfCards = 8;
 
-    final public static int NO_OF_STARTING_CARDS = 8;
-
     final public Board board;
 
     private String name;

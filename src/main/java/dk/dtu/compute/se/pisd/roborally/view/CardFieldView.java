@@ -66,9 +66,12 @@ public class CardFieldView extends GridPane implements ViewObserver {
 
     private final GameController gameController;
 
-    public CardFieldView(@NotNull GameController gameController, @NotNull CommandCardField field) {
+    private final Player player;
+
+    public CardFieldView(@NotNull GameController gameController, @NotNull CommandCardField field, Player player) {
         this.gameController = gameController;
         this.field = field;
+        this.player=player;
 
         this.setAlignment(Pos.CENTER);
         this.setPadding(new Insets(5, 5, 5, 5));
@@ -109,7 +112,7 @@ public class CardFieldView extends GridPane implements ViewObserver {
                 }
             }
 
-            for (int i = 0; i < Player.NO_OF_STARTING_CARDS; i++) {
+            for (int i = 0; i < player.getNumberOfCards(); i++) {
                 CommandCardField other = cardField.player.getCards().get(i);
                 if (other == cardField) {
                     return "C," + i;
@@ -130,7 +133,7 @@ public class CardFieldView extends GridPane implements ViewObserver {
                         return field.player.getProgramField(i);
                     }
                 } else if ("C".equals(strings[0])) {
-                    if (i < Player.NO_OF_STARTING_CARDS) {
+                    if (i < player.getNumberOfCards()) {
                         return field.player.getCards().get(i);
                     }
                 }

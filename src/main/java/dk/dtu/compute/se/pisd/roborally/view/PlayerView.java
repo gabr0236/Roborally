@@ -33,6 +33,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import org.intellij.lang.annotations.Flow;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -98,7 +99,7 @@ public class PlayerView extends Tab implements ViewObserver, Comparable<PlayerVi
         for (int i = 0; i < Player.NO_REGISTERS; i++) {
             CommandCardField cardField = player.getProgramField(i);
             if (cardField != null) {
-                programCardViews[i] = new CardFieldView(gameController, cardField);
+                programCardViews[i] = new CardFieldView(gameController, cardField,player);
                 programPane.add(programCardViews[i], i, 0);
             }
         }
@@ -133,7 +134,7 @@ public class PlayerView extends Tab implements ViewObserver, Comparable<PlayerVi
         for (int i = 0; i < player.getNumberOfCards(); i++) {
             CommandCardField cardField = player.getCards().get(i);
             if (cardField != null) {
-                cardViews.add(new CardFieldView(gameController, cardField));
+                cardViews.add(new CardFieldView(gameController, cardField,player));
                 cardsPane.add(cardViews.get(i), i, 0);
             }
         }
@@ -182,6 +183,11 @@ public class PlayerView extends Tab implements ViewObserver, Comparable<PlayerVi
                     }
                 }
             }
+            //TODO: @Gab se her!!
+            /*if(player.getNumberOfCards()==8){
+                cardViews.add(new CardFieldView(gameController, player.getCards().get(8)));
+                cardsPane.add(cardViews.get(8), 8, 0);
+            }*/
 
             if (player.board.getPhase() != Phase.PLAYER_INTERACTION) {
                 if (!programPane.getChildren().contains(buttonPanel)) {
