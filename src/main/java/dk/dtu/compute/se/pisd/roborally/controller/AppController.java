@@ -30,6 +30,7 @@ import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 
 import dk.dtu.compute.se.pisd.roborally.model.Checkpoint;
+import dk.dtu.compute.se.pisd.roborally.model.upgrade.PushLeftOrRight;
 import javafx.application.Platform;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
@@ -335,7 +336,7 @@ public class AppController {
 
 
     /**
-     * For testing a game quickly
+     * For testing a upgrade quickly
      * @author Gabriel
      */
     public void newTestGameCorridorBlitz() {
@@ -349,9 +350,7 @@ public class AppController {
             player.setRebootSpace(board.getRebootSpaceList().get(i));
         }
 
-
         gameController.startProgrammingPhase();
-
         IRepository repository = RepositoryAccess.getRepository();
         repository.createGameInDB(board);
 
@@ -401,6 +400,32 @@ public class AppController {
         board.setCurrentPlayer(board.getPlayer(0));
         gameController.startProgrammingPhase();
 
+        IRepository repository = RepositoryAccess.getRepository();
+        repository.createGameInDB(board);
+
+        roboRally.createBoardView(gameController);
+    }
+
+    /**
+     * For testing a upgrade quickly
+     * @author Gabriel
+     */
+    public void PushLeftOrRightTest() {
+        Board board = LoadBoard.loadBoard("CORRIDOR BLITZ");
+        gameController = new GameController(board);
+
+        for (int i = 0; i < 4; i++) {
+            Player player = new Player(board, playerColors.get(i), "Player " + i);
+            board.addPlayer(player);
+            player.setSpace(board.getRebootSpaceList().get(i));
+            player.setRebootSpace(board.getRebootSpaceList().get(i));
+        }
+
+        board.getPlayer(2).getUpgrades().add(new PushLeftOrRight());
+        board.getPlayer(2).setHeading(Heading.SOUTH);
+
+        gameController.startProgrammingPhase();
+        board.getPlayer(0).getProgramField(0).setCard(new CommandCard(Command.FORWARD));
         IRepository repository = RepositoryAccess.getRepository();
         repository.createGameInDB(board);
 

@@ -150,26 +150,27 @@ public class GameController {
      */
     private void executeNextStep() {
         Player currentPlayer = board.getCurrentPlayer();
+        // this should not happen
         if (board.getPhase() == Phase.ACTIVATION && currentPlayer != null) {
             int step = board.getStep();
+            // this should not happen
             if (step >= 0 && step < Player.NO_REGISTERS) {
                 CommandCard card = currentPlayer.getProgramField(step).getCard();
                 if (card != null && card.command.isInteractive()) {
                     board.setPhase(Phase.PLAYER_INTERACTION);
                     return;
                 }
+
                 if (card != null) {
                     Command command = card.command;
                     executeCommand(currentPlayer,currentPlayer.getHeading(), command);
                 }
-                nextPlayerOrPhase();
-            } else {
-                // this should not happen
-                assert false;
-            }
+                if(board.getPhase()!=Phase.PLAYER_INTERACTION) {
+                    nextPlayerOrPhase();
+                }
+            } else return;
         } else {
-            // this should not happen
-            assert false;
+            return;
         }
     }
 
@@ -238,7 +239,15 @@ public class GameController {
                     //     infinite recursion here (in some special cases)!
                     //     We will come back to that!
 
+                    for (Upgrade u : player.getUpgrades()) {
+                        if (u.responsible(UpgradeResponsibility.PUSH_LEFT_OR_RIGHT)) {
+                            board.setPhase(Phase.PLAYER_INTERACTION);
+                            return;
+                        }
+                    }
+
                     moveToSpace(other, target, heading);
+
 
                     // Note that we do NOT embed the above statement in a try catch block, since
                     // the thrown exception is supposed to be passed on to the caller
@@ -537,23 +546,25 @@ public class GameController {
      * @author @Gabriel
      */
     public void fireAllLasers(@NotNull List<Space> laserSpaces, List<Player> players) {
-        boolean laserUpgrade = false;
+        if(board.isLasersActive()) {
+            boolean laserUpgrade = false;
 
-        if (!laserSpaces.isEmpty()) {
-            for (Space space : laserSpaces) {
-                fireLaser(space,space.getLaser().getShootingDirection());
-            }
-        }
-        if(!players.isEmpty()){
-            for (Player player : players) {
-                for (Upgrade u : player.getUpgrades()) {
-                    if (u.responsible(UpgradeResponsibility.laser)) {
-                        laserUpgrade = true;
-                    }
+            if (!laserSpaces.isEmpty()) {
+                for (Space space : laserSpaces) {
+                    fireLaser(space, space.getLaser().getShootingDirection());
                 }
-                if(player.getSpace()!=null && (notWallsBlock(player.getSpace(),player.getHeading()) || laserUpgrade)) {
-                    Space neighbourSpace = board.getNeighbour(player.getSpace(), player.getHeading());
-                    if (neighbourSpace != null) fireLaser(neighbourSpace, player.getHeading());
+            }
+            if (!players.isEmpty()) {
+                for (Player player : players) {
+                    for (Upgrade u : player.getUpgrades()) {
+                        if (u.responsible(UpgradeResponsibility.laser)) {
+                            laserUpgrade = true;
+                        }
+                    }
+                    if (player.getSpace() != null && (notWallsBlock(player.getSpace(), player.getHeading()) || laserUpgrade)) {
+                        Space neighbourSpace = board.getNeighbour(player.getSpace(), player.getHeading());
+                        if (neighbourSpace != null) fireLaser(neighbourSpace, player.getHeading());
+                    }
                 }
             }
         }

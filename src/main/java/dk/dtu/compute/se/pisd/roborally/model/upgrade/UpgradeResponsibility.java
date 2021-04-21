@@ -1,6 +1,5 @@
 package dk.dtu.compute.se.pisd.roborally.model.upgrade;
 
 public enum UpgradeResponsibility {
-    TELEPORT_PLAYER,
-    laser
+    TELEPORT_PLAYER, laser, PUSH_LEFT_OR_RIGHT
 }

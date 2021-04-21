@@ -68,6 +68,9 @@ public class Board extends Subject {
 
     private int numberOfCheckpoints;
 
+
+
+    private boolean lasersActive = true;
     /**
      * Creates a board with the size of width * height, and create spaces for the board
      * @param width
@@ -280,7 +283,8 @@ public class Board extends Subject {
                 ", Step: " + getStep() +
                 ", Next checkpoint: " + (player.getLastCheckpointVisited()+1) +
                 ", R: " + player.getRebootSpace().getReboot().REBOOT_NUMBER +
-                ", Energy cubes ⚡" + player.getEnergyBank();
+                ", Energy cubes ⚡" + player.getEnergyBank() +
+                ", Upgrade: " + (player.getUpgrades().isEmpty() ? "0" : player.getUpgrades().get(0).toString());
     }
 
     /**
@@ -358,4 +362,11 @@ public class Board extends Subject {
      */
     public List<Integer> getRebootBorderXValues() { return rebootBorderXValues; }
 
+    public void setLasersActive(boolean lasersActive) {
+        this.lasersActive = lasersActive;
+    }
+
+    public boolean isLasersActive(){
+        return lasersActive;
+    }
 }

@@ -24,6 +24,9 @@ package dk.dtu.compute.se.pisd.roborally.view;
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import dk.dtu.compute.se.pisd.roborally.model.*;
+import dk.dtu.compute.se.pisd.roborally.model.upgrade.PushLeftOrRight;
+import dk.dtu.compute.se.pisd.roborally.model.upgrade.Upgrade;
+import dk.dtu.compute.se.pisd.roborally.model.upgrade.UpgradeResponsibility;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -207,7 +210,6 @@ public class PlayerView extends Tab implements ViewObserver, Comparable<PlayerVi
                     }
                 }
 
-
             } else {
                 if (!programPane.getChildren().contains(playerInteractionPanel)) {
                     programPane.getChildren().remove(buttonPanel);
@@ -216,14 +218,30 @@ public class PlayerView extends Tab implements ViewObserver, Comparable<PlayerVi
                 playerInteractionPanel.getChildren().clear();
 
                 if (player.board.getCurrentPlayer() == player) {
-
-                    CommandCard current = player.getProgramField(player.board.getStep()).getCard();
-                    if (current != null) {
-                        for (Command option : current.command.getOptions()) {
-                            Button optionButton = new Button(option.displayName);
-                            optionButton.setOnAction(e -> gameController.executeCommandOptionAndContinue(option));
-                            optionButton.setDisable(false);
-                            playerInteractionPanel.getChildren().add(optionButton);
+                    boolean isUpgrade = false;
+                    for (Upgrade u:player.getUpgrades()) {
+                        if(u.responsible(UpgradeResponsibility.PUSH_LEFT_OR_RIGHT) && u instanceof PushLeftOrRight){
+                            PushLeftOrRight pushLeftOrRight = (PushLeftOrRight) u;
+                            for (Command c:pushLeftOrRight.getPushOptions()) {
+                                Button optionButton = new Button(c.displayName);
+                                optionButton.setOnAction(e -> ((PushLeftOrRight) u).doAction(
+                                        player.board.getNeighbour(player.getSpace(),player.getHeading()).getPlayer(),
+                                        gameController,c));
+                                optionButton.setDisable(true);
+                            }
+                            isUpgrade=true;
+                            statusLabel.setText(gameController.board.getStatusMessage(player));
+                        }
+                    }
+                    if(!isUpgrade) {
+                        CommandCard current = player.getProgramField(player.board.getStep()).getCard();
+                        if (current != null) {
+                            for (Command option : current.command.getOptions()) {
+                                Button optionButton = new Button(option.displayName);
+                                optionButton.setOnAction(e -> gameController.executeCommandOptionAndContinue(option));
+                                optionButton.setDisable(false);
+                                playerInteractionPanel.getChildren().add(optionButton);
+                            }
                         }
                     }
                 }
@@ -238,6 +256,7 @@ public class PlayerView extends Tab implements ViewObserver, Comparable<PlayerVi
      * @param o the PlayerView for comparing
      * @return int
      */
+    //TODO: @Gab skal laves om
     @Override
     public int compareTo(@NotNull PlayerView o) {
         if(player.getSpace() == null) return -1;
