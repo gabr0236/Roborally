@@ -2,6 +2,7 @@ package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import dk.dtu.compute.se.pisd.roborally.model.upgrade.RailGun;
+import dk.dtu.compute.se.pisd.roborally.model.upgrade.RearLaser;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -81,6 +82,9 @@ class LaserTest {
         Assertions.assertNull(otherPlayer.getSpace());
     }
 
+    /**
+     * @author @Daniel
+     */
     @Test
     void LaserRailGunUpgradeThroughPlayer(){
         RailGun railGun = new RailGun();
@@ -104,6 +108,9 @@ class LaserTest {
         Assertions.assertNull(otherKilledPlayer.getSpace());
     }
 
+    /**
+     * @author @Daniel
+     */
     @Test
     void LaserRailGunUpgradeThroughWall(){
         RailGun railGun = new RailGun();
@@ -123,5 +130,87 @@ class LaserTest {
         gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
 
         Assertions.assertNull(killedPlayer.getSpace());
+    }
+
+    /**
+     * @author @Daniel
+     */
+    @Test
+    void rearLaserUpgrade(){
+        RearLaser rearLaser = new RearLaser();
+
+        Player shootingPlayer = gameController.board.getPlayer(0);
+        shootingPlayer.setSpace(gameController.board.getSpace(0,0));
+        shootingPlayer.setHeading(Heading.WEST);
+        shootingPlayer.getUpgrades().add(rearLaser);
+
+
+        Player killedPlayer = gameController.board.getPlayer(1);
+        killedPlayer.setSpace(gameController.board.getSpace(1,0));
+        killedPlayer.setHeading(Heading.EAST);
+
+
+        gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
+
+        Assertions.assertNull(killedPlayer.getSpace());
+    }
+
+    /**
+     * @author @Daniel
+     */
+    @Test
+    void rearLaserWithRailGunThroughPlayer(){
+        RearLaser rearLaser = new RearLaser();
+        RailGun railGun = new RailGun();
+
+        Player shootingPlayer = gameController.board.getPlayer(0);
+        shootingPlayer.setSpace(gameController.board.getSpace(1,1));
+        shootingPlayer.setHeading(Heading.WEST);
+        shootingPlayer.getUpgrades().add(rearLaser);
+        shootingPlayer.getUpgrades().add(railGun);
+
+        Player killedPlayer = gameController.board.getPlayer(1);
+        killedPlayer.setSpace(gameController.board.getSpace(2,1));
+        killedPlayer.setHeading(Heading.NORTH);
+
+        Player otherKilledPlayer = gameController.board.getPlayer(1);
+        otherKilledPlayer.setSpace(gameController.board.getSpace(3,1));
+        otherKilledPlayer.setHeading(Heading.NORTH);
+
+
+        gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
+
+        Assertions.assertNull(killedPlayer.getSpace());
+        Assertions.assertNull(otherKilledPlayer.getSpace());
+    }
+
+    /**
+     * @author @Daniel
+     */
+    @Test
+    void rearLaserWithRailGunThroughWall(){
+        RearLaser rearLaser = new RearLaser();
+        RailGun railGun = new RailGun();
+
+        Player shootingPlayer = gameController.board.getPlayer(0);
+        shootingPlayer.setSpace(gameController.board.getSpace(1,1));
+        shootingPlayer.setHeading(Heading.WEST);
+        shootingPlayer.getUpgrades().add(rearLaser);
+        shootingPlayer.getUpgrades().add(railGun);
+        shootingPlayer.getSpace().getWallList().add(Heading.EAST);
+
+        Player killedPlayer = gameController.board.getPlayer(1);
+        killedPlayer.setSpace(gameController.board.getSpace(2,1));
+        killedPlayer.setHeading(Heading.NORTH);
+
+        Player otherKilledPlayer = gameController.board.getPlayer(1);
+        otherKilledPlayer.setSpace(gameController.board.getSpace(3,1));
+        otherKilledPlayer.setHeading(Heading.NORTH);
+
+
+        gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
+
+        Assertions.assertNull(killedPlayer.getSpace());
+        Assertions.assertNull(otherKilledPlayer.getSpace());
     }
 }
