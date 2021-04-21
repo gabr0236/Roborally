@@ -558,10 +558,7 @@ public class GameController {
             if (!players.isEmpty()) {
                 for (Player player : players) {
                     for (Upgrade u : player.getUpgrades()) {
-                        if (u.responsible(UpgradeResponsibility.RAIL_GUN)) {
-                            u.doAction(player, this);
-                        }
-                        if (u.responsible(UpgradeResponsibility.REAR_LASER)) {
+                        if (u.responsible(UpgradeResponsibility.LASER)) {
                             u.doAction(player, this);
                         }
                     }

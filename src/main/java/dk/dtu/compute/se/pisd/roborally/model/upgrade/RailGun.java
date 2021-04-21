@@ -13,7 +13,10 @@ import dk.dtu.compute.se.pisd.roborally.model.Space;
 public class RailGun extends Upgrade {
 
     public boolean responsible(UpgradeResponsibility upgradeResponsibility){
-        return upgradeResponsibility == UpgradeResponsibility.RAIL_GUN;
+        if(upgradeResponsibility == UpgradeResponsibility.RAIL_GUN || upgradeResponsibility == UpgradeResponsibility.LASER)
+            return true;
+        else
+            return false;
     }
 
     @Override
