@@ -35,6 +35,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * ...
  *
@@ -53,7 +56,7 @@ public class PlayerView extends Tab implements ViewObserver, Comparable<PlayerVi
     private final GridPane cardsPane;
 
     private final CardFieldView[] programCardViews;
-    private final CardFieldView[] cardViews;
+    private final List<CardFieldView> cardViews = new ArrayList<>();
 
     private final VBox buttonPanel;
 
@@ -126,12 +129,12 @@ public class PlayerView extends Tab implements ViewObserver, Comparable<PlayerVi
         cardsPane = new GridPane();
         cardsPane.setVgap(2.0);
         cardsPane.setHgap(2.0);
-        cardViews = new CardFieldView[player.getNumberOfCards()];
+
         for (int i = 0; i < player.getNumberOfCards(); i++) {
             CommandCardField cardField = player.getCards().get(i);
             if (cardField != null) {
-                cardViews[i] = new CardFieldView(gameController, cardField);
-                cardsPane.add(cardViews[i], i, 0);
+                cardViews.add(new CardFieldView(gameController, cardField));
+                cardsPane.add(cardViews.get(i), i, 0);
             }
         }
 
