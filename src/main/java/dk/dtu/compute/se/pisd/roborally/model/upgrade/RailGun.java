@@ -5,6 +5,11 @@ import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 
+
+/**
+ * fires the Rail gun unaffected by walls or formerly hit players
+ * @author Daniel
+ */
 public class RailGun extends Upgrade {
 
     public boolean responsible(UpgradeResponsibility upgradeResponsibility){
