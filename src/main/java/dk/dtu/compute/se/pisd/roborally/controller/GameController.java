@@ -540,10 +540,10 @@ public class GameController {
 
 
     /**
-     * fires all lasers
+     * fires all lasers and adjusting for laser upgrades
      * @param laserSpaces is the wall lasers being fired
      * @param players List of the players firing a laser
-     * @author @Gabriel
+     * @author @Gabriel, @Daniel
      */
     public void fireAllLasers(@NotNull List<Space> laserSpaces, List<Player> players) {
         if (board.isLasersActive()) {
@@ -674,6 +674,12 @@ public class GameController {
         }
     }
 
+    /**
+     * Fires rail gun laser which is unaffected by walls
+     * @author @Daniel
+     * @param projectile is the space in which the players laser begins
+     * @param shootingDirection is the direction the laser is moving
+     */
     public void fireRailGun(Space projectile, Heading shootingDirection) {
         boolean hit = false;
         Player shootingPlayer = null;

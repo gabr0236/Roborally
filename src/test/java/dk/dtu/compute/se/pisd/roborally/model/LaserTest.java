@@ -82,6 +82,9 @@ class LaserTest {
         Assertions.assertNull(otherPlayer.getSpace());
     }
 
+    /**
+     * @author @Daniel
+     */
     @Test
     void LaserRailGunUpgradeThroughPlayer(){
         RailGun railGun = new RailGun();
@@ -105,6 +108,9 @@ class LaserTest {
         Assertions.assertNull(otherKilledPlayer.getSpace());
     }
 
+    /**
+     * @author @Daniel
+     */
     @Test
     void LaserRailGunUpgradeThroughWall(){
         RailGun railGun = new RailGun();
@@ -126,6 +132,9 @@ class LaserTest {
         Assertions.assertNull(killedPlayer.getSpace());
     }
 
+    /**
+     * @author @Daniel
+     */
     @Test
     void rearLaserUpgrade(){
         RearLaser rearLaser = new RearLaser();
@@ -146,6 +155,9 @@ class LaserTest {
         Assertions.assertNull(killedPlayer.getSpace());
     }
 
+    /**
+     * @author @Daniel
+     */
     @Test
     void rearLaserWithRailGunThroughPlayer(){
         RearLaser rearLaser = new RearLaser();
@@ -172,6 +184,9 @@ class LaserTest {
         Assertions.assertNull(otherKilledPlayer.getSpace());
     }
 
+    /**
+     * @author @Daniel
+     */
     @Test
     void rearLaserWithRailGunThroughWall(){
         RearLaser rearLaser = new RearLaser();

@@ -166,6 +166,9 @@ class GameControllerTest {
         Assertions.assertNull(board.getSpace(1,0).getPlayer());
     }
 
+    /**
+     * @author @Daniel
+     */
     @Test
     void pitTest(){
         Board board = gameController.board;
@@ -177,6 +180,9 @@ class GameControllerTest {
         Assertions.assertNull(current.getSpace());
     }
 
+    /**
+     * @author @Daniel
+     */
     @Test
     void pushToPitTest(){
         Board board = gameController.board;
