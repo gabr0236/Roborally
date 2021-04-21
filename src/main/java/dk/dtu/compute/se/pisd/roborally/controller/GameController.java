@@ -680,11 +680,11 @@ public class GameController {
 
 
     /**
-     * Sets off the push panel
+     * Sets off the push panel, and checks if a player the PushPanelDogdger upgrade in which case the player is not pushed
      * @param player is the player being pushed
      * @param heading is the heading of the pushpanel
      * @param activatingTurns is the steps in which the pushpanel activates
-     * @author @Gabriel
+     * @author @Gabriel @Sebastian
      */
     public void activatePushPanel(Player player, Heading heading, List<Integer> activatingTurns) {
         if(!activatingTurns.isEmpty() && player!=null && player.getSpace()!=null){
@@ -758,7 +758,7 @@ public class GameController {
     }
 
     /**
-     * This method calculates and returns the your ending position
+     * This method calculates and returns the your ending position before you move
      * @author Sebastian
      * @param player
      * @param command

@@ -5,6 +5,9 @@ import dk.dtu.compute.se.pisd.roborally.model.Command;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 
+/**
+ * @author sebastian
+ */
 public class PitAvoider extends Upgrade {
     @Override
     public boolean responsible(UpgradeResponsibility upgradeResponsibility) {
