@@ -25,6 +25,7 @@ import dk.dtu.compute.se.pisd.roborally.dal.IRepository;
 import dk.dtu.compute.se.pisd.roborally.dal.RepositoryAccess;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.model.ActivatableBoardElement;
+import dk.dtu.compute.se.pisd.roborally.model.upgrade.PushPanelDodger;
 import dk.dtu.compute.se.pisd.roborally.model.upgrade.Upgrade;
 import dk.dtu.compute.se.pisd.roborally.model.upgrade.UpgradeResponsibility;
 import org.jetbrains.annotations.NotNull;
@@ -663,6 +664,11 @@ public class GameController {
     public void activatePushPanel(Player player, Heading heading, List<Integer> activatingTurns) {
         if(!activatingTurns.isEmpty() && player!=null && player.getSpace()!=null){
             if(activatingTurns.contains(board.getStep())){
+                for(Upgrade u : player.getUpgrades()){
+                    if(u.responsible(UpgradeResponsibility.PUSH_PANEL_DODGER)){
+                        return;
+                    }
+                }
             directionMove(player,heading);
             }
         }
