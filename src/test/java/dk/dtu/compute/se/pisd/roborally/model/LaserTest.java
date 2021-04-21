@@ -1,6 +1,7 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
+import dk.dtu.compute.se.pisd.roborally.model.upgrade.RailGun;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,6 +25,7 @@ class LaserTest {
         }
         board.setCurrentPlayer(board.getPlayer(0));
     }
+
 
     @AfterEach
     void tearDown() {
@@ -77,5 +79,49 @@ class LaserTest {
 
         Assertions.assertNotNull(player.getSpace());
         Assertions.assertNull(otherPlayer.getSpace());
+    }
+
+    @Test
+    void LaserRailGunUpgradeThroughPlayer(){
+        RailGun railGun = new RailGun();
+
+        Player shootingPlayer = gameController.board.getPlayer(0);
+        shootingPlayer.setSpace(gameController.board.getSpace(0,0));
+        shootingPlayer.setHeading(Heading.SOUTH);
+        shootingPlayer.getUpgrades().add(railGun);
+
+        Player killedPlayer = gameController.board.getPlayer(1);
+        killedPlayer.setSpace(gameController.board.getSpace(0,1));
+        killedPlayer.setHeading(Heading.EAST);
+
+        Player otherKilledPlayer = gameController.board.getPlayer(2);
+        otherKilledPlayer.setSpace(gameController.board.getSpace(0,2));
+        otherKilledPlayer.setHeading(Heading.EAST);
+
+        gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
+
+        Assertions.assertNull(killedPlayer.getSpace());
+        Assertions.assertNull(otherKilledPlayer.getSpace());
+    }
+
+    @Test
+    void LaserRailGunUpgradeThroughWall(){
+        RailGun railGun = new RailGun();
+
+        Player shootingPlayer = gameController.board.getPlayer(0);
+        shootingPlayer.setSpace(gameController.board.getSpace(0,0));
+        shootingPlayer.setHeading(Heading.SOUTH);
+        shootingPlayer.getUpgrades().add(railGun);
+        shootingPlayer.getSpace().getWallList().add(Heading.SOUTH);
+
+
+        Player killedPlayer = gameController.board.getPlayer(1);
+        killedPlayer.setSpace(gameController.board.getSpace(0,2));
+        killedPlayer.setHeading(Heading.EAST);
+
+
+        gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
+
+        Assertions.assertNull(killedPlayer.getSpace());
     }
 }
