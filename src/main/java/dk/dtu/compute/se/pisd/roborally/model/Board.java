@@ -295,7 +295,7 @@ public class Board extends Subject {
                 ", Next checkpoint: " + (player.getLastCheckpointVisited()+1) +
                 ", R: " + player.getRebootSpace().getReboot().REBOOT_NUMBER +
                 ", Energy cubes ⚡" + player.getEnergyBank() +
-                ", Upgrade: " + (player.getUpgrades().isEmpty() ? "0" : player.getUpgrades().get(0).toString());
+                ", Upgrade: " + Arrays.toString(player.getUpgrades().toArray()); //(player.getUpgrades().isEmpty() ? "0" : player.getUpgrades().get(0).toString());
     }
 
     /**

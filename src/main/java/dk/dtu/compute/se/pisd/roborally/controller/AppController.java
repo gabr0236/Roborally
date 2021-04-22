@@ -370,7 +370,7 @@ public class AppController {
             player.setSpace(board.getRebootSpaceList().get(i));
             player.setRebootSpace(board.getRebootSpaceList().get(i));
         }
-
+        board.getPlayers().get(1).getUpgrades().addAll(board.upgrades);
         gameController.startProgrammingPhase();
 
         IRepository repository = RepositoryAccess.getRepository();
