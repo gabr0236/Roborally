@@ -182,7 +182,16 @@ public class GameController {
      */
     public void executeCommand(@NotNull Player player, Heading heading, Command command) {
         if (player != null && player.board == board && command != null) {
-            player.setFinalDestination(calculateDestination(player,heading,command));
+            player.setFinalDestination(calculateDestination(player, heading, command));
+
+            if (command == Command.FORWARD || command == Command.MOVE_x3 || command == Command.FAST_FORWARD){
+                for (Upgrade u : player.getUpgrades()) {
+                    if (u.responsible(UpgradeResponsibility.TELEPORT_PLAYER)) {
+                        u.doAction(player, this);
+                        return;
+                    }
+                }
+            }
             switch (command) {
                 case FORWARD -> this.directionMove(player, heading);
                 case RIGHT -> this.turnRight(player);
@@ -194,18 +203,13 @@ public class GameController {
         }
     }
 
+
     /**
      * Moves a player forward in a specific direction.
      * @param player the player being moved
      * @author @Gabriel
      */
     public void directionMove(@NotNull Player player, @NotNull Heading heading) {
-        for (Upgrade u:player.getUpgrades()) {
-            if(u.responsible(UpgradeResponsibility.TELEPORT_PLAYER)){
-                u.doAction(player,this);
-                return;
-            }
-        }
         Space current = player.getSpace();
         if (current != null && player.board == current.board) {
             Space target = current.board.getNeighbour(current, heading);
@@ -783,11 +787,11 @@ public class GameController {
         Space move = board.getNeighbour(player.getSpace(),heading);
         Space movex2 = board.getNeighbour(move,heading);
         Space movex3 = board.getNeighbour(movex2,heading);
-        Space finalmove = switch (command) {
-            case FORWARD -> move;
-            case FAST_FORWARD -> movex2;
-            case MOVE_x3 -> movex3;
-            default -> null;
+        Space finalmove = player.getSpace();
+        switch (command) {
+            case FORWARD -> finalmove=move;
+            case FAST_FORWARD -> finalmove=movex2;
+            case MOVE_x3 -> finalmove=movex3;
         };
         return  finalmove;
     }

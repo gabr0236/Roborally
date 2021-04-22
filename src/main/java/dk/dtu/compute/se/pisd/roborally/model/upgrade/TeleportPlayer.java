@@ -22,7 +22,7 @@ public class TeleportPlayer extends Upgrade {
             if (command != null && oldSpace != null && gameController.board == player.board) {
                 Space nextSpace = gameController.calculateDestination(player, player.getHeading(), command);
 
-                if (nextSpace != null) {
+                if (nextSpace != null && !nextSpace.getPit()) {
                     if (nextSpace.getPlayer() == null) {
                         player.setSpace(nextSpace);
                     } else {
