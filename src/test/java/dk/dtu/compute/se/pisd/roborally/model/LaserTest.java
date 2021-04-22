@@ -174,7 +174,7 @@ class LaserTest {
         killedPlayer.setHeading(Heading.NORTH);
 
         Player otherKilledPlayer = gameController.board.getPlayer(1);
-        otherKilledPlayer.setSpace(gameController.board.getSpace(3,1));
+        otherKilledPlayer.setSpace(gameController.board.getSpace(3,3));
         otherKilledPlayer.setHeading(Heading.NORTH);
 
 
@@ -225,7 +225,7 @@ class LaserTest {
         shootingPlayer.setSpace(gameController.board.getSpace(1,1));
         shootingPlayer.setHeading(Heading.WEST);
         shootingPlayer.getUpgrades().add(rearLaser);
-        shootingPlayer.getSpace().getWallList().add(Heading.EAST);
+
 
         Player killedPlayer = gameController.board.getPlayer(1);
         killedPlayer.setSpace(gameController.board.getSpace(2,1));
