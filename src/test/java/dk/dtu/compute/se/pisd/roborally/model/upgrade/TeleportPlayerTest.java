@@ -45,8 +45,7 @@ class TeleportPlayerTest {
         board.setStep(0);
         current.getProgramField(0).setCard(new CommandCard(Command.FORWARD));
         current.getSpace().setWallList(new ArrayList<Heading>() {{ add(Heading.SOUTH); }});
-        gameController.directionMove(current, current.getHeading());
-
+        gameController.executeCommand(current,current.getHeading(),Command.FORWARD);
         Assertions.assertEquals(current, board.getSpace(0, 1).getPlayer(), "Player " + current.getName() + " should beSpace (0,1)!");
         Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
     }
@@ -62,7 +61,7 @@ class TeleportPlayerTest {
         board.setStep(0);
         current.getProgramField(0).setCard(new CommandCard(Command.FORWARD));
         current.board.getNeighbour(current.getSpace(),current.getHeading()).setWallList(new ArrayList<Heading>() {{ add(Heading.NORTH); }});
-        gameController.directionMove(current, current.getHeading());
+        gameController.executeCommand(current,current.getHeading(),Command.FORWARD);
 
         Assertions.assertEquals(current, board.getSpace(0, 1).getPlayer(), "Player " + current.getName() + " should beSpace (0,1)!");
         Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
@@ -79,7 +78,7 @@ class TeleportPlayerTest {
         board.setStep(0);
         current.getProgramField(0).setCard(new CommandCard(Command.FAST_FORWARD));
         current.board.getNeighbour(current.getSpace(),current.getHeading()).setPit(true);
-        gameController.directionMove(current, current.getHeading());
+        gameController.executeCommand(current,current.getHeading(),Command.FAST_FORWARD);
 
         Assertions.assertEquals(current, board.getSpace(0, 2).getPlayer(), "Player " + current.getName() + " should beSpace (0,2)!");
         Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
@@ -96,7 +95,7 @@ class TeleportPlayerTest {
         board.setStep(0);
         current.getProgramField(0).setCard(new CommandCard(Command.FORWARD));
         current.board.getNeighbour(current.getSpace(),current.getHeading()).setPlayer(board.getPlayer(1));
-        gameController.directionMove(current, current.getHeading());
+        gameController.executeCommand(current,current.getHeading(),Command.FAST_FORWARD);
 
         Assertions.assertEquals(current, board.getSpace(0, 1).getPlayer(), "Player " + current.getName() + " should beSpace (0,1)!");
         Assertions.assertEquals(board.getPlayer(1), board.getSpace(0, 0).getPlayer(), "Player " + board.getPlayer(1).getName() + " should beSpace (0,0)!");
@@ -114,12 +113,10 @@ class TeleportPlayerTest {
         board.setStep(0);
         current.getProgramField(0).setCard(new CommandCard(Command.MOVE_x3));
         board.getSpace(0,3).setPlayer(board.getPlayer(1));
-        gameController.directionMove(current, current.getHeading());
+        gameController.executeCommand(current,current.getHeading(),Command.MOVE_x3);
 
         Assertions.assertEquals(current, board.getSpace(0, 3).getPlayer(), "Player " + current.getName() + " should beSpace (0,1)!");
         Assertions.assertEquals(board.getPlayer(1), board.getSpace(0, 0).getPlayer(), "Player " + board.getPlayer(1).getName() + " should beSpace (0,0)!");
         Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
     }
-
-
 }
