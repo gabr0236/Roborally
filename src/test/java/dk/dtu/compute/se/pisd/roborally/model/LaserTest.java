@@ -86,7 +86,7 @@ class LaserTest {
      * @author @Daniel
      */
     @Test
-    void LaserRailGunUpgradeThroughPlayer(){
+    void RailGunUpgradeThroughPlayer(){
         RailGun railGun = new RailGun();
 
         Player shootingPlayer = gameController.board.getPlayer(0);
@@ -164,13 +164,13 @@ class LaserTest {
         RailGun railGun = new RailGun();
 
         Player shootingPlayer = gameController.board.getPlayer(0);
-        shootingPlayer.setSpace(gameController.board.getSpace(1,1));
+        shootingPlayer.setSpace(gameController.board.getSpace(1,3));
         shootingPlayer.setHeading(Heading.WEST);
         shootingPlayer.getUpgrades().add(rearLaser);
         shootingPlayer.getUpgrades().add(railGun);
 
         Player killedPlayer = gameController.board.getPlayer(1);
-        killedPlayer.setSpace(gameController.board.getSpace(2,1));
+        killedPlayer.setSpace(gameController.board.getSpace(2,3));
         killedPlayer.setHeading(Heading.NORTH);
 
         Player otherKilledPlayer = gameController.board.getPlayer(1);
@@ -222,25 +222,24 @@ class LaserTest {
         RearLaser rearLaser = new RearLaser();
 
         Player shootingPlayer = gameController.board.getPlayer(0);
-        shootingPlayer.setSpace(gameController.board.getSpace(0,0));
+        shootingPlayer.setSpace(gameController.board.getSpace(1,1));
         shootingPlayer.setHeading(Heading.WEST);
         shootingPlayer.getUpgrades().add(rearLaser);
         shootingPlayer.getSpace().getWallList().add(Heading.EAST);
 
-
         Player killedPlayer = gameController.board.getPlayer(1);
-        killedPlayer.setSpace(gameController.board.getSpace(1,0));
-        killedPlayer.setHeading(Heading.EAST);
+        killedPlayer.setSpace(gameController.board.getSpace(2,1));
+        killedPlayer.setHeading(Heading.SOUTH);
 
         Player otherPlayer = gameController.board.getPlayer(2);
-        otherPlayer.setSpace(gameController.board.getSpace(2,0));
-        otherPlayer.setHeading(Heading.EAST);
-
+        otherPlayer.setSpace(gameController.board.getSpace(3,1));
+        otherPlayer.setHeading(Heading.SOUTH);
 
         gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
 
-        Assertions.assertTrue(otherPlayer.getSpace() != null);
         Assertions.assertTrue(killedPlayer.getSpace() == null);
+        Assertions.assertTrue(otherPlayer.getSpace() != null);
+
     }
 
     /**
@@ -254,12 +253,13 @@ class LaserTest {
         shootingPlayer.setSpace(gameController.board.getSpace(0,0));
         shootingPlayer.setHeading(Heading.WEST);
         shootingPlayer.getUpgrades().add(rearLaser);
+        shootingPlayer.getSpace().getWallList().add(Heading.EAST);
 
 
         Player killedPlayer = gameController.board.getPlayer(1);
         killedPlayer.setSpace(gameController.board.getSpace(3,0));
         killedPlayer.setHeading(Heading.EAST);
-        gameController.board.getSpace(1,0).getWallList().add(Heading.EAST);
+
 
         gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
 

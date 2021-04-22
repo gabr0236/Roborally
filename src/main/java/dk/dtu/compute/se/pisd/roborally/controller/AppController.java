@@ -31,6 +31,8 @@ import dk.dtu.compute.se.pisd.roborally.model.*;
 
 import dk.dtu.compute.se.pisd.roborally.model.Checkpoint;
 import dk.dtu.compute.se.pisd.roborally.model.upgrade.PushLeftOrRight;
+import dk.dtu.compute.se.pisd.roborally.model.upgrade.RailGun;
+import dk.dtu.compute.se.pisd.roborally.model.upgrade.RearLaser;
 import javafx.application.Platform;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
@@ -370,7 +372,10 @@ public class AppController {
             player.setSpace(board.getRebootSpaceList().get(i));
             player.setRebootSpace(board.getRebootSpaceList().get(i));
         }
-        board.getPlayers().get(1).getUpgrades().addAll(board.upgrades);
+        RearLaser rearLaser = new RearLaser();
+        RailGun railGun = new RailGun();
+        board.getPlayers().get(1).getUpgrades().add(rearLaser);
+        board.getPlayers().get(1).getUpgrades().add(railGun);
         gameController.startProgrammingPhase();
 
         IRepository repository = RepositoryAccess.getRepository();

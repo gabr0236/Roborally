@@ -27,8 +27,9 @@ public class RearLaser extends Upgrade{
         if(hasRailGun)
             gameController.fireRailGun(rearNeighbour, player.getHeading().oppositeHeading());
         else
-            gameController.fireLaser(rearNeighbour, player.getHeading().oppositeHeading());
-
+            if(gameController.notWallsBlock(player.getSpace(), player.getHeading().oppositeHeading())) {
+                gameController.fireLaser(rearNeighbour, player.getHeading().oppositeHeading());
+            }
     }
 
     @Override
