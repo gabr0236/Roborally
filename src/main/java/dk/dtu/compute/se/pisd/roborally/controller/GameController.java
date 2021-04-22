@@ -566,8 +566,6 @@ public class GameController {
      */
     public void fireAllLasers(@NotNull List<Space> laserSpaces, List<Player> players) {
         if (board.isLasersActive()) {
-            boolean railGunUpgrade = false;
-            boolean rearLaserUpgrade = false;
 
             if (!laserSpaces.isEmpty()) {
                 for (Space space : laserSpaces) {

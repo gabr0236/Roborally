@@ -240,6 +240,7 @@ class LaserTest {
         gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
 
         Assertions.assertTrue(otherPlayer.getSpace() != null);
+        Assertions.assertTrue(killedPlayer.getSpace() == null);
     }
 
     /**
@@ -256,9 +257,9 @@ class LaserTest {
 
 
         Player killedPlayer = gameController.board.getPlayer(1);
-        killedPlayer.setSpace(gameController.board.getSpace(2,0));
+        killedPlayer.setSpace(gameController.board.getSpace(3,0));
         killedPlayer.setHeading(Heading.EAST);
-        killedPlayer.getSpace().getWallList().add(Heading.WEST);
+        gameController.board.getSpace(1,0).getWallList().add(Heading.EAST);
 
         gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
 
