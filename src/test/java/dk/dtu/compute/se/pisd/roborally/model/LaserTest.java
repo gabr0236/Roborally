@@ -213,4 +213,82 @@ class LaserTest {
         Assertions.assertNull(killedPlayer.getSpace());
         Assertions.assertNull(otherKilledPlayer.getSpace());
     }
+
+    /**
+     * @author @Daniel
+     */
+    @Test
+    void rearLaserUpgradeThroughPlayer(){
+        RearLaser rearLaser = new RearLaser();
+
+        Player shootingPlayer = gameController.board.getPlayer(0);
+        shootingPlayer.setSpace(gameController.board.getSpace(0,0));
+        shootingPlayer.setHeading(Heading.WEST);
+        shootingPlayer.getUpgrades().add(rearLaser);
+        shootingPlayer.getSpace().getWallList().add(Heading.EAST);
+
+
+        Player killedPlayer = gameController.board.getPlayer(1);
+        killedPlayer.setSpace(gameController.board.getSpace(1,0));
+        killedPlayer.setHeading(Heading.EAST);
+
+        Player otherPlayer = gameController.board.getPlayer(2);
+        otherPlayer.setSpace(gameController.board.getSpace(2,0));
+        otherPlayer.setHeading(Heading.EAST);
+
+
+        gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
+
+        Assertions.assertTrue(otherPlayer.getSpace() != null);
+    }
+
+    /**
+     * @author @Daniel
+     */
+    @Test
+    void rearLaserUpgradeThroughWall(){
+        RearLaser rearLaser = new RearLaser();
+
+        Player shootingPlayer = gameController.board.getPlayer(0);
+        shootingPlayer.setSpace(gameController.board.getSpace(0,0));
+        shootingPlayer.setHeading(Heading.WEST);
+        shootingPlayer.getUpgrades().add(rearLaser);
+
+
+        Player killedPlayer = gameController.board.getPlayer(1);
+        killedPlayer.setSpace(gameController.board.getSpace(2,0));
+        killedPlayer.setHeading(Heading.EAST);
+        killedPlayer.getSpace().getWallList().add(Heading.WEST);
+
+        gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
+
+        Assertions.assertTrue(killedPlayer.getSpace() != null);
+    }
+
+
+    /**
+     * @author @Daniel
+     */
+    @Test
+    void rearLaserKillForwardAndBackwards(){
+        RearLaser rearLaser = new RearLaser();
+
+        Player shootingPlayer = gameController.board.getPlayer(0);
+        shootingPlayer.setSpace(gameController.board.getSpace(1,0));
+        shootingPlayer.setHeading(Heading.WEST);
+        shootingPlayer.getUpgrades().add(rearLaser);
+
+        Player killedPlayer = gameController.board.getPlayer(1);
+        killedPlayer.setSpace(gameController.board.getSpace(2,0));
+        killedPlayer.setHeading(Heading.EAST);
+
+        Player otherKilledPlayer = gameController.board.getPlayer(1);
+        otherKilledPlayer.setSpace(gameController.board.getSpace(0,0));
+        otherKilledPlayer.setHeading(Heading.SOUTH);
+
+        gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
+
+        Assertions.assertTrue(killedPlayer.getSpace() == null);
+        Assertions.assertTrue(otherKilledPlayer.getSpace() == null);
+    }
 }
