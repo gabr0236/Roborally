@@ -22,9 +22,11 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
+import dk.dtu.compute.se.pisd.roborally.model.upgrade.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -65,6 +67,12 @@ public class Board extends Subject {
     private List<Space> rebootSpaceList = new ArrayList<>();
 
     private final List<Space> laserSpaceList = new ArrayList<>();
+
+    public final List<Upgrade> upgrades = Arrays.asList(
+            new ExtraHandCard(),new ModularChassis(), new PitAvoider(),new RailGun(),
+            new RammingGear(), new TeleportPlayer(), new PushPanelDodger(), new RearLaser()
+            //,new PushLeftOrRight()
+    );
 
     private int numberOfCheckpoints;
 
@@ -258,17 +266,20 @@ public class Board extends Subject {
      * @param heading the heading of the neighbour
      * @return the space in the given direction; null if there is no (reachable) neighbour
      */
-    public Space getNeighbour(@NotNull Space space, @NotNull Heading heading) {
-        int x = space.x;
-        int y = space.y;
-        switch (heading) {
-            case SOUTH -> y = (y + 1);
-            case WEST -> x = (x - 1);
-            case NORTH -> y = (y - 1);
-            case EAST -> x = (x + 1);
+    public Space getNeighbour(Space space, Heading heading) {
+        if(space!=null) {
+            int x = space.x;
+            int y = space.y;
+            switch (heading) {
+                case SOUTH -> y = (y + 1);
+                case WEST -> x = (x - 1);
+                case NORTH -> y = (y - 1);
+                case EAST -> x = (x + 1);
+            }
+            return getSpace(x, y);
+        } else{
+            return null;
         }
-
-        return getSpace(x, y);
     }
 
     /**

@@ -118,7 +118,7 @@ public class SpaceView extends StackPane implements ViewObserver {
     /**
      * draws all static elements such as pits, antenna, reboots spaces, laser and activatableBoardElements.
      */
-    //TODO: else if better for much of this
+    //TODO: @Gab else if better for much of this
     private void staticElements() {
         this.getChildren().clear();
 

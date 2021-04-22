@@ -9,9 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class teleportPlayerTest {
+class TeleportPlayerTest {
 
     private final int TEST_WIDTH = 12;
     private final int TEST_HEIGHT = 12;
@@ -43,7 +41,7 @@ class teleportPlayerTest {
     void teleportOverWallOnCurrentSpace(){
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
-        current.getUpgrades().add(new teleportPlayer());
+        current.getUpgrades().add(new TeleportPlayer());
         board.setStep(0);
         current.getProgramField(0).setCard(new CommandCard(Command.FORWARD));
         current.getSpace().setWallList(new ArrayList<Heading>() {{ add(Heading.SOUTH); }});
@@ -60,7 +58,7 @@ class teleportPlayerTest {
     void teleportOverWallOnNextSpace(){
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
-        current.getUpgrades().add(new teleportPlayer());
+        current.getUpgrades().add(new TeleportPlayer());
         board.setStep(0);
         current.getProgramField(0).setCard(new CommandCard(Command.FORWARD));
         current.board.getNeighbour(current.getSpace(),current.getHeading()).setWallList(new ArrayList<Heading>() {{ add(Heading.NORTH); }});
@@ -77,7 +75,7 @@ class teleportPlayerTest {
     void teleportOverPit(){
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
-        current.getUpgrades().add(new teleportPlayer());
+        current.getUpgrades().add(new TeleportPlayer());
         board.setStep(0);
         current.getProgramField(0).setCard(new CommandCard(Command.FAST_FORWARD));
         current.board.getNeighbour(current.getSpace(),current.getHeading()).setPit(true);
@@ -94,7 +92,7 @@ class teleportPlayerTest {
     void teleportPlayerSwap(){
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
-        current.getUpgrades().add(new teleportPlayer());
+        current.getUpgrades().add(new TeleportPlayer());
         board.setStep(0);
         current.getProgramField(0).setCard(new CommandCard(Command.FORWARD));
         current.board.getNeighbour(current.getSpace(),current.getHeading()).setPlayer(board.getPlayer(1));
@@ -112,7 +110,7 @@ class teleportPlayerTest {
     void teleportPlayerSwapMove3(){
         Board board = gameController.board;
         Player current = board.getCurrentPlayer();
-        current.getUpgrades().add(new teleportPlayer());
+        current.getUpgrades().add(new TeleportPlayer());
         board.setStep(0);
         current.getProgramField(0).setCard(new CommandCard(Command.MOVE_x3));
         board.getSpace(0,3).setPlayer(board.getPlayer(1));

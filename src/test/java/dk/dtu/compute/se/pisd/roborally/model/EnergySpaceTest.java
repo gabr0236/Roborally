@@ -24,6 +24,7 @@ public class EnergySpaceTest {
             player.setHeading(Heading.values()[i % Heading.values().length]);
         }
         board.setCurrentPlayer(board.getPlayer(0));
+        board.setGameName("TEST");
     }
 
     @AfterEach

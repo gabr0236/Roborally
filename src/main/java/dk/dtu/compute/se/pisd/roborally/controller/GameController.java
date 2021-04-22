@@ -197,7 +197,7 @@ public class GameController {
     /**
      * Moves a player forward in a specific direction.
      * @param player the player being moved
-     * @author Gabriel
+     * @author @Gabriel
      */
     public void directionMove(@NotNull Player player, @NotNull Heading heading) {
         for (Upgrade u:player.getUpgrades()) {
@@ -245,10 +245,10 @@ public class GameController {
                             board.setPhase(Phase.PLAYER_INTERACTION);
                             return;
                         }
-                        if(u.responsible(UpgradeResponsibility.MODULAR_CHASSIS) && other != null){
+                        else if(u.responsible(UpgradeResponsibility.MODULAR_CHASSIS) && other != null){
                             u.doAction(player, this);
                         }
-                        if(u.responsible(UpgradeResponsibility.RAMMING_GEAR) && other != null){
+                        else if(u.responsible(UpgradeResponsibility.RAMMING_GEAR) && other != null){
                             u.doAction(player, this);
                             return;
                         }
@@ -276,7 +276,7 @@ public class GameController {
      * @param space the space checked
      * @param heading the direction checked
      * @return true if no wall(s) is blocking the path
-     * @author Gabriel, Daniel, Sebastian
+     * @author @Gabriel, @Daniel, @Sebastian
      */
     public boolean notWallsBlock(@NotNull Space space, Heading heading) {
         return (!isCurrentSpaceWallBlockingDirection(space, heading)
@@ -288,7 +288,7 @@ public class GameController {
      * @param space the space checked
      * @param heading the direction checked
      * @return true if a wall is blocking the path
-     * @author Gabriel, Daniel, Sebastian
+     * @author @Gabriel, @Daniel, @Sebastian
      */
     public boolean isCurrentSpaceWallBlockingDirection(@NotNull Space space, Heading heading) {
         ArrayList<Heading> walls = space.getWallList();
@@ -304,7 +304,7 @@ public class GameController {
      * @param space the space checked
      * @param heading the direction checked
      * @return true if a wall is blocking the path
-     * @author Gabriel, Daniel, Sebastian
+     * @author @Gabriel, @Daniel, @Sebastian
      */
     public boolean isHeadingNeighbourWallBlockingDirection(@NotNull Space space, Heading heading) {
         Space neighbour = board.getNeighbour(space, heading);
@@ -320,7 +320,7 @@ public class GameController {
      * Moves a player 2 spaces forward.
      * @param player who is being moved
      * @param heading the direction of the move
-     * @author Gabriel, Sebastian, Daniel
+     * @author @Gabriel, @Sebastian, @Daniel
      */
     public void fastForward(@NotNull Player player, @NotNull Heading heading) {
         directionMove(player, heading);
@@ -331,7 +331,7 @@ public class GameController {
      *
      * @param player who is being moved
      * @param heading the direction of the move
-     * @author Gabriel
+     * @author @Gabriel
      */
     public void tripleForward(@NotNull Player player, @NotNull Heading heading){
         directionMove(player, heading);
@@ -342,7 +342,7 @@ public class GameController {
     /**
      * Turns a player to the right.
      * @param player who is affected
-     * @author Gabriel, Sebastian, Daniel
+     * @author @Gabriel, @Sebastian, @Daniel
      */
     public void turnRight(@NotNull Player player) {
         player.setHeading(player.getHeading().next());
@@ -351,7 +351,7 @@ public class GameController {
     /**
      * Turns a player to the left.
      * @param player who is affected
-     * @author Gabriel, Sebastian, Daniel
+     * @author @Gabriel, @Sebastian, @Daniel
      */
     public void turnLeft(@NotNull Player player) {
         player.setHeading(player.getHeading().prev());
@@ -360,7 +360,7 @@ public class GameController {
     /**
      *
      * @param player who is affected
-     * @author Daniel
+     * @author @Daniel
      */
     public void turnAround(@NotNull Player player) {
         player.setHeading(player.getHeading().oppositeHeading());
@@ -369,7 +369,7 @@ public class GameController {
     /**
      * Executes an option from the optional CommandCard chosen by the player on the GUI.
      * @param option list of different commands
-     * @author Gabriel
+     * @author @Gabriel
      */
     public void executeCommandOptionAndContinue(@NotNull Command option) {
         Player currentPlayer = board.getCurrentPlayer();
@@ -402,7 +402,7 @@ public class GameController {
     /**
      * Changes phase if all players have completed all of their programs steps,
      * otherwise change player to next player and change to next step
-     * @author Gabriel
+     * @author @Gabriel
      */
     private void nextPlayerOrPhase() {
         Player currentPlayer = board.getCurrentPlayer();
@@ -438,7 +438,7 @@ public class GameController {
 
     /**
      * Executes all ActivatableBoardElements activateElement methods
-     * @author Gabriel
+     * @author @Gabriel
      */
     public void executeBoardElements() {
         if (board.getPlayers() != null) {
@@ -457,7 +457,7 @@ public class GameController {
      * Registers a players checkpoint in player, and calls findWinner() if player have gathered all checkpoints
      * @param player who landed on the checkpoint
      * @param checkpointNumber to compare with players next checkpoint number
-     * @author Gabriel
+     * @author @Gabriel
      */
     public void registerCheckpoint(@NotNull Player player, int checkpointNumber) {
         if (player != null) {
@@ -471,7 +471,7 @@ public class GameController {
     /**
      * Prints out the winning player
      * @param player who is is checked for winning
-     * @author Gabriel
+     * @author @Gabriel
      */
     public void findWinner(@NotNull Player player) {
         if (player.getLastCheckpointVisited() == board.getNumberOfCheckpoints()) {
@@ -486,7 +486,7 @@ public class GameController {
 
     /**
      * Updates every players reboot space if the player have left the startfield
-     * @author Gabriel, Sebastian
+     * @author @Gabriel, @Sebastian
      */
     public void updateAllReboot() {
         for (Player player : board.getPlayers()) {
@@ -508,7 +508,7 @@ public class GameController {
 
     /**
      * Respawns all dead players
-     * @author Gabriel
+     * @author @Gabriel
      */
     public void respawnPlayers(){
         if(board.getStep()==4) {
@@ -711,6 +711,19 @@ public class GameController {
                 player.addEnergy();
                 energySpace.setEnergyAvailable(false);
                 player.getSpace().playerChanged();
+
+                //TODO: @Gab, midlertidigt her
+                if(board.getGameName()==null) {
+                    boolean b = false;
+                    int r = 0;
+                    do {
+                        Upgrade u = board.upgrades.get(UpgradeResponsibility.getRandom());
+                        if (!player.getUpgrades().contains(u) && player.getUpgrades().size() != UpgradeResponsibility.values().length) {
+                            player.getUpgrades().add(u);
+                            b = true;
+                        }
+                    } while (false);
+                }
             }
         }
     }
@@ -719,7 +732,7 @@ public class GameController {
      * @param player is the player being moved
      * @param heading is the direction the player is moved
      * @param command determines how many spaces the players is moved
-     * @author Gabriel
+     * @author @Gabriel
      */
     public void conveyorMove(Player player, Heading heading, Command command) {
         Space target = player.board.getNeighbour(player.getSpace(), heading);
