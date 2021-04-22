@@ -492,15 +492,14 @@ public class GameController {
         for (Player player : board.getPlayers()) {
             Space current = player.getSpace();
             if(current!=null) {
-                int lastRebootBorder = 0;
-                for (Integer i : board.rebootBorderXValues) {
-                    if (current.x > i) lastRebootBorder = i;
-                }
-                for (Space rebootSpace : board.getRebootSpaceList()) {
-                    if(!rebootSpace.getReboot().isStartField() && rebootSpace.x>lastRebootBorder && rebootSpace.x<=lastRebootBorder+10
-                    && player.getRebootSpace().x<rebootSpace.x){
-                        player.setRebootSpace(rebootSpace);
-                    }
+                for (Integer i: board.getRebootBorderXValues()) {
+                  if(current.x>i && current.x<(i+10)){
+                      for (Space rebootSpace:board.getRebootSpaceList()) {
+                          if(rebootSpace.x>i && rebootSpace.x<(i+10) && !rebootSpace.getReboot().isStartField()){
+                              player.setRebootSpace(rebootSpace);
+                          }
+                      }
+                  }
                 }
             }
         }
