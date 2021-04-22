@@ -26,6 +26,7 @@ import dk.dtu.compute.se.pisd.roborally.model.upgrade.Upgrade;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static dk.dtu.compute.se.pisd.roborally.model.Heading.EAST;
@@ -54,6 +55,9 @@ public class Player extends Subject implements Comparable<Player> {
     private final CommandCardField[] program;
 
     private final List<CommandCardField> cards = new ArrayList<>(8);
+
+    private List<Command> damageCards = new ArrayList<>();
+    private List<Command> savedDamageCards = new ArrayList<>(Arrays.asList(Command.WORM, Command.VIRUS));
 
     private boolean playerWin = false;
 
@@ -241,6 +245,22 @@ public class Player extends Subject implements Comparable<Player> {
 
     public List<CommandCardField> getCards() {
         return cards;
+    }
+
+    public List<Command> getDamageCards() {
+        return damageCards;
+    }
+
+    public void setDamageCards(List<Command> damageCards) {
+        this.damageCards = damageCards;
+    }
+
+    public List<Command> getSavedDamageCards() {
+        return savedDamageCards;
+    }
+
+    public void setSavedDamageCards(List<Command> savedDamageCards) {
+        this.savedDamageCards = savedDamageCards;
     }
 
     /**

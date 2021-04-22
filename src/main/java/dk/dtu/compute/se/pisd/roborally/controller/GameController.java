@@ -30,8 +30,7 @@ import dk.dtu.compute.se.pisd.roborally.model.upgrade.Upgrade;
 import dk.dtu.compute.se.pisd.roborally.model.upgrade.UpgradeResponsibility;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * ...
@@ -59,13 +58,20 @@ public class GameController {
         for (int i = 0; i < board.getPlayersNumber(); i++) {
             Player player = board.getPlayer(i);
             if (player != null) {
+                player.getDamageCards().clear();
+                for (Command damage: player.getSavedDamageCards()) {
+                    player.getDamageCards().add(damage);
+                }
+                System.out.println(player);
+                System.out.println(player.getSavedDamageCards());
+                System.out.println(player.getDamageCards());
                 for (int j = 0; j < Player.NO_REGISTERS; j++) {
                     CommandCardField field = player.getProgramField(j);
                     field.setCard(null);
                     field.setVisible(true);
                 }
                 for (CommandCardField cardField:player.getCards()) {
-                    cardField.setCard(generateRandomCommandCard());
+                    cardField.setCard(generateRandomCommandCard(player));
                     cardField.setVisible(true);
                 }
             }
@@ -73,13 +79,54 @@ public class GameController {
     }
 
     /**
+     * If player has any damage cards, it will be added to the list of command cards.
+     * A random card from the list of cards will be returned.
+     * Whereof any damage card will be removed from the player only if returned. // moved to execute command
+     *
+     * @param player - the player who is handed the card
+     * @return card - the command card
+     *
+     * @author Tobias, s205358@student.dtu.dk
+     */
+    private CommandCard generateRandomCommandCard(Player player) {
+        int random;
+        List<Command> commands = new ArrayList<>(Arrays.asList(
+                Command.FORWARD,
+                Command.RIGHT,
+                Command.LEFT,
+                Command.FAST_FORWARD,
+                Command.MOVE_x3,
+                Command.U_TURN,
+                Command.OPTION_LEFT_RIGHT
+        ));
+
+        if (player != null) {
+            if (!player.getDamageCards().isEmpty()) {
+                for (Command damage : player.getDamageCards()) {
+                    commands.add(damage);
+                }
+            }
+        }
+
+        random = (int) (Math.random() * commands.size());
+        Command card = commands.get(random);
+
+        if (player != null) {
+            if (player.getDamageCards().contains(card)) player.getDamageCards().remove(card);
+        }
+
+        return new CommandCard(card);
+    }
+
+    /**
      * @return random CommandCard
      */
+    /*
     private CommandCard generateRandomCommandCard() {
-        Command[] commands = Command.values();
-        int random = (int) (Math.random() * commands.length);
-        return new CommandCard(commands[random]);
+        int random = (int) (Math.random() * this.commands.size());
+        return new CommandCard(commands.get(random));
     }
+     */
 
     /**
      * Switches phase to activation
@@ -90,7 +137,6 @@ public class GameController {
         board.setPhase(Phase.ACTIVATION);
         board.setCurrentPlayer(board.getPlayer(0));
         board.setStep(0);
-
     }
 
     /**
@@ -184,6 +230,10 @@ public class GameController {
         if (player != null && player.board == board && command != null) {
             player.setFinalDestination(calculateDestination(player, heading, command));
 
+            if (command == Command.SPAM || command == Command.TROJAN || command == Command.WORM || command == Command.VIRUS) {
+                if (player.getSavedDamageCards().contains(command)) player.getSavedDamageCards().remove(command);
+            }
+
             if (command == Command.FORWARD || command == Command.MOVE_x3 || command == Command.FAST_FORWARD){
                 for (Upgrade u : player.getUpgrades()) {
                     if (u.responsible(UpgradeResponsibility.TELEPORT_PLAYER)) {
@@ -199,10 +249,76 @@ public class GameController {
                 case FAST_FORWARD -> this.fastForward(player, heading);
                 case MOVE_x3 -> this.tripleForward(player, heading);
                 case U_TURN -> this.turnAround(player);
+                case SPAM -> this.doSpamDamage(player, heading);
+                case TROJAN -> this.doTrojanDamage(player);
+                case WORM -> this.doWormDamage(player);
+                case VIRUS -> this.doVirusDamage(player);
             }
         }
     }
 
+    /**
+     *
+     * @param player
+     * @param heading
+     *
+     * @author Tobias, s205358@student.dtu.dk
+     */
+    private void doSpamDamage(Player player, Heading heading) {
+        Command random = generateRandomCommandCard(null).command;
+        executeCommand(player, heading, random);
+    }
+
+    /**
+     *
+     * @param player
+     *
+     * @author Tobias, s205358@student.dtu.dk
+     */
+    private void doTrojanDamage(Player player) {
+        for (int i = 0; i < 2; i++) {
+            player.getSavedDamageCards().add(Command.SPAM);
+        }
+    }
+
+    /**
+     *
+     * @param player
+     *
+     * @author Tobias, s205358@student.dtu.dk
+     */
+    private void doWormDamage(Player player) {
+        this.teleportPlayerToReboot(player);
+    }
+
+    /**
+     *
+     * @param player
+     *
+     * @author Tobias, s205358@student.dtu.dk
+     */
+    private void doVirusDamage(Player player) {
+        Space spread[] = new Space[4];
+        Heading heading = null;
+        for (int i = 0; i < spread.length; i++) {
+            spread[i] = player.getSpace();
+            switch(i) {
+                case 0 -> heading = Heading.NORTH;
+                case 1 -> heading = Heading.EAST;
+                case 2 -> heading = Heading.SOUTH;
+                case 3 -> heading = Heading.WEST;
+            }
+            for (int j = 0; j < 6; j++) {
+                spread[i] = board.getNeighbour(spread[i], heading);
+                if (spread[i] != null) {
+                    if (spread[i].getPlayer() != null) {
+                        spread[i].getPlayer().getSavedDamageCards().add(Command.VIRUS);
+                    }
+                }
+            }
+        }
+        doSpamDamage(player, player.getHeading());
+    }
 
     /**
      * Moves a player forward in a specific direction.
@@ -274,7 +390,6 @@ public class GameController {
         fallIntoPit(player);
     }
 
-
     /**
      *Returns true if no walls is blocking a move in a specific direction
      * @param space the space checked
@@ -318,7 +433,6 @@ public class GameController {
         }
         return false;
     }
-
 
     /**
      * Moves a player 2 spaces forward.
@@ -456,7 +570,6 @@ public class GameController {
             }
         }
 
-
     /**
      * Registers a players checkpoint in player, and calls findWinner() if player have gathered all checkpoints
      * @param player who landed on the checkpoint
@@ -555,8 +668,6 @@ public class GameController {
                 player.setSpace(null);
         }
     }
-
-
 
     /**
      * fires all lasers and adjusting for laser upgrades
@@ -678,7 +789,6 @@ public class GameController {
             board.sortPlayersAntennaDistance();
         }
     }
-
 
     /**
      * Sets off the push panel, and checks if a player the PushPanelDogdger upgrade in which case the player is not pushed

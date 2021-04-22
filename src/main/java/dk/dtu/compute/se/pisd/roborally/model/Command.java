@@ -42,7 +42,11 @@ public enum Command {
     FAST_FORWARD("Fast Fwd"),
     MOVE_x3("Move x3"),
     U_TURN("U-Turn"),
-    OPTION_LEFT_RIGHT("Left OR Right", LEFT, RIGHT);
+    OPTION_LEFT_RIGHT("Left OR Right", LEFT, RIGHT),
+    SPAM("Spam"),
+    TROJAN("Trojan"),
+    WORM("Worm"),
+    VIRUS("Virus");
 
     final public String displayName;
 
