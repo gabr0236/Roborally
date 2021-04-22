@@ -144,7 +144,6 @@ class LaserTest {
         shootingPlayer.setHeading(Heading.WEST);
         shootingPlayer.getUpgrades().add(rearLaser);
 
-
         Player killedPlayer = gameController.board.getPlayer(1);
         killedPlayer.setSpace(gameController.board.getSpace(1,0));
         killedPlayer.setHeading(Heading.EAST);
