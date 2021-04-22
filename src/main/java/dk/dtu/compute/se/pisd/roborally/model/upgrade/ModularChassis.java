@@ -22,4 +22,9 @@ public class ModularChassis extends Upgrade{
         gameController.stealUpgradeCard(player, neighbour.getPlayer());
 
     }
+
+    @Override
+    public String toString() {
+        return "ModularChassis";
+    }
 }

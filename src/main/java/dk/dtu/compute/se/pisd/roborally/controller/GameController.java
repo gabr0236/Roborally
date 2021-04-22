@@ -751,20 +751,23 @@ public class GameController {
     public void fireRailGun(Space projectile, Heading shootingDirection) {
         boolean hit = false;
         Player shootingPlayer = null;
-        if (board.getNeighbour(projectile, shootingDirection.oppositeHeading()).getLaser() == null) {
-            shootingPlayer = board.getNeighbour(projectile, shootingDirection.oppositeHeading()).getPlayer();
-        }
-        if (shootingPlayer != null) {
-            while (!hit) {
-                if (projectile.getPlayer() != null) {
-                    Player player = projectile.getPlayer();
-                    // Should be changed if players can take damage.
-                    player.setSpace(null);
-                }
-                projectile = board.getNeighbour(projectile, shootingDirection);
+        Space neighbour = board.getNeighbour(projectile, shootingDirection.oppositeHeading());
+        if (neighbour != null) {
+            if (neighbour.getLaser() == null) {
+                shootingPlayer = board.getNeighbour(projectile, shootingDirection.oppositeHeading()).getPlayer();
+            }
+            if (shootingPlayer != null) {
+                while (!hit) {
+                    if (projectile.getPlayer() != null) {
+                        Player player = projectile.getPlayer();
+                        // Should be changed if players can take damage.
+                        player.setSpace(null);
+                    }
+                    projectile = board.getNeighbour(projectile, shootingDirection);
 
-                if (projectile == null)
-                    hit = true;
+                    if (projectile == null)
+                        hit = true;
+                }
             }
         }
     }

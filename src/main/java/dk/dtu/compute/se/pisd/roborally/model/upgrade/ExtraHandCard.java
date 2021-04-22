@@ -15,4 +15,9 @@ public class ExtraHandCard extends Upgrade {
             player.setExtraHandCard();
         }
     }
+
+    @Override
+    public String toString() {
+        return "ExtraHandCard";
+    }
 }

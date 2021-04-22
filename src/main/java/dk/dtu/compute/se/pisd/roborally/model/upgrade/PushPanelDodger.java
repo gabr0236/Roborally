@@ -15,4 +15,9 @@ public class PushPanelDodger extends Upgrade {
     @Override
     public void doAction(Player player, GameController gameController) { ;
     }
+
+    @Override
+    public String toString() {
+        return "PushPanelDodger";
+    }
 }

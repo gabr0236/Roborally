@@ -24,4 +24,9 @@ public class RailGun extends Upgrade {
         Space projectile = gameController.board.getNeighbour(player.getSpace(), player.getHeading());
         gameController.fireRailGun(projectile, player.getHeading());
     }
+
+    @Override
+    public String toString() {
+        return "RailGun";
+    }
 }

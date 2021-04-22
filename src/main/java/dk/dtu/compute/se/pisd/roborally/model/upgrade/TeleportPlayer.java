@@ -36,4 +36,9 @@ public class TeleportPlayer extends Upgrade {
             }
         }
     }
+
+    @Override
+    public String toString() {
+        return "TeleportPlayer";
+    }
 }

@@ -28,7 +28,10 @@ public class RearLaser extends Upgrade{
             gameController.fireRailGun(rearNeighbour, player.getHeading().oppositeHeading());
         else
             gameController.fireLaser(rearNeighbour, player.getHeading().oppositeHeading());
+    }
 
-
+    @Override
+    public String toString() {
+        return "RearLaser";
     }
 }

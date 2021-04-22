@@ -21,4 +21,9 @@ public class RammingGear extends Upgrade{
         gameController.rammingGearPush(player, neighbour.getPlayer());
 
     }
+
+    @Override
+    public String toString() {
+        return "RammingGear";
+    }
 }
