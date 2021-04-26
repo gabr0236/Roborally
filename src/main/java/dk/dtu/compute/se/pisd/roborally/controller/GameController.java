@@ -270,7 +270,6 @@ public class GameController {
     }
 
     /**
-     *
      * @param player
      *
      * @author Tobias, s205358@student.dtu.dk
@@ -916,8 +915,18 @@ public class GameController {
                 pushedPlayer.getSavedDamageCards().add(Command.TROJAN);
             if(u.responsible(UpgradeResponsibility.VIRUS_MODULE))
                 pushedPlayer.getSavedDamageCards().add(Command.VIRUS);
-            if(u.responsible((UpgradeResponsibility.RAMMING_GEAR)))
-                pushedPlayer.getSavedDamageCards().add(Command.SPAM);
+            if(u.responsible((UpgradeResponsibility.RAMMING_GEAR))){
+                int random = (int)(Math.random()*100);
+                if(random<9) {
+                    pushedPlayer.getSavedDamageCards().add(Command.SPAM);
+                }else {
+                    random = (int)(Math.random()*100);
+                    if(random<=33) pushedPlayer.getSavedDamageCards().add(Command.WORM);
+                    else if(random<=66) pushedPlayer.getSavedDamageCards().add(Command.TROJAN);
+                    else pushedPlayer.getSavedDamageCards().add(Command.VIRUS);
+                }
+
+            }
 
         }
     }
