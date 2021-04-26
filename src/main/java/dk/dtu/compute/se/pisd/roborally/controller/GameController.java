@@ -740,7 +740,7 @@ public class GameController {
                         if (projectile.getPlayer() != null) {
                             Player player = projectile.getPlayer();
                             // Should be changed if players can take damage.
-                            player.getSavedDamageCards().add(Command.SPAM);
+                            dealLaserDamage(player);
                             hit = true;
                         } else {
                             projectile = board.getNeighbour(projectile, shootingDirection);
@@ -847,7 +847,7 @@ public class GameController {
                     if (projectile.getPlayer() != null) {
                         Player player = projectile.getPlayer();
                         // Should be changed if players can take damage.
-                        player.getSavedDamageCards().add(Command.SPAM);
+                        dealLaserDamage(player);
 
                     }
                     projectile = board.getNeighbour(projectile, shootingDirection);
@@ -915,6 +915,29 @@ public class GameController {
             if(u.responsible((UpgradeResponsibility.RAMMING_GEAR)))
                 pushedPlayer.getSavedDamageCards().add(Command.SPAM);
 
+        }
+    }
+
+    /**
+     * A method used in all laser-related methods for doing damage, based on the players upgrade cards
+     *
+     * @author Sebastian
+     * @param player
+     */
+    public void dealLaserDamage(Player player){
+        boolean upgradeUsed = false;
+        for(Upgrade u : player.getUpgrades()){
+            if(u.responsible(UpgradeResponsibility.TROJAN_NEEDLER)){
+                player.getSavedDamageCards().add(Command.TROJAN);
+                upgradeUsed = true;
+            }
+            if(u.responsible(UpgradeResponsibility.BLUE_SCREEN_DEATH)){
+                player.getSavedDamageCards().add(Command.WORM);
+                upgradeUsed = true;
+            }
+        }
+        if (!upgradeUsed){
+          player.getSavedDamageCards().add(Command.SPAM);
         }
     }
 }

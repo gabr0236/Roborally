@@ -1,8 +1,7 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
-import dk.dtu.compute.se.pisd.roborally.model.upgrade.RailGun;
-import dk.dtu.compute.se.pisd.roborally.model.upgrade.RearLaser;
+import dk.dtu.compute.se.pisd.roborally.model.upgrade.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -290,5 +289,55 @@ class LaserTest {
 
         Assertions.assertTrue(killedPlayer.getSavedDamageCards().contains(Command.SPAM));
         Assertions.assertTrue(otherKilledPlayer.getSavedDamageCards().contains(Command.SPAM));
+    }
+
+    /**
+     * @author @Sebastian
+     */
+    @Test
+    void laserDealWormDamage(){
+        Space space = gameController.board.getSpace(0,5);
+        space.setLaser(new Laser(Heading.NORTH));
+
+        Player player = gameController.board.getPlayer(0);
+        player.getUpgrades().add(new BlueScreenDeath());
+
+        gameController.fireLaser(space,space.getLaser().getShootingDirection());
+
+        Assertions.assertTrue(player.getSavedDamageCards().contains(Command.WORM));
+    }
+
+    /**
+     * @author @Sebastian
+     */
+    @Test
+    void laserDealTrojanHorseDamage(){
+        Space space = gameController.board.getSpace(0,5);
+        space.setLaser(new Laser(Heading.NORTH));
+
+        Player player = gameController.board.getPlayer(0);
+        player.getUpgrades().add(new TrojanNeedler());
+
+        gameController.fireLaser(space,space.getLaser().getShootingDirection());
+
+        Assertions.assertTrue(player.getSavedDamageCards().contains(Command.TROJAN));
+    }
+
+    /**
+     * @author @Sebastian
+     */
+    @Test
+    void laserDealTrojanAndWormDamage(){
+        Space space = gameController.board.getSpace(0,5);
+        space.setLaser(new Laser(Heading.NORTH));
+
+        Player player = gameController.board.getPlayer(0);
+        player.getUpgrades().add(new TrojanNeedler());
+        player.getUpgrades().add(new BlueScreenDeath());
+
+        gameController.fireLaser(space,space.getLaser().getShootingDirection());
+
+        Assertions.assertTrue(player.getSavedDamageCards().contains(Command.TROJAN));
+        Assertions.assertTrue(player.getSavedDamageCards().contains(Command.WORM));
     }
 }
