@@ -8,6 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 class GameControllerTest {
 
@@ -15,6 +17,7 @@ class GameControllerTest {
     private final int TEST_HEIGHT = 12;
 
     private GameController gameController;
+    List<Command> DAMAGE_COMMANDS = Arrays.asList(Command.SPAM,Command.TROJAN,Command.WORM, Command.VIRUS);
 
     @BeforeEach
     void setUp() {
@@ -370,10 +373,11 @@ class GameControllerTest {
 
         gameController.directionMove(current, current.getHeading());
 
-        Assertions.assertTrue(player1.getSavedDamageCards().contains(Command.SPAM));
-        Assertions.assertFalse(player1.getSavedDamageCards().contains(Command.VIRUS));
-        Assertions.assertFalse(player1.getSavedDamageCards().contains(Command.WORM));
-        Assertions.assertFalse(player1.getSavedDamageCards().contains(Command.TROJAN));
+        for (Command c:DAMAGE_COMMANDS) {
+            if(player1.getSavedDamageCards().contains(c)){
+                Assertions.assertTrue(player1.getSavedDamageCards().contains(c));
+            }
+        }
         Assertions.assertTrue(board.getSpace(1,2) == player1.getSpace());
     }
 
