@@ -867,7 +867,7 @@ public class GameController {
                     if (projectile.getPlayer() != null) {
                         Player player = projectile.getPlayer();
                         // Should be changed if players can take damage.
-                        dealLaserDamage(player,shootingPlayer);
+                        dealLaserDamage(player);
                         for (Upgrade u : shootingPlayer.getUpgrades()){
                             if(u.responsible(UpgradeResponsibility.PRESSOR_BEAM))
                                 directionMove(player, shootingDirection);
@@ -951,7 +951,7 @@ public class GameController {
      */
     public Command spamOrRandom(){
         int random = (int)(Math.random()*100);
-        if(random<9) {
+        if(random>9) {
             return Command.SPAM;
         }else {
             random = (int)(Math.random()*100);
@@ -969,6 +969,11 @@ public class GameController {
      */
     public void dealLaserDamage(Player player, Player shooter){
         boolean upgradeUsed = false;
+        for (Upgrade u:player.getUpgrades()) {
+            if(u.responsible(UpgradeResponsibility.LUCKY_SHIELD)){
+                return;
+            }
+        }
         for(Upgrade u : shooter.getUpgrades()){
             if(u.responsible(UpgradeResponsibility.TROJAN_NEEDLER)){
                 player.getSavedDamageCards().add(Command.TROJAN);

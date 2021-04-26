@@ -13,7 +13,8 @@ public enum UpgradeResponsibility {
     BLUE_SCREEN_DEATH,
     TROJAN_NEEDLER,
     VIRUS_MODULE,
-    PRESSOR_BEAM;
+    PRESSOR_BEAM,
+    LUCKY_SHIELD;
 
     public static int getRandom() {
         return (int) (Math.random() * values().length-1);
