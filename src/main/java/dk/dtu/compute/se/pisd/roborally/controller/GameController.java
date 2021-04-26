@@ -681,6 +681,7 @@ public class GameController {
      * @author @Gabriel, @Daniel
      */
     public void fireAllLasers(@NotNull List<Space> laserSpaces, List<Player> players) {
+        boolean hasRailGun = false;
         if (board.isLasersActive()) {
 
             if (!laserSpaces.isEmpty()) {
@@ -691,10 +692,16 @@ public class GameController {
             if (!players.isEmpty()) {
                 for (Player player : players) {
                     for (Upgrade u : player.getUpgrades()) {
-                        if (u.responsible(UpgradeResponsibility.LASER)) {
+                        if (u.responsible(UpgradeResponsibility.RAIL_GUN)) {
+                            u.doAction(player, this);
+                            hasRailGun = true;
+                        }
+                        if (u.responsible(UpgradeResponsibility.REAR_LASER)) {
                             u.doAction(player, this);
                         }
                     }
+                    if(hasRailGun)
+                        break;
                     if (player.getSpace() != null && notWallsBlock(player.getSpace(), player.getHeading())) {
                         Space neighbourSpace = board.getNeighbour(player.getSpace(), player.getHeading());
                         if (neighbourSpace != null) {
@@ -707,7 +714,7 @@ public class GameController {
     }
 
     /**
-     * swap cardd when pushing this player if the pushing player har modular chassis upgrade.
+     * swap card when pushing this player if the pushing player har modular chassis upgrade.
      * @author Daniel
      * @param player is the pushing player with modular chassis upgrad
      * @param pushedPlayer is the player swapping a random card for the pushing players' modular chassis upgrade
@@ -871,11 +878,13 @@ public class GameController {
                         Player player = projectile.getPlayer();
                         // Should be changed if players can take damage.
                         dealLaserDamage(player, shootingPlayer);
-                        for (Upgrade u : shootingPlayer.getUpgrades()){
-                            if(u.responsible(UpgradeResponsibility.PRESSOR_BEAM))
-                                directionMove(player, shootingDirection);
+                            for (Upgrade u : shootingPlayer.getUpgrades()) {
+                                if (u.responsible(UpgradeResponsibility.PRESSOR_BEAM)) {
+                                    directionMove(player, shootingDirection);
+                                    projectile = board.getNeighbour(projectile, shootingDirection);
+                                }
+                            }
                         }
-                    }
                     projectile = board.getNeighbour(projectile, shootingDirection);
 
                     if (projectile == null)
