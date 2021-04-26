@@ -268,7 +268,6 @@ public class PlayerView extends Tab implements ViewObserver, Comparable<PlayerVi
      * @param o the PlayerView for comparing
      * @return int
      */
-    //TODO: @Gab skal laves om
     @Override
     public int compareTo(@NotNull PlayerView o) {
         if(player.getSpace() == null) return -1;

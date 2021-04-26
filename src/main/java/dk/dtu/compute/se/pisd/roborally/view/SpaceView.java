@@ -118,7 +118,6 @@ public class SpaceView extends StackPane implements ViewObserver {
     /**
      * draws all static elements such as pits, antenna, reboots spaces, laser and activatableBoardElements.
      */
-    //TODO: @Gab else if better for much of this
     private void staticElements() {
         this.getChildren().clear();
 
@@ -129,7 +128,7 @@ public class SpaceView extends StackPane implements ViewObserver {
             this.getChildren().add(text);
         }
 
-        if (space.getIsAntenna()) {
+        else if (space.getIsAntenna()) {
             this.setStyle("-fx-background-color: #25b5b5");
             Polygon arrow = new Polygon(0.0, 0.0,
                     16.0, 30.0,
@@ -143,8 +142,7 @@ public class SpaceView extends StackPane implements ViewObserver {
             this.getChildren().add(text);
         }
 
-
-        if (space.getReboot() != null) {
+        else if (space.getReboot() != null) {
             this.setStyle("-fx-background-color: greenyellow");
             Polygon arrow = new Polygon(0.0, 0.0,
                     16.0, 30.0,
