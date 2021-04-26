@@ -5,7 +5,7 @@ import dk.dtu.compute.se.pisd.roborally.model.Player;
 
 /**
  * Upgrade allowing player to deal trojan cards instead of spam cards
- * @author Daniel
+ * @author @Daniel
  */
 
 public class TrojanNeedler extends Upgrade{

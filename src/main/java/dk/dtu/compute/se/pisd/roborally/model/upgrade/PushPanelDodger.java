@@ -5,7 +5,7 @@ import dk.dtu.compute.se.pisd.roborally.model.Player;
 
 /**
  * Allows player to not get affected by pushpanels
- * @author sebastian
+ * @author @Sebastian
  */
 public class PushPanelDodger extends Upgrade {
     @Override

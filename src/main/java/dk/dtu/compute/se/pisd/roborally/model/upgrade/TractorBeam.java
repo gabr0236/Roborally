@@ -5,7 +5,7 @@ import dk.dtu.compute.se.pisd.roborally.model.Player;
 
 /**
  * Allows player holding this upgrade to pull players one space when shooting with laser
- * @author Sebastian
+ * @author @Sebastian
  */
 
 public class TractorBeam extends Upgrade {

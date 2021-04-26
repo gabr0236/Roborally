@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Conveyor class. Holds a heading and a Command.
  *
- * @author Gabriel, Sebastian
+ * @author @Gabriel, @Sebastian
  */
 public class Conveyor extends ActivatableBoardElement {
     public final Heading heading;

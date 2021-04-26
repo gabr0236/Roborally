@@ -5,7 +5,7 @@ import dk.dtu.compute.se.pisd.roborally.model.Player;
 
 /**
  * Upgrade allowing player to deal virus cards instead of spam cards
- * @author Daniel
+ * @author @Daniel
  */
 
 public class VirusModule extends Upgrade{

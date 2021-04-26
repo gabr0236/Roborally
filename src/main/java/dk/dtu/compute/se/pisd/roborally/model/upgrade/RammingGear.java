@@ -6,7 +6,7 @@ import dk.dtu.compute.se.pisd.roborally.model.Space;
 
 /**
  * Upgrade that deals damage to players when pushing them
- * @author Daniel
+ * @author @Daniel
  */
 
 public class RammingGear extends Upgrade{
