@@ -6,6 +6,7 @@ import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 
 /**
+ * Allows player to jump over pits
  * @author sebastian
  */
 public class PitAvoider extends Upgrade {
