@@ -911,23 +911,33 @@ public class GameController {
         for(Upgrade u : player.getUpgrades()){
             if(u.responsible(UpgradeResponsibility.BLUE_SCREEN_DEATH))
                 pushedPlayer.getSavedDamageCards().add(Command.WORM);
-            if(u.responsible(UpgradeResponsibility.TROJAN_NEEDLER))
+            else if(u.responsible(UpgradeResponsibility.TROJAN_NEEDLER))
                 pushedPlayer.getSavedDamageCards().add(Command.TROJAN);
-            if(u.responsible(UpgradeResponsibility.VIRUS_MODULE))
+            else if(u.responsible(UpgradeResponsibility.VIRUS_MODULE))
                 pushedPlayer.getSavedDamageCards().add(Command.VIRUS);
-            if(u.responsible((UpgradeResponsibility.RAMMING_GEAR))){
-                int random = (int)(Math.random()*100);
-                if(random<9) {
-                    pushedPlayer.getSavedDamageCards().add(Command.SPAM);
-                }else {
-                    random = (int)(Math.random()*100);
-                    if(random<=33) pushedPlayer.getSavedDamageCards().add(Command.WORM);
-                    else if(random<=66) pushedPlayer.getSavedDamageCards().add(Command.TROJAN);
-                    else pushedPlayer.getSavedDamageCards().add(Command.VIRUS);
-                }
+            else if(u.responsible((UpgradeResponsibility.RAMMING_GEAR))){
+                pushedPlayer.getSavedDamageCards().add(spamOrRandom());
+
 
             }
 
+        }
+    }
+
+    /**
+     * Returns a random damage card of Worm, Virus, Trojan 9% of the time. Else returns Spam.
+     * @return
+     * @author @Gabriel
+     */
+    public Command spamOrRandom(){
+        int random = (int)(Math.random()*100);
+        if(random<9) {
+            return Command.SPAM;
+        }else {
+            random = (int)(Math.random()*100);
+            if(random<=33) return (Command.WORM);
+            else if(random<=66) return (Command.TROJAN);
+            else return (Command.VIRUS);
         }
     }
 
@@ -950,7 +960,7 @@ public class GameController {
             }
         }
         if (!upgradeUsed){
-          player.getSavedDamageCards().add(Command.SPAM);
+          player.getSavedDamageCards().add(spamOrRandom());
         }
     }
 }

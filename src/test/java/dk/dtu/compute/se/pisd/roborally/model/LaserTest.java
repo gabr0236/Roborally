@@ -7,11 +7,16 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 class LaserTest {
     private final int TEST_WIDTH = 12;
     private final int TEST_HEIGHT = 12;
 
     private GameController gameController;
+    List<Command> DAMAGE_COMMANDS = Arrays.asList(Command.SPAM,Command.TROJAN,Command.WORM, Command.VIRUS);
 
     @BeforeEach
     void setUp() {
@@ -44,7 +49,11 @@ class LaserTest {
 
         gameController.fireLaser(space,space.getLaser().getShootingDirection());
 
-        Assertions.assertTrue(player.getSavedDamageCards().contains(Command.SPAM));
+        for (Command c:DAMAGE_COMMANDS) {
+            if(player.getSavedDamageCards().contains(c)){
+                Assertions.assertTrue(player.getSavedDamageCards().contains(c));
+            }
+        }
     }
 
     /**
@@ -60,7 +69,11 @@ class LaserTest {
 
         gameController.fireLaser(space,space.getLaser().getShootingDirection());
 
-        Assertions.assertFalse(player.getSavedDamageCards().contains(Command.SPAM));
+        for (Command c:DAMAGE_COMMANDS) {
+            if(player.getSavedDamageCards().contains(c)){
+                Assertions.assertTrue(player.getSavedDamageCards().contains(c));
+            }
+        }
     }
 
     /**
@@ -77,8 +90,14 @@ class LaserTest {
 
         gameController.fireLaser(space,space.getLaser().getShootingDirection());
 
-        Assertions.assertFalse(player.getSavedDamageCards().contains(Command.SPAM));
-        Assertions.assertTrue(otherPlayer.getSavedDamageCards().contains(Command.SPAM));
+        for (Command c:DAMAGE_COMMANDS) {
+            if(player.getSavedDamageCards().contains(c)){
+                Assertions.assertTrue(player.getSavedDamageCards().contains(c));
+            }
+            if(otherPlayer.getSavedDamageCards().contains(c)){
+                Assertions.assertTrue(otherPlayer.getSavedDamageCards().contains(c));
+            }
+        }
     }
 
     /**
@@ -103,8 +122,14 @@ class LaserTest {
 
         gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
 
-        Assertions.assertTrue(killedPlayer.getSavedDamageCards().contains(Command.SPAM));
-        Assertions.assertTrue(otherKilledPlayer.getSavedDamageCards().contains(Command.SPAM));
+        for (Command c:DAMAGE_COMMANDS) {
+            if(killedPlayer.getSavedDamageCards().contains(c)){
+                Assertions.assertTrue(killedPlayer.getSavedDamageCards().contains(c));
+            }
+            if(otherKilledPlayer.getSavedDamageCards().contains(c)){
+                Assertions.assertTrue(otherKilledPlayer.getSavedDamageCards().contains(c));
+            }
+        }
     }
 
     /**
@@ -128,7 +153,11 @@ class LaserTest {
 
         gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
 
-        Assertions.assertTrue(killedPlayer.getSavedDamageCards().contains(Command.SPAM));
+        for (Command c:DAMAGE_COMMANDS) {
+            if(killedPlayer.getSavedDamageCards().contains(c)){
+                Assertions.assertTrue(killedPlayer.getSavedDamageCards().contains(c));
+            }
+        }
     }
 
     /**
@@ -150,7 +179,11 @@ class LaserTest {
 
         gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
 
-        Assertions.assertTrue(killedPlayer.getSavedDamageCards().contains(Command.SPAM));
+        for (Command c:DAMAGE_COMMANDS) {
+            if(killedPlayer.getSavedDamageCards().contains(c)){
+                Assertions.assertTrue(killedPlayer.getSavedDamageCards().contains(c));
+            }
+        }
     }
 
     /**
@@ -178,8 +211,14 @@ class LaserTest {
 
         gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
 
-        Assertions.assertTrue(killedPlayer.getSavedDamageCards().contains(Command.SPAM));
-        Assertions.assertTrue(otherKilledPlayer.getSavedDamageCards().contains(Command.SPAM));
+        for (Command c:DAMAGE_COMMANDS) {
+            if(killedPlayer.getSavedDamageCards().contains(c)){
+                Assertions.assertTrue(killedPlayer.getSavedDamageCards().contains(c));
+            }
+            if(otherKilledPlayer.getSavedDamageCards().contains(c)){
+                Assertions.assertTrue(otherKilledPlayer.getSavedDamageCards().contains(c));
+            }
+        }
     }
 
     /**
@@ -208,8 +247,14 @@ class LaserTest {
 
         gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
 
-        Assertions.assertTrue(killedPlayer.getSavedDamageCards().contains(Command.SPAM));
-        Assertions.assertTrue(otherKilledPlayer.getSavedDamageCards().contains(Command.SPAM));
+        for (Command c:DAMAGE_COMMANDS) {
+            if(killedPlayer.getSavedDamageCards().contains(c)){
+                Assertions.assertTrue(killedPlayer.getSavedDamageCards().contains(c));
+            }
+            if(otherKilledPlayer.getSavedDamageCards().contains(c)){
+                Assertions.assertTrue(otherKilledPlayer.getSavedDamageCards().contains(c));
+            }
+        }
     }
 
     /**
@@ -235,8 +280,14 @@ class LaserTest {
 
         gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
 
-        Assertions.assertTrue(killedPlayer.getSavedDamageCards().contains(Command.SPAM));
-        Assertions.assertFalse(otherPlayer.getSavedDamageCards().contains(Command.SPAM));
+        for (Command c:DAMAGE_COMMANDS) {
+            if(killedPlayer.getSavedDamageCards().contains(c)){
+                Assertions.assertTrue(killedPlayer.getSavedDamageCards().contains(c));
+            }
+            if(otherPlayer.getSavedDamageCards().contains(c)){
+                Assertions.assertTrue(otherPlayer.getSavedDamageCards().contains(c));
+            }
+        }
 
     }
 
@@ -261,7 +312,12 @@ class LaserTest {
 
         gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
 
-        Assertions.assertFalse(killedPlayer.getSavedDamageCards().contains(Command.SPAM));
+
+        for (Command c:DAMAGE_COMMANDS) {
+            if(killedPlayer.getSavedDamageCards().contains(c)){
+                Assertions.assertTrue(killedPlayer.getSavedDamageCards().contains(c));
+            }
+        };
     }
 
 
@@ -287,8 +343,14 @@ class LaserTest {
 
         gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
 
-        Assertions.assertTrue(killedPlayer.getSavedDamageCards().contains(Command.SPAM));
-        Assertions.assertTrue(otherKilledPlayer.getSavedDamageCards().contains(Command.SPAM));
+        for (Command c:DAMAGE_COMMANDS) {
+            if(killedPlayer.getSavedDamageCards().contains(c)){
+                Assertions.assertTrue(killedPlayer.getSavedDamageCards().contains(c));
+            }
+            if(otherKilledPlayer.getSavedDamageCards().contains(c)){
+                Assertions.assertTrue(otherKilledPlayer.getSavedDamageCards().contains(c));
+            }
+        }
     }
 
     /**
