@@ -574,6 +574,61 @@
       ],
       "x": 7,
       "y": 5
+    },
+    {
+      "walls": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.EnergySpace",
+          "INSTANCE": {}
+        }
+      ],
+      "x": 3,
+      "y": 0
+    },
+    {
+      "walls": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.EnergySpace",
+          "INSTANCE": {}
+        }
+      ],
+      "x": 8,
+      "y": 5
+    },
+    {
+      "walls": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.EnergySpace",
+          "INSTANCE": {}
+        }
+      ],
+      "x": 11,
+      "y": 5
+    },
+    {
+      "walls": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.EnergySpace",
+          "INSTANCE": {}
+        }
+      ],
+      "x": 12,
+      "y": 9
+    },
+    {
+      "walls": [],
+      "activatableBoardElementList": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.EnergySpace",
+          "INSTANCE": {}
+        }
+      ],
+      "x": 4,
+      "y": 4
     }
     ]
 }
