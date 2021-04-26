@@ -931,7 +931,7 @@ public class GameController {
      */
     public Command spamOrRandom(){
         int random = (int)(Math.random()*100);
-        if(random<9) {
+        if(random>9) {
             return Command.SPAM;
         }else {
             random = (int)(Math.random()*100);
@@ -948,6 +948,12 @@ public class GameController {
      * @param player
      */
     public void dealLaserDamage(Player player){
+        for (Upgrade u:player.getUpgrades()) {
+            if(u.responsible(UpgradeResponsibility.LUCKY_SHIELD)){
+                return;
+            }
+        }
+
         boolean upgradeUsed = false;
         for(Upgrade u : player.getUpgrades()){
             if(u.responsible(UpgradeResponsibility.TROJAN_NEEDLER)){

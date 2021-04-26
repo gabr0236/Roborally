@@ -30,6 +30,7 @@ import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 
 import dk.dtu.compute.se.pisd.roborally.model.Checkpoint;
+import dk.dtu.compute.se.pisd.roborally.model.upgrade.LuckyShield;
 import dk.dtu.compute.se.pisd.roborally.model.upgrade.PushLeftOrRight;
 import dk.dtu.compute.se.pisd.roborally.model.upgrade.RailGun;
 import dk.dtu.compute.se.pisd.roborally.model.upgrade.RearLaser;
@@ -374,8 +375,10 @@ public class AppController {
         }
         RearLaser rearLaser = new RearLaser();
         RailGun railGun = new RailGun();
+        LuckyShield luckyShield = new LuckyShield();
         board.getPlayers().get(1).getUpgrades().add(rearLaser);
         board.getPlayers().get(1).getUpgrades().add(railGun);
+        board.getPlayers().get(1).getUpgrades().add(luckyShield);
         gameController.startProgrammingPhase();
 
         IRepository repository = RepositoryAccess.getRepository();
