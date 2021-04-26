@@ -16,8 +16,7 @@ public class PressorBeam extends Upgrade{
     }
 
     @Override
-    public String toString() {
-        return null;
+    public String toString() { return "PressorBeam";
     }
 
 }

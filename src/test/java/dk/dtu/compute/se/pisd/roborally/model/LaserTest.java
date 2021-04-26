@@ -477,4 +477,58 @@ class LaserTest {
 
     }
 
+
+    @Test
+    void railGunPressorBeam(){
+        Board board = gameController.board;
+        PressorBeam pressorBeam = new PressorBeam();
+        RailGun railGun = new RailGun();
+
+        Player shootingPlayer = gameController.board.getPlayer(0);
+        shootingPlayer.setSpace(gameController.board.getSpace(1,0));
+        shootingPlayer.setHeading(Heading.EAST);
+        shootingPlayer.getUpgrades().add(pressorBeam);
+        shootingPlayer.getUpgrades().add(railGun);
+
+        Player hitPlayer = gameController.board.getPlayer(1);
+        hitPlayer.setSpace(gameController.board.getSpace(2,0));
+        hitPlayer.setHeading(Heading.NORTH);
+
+        Player otherHitPlayer = gameController.board.getPlayer(2);
+        otherHitPlayer.setSpace(gameController.board.getSpace(5,0));
+        otherHitPlayer.setHeading(Heading.NORTH);
+
+        gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
+
+        Assertions.assertTrue(hitPlayer.getSpace() == board.getSpace(3,0));
+        Assertions.assertTrue(otherHitPlayer.getSpace() == board.getSpace(6,0));
+    }
+
+    @Test
+    void rearLaserRailGunPressorBeam(){
+        Board board = gameController.board;
+        PressorBeam pressorBeam = new PressorBeam();
+        RailGun railGun = new RailGun();
+        RearLaser rearLaser = new RearLaser();
+
+        Player shootingPlayer = gameController.board.getPlayer(0);
+        shootingPlayer.setSpace(gameController.board.getSpace(1,0));
+        shootingPlayer.setHeading(Heading.WEST);
+        shootingPlayer.getUpgrades().add(pressorBeam);
+        shootingPlayer.getUpgrades().add(railGun);
+        shootingPlayer.getUpgrades().add(rearLaser);
+
+        Player hitPlayer = gameController.board.getPlayer(1);
+        hitPlayer.setSpace(gameController.board.getSpace(2,0));
+        hitPlayer.setHeading(Heading.NORTH);
+
+        Player otherHitPlayer = gameController.board.getPlayer(2);
+        otherHitPlayer.setSpace(gameController.board.getSpace(5,0));
+        otherHitPlayer.setHeading(Heading.NORTH);
+
+        gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
+
+        Assertions.assertTrue(hitPlayer.getSpace() == board.getSpace(3,0));
+        Assertions.assertTrue(otherHitPlayer.getSpace() == board.getSpace(6,0));
+    }
 }

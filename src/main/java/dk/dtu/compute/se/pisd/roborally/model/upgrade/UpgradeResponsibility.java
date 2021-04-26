@@ -3,7 +3,7 @@ package dk.dtu.compute.se.pisd.roborally.model.upgrade;
 public enum UpgradeResponsibility {
     TELEPORT_PLAYER,
     RAIL_GUN,
-    LASER,
+    REAR_LASER,
     PIT_AVOIDER,
     MODULAR_CHASSIS,
     PUSH_PANEL_DODGER,

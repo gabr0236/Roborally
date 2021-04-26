@@ -12,7 +12,7 @@ import dk.dtu.compute.se.pisd.roborally.model.Space;
 public class RearLaser extends Upgrade{
     @Override
     public boolean responsible(UpgradeResponsibility upgradeResponsibility) {
-        return upgradeResponsibility == UpgradeResponsibility.LASER;
+        return upgradeResponsibility == UpgradeResponsibility.REAR_LASER;
     }
 
     @Override
