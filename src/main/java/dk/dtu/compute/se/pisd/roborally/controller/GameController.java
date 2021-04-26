@@ -25,7 +25,6 @@ import dk.dtu.compute.se.pisd.roborally.dal.IRepository;
 import dk.dtu.compute.se.pisd.roborally.dal.RepositoryAccess;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.model.ActivatableBoardElement;
-import dk.dtu.compute.se.pisd.roborally.model.upgrade.ExtraHandCard;
 import dk.dtu.compute.se.pisd.roborally.model.upgrade.Upgrade;
 import dk.dtu.compute.se.pisd.roborally.model.upgrade.UpgradeResponsibility;
 import org.jetbrains.annotations.NotNull;
@@ -835,11 +834,11 @@ public class GameController {
     public void registerEnergySpace(@NotNull Player player, boolean energyAvailable, EnergySpace energySpace){
         if (player != null) {
             if(energyAvailable && board.getStep() == 4){
-               givePlayerUpgrade(player,energySpace);
-                givePlayerUpgrade(player,energySpace);
+               givePlayerRandomUpgrade(player,energySpace);
+                givePlayerRandomUpgrade(player,energySpace);
             }
             else if (energyAvailable || board.getStep() == 4) {
-                givePlayerUpgrade(player,energySpace);
+                givePlayerRandomUpgrade(player,energySpace);
             }
         }
     }
@@ -915,7 +914,12 @@ public class GameController {
         return  finalmove;
     }
 
-    public void givePlayerUpgrade(@NotNull Player player, EnergySpace energySpace){
+    /**
+     * Gives a player a random upgrade
+     * @param player the player recieving upgrade
+     * @param energySpace the space on which the upgrade is given
+     */
+    public void givePlayerRandomUpgrade(@NotNull Player player, EnergySpace energySpace){
         player.addEnergy();
         energySpace.setEnergyAvailable(false);
         player.getSpace().playerChanged();
@@ -950,8 +954,6 @@ public class GameController {
                 pushedPlayer.getSavedDamageCards().add(Command.VIRUS);
             else if(u.responsible((UpgradeResponsibility.RAMMING_GEAR))){
                 pushedPlayer.getSavedDamageCards().add(spamOrRandom());
-
-
             }
 
         }
