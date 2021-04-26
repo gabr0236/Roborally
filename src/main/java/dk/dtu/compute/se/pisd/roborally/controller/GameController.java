@@ -368,10 +368,8 @@ public class GameController {
                         else if(u.responsible(UpgradeResponsibility.MODULAR_CHASSIS) && other != null){
                             u.doAction(player, this);
                         }
-                        else if(u.responsible(UpgradeResponsibility.RAMMING_GEAR) && other != null){
-                            u.doAction(player, this);
-                        }
                     }
+                    dealPushDamage(player, other);
                     if(other.getSpace() != null) {
                         moveToSpace(other, target, heading);
                     }
@@ -726,19 +724,6 @@ public class GameController {
         }
     }
 
-    public void rammingGearPush(@NotNull Player player, @NotNull Player pushedPlayer){
-        if(pushedPlayer != null){
-            for(Upgrade u : player.getUpgrades()){
-                if(u.responsible(UpgradeResponsibility.RAMMING_GEAR)) {
-                    pushedPlayer.getSavedDamageCards().add(Command.SPAM);
-
-                }
-            }
-
-        }
-
-    }
-
     /**
      * fires a single laser and checks for laser upgrades and adjusts accordingly
      * @param projectile the space of the projectile
@@ -910,6 +895,26 @@ public class GameController {
                     b = true;
                 }
             } while (false);
+        }
+    }
+
+    /**
+     * Deals pushing damageCard depending on which upgrades the pushing player has
+     * @author Daniel
+     * @param player
+     * @param pushedPlayer
+     */
+    public void dealPushDamage(Player player, Player pushedPlayer){
+        for(Upgrade u : player.getUpgrades()){
+            if(u.responsible(UpgradeResponsibility.BLUE_SCREEN_DEATH))
+                pushedPlayer.getSavedDamageCards().add(Command.WORM);
+            if(u.responsible(UpgradeResponsibility.TROJAN_NEEDLER))
+                pushedPlayer.getSavedDamageCards().add(Command.TROJAN);
+            if(u.responsible(UpgradeResponsibility.VIRUS_MODULE))
+                pushedPlayer.getSavedDamageCards().add(Command.VIRUS);
+            if(u.responsible((UpgradeResponsibility.RAMMING_GEAR)))
+                pushedPlayer.getSavedDamageCards().add(Command.SPAM);
+
         }
     }
 }

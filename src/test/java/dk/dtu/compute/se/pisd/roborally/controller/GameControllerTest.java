@@ -1,9 +1,7 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
 import dk.dtu.compute.se.pisd.roborally.model.*;
-import dk.dtu.compute.se.pisd.roborally.model.upgrade.ModularChassis;
-import dk.dtu.compute.se.pisd.roborally.model.upgrade.RailGun;
-import dk.dtu.compute.se.pisd.roborally.model.upgrade.RammingGear;
+import dk.dtu.compute.se.pisd.roborally.model.upgrade.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -368,11 +366,95 @@ class GameControllerTest {
 
         Player player1 = board.getPlayer(1);
         player1.setSpace(board.getSpace(1,1));
+        player1.getSavedDamageCards().clear();
 
         gameController.directionMove(current, current.getHeading());
 
         Assertions.assertTrue(player1.getSavedDamageCards().contains(Command.SPAM));
+        Assertions.assertFalse(player1.getSavedDamageCards().contains(Command.VIRUS));
+        Assertions.assertFalse(player1.getSavedDamageCards().contains(Command.WORM));
+        Assertions.assertFalse(player1.getSavedDamageCards().contains(Command.TROJAN));
         Assertions.assertTrue(board.getSpace(1,2) == player1.getSpace());
+    }
+
+    /**
+     * @author Daniel
+     */
+    @Test
+    void BlueScreenDeathPushTest(){
+        Board board = gameController.board;
+        BlueScreenDeath blueScreenDeath = new BlueScreenDeath();
+
+        Player current = board.getCurrentPlayer();
+        current.setSpace(board.getSpace(1,0));
+        current.setHeading(Heading.SOUTH);
+        current.getUpgrades().add(blueScreenDeath);
+
+        Player player1 = board.getPlayer(1);
+        player1.setSpace(board.getSpace(1,1));
+        player1.getSavedDamageCards().clear();
+
+        gameController.directionMove(current, current.getHeading());
+
+        Assertions.assertTrue(player1.getSavedDamageCards().contains(Command.WORM));
+        Assertions.assertFalse(player1.getSavedDamageCards().contains(Command.VIRUS));
+        Assertions.assertFalse(player1.getSavedDamageCards().contains(Command.SPAM));
+        Assertions.assertFalse(player1.getSavedDamageCards().contains(Command.TROJAN));
+        Assertions.assertTrue(board.getSpace(1,2) == player1.getSpace());
+    }
+
+    /**
+     * @author Daniel
+     */
+    @Test
+    void trojanNeedlerPushTest(){
+        Board board = gameController.board;
+        TrojanNeedler trojanNeedler = new TrojanNeedler();
+
+        Player current = board.getCurrentPlayer();
+        current.setSpace(board.getSpace(1,0));
+        current.setHeading(Heading.SOUTH);
+        current.getUpgrades().add(trojanNeedler);
+
+        Player player1 = board.getPlayer(1);
+        player1.setSpace(board.getSpace(1,1));
+        player1.getSavedDamageCards().clear();
+
+        gameController.directionMove(current, current.getHeading());
+
+        Assertions.assertTrue(player1.getSavedDamageCards().contains(Command.TROJAN));
+        Assertions.assertFalse(player1.getSavedDamageCards().contains(Command.VIRUS));
+        Assertions.assertFalse(player1.getSavedDamageCards().contains(Command.SPAM));
+        Assertions.assertFalse(player1.getSavedDamageCards().contains(Command.WORM));
+        Assertions.assertTrue(board.getSpace(1,2) == player1.getSpace());
+    }
+
+    /**
+     * @author Daniel
+     */
+    @Test
+    void virusModulePushTest(){
+        Board board = gameController.board;
+        VirusModule virusModule = new VirusModule();
+
+        Player current = board.getCurrentPlayer();
+        current.setSpace(board.getSpace(1,0));
+        current.setHeading(Heading.SOUTH);
+        current.getUpgrades().add(virusModule);
+
+        Player player1 = board.getPlayer(1);
+        player1.setSpace(board.getSpace(1,1));
+        player1.getSavedDamageCards().clear();
+
+        gameController.directionMove(current, current.getHeading());
+
+        Assertions.assertTrue(player1.getSavedDamageCards().contains(Command.VIRUS));
+        Assertions.assertFalse(player1.getSavedDamageCards().contains(Command.SPAM));
+        Assertions.assertFalse(player1.getSavedDamageCards().contains(Command.WORM));
+        Assertions.assertFalse(player1.getSavedDamageCards().contains(Command.TROJAN));
+        Assertions.assertTrue(board.getSpace(1,2) == player1.getSpace());
+
+
     }
 
 

@@ -17,8 +17,7 @@ public class RammingGear extends Upgrade{
 
     @Override
     public void doAction(Player player, GameController gameController) {
-        Space neighbour = gameController.board.getNeighbour(player.getSpace(), player.getHeading());
-        gameController.rammingGearPush(player, neighbour.getPlayer());
+
 
     }
 
