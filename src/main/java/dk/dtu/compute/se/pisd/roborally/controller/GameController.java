@@ -374,7 +374,6 @@ public class GameController {
                         }
                         else if(u.responsible(UpgradeResponsibility.RAMMING_GEAR) && other != null){
                             u.doAction(player, this);
-                            return;
                         }
                     }
                     if(other.getSpace() != null) {
@@ -643,7 +642,7 @@ public class GameController {
     /**
      * Teleports players to reboot space and pushes players forward if multiple players is respawning on the same space
      * @param player the "dead" player with space null, will be respawned on the reboot space
-     * @author Gabriel, Sebastian
+     * @author Gabriel, Sebastian, Daniel
      */
     public void teleportPlayerToReboot(@NotNull Player player){
         if (player.getRebootSpace().getPlayer() != null){
@@ -653,6 +652,8 @@ public class GameController {
             player.setSpace(player.getRebootSpace());
             player.setHeading(player.getRebootSpace().getReboot().REBOOT_HEADING);
         }
+        player.getSavedDamageCards().add(Command.SPAM);
+        player.getSavedDamageCards().add(Command.SPAM);
     }
 
     /**
@@ -733,8 +734,7 @@ public class GameController {
         if(pushedPlayer != null){
             for(Upgrade u : player.getUpgrades()){
                 if(u.responsible(UpgradeResponsibility.RAMMING_GEAR)) {
-                    //TODO Dani lav med damageCards når implementeret
-                    pushedPlayer.setSpace(null);
+                    pushedPlayer.getSavedDamageCards().add(Command.SPAM);
 
                 }
             }
@@ -759,7 +759,7 @@ public class GameController {
                         if (projectile.getPlayer() != null) {
                             Player player = projectile.getPlayer();
                             // Should be changed if players can take damage.
-                            player.setSpace(null);
+                            player.getSavedDamageCards().add(Command.SPAM);
                             hit = true;
                         } else {
                             projectile = board.getNeighbour(projectile, shootingDirection);
@@ -822,23 +822,12 @@ public class GameController {
      */
     public void registerEnergySpace(@NotNull Player player, boolean energyAvailable, EnergySpace energySpace){
         if (player != null) {
-            if (energyAvailable || board.getStep() == 4) {
-                player.addEnergy();
-                energySpace.setEnergyAvailable(false);
-                player.getSpace().playerChanged();
-
-                //TODO: @Gab, midlertidigt her
-                if(board.getGameName()==null) {
-                    boolean b = false;
-                    int r = 0;
-                    do {
-                        Upgrade u = board.upgrades.get(UpgradeResponsibility.getRandom());
-                        if (!player.getUpgrades().contains(u) && player.getUpgrades().size() != UpgradeResponsibility.values().length) {
-                            player.getUpgrades().add(u);
-                            b = true;
-                        }
-                    } while (false);
-                }
+            if(energyAvailable && board.getStep() == 4){
+               givePlayerUpgrade(player,energySpace);
+                givePlayerUpgrade(player,energySpace);
+            }
+            else if (energyAvailable || board.getStep() == 4) {
+                givePlayerUpgrade(player,energySpace);
             }
         }
     }
@@ -877,7 +866,8 @@ public class GameController {
                     if (projectile.getPlayer() != null) {
                         Player player = projectile.getPlayer();
                         // Should be changed if players can take damage.
-                        player.setSpace(null);
+                        player.getSavedDamageCards().add(Command.SPAM);
+
                     }
                     projectile = board.getNeighbour(projectile, shootingDirection);
 
@@ -906,6 +896,25 @@ public class GameController {
             case MOVE_x3 -> finalmove=movex3;
         };
         return  finalmove;
+    }
+
+    public void givePlayerUpgrade(@NotNull Player player, EnergySpace energySpace){
+        player.addEnergy();
+        energySpace.setEnergyAvailable(false);
+        player.getSpace().playerChanged();
+
+        //TODO: @Gab, midlertidigt her
+        if(board.getGameName()==null) {
+            boolean b = false;
+            int r = 0;
+            do {
+                Upgrade u = board.upgrades.get(UpgradeResponsibility.getRandom());
+                if (!player.getUpgrades().contains(u) && player.getUpgrades().size() != UpgradeResponsibility.values().length) {
+                    player.getUpgrades().add(u);
+                    b = true;
+                }
+            } while (false);
+        }
     }
 }
 

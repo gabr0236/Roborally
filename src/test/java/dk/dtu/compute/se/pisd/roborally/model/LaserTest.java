@@ -45,7 +45,7 @@ class LaserTest {
 
         gameController.fireLaser(space,space.getLaser().getShootingDirection());
 
-        Assertions.assertNull(player.getSpace());
+        Assertions.assertTrue(player.getSavedDamageCards().contains(Command.SPAM));
     }
 
     /**
@@ -61,7 +61,7 @@ class LaserTest {
 
         gameController.fireLaser(space,space.getLaser().getShootingDirection());
 
-        Assertions.assertNotNull(player.getSpace());
+        Assertions.assertFalse(player.getSavedDamageCards().contains(Command.SPAM));
     }
 
     /**
@@ -78,8 +78,8 @@ class LaserTest {
 
         gameController.fireLaser(space,space.getLaser().getShootingDirection());
 
-        Assertions.assertNotNull(player.getSpace());
-        Assertions.assertNull(otherPlayer.getSpace());
+        Assertions.assertFalse(player.getSavedDamageCards().contains(Command.SPAM));
+        Assertions.assertTrue(otherPlayer.getSavedDamageCards().contains(Command.SPAM));
     }
 
     /**
@@ -104,8 +104,8 @@ class LaserTest {
 
         gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
 
-        Assertions.assertNull(killedPlayer.getSpace());
-        Assertions.assertNull(otherKilledPlayer.getSpace());
+        Assertions.assertTrue(killedPlayer.getSavedDamageCards().contains(Command.SPAM));
+        Assertions.assertTrue(otherKilledPlayer.getSavedDamageCards().contains(Command.SPAM));
     }
 
     /**
@@ -129,7 +129,7 @@ class LaserTest {
 
         gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
 
-        Assertions.assertNull(killedPlayer.getSpace());
+        Assertions.assertTrue(killedPlayer.getSavedDamageCards().contains(Command.SPAM));
     }
 
     /**
@@ -151,7 +151,7 @@ class LaserTest {
 
         gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
 
-        Assertions.assertNull(killedPlayer.getSpace());
+        Assertions.assertTrue(killedPlayer.getSavedDamageCards().contains(Command.SPAM));
     }
 
     /**
@@ -179,8 +179,8 @@ class LaserTest {
 
         gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
 
-        Assertions.assertNull(killedPlayer.getSpace());
-        Assertions.assertNull(otherKilledPlayer.getSpace());
+        Assertions.assertTrue(killedPlayer.getSavedDamageCards().contains(Command.SPAM));
+        Assertions.assertTrue(otherKilledPlayer.getSavedDamageCards().contains(Command.SPAM));
     }
 
     /**
@@ -209,8 +209,8 @@ class LaserTest {
 
         gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
 
-        Assertions.assertNull(killedPlayer.getSpace());
-        Assertions.assertNull(otherKilledPlayer.getSpace());
+        Assertions.assertTrue(killedPlayer.getSavedDamageCards().contains(Command.SPAM));
+        Assertions.assertTrue(otherKilledPlayer.getSavedDamageCards().contains(Command.SPAM));
     }
 
     /**
@@ -236,8 +236,8 @@ class LaserTest {
 
         gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
 
-        Assertions.assertTrue(killedPlayer.getSpace() == null);
-        Assertions.assertTrue(otherPlayer.getSpace() != null);
+        Assertions.assertTrue(killedPlayer.getSavedDamageCards().contains(Command.SPAM));
+        Assertions.assertFalse(otherPlayer.getSavedDamageCards().contains(Command.SPAM));
 
     }
 
@@ -262,7 +262,7 @@ class LaserTest {
 
         gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
 
-        Assertions.assertTrue(killedPlayer.getSpace() != null);
+        Assertions.assertFalse(killedPlayer.getSavedDamageCards().contains(Command.SPAM));
     }
 
 
@@ -288,7 +288,7 @@ class LaserTest {
 
         gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
 
-        Assertions.assertTrue(killedPlayer.getSpace() == null);
-        Assertions.assertTrue(otherKilledPlayer.getSpace() == null);
+        Assertions.assertTrue(killedPlayer.getSavedDamageCards().contains(Command.SPAM));
+        Assertions.assertTrue(otherKilledPlayer.getSavedDamageCards().contains(Command.SPAM));
     }
 }

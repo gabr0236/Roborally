@@ -9,7 +9,10 @@ public enum UpgradeResponsibility {
     PUSH_PANEL_DODGER,
     EXTRA_HAND_CARD,
     RAMMING_GEAR,
-    PUSH_LEFT_OR_RIGHT;
+    PUSH_LEFT_OR_RIGHT,
+    BLUE_SCREEN_DEATH,
+    TROJAN_NEEDLER,
+    VIRUS_MODULE;
 
     public static int getRandom() {
         return (int) (Math.random() * values().length-1);

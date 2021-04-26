@@ -154,5 +154,22 @@ public class RebootTest {
         Assertions.assertEquals(player.getRebootSpace(),board.getSpace(8,4));
     }
 
+    @Test
+    void checkRebootSpamCards() {
+        Board board = gameController.board;
+        Player pushedPlayer = board.getCurrentPlayer();
+        Player current = board.getPlayer(1);
+        board.getSpace(4,4).setAntenna(true);
+
+        pushedPlayer.setSpace(board.getSpace(0,0));
+        current.setSpace(board.getSpace(0,1));
+        current.setHeading(Heading.NORTH);
+        gameController.directionMove(current, current.getHeading());
+        board.setPhase(Phase.ACTIVATION);
+        gameController.executePrograms();
+
+        Assertions.assertTrue(pushedPlayer.getSavedDamageCards().contains(Command.SPAM));
+
+    }
 
 }
