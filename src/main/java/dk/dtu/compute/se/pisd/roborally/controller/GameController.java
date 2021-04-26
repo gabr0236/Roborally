@@ -818,23 +818,12 @@ public class GameController {
      */
     public void registerEnergySpace(@NotNull Player player, boolean energyAvailable, EnergySpace energySpace){
         if (player != null) {
-            if (energyAvailable || board.getStep() == 4) {
-                player.addEnergy();
-                energySpace.setEnergyAvailable(false);
-                player.getSpace().playerChanged();
-
-                //TODO: @Gab, midlertidigt her
-                if(board.getGameName()==null) {
-                    boolean b = false;
-                    int r = 0;
-                    do {
-                        Upgrade u = board.upgrades.get(UpgradeResponsibility.getRandom());
-                        if (!player.getUpgrades().contains(u) && player.getUpgrades().size() != UpgradeResponsibility.values().length) {
-                            player.getUpgrades().add(u);
-                            b = true;
-                        }
-                    } while (false);
-                }
+            if(energyAvailable && board.getStep() == 4){
+               givePlayerUpgrade(player,energySpace.isEnergyAvailable(),energySpace);
+               givePlayerUpgrade(player,energySpace.isEnergyAvailable(),energySpace);
+            }
+            else if (energyAvailable || board.getStep() == 4) {
+                givePlayerUpgrade(player,energySpace.isEnergyAvailable(),energySpace);
             }
         }
     }
@@ -902,6 +891,25 @@ public class GameController {
             case MOVE_x3 -> finalmove=movex3;
         };
         return  finalmove;
+    }
+
+    public void givePlayerUpgrade(@NotNull Player player, boolean energyAvailable, EnergySpace energySpace){
+        player.addEnergy();
+        energySpace.setEnergyAvailable(false);
+        player.getSpace().playerChanged();
+
+        //TODO: @Gab, midlertidigt her
+        if(board.getGameName()==null) {
+            boolean b = false;
+            int r = 0;
+            do {
+                Upgrade u = board.upgrades.get(UpgradeResponsibility.getRandom());
+                if (!player.getUpgrades().contains(u) && player.getUpgrades().size() != UpgradeResponsibility.values().length) {
+                    player.getUpgrades().add(u);
+                    b = true;
+                }
+            } while (false);
+        }
     }
 }
 
