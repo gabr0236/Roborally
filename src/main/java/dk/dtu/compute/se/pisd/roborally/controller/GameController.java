@@ -370,7 +370,6 @@ public class GameController {
                         }
                         else if(u.responsible(UpgradeResponsibility.RAMMING_GEAR) && other != null){
                             u.doAction(player, this);
-                            return;
                         }
                     }
                     if(other.getSpace() != null) {
@@ -639,7 +638,7 @@ public class GameController {
     /**
      * Teleports players to reboot space and pushes players forward if multiple players is respawning on the same space
      * @param player the "dead" player with space null, will be respawned on the reboot space
-     * @author Gabriel, Sebastian
+     * @author Gabriel, Sebastian, Daniel
      */
     public void teleportPlayerToReboot(@NotNull Player player){
         if (player.getRebootSpace().getPlayer() != null){
@@ -649,6 +648,8 @@ public class GameController {
             player.setSpace(player.getRebootSpace());
             player.setHeading(player.getRebootSpace().getReboot().REBOOT_HEADING);
         }
+        player.getSavedDamageCards().add(Command.SPAM);
+        player.getSavedDamageCards().add(Command.SPAM);
     }
 
     /**
@@ -729,8 +730,7 @@ public class GameController {
         if(pushedPlayer != null){
             for(Upgrade u : player.getUpgrades()){
                 if(u.responsible(UpgradeResponsibility.RAMMING_GEAR)) {
-                    //TODO Dani lav med damageCards når implementeret
-                    pushedPlayer.setSpace(null);
+                    pushedPlayer.getSavedDamageCards().add(Command.SPAM);
 
                 }
             }
@@ -755,7 +755,7 @@ public class GameController {
                         if (projectile.getPlayer() != null) {
                             Player player = projectile.getPlayer();
                             // Should be changed if players can take damage.
-                            player.setSpace(null);
+                            player.getSavedDamageCards().add(Command.SPAM);
                             hit = true;
                         } else {
                             projectile = board.getNeighbour(projectile, shootingDirection);
@@ -862,7 +862,8 @@ public class GameController {
                     if (projectile.getPlayer() != null) {
                         Player player = projectile.getPlayer();
                         // Should be changed if players can take damage.
-                        player.setSpace(null);
+                        player.getSavedDamageCards().add(Command.SPAM);
+
                     }
                     projectile = board.getNeighbour(projectile, shootingDirection);
 

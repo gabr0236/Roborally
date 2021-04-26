@@ -371,7 +371,8 @@ class GameControllerTest {
 
         gameController.directionMove(current, current.getHeading());
 
-        Assertions.assertNull(player1.getSpace());
+        Assertions.assertTrue(player1.getSavedDamageCards().contains(Command.SPAM));
+        Assertions.assertTrue(board.getSpace(1,2) == player1.getSpace());
     }
 
 
