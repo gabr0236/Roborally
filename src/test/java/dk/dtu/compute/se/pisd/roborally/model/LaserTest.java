@@ -357,53 +357,62 @@ class LaserTest {
      * @author @Sebastian
      */
     @Test
-    void laserDealWormDamage(){
-        Space space = gameController.board.getSpace(0,5);
-        space.setLaser(new Laser(Heading.NORTH));
+    void dealTrojanDamage(){
+        Player shootingPlayer = gameController.board.getPlayer(0);
+        shootingPlayer.setSpace(gameController.board.getSpace(0,0));
+        shootingPlayer.setHeading(Heading.EAST);
+        shootingPlayer.getUpgrades().add(new TrojanNeedler());
 
-        Player player = gameController.board.getPlayer(0);
-        player.getSavedDamageCards().clear();
-        player.getUpgrades().add(new BlueScreenDeath());
+        Player killedPlayer = gameController.board.getPlayer(1);
+        killedPlayer.setSpace(gameController.board.getSpace(1,0));
+        killedPlayer.setHeading(Heading.WEST);
+        killedPlayer.getSavedDamageCards().clear();
 
-        gameController.fireLaser(space,space.getLaser().getShootingDirection());
+        gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
 
-        Assertions.assertTrue(player.getSavedDamageCards().contains(Command.WORM));
+        Assertions.assertTrue(killedPlayer.getSavedDamageCards().contains(Command.TROJAN));
     }
 
     /**
      * @author @Sebastian
      */
     @Test
-    void laserDealTrojanHorseDamage(){
-        Space space = gameController.board.getSpace(0,5);
-        space.setLaser(new Laser(Heading.NORTH));
+    void dealWormDamage(){
+        Player shootingPlayer = gameController.board.getPlayer(0);
+        shootingPlayer.setSpace(gameController.board.getSpace(0,0));
+        shootingPlayer.setHeading(Heading.EAST);
+        shootingPlayer.getUpgrades().add(new BlueScreenDeath());
 
-        Player player = gameController.board.getPlayer(0);
-        player.getSavedDamageCards().clear();
-        player.getUpgrades().add(new TrojanNeedler());
+        Player killedPlayer = gameController.board.getPlayer(1);
+        killedPlayer.setSpace(gameController.board.getSpace(1,0));
+        killedPlayer.setHeading(Heading.WEST);
+        killedPlayer.getSavedDamageCards().clear();
 
-        gameController.fireLaser(space,space.getLaser().getShootingDirection());
+        gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
 
-        Assertions.assertTrue(player.getSavedDamageCards().contains(Command.TROJAN));
+        Assertions.assertTrue(killedPlayer.getSavedDamageCards().contains(Command.WORM));
     }
 
     /**
      * @author @Sebastian
      */
     @Test
-    void laserDealTrojanAndWormDamage(){
-        Space space = gameController.board.getSpace(0,5);
-        space.setLaser(new Laser(Heading.NORTH));
+    void dealWormandTrojanDamage(){
+        Player shootingPlayer = gameController.board.getPlayer(0);
+        shootingPlayer.setSpace(gameController.board.getSpace(0,0));
+        shootingPlayer.setHeading(Heading.EAST);
+        shootingPlayer.getUpgrades().add(new BlueScreenDeath());
+        shootingPlayer.getUpgrades().add(new TrojanNeedler());
 
-        Player player = gameController.board.getPlayer(0);
-        player.getSavedDamageCards().clear();
-        player.getUpgrades().add(new TrojanNeedler());
-        player.getUpgrades().add(new BlueScreenDeath());
+        Player killedPlayer = gameController.board.getPlayer(1);
+        killedPlayer.setSpace(gameController.board.getSpace(1,0));
+        killedPlayer.setHeading(Heading.WEST);
+        killedPlayer.getSavedDamageCards().clear();
 
-        gameController.fireLaser(space,space.getLaser().getShootingDirection());
+        gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
 
-        Assertions.assertTrue(player.getSavedDamageCards().contains(Command.TROJAN));
-        Assertions.assertTrue(player.getSavedDamageCards().contains(Command.WORM));
+        Assertions.assertTrue(killedPlayer.getSavedDamageCards().contains(Command.WORM));
+        Assertions.assertTrue(killedPlayer.getSavedDamageCards().contains(Command.TROJAN));
     }
 
     /**
@@ -433,11 +442,13 @@ class LaserTest {
     void rearLaserPressorBeam(){
         Board board = gameController.board;
         PressorBeam pressorBeam = new PressorBeam();
+        RearLaser rearLaser = new RearLaser();
 
         Player shootingPlayer = gameController.board.getPlayer(0);
         shootingPlayer.setSpace(gameController.board.getSpace(1,0));
         shootingPlayer.setHeading(Heading.WEST);
         shootingPlayer.getUpgrades().add(pressorBeam);
+        shootingPlayer.getUpgrades().add(rearLaser);
 
         Player hitPlayer = gameController.board.getPlayer(1);
         hitPlayer.setSpace(gameController.board.getSpace(2,0));
@@ -448,4 +459,5 @@ class LaserTest {
         Assertions.assertTrue(hitPlayer.getSpace() == board.getSpace(3,0));
 
     }
+
 }

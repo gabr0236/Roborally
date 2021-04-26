@@ -751,12 +751,17 @@ public class GameController {
                         if (projectile.getPlayer() != null) {
                             Player player = projectile.getPlayer();
                             // Should be changed if players can take damage.
-                            dealLaserDamage(player);
-                            hit = true;
-                            for (Upgrade u : shootingPlayer.getUpgrades()){
-                                if(u.responsible(UpgradeResponsibility.PRESSOR_BEAM))
-                                    directionMove(player, shootingDirection);
+                            if(shootingPlayer != null){
+                                dealLaserDamage(player, shootingPlayer);
+                                for (Upgrade u : shootingPlayer.getUpgrades()){
+                                    if(u.responsible(UpgradeResponsibility.PRESSOR_BEAM))
+                                        directionMove(player, shootingDirection);
+                                }
                             }
+                            else{
+                                player.getSavedDamageCards().add(spamOrRandom());
+                            }
+                            hit = true;
                         } else {
                             projectile = board.getNeighbour(projectile, shootingDirection);
                         }
@@ -862,7 +867,7 @@ public class GameController {
                     if (projectile.getPlayer() != null) {
                         Player player = projectile.getPlayer();
                         // Should be changed if players can take damage.
-                        dealLaserDamage(player);
+                        dealLaserDamage(player,shootingPlayer);
                         for (Upgrade u : shootingPlayer.getUpgrades()){
                             if(u.responsible(UpgradeResponsibility.PRESSOR_BEAM))
                                 directionMove(player, shootingDirection);
@@ -962,9 +967,9 @@ public class GameController {
      * @author Sebastian
      * @param player
      */
-    public void dealLaserDamage(Player player){
+    public void dealLaserDamage(Player player, Player shooter){
         boolean upgradeUsed = false;
-        for(Upgrade u : player.getUpgrades()){
+        for(Upgrade u : shooter.getUpgrades()){
             if(u.responsible(UpgradeResponsibility.TROJAN_NEEDLER)){
                 player.getSavedDamageCards().add(Command.TROJAN);
                 upgradeUsed = true;
