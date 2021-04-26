@@ -904,8 +904,10 @@ public class GameController {
                                 pressorBeam = true;
                             }
                             if(u.responsible(UpgradeResponsibility.TRACTOR_BEAM)) {
-                                directionMove(player, shootingDirection.oppositeHeading());
-                                tractorBeam = true;
+                                if(shootingPlayer.board.getNeighbour(shootingPlayer.getSpace(),shootingPlayer.getHeading()) != player.getSpace()) {
+                                    directionMove(player, shootingDirection.oppositeHeading());
+                                    tractorBeam = true;
+                                }
                             }
                         }
                         if (tractorBeam && pressorBeam){
