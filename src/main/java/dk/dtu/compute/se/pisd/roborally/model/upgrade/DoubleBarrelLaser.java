@@ -1,0 +1,20 @@
+package dk.dtu.compute.se.pisd.roborally.model.upgrade;
+
+import dk.dtu.compute.se.pisd.roborally.controller.GameController;
+import dk.dtu.compute.se.pisd.roborally.model.Player;
+
+public class DoubleBarrelLaser extends Upgrade {
+    @Override
+    public boolean responsible(UpgradeResponsibility upgradeResponsibility) {
+        return upgradeResponsibility==UpgradeResponsibility.DOUBLE_BARREL_LASER;
+    }
+
+    @Override
+    public void doAction(Player player, GameController gameController) {
+    }
+
+    @Override
+    public String toString() {
+        return "DoubleBarrelLaser";
+    }
+}

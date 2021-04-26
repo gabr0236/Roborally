@@ -60,6 +60,23 @@ class LaserTest {
      * @author @Gabriel
      */
     @Test
+    void laserTestPlayerKillDoubleBarrel(){
+        Space space = gameController.board.getSpace(0,5);
+        space.setPlayer(gameController.board.getPlayer(1));
+        Player killedPlayer = gameController.board.getPlayer(0);
+        Player shootingPlayer = gameController.board.getPlayer(1);
+
+        shootingPlayer.getUpgrades().add(new DoubleBarrelLaser());
+
+        gameController.dealLaserDamage(killedPlayer,shootingPlayer);
+
+        Assertions.assertEquals(killedPlayer.getSavedDamageCards().size(), 4);
+    }
+
+    /**
+     * @author @Gabriel
+     */
+    @Test
     void laserTestPlayerProtectedByWall(){
         Space space = gameController.board.getSpace(0,5);
         space.setLaser(new Laser(Heading.NORTH));

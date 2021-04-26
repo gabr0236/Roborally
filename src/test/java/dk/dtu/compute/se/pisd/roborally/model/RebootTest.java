@@ -3,6 +3,7 @@ package dk.dtu.compute.se.pisd.roborally.model;
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.model.Reboot;
+import dk.dtu.compute.se.pisd.roborally.model.upgrade.Firewall;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -168,8 +169,30 @@ public class RebootTest {
         board.setPhase(Phase.ACTIVATION);
         gameController.executePrograms();
 
+        pushedPlayer.getSavedDamageCards().remove(0);
         Assertions.assertTrue(pushedPlayer.getSavedDamageCards().contains(Command.SPAM));
+    }
 
+    /**
+     * @author @Gabriel
+     */
+    @Test
+    void checkNoRebootSpamCardsFIREWALL() {
+        Board board = gameController.board;
+        Player pushedPlayer = board.getCurrentPlayer();
+        Player current = board.getPlayer(1);
+        board.getSpace(4,4).setAntenna(true);
+
+        pushedPlayer.setSpace(board.getSpace(0,0));
+        current.setSpace(board.getSpace(0,1));
+        current.setHeading(Heading.NORTH);
+        gameController.directionMove(current, current.getHeading());
+        board.setPhase(Phase.ACTIVATION);
+        pushedPlayer.getUpgrades().add(new Firewall());
+        gameController.executePrograms();
+
+        pushedPlayer.getSavedDamageCards().remove(0);
+        Assertions.assertFalse(pushedPlayer.getSavedDamageCards().contains(Command.SPAM));
     }
 
 }

@@ -14,7 +14,9 @@ public enum UpgradeResponsibility {
     TROJAN_NEEDLER,
     VIRUS_MODULE,
     PRESSOR_BEAM,
-    LUCKY_SHIELD;
+    LUCKY_SHIELD,
+    FIREWALL,
+    DOUBLE_BARREL_LASER;
 
     public static int getRandom() {
         return (int) (Math.random() * values().length-1);

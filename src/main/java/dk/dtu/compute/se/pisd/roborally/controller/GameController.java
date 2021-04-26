@@ -649,6 +649,10 @@ public class GameController {
             player.setSpace(player.getRebootSpace());
             player.setHeading(player.getRebootSpace().getReboot().REBOOT_HEADING);
         }
+
+        for (Upgrade u:player.getUpgrades()) {
+            if(u.responsible(UpgradeResponsibility.FIREWALL)) return;
+        }
         player.getSavedDamageCards().add(Command.SPAM);
         player.getSavedDamageCards().add(Command.SPAM);
     }
@@ -967,26 +971,32 @@ public class GameController {
      * @author Sebastian
      * @param player
      */
-    public void dealLaserDamage(Player player, Player shooter){
-        boolean upgradeUsed = false;
-        for (Upgrade u:player.getUpgrades()) {
-            if(u.responsible(UpgradeResponsibility.LUCKY_SHIELD)){
-                return;
+    public void dealLaserDamage(Player player, Player shooter) {
+        boolean loopAgain = false;
+        int loopCount = 0;
+        do {
+            boolean upgradeUsed = false;
+            for (Upgrade u : player.getUpgrades()) {
+                if (u.responsible(UpgradeResponsibility.LUCKY_SHIELD)) {
+                    return;
+                }
             }
-        }
-        for(Upgrade u : shooter.getUpgrades()){
-            if(u.responsible(UpgradeResponsibility.TROJAN_NEEDLER)){
-                player.getSavedDamageCards().add(Command.TROJAN);
-                upgradeUsed = true;
+            for (Upgrade u : shooter.getUpgrades()) {
+                if (u.responsible(UpgradeResponsibility.TROJAN_NEEDLER)) {
+                    player.getSavedDamageCards().add(Command.TROJAN);
+                    upgradeUsed = true;
+                }
+                else if (u.responsible(UpgradeResponsibility.BLUE_SCREEN_DEATH)) {
+                    player.getSavedDamageCards().add(Command.WORM);
+                    upgradeUsed = true;
+                }
+                else if (u.responsible(UpgradeResponsibility.DOUBLE_BARREL_LASER)) loopAgain = true;
             }
-            if(u.responsible(UpgradeResponsibility.BLUE_SCREEN_DEATH)){
-                player.getSavedDamageCards().add(Command.WORM);
-                upgradeUsed = true;
+            if (!upgradeUsed) {
+                player.getSavedDamageCards().add(spamOrRandom());
             }
-        }
-        if (!upgradeUsed){
-          player.getSavedDamageCards().add(spamOrRandom());
-        }
+            loopCount++;
+        }while(loopCount<2 && loopAgain);
     }
 }
 
