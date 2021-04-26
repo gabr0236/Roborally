@@ -638,7 +638,7 @@ public class GameController {
     /**
      * Teleports players to reboot space and pushes players forward if multiple players is respawning on the same space
      * @param player the "dead" player with space null, will be respawned on the reboot space
-     * @author Gabriel, Sebastian, Daniel
+     * @author @Gabriel, @Sebastian, @Daniel
      */
     public void teleportPlayerToReboot(@NotNull Player player){
         if (player.getRebootSpace().getPlayer() != null){
@@ -658,7 +658,7 @@ public class GameController {
     /**
      * Player falls into pit and is removed from the board
      * @param player who is affected
-     * @author Daniel
+     * @author @Daniel
      */
     private void fallIntoPit(@NotNull Player player){
         if(player != null) {
@@ -714,7 +714,7 @@ public class GameController {
 
     /**
      * swap card when pushing this player if the pushing player har modular chassis upgrade.
-     * @author Daniel
+     * @author @Daniel
      * @param player is the pushing player with modular chassis upgrad
      * @param pushedPlayer is the player swapping a random card for the pushing players' modular chassis upgrade
      */
@@ -843,7 +843,7 @@ public class GameController {
     }
     /**
      * Gives players energy
-     * @author Sebastian
+     * @author @Sebastian
      * @param player is the player being given energy
      * @param energyAvailable dertermines whether the player should get energy from the energySpace
      * @param energySpace is the space that rewards palyers with energy
@@ -930,7 +930,7 @@ public class GameController {
 
     /**
      * This method calculates and returns the your ending position before you move
-     * @author Sebastian
+     * @author @Sebastian
      * @param player
      * @param command
      * @return
@@ -950,6 +950,7 @@ public class GameController {
 
     /**
      * Gives a player a random upgrade
+     * @author @Gabriel
      * @param player the player recieving upgrade
      * @param energySpace the space on which the upgrade is given
      */
@@ -1013,7 +1014,7 @@ public class GameController {
     /**
      * A method used in all laser-related methods for doing damage, based on the players upgrade cards
      *
-     * @author Sebastian
+     * @author @Sebastian
      * @param player
      */
     public void dealLaserDamage(Player player, Player shooter) {

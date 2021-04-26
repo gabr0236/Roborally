@@ -10,7 +10,7 @@ import java.util.List;
  * PushPanel. Pushes a player 1 space in the pushing direction.
  * Only activates when the step is equal to one of the Integers in the activating turns list.
  *
- * @author Gabriel
+ * @author @Gabriel
  */
 public class PushPanel extends ActivatableBoardElement {
     public final Heading pushingDirection;

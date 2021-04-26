@@ -4,7 +4,7 @@ import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 
 /**
- * @author Gabriel
+ * @author @Gabriel
  */
 public abstract class ActivatableBoardElement {
 

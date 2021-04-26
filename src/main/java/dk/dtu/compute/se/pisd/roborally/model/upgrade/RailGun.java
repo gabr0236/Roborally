@@ -8,7 +8,7 @@ import dk.dtu.compute.se.pisd.roborally.model.Space;
 
 /**
  * fires the Rail gun unaffected by walls or formerly hit players
- * @author Daniel
+ * @author @Daniel
  */
 public class RailGun extends Upgrade {
 

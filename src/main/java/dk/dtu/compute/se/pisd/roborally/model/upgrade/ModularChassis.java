@@ -7,7 +7,7 @@ import dk.dtu.compute.se.pisd.roborally.model.Space;
 
 /**
  * Upgrade that swaps this upgrade for a random upgrade from the pushed player
- * @author Daniel
+ * @author @Daniel
  */
 public class ModularChassis extends Upgrade{
 

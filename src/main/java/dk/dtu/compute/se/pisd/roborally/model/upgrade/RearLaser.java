@@ -6,7 +6,7 @@ import dk.dtu.compute.se.pisd.roborally.model.Space;
 
 /**
  * Fires Rear laser with or without rail gun depending on whether the player has the rail gun upgrade
- * @author Daniel
+ * @author @Daniel
  */
 
 public class RearLaser extends Upgrade{

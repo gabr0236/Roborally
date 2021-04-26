@@ -3,7 +3,7 @@ package dk.dtu.compute.se.pisd.roborally.model;
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 
 /**
- * @author Gabriel
+ * @author @Gabriel
  */
 public class Checkpoint extends ActivatableBoardElement {
 
