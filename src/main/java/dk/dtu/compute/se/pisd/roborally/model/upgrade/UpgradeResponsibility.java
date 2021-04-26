@@ -3,7 +3,7 @@ package dk.dtu.compute.se.pisd.roborally.model.upgrade;
 public enum UpgradeResponsibility {
     TELEPORT_PLAYER,
     RAIL_GUN,
-    REAR_LASER,
+    LASER,
     PIT_AVOIDER,
     MODULAR_CHASSIS,
     PUSH_PANEL_DODGER,
@@ -16,7 +16,9 @@ public enum UpgradeResponsibility {
     PRESSOR_BEAM,
     LUCKY_SHIELD,
     FIREWALL,
-    DOUBLE_BARREL_LASER;
+    DOUBLE_BARREL_LASER,
+    REAR_LASER,
+    TRACTOR_BEAM;
 
     public static int getRandom() {
         return (int) (Math.random() * values().length-1);

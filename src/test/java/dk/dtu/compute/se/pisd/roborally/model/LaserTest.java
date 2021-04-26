@@ -471,6 +471,9 @@ class LaserTest {
 
     }
 
+    /**
+     * @author Daniel
+     */
     @Test
     void rearLaserPressorBeam(){
         Board board = gameController.board;
@@ -520,6 +523,9 @@ class LaserTest {
         Assertions.assertTrue(otherHitPlayer.getSpace() == board.getSpace(6,0));
     }
 
+    /**
+     * @author Daniel
+     */
     @Test
     void rearLaserRailGunPressorBeam(){
         Board board = gameController.board;
@@ -546,5 +552,75 @@ class LaserTest {
 
         Assertions.assertTrue(hitPlayer.getSpace() == board.getSpace(3,0));
         Assertions.assertTrue(otherHitPlayer.getSpace() == board.getSpace(6,0));
+    }
+
+    /**
+     * @author Sebastian
+     */
+    @Test
+    void TractorBeamTest(){
+        Board board = gameController.board;
+        TractorBeam tractorBeam = new TractorBeam();
+
+        Player shootingPlayer = gameController.board.getPlayer(0);
+        shootingPlayer.setSpace(gameController.board.getSpace(1,0));
+        shootingPlayer.setHeading(Heading.EAST);
+        shootingPlayer.getUpgrades().add(tractorBeam);
+
+        Player hitPlayer = gameController.board.getPlayer(1);
+        hitPlayer.setSpace(gameController.board.getSpace(4,0));
+        hitPlayer.setHeading(Heading.EAST);
+
+        gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
+
+        Assertions.assertSame(hitPlayer.getSpace(), board.getSpace(3, 0));
+
+    }
+
+    /**
+     * @author Sebastian
+     */
+    @Test
+    void rearLaserTractorBeam(){
+        Board board = gameController.board;
+        TractorBeam tractorBeam = new TractorBeam();
+        RearLaser rearLaser = new RearLaser();
+
+        Player shootingPlayer = gameController.board.getPlayer(0);
+        shootingPlayer.setSpace(gameController.board.getSpace(1,0));
+        shootingPlayer.setHeading(Heading.WEST);
+        shootingPlayer.getUpgrades().add(tractorBeam);
+        shootingPlayer.getUpgrades().add(rearLaser);
+
+        Player hitPlayer = gameController.board.getPlayer(1);
+        hitPlayer.setSpace(gameController.board.getSpace(4,0));
+        hitPlayer.setHeading(Heading.EAST);
+
+        gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
+
+        Assertions.assertTrue(hitPlayer.getSpace() == board.getSpace(3,0));
+    }
+
+    /**
+     * @author Sebastian
+     */
+    @Test
+    void TractorBeamDontMoveTest(){
+        Board board = gameController.board;
+        TractorBeam tractorBeam = new TractorBeam();
+
+        Player shootingPlayer = gameController.board.getPlayer(0);
+        shootingPlayer.setSpace(gameController.board.getSpace(1,0));
+        shootingPlayer.setHeading(Heading.EAST);
+        shootingPlayer.getUpgrades().add(tractorBeam);
+
+        Player hitPlayer = gameController.board.getPlayer(1);
+        hitPlayer.setSpace(gameController.board.getSpace(2,0));
+        hitPlayer.setHeading(Heading.EAST);
+
+        gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
+
+        Assertions.assertSame(hitPlayer.getSpace(), board.getSpace(2, 0));
+
     }
 }

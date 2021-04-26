@@ -648,8 +648,7 @@ public class GameController {
             player.setSpace(player.getRebootSpace());
             player.setHeading(player.getRebootSpace().getReboot().REBOOT_HEADING);
         }
-
-        for (Upgrade u:player.getUpgrades()) {
+        for (Upgrade u:player.getUpgrades()){
             if(u.responsible(UpgradeResponsibility.FIREWALL)) return;
         }
         player.getSavedDamageCards().add(Command.SPAM);
@@ -762,10 +761,28 @@ public class GameController {
                             Player player = projectile.getPlayer();
                             // Should be changed if players can take damage.
                             if(shootingPlayer != null){
+                                boolean pressorBeam = false;
+                                boolean tractorBeam = false;
                                 dealLaserDamage(player, shootingPlayer);
                                 for (Upgrade u : shootingPlayer.getUpgrades()){
-                                    if(u.responsible(UpgradeResponsibility.PRESSOR_BEAM))
+                                    if(u.responsible(UpgradeResponsibility.PRESSOR_BEAM)) {
                                         directionMove(player, shootingDirection);
+                                        projectile = board.getNeighbour(projectile, shootingDirection);
+                                        pressorBeam = true;
+                                    }
+                                    if(u.responsible(UpgradeResponsibility.TRACTOR_BEAM)) {
+                                        if(shootingPlayer.board.getNeighbour(shootingPlayer.getSpace(),shootingPlayer.getHeading()) != player.getSpace()) {
+                                            directionMove(player, shootingDirection.oppositeHeading());
+                                            tractorBeam = true;
+                                        }
+                                    }
+                                }
+                                if (tractorBeam && pressorBeam){
+                                    int random = (int)(Math.random()*2);
+                                    if(random == 0)
+                                        directionMove(player, shootingDirection);
+                                    else
+                                        directionMove(player, shootingDirection.oppositeHeading());
                                 }
                             }
                             else{
@@ -878,13 +895,28 @@ public class GameController {
                         Player player = projectile.getPlayer();
                         // Should be changed if players can take damage.
                         dealLaserDamage(player, shootingPlayer);
-                            for (Upgrade u : shootingPlayer.getUpgrades()) {
-                                if (u.responsible(UpgradeResponsibility.PRESSOR_BEAM)) {
-                                    directionMove(player, shootingDirection);
-                                    projectile = board.getNeighbour(projectile, shootingDirection);
-                                }
+                        boolean pressorBeam = false;
+                        boolean tractorBeam = false;
+                        for (Upgrade u : shootingPlayer.getUpgrades()){
+                            if(u.responsible(UpgradeResponsibility.PRESSOR_BEAM)) {
+                                directionMove(player, shootingDirection);
+                                projectile = board.getNeighbour(projectile, shootingDirection);
+                                pressorBeam = true;
+                            }
+                            if(u.responsible(UpgradeResponsibility.TRACTOR_BEAM)) {
+                                directionMove(player, shootingDirection.oppositeHeading());
+                                tractorBeam = true;
                             }
                         }
+                        if (tractorBeam && pressorBeam){
+                           Random rand = new Random();
+                           int int_random = rand.nextInt(2);
+                           if(int_random == 0)
+                               directionMove(player, shootingDirection);
+                           else
+                               directionMove(player, shootingDirection.oppositeHeading());
+                        }
+                    }
                     projectile = board.getNeighbour(projectile, shootingDirection);
 
                     if (projectile == null)
