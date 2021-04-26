@@ -4,6 +4,10 @@ import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import dk.dtu.compute.se.pisd.roborally.model.Command;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 
+/**
+ * A player with this upgrade has the ability to push players left or right.
+ * @author @Gabriel
+ */
 public class PushLeftOrRight extends Upgrade {
 
     private final Command[] pushOptions = {Command.LEFT,Command.FORWARD,Command.RIGHT};

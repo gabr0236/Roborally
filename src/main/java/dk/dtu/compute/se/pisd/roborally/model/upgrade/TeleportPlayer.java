@@ -6,6 +6,8 @@ import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 
 /**
+ * A player with this upgrade can teleport directly on top of a space instead of moving step by step.
+ * This allows the player to move through walls. If another player is on the designated spot, players swap spaces.
  * @author @Gabriel
  */
 public class TeleportPlayer extends Upgrade {

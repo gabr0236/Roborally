@@ -3,6 +3,10 @@ package dk.dtu.compute.se.pisd.roborally.model.upgrade;
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 
+/**
+ * A player with this upgrade has a 50% chance of not getting hit by a laser.
+ * @author @Gabriel
+ */
 public class LuckyShield extends Upgrade {
     boolean lucky = false;
     @Override
