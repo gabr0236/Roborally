@@ -867,7 +867,7 @@ public class GameController {
                     if (projectile.getPlayer() != null) {
                         Player player = projectile.getPlayer();
                         // Should be changed if players can take damage.
-                        dealLaserDamage(player);
+                        dealLaserDamage(player, shootingPlayer);
                         for (Upgrade u : shootingPlayer.getUpgrades()){
                             if(u.responsible(UpgradeResponsibility.PRESSOR_BEAM))
                                 directionMove(player, shootingDirection);
