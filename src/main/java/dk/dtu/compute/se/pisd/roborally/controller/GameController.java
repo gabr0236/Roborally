@@ -295,24 +295,28 @@ public class GameController {
      *
      * @param player
      *
-     * @author Tobias, s205358@student.dtu.dk
+     * @author Tobias, s205358@student.dtu.dk, @Gabriel
      */
     private void doVirusDamage(Player player) {
-        Space spread[] = new Space[4];
-        Heading heading = null;
-        for (int i = 0; i < spread.length; i++) {
-            spread[i] = player.getSpace();
-            switch(i) {
-                case 0 -> heading = Heading.NORTH;
-                case 1 -> heading = Heading.EAST;
-                case 2 -> heading = Heading.SOUTH;
-                case 3 -> heading = Heading.WEST;
-            }
+        Heading heading = player.getHeading();
+        Space originalSpace = player.getSpace();
+        Space nextSpace = null;
+        Space virusSpace = null;
+        for (int i = 0; i < Heading.values().length; i++) {
+            heading=heading.next();
             for (int j = 0; j < 6; j++) {
-                spread[i] = board.getNeighbour(spread[i], heading);
-                if (spread[i] != null) {
-                    if (spread[i].getPlayer() != null) {
-                        spread[i].getPlayer().getSavedDamageCards().add(Command.VIRUS);
+                if(j==0) nextSpace=board.getNeighbour(originalSpace,heading);
+                else nextSpace =board.getNeighbour(nextSpace,heading);
+
+                for (int k = 0; k < 7; k++) {
+                    if(k==0) virusSpace =nextSpace;
+                    else virusSpace =board.getNeighbour(virusSpace,heading.prev());
+
+                    if (virusSpace != null) {
+                        if (virusSpace.getPlayer() != null) {
+                            virusSpace.getPlayer().getSavedDamageCards().add(Command.VIRUS);
+                            virusSpace.getPlayer().setColor("Pink");
+                        }
                     }
                 }
             }
