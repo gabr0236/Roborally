@@ -819,11 +819,11 @@ public class GameController {
     public void registerEnergySpace(@NotNull Player player, boolean energyAvailable, EnergySpace energySpace){
         if (player != null) {
             if(energyAvailable && board.getStep() == 4){
-               givePlayerUpgrade(player,energySpace.isEnergyAvailable(),energySpace);
-               givePlayerUpgrade(player,energySpace.isEnergyAvailable(),energySpace);
+               givePlayerUpgrade(player,energySpace);
+                givePlayerUpgrade(player,energySpace);
             }
             else if (energyAvailable || board.getStep() == 4) {
-                givePlayerUpgrade(player,energySpace.isEnergyAvailable(),energySpace);
+                givePlayerUpgrade(player,energySpace);
             }
         }
     }
@@ -893,7 +893,7 @@ public class GameController {
         return  finalmove;
     }
 
-    public void givePlayerUpgrade(@NotNull Player player, boolean energyAvailable, EnergySpace energySpace){
+    public void givePlayerUpgrade(@NotNull Player player, EnergySpace energySpace){
         player.addEnergy();
         energySpace.setEnergyAvailable(false);
         player.getSpace().playerChanged();
