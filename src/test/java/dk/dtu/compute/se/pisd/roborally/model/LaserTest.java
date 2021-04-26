@@ -428,4 +428,24 @@ class LaserTest {
         Assertions.assertTrue(hitPlayer.getSpace() == board.getSpace(3,0));
 
     }
+
+    @Test
+    void rearLaserPressorBeam(){
+        Board board = gameController.board;
+        PressorBeam pressorBeam = new PressorBeam();
+
+        Player shootingPlayer = gameController.board.getPlayer(0);
+        shootingPlayer.setSpace(gameController.board.getSpace(1,0));
+        shootingPlayer.setHeading(Heading.WEST);
+        shootingPlayer.getUpgrades().add(pressorBeam);
+
+        Player hitPlayer = gameController.board.getPlayer(1);
+        hitPlayer.setSpace(gameController.board.getSpace(2,0));
+        hitPlayer.setHeading(Heading.EAST);
+
+        gameController.fireAllLasers(gameController.board.getLaserSpaceList(), gameController.board.getPlayers());
+
+        Assertions.assertTrue(hitPlayer.getSpace() == board.getSpace(3,0));
+
+    }
 }

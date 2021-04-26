@@ -755,7 +755,7 @@ public class GameController {
                             hit = true;
                             for (Upgrade u : shootingPlayer.getUpgrades()){
                                 if(u.responsible(UpgradeResponsibility.PRESSOR_BEAM))
-                                    player.setSpace(board.getNeighbour(player.getSpace(), shootingDirection));
+                                    directionMove(player, shootingDirection);
                             }
                         } else {
                             projectile = board.getNeighbour(projectile, shootingDirection);
@@ -865,7 +865,7 @@ public class GameController {
                         dealLaserDamage(player);
                         for (Upgrade u : shootingPlayer.getUpgrades()){
                             if(u.responsible(UpgradeResponsibility.PRESSOR_BEAM))
-                                player.setSpace(board.getNeighbour(player.getSpace(), shootingDirection));
+                                directionMove(player, shootingDirection);
                         }
                     }
                     projectile = board.getNeighbour(projectile, shootingDirection);
