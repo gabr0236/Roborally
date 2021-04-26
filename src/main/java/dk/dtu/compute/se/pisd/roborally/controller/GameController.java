@@ -734,6 +734,14 @@ public class GameController {
      * @author Tobias s205358, @Daniel
      */
     public void fireLaser(Space projectile, @NotNull Heading shootingDirection) {
+        Player shootingPlayer = null;
+        Space neighbour = board.getNeighbour(projectile, shootingDirection.oppositeHeading());
+        if (neighbour != null) {
+            if (neighbour.getLaser() == null) {
+                shootingPlayer = board.getNeighbour(projectile, shootingDirection.oppositeHeading()).getPlayer();
+            }
+        }
+
         if (projectile != null) {
             boolean hit = false;
                 do {
@@ -745,6 +753,10 @@ public class GameController {
                             // Should be changed if players can take damage.
                             dealLaserDamage(player);
                             hit = true;
+                            for (Upgrade u : shootingPlayer.getUpgrades()){
+                                if(u.responsible(UpgradeResponsibility.PRESSOR_BEAM))
+                                    player.setSpace(board.getNeighbour(player.getSpace(), shootingDirection));
+                            }
                         } else {
                             projectile = board.getNeighbour(projectile, shootingDirection);
                         }
@@ -851,7 +863,10 @@ public class GameController {
                         Player player = projectile.getPlayer();
                         // Should be changed if players can take damage.
                         dealLaserDamage(player);
-
+                        for (Upgrade u : shootingPlayer.getUpgrades()){
+                            if(u.responsible(UpgradeResponsibility.PRESSOR_BEAM))
+                                player.setSpace(board.getNeighbour(player.getSpace(), shootingDirection));
+                        }
                     }
                     projectile = board.getNeighbour(projectile, shootingDirection);
 
