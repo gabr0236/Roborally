@@ -300,6 +300,7 @@ class LaserTest {
         space.setLaser(new Laser(Heading.NORTH));
 
         Player player = gameController.board.getPlayer(0);
+        player.getSavedDamageCards().clear();
         player.getUpgrades().add(new BlueScreenDeath());
 
         gameController.fireLaser(space,space.getLaser().getShootingDirection());
@@ -316,6 +317,7 @@ class LaserTest {
         space.setLaser(new Laser(Heading.NORTH));
 
         Player player = gameController.board.getPlayer(0);
+        player.getSavedDamageCards().clear();
         player.getUpgrades().add(new TrojanNeedler());
 
         gameController.fireLaser(space,space.getLaser().getShootingDirection());
@@ -332,6 +334,7 @@ class LaserTest {
         space.setLaser(new Laser(Heading.NORTH));
 
         Player player = gameController.board.getPlayer(0);
+        player.getSavedDamageCards().clear();
         player.getUpgrades().add(new TrojanNeedler());
         player.getUpgrades().add(new BlueScreenDeath());
 
