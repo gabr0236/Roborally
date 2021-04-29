@@ -4,6 +4,8 @@ import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import dk.dtu.compute.se.pisd.roborally.model.ActivatableBoardElement;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
+import dk.dtu.compute.se.pisd.roborally.model.upgrade.Upgrade;
+import dk.dtu.compute.se.pisd.roborally.model.upgrade.UpgradeResponsibility;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -25,9 +27,23 @@ public class PushPanel extends ActivatableBoardElement {
         this.activatingTurns = Arrays.asList(activatingTurns);
     }
 
+    /**
+     * Sets off the push panel, and checks if a player the PushPanelDogdger upgrade in which case the player is not pushed
+     * @param player is the player being pushed
+     * @author @Gabriel @Sebastian
+     */
     @Override
     public void activateElement(@NotNull Player player, @NotNull GameController gameController) {
-        gameController.activatePushPanel(player, pushingDirection, activatingTurns);
+            if(!activatingTurns.isEmpty() && player!=null && player.getSpace()!=null){
+                if(activatingTurns.contains(gameController.board.getStep())){
+                    for(Upgrade u : player.getUpgrades()){
+                        if(u.responsible(UpgradeResponsibility.PUSH_PANEL_DODGER)){
+                            return;
+                        }
+                    }
+                    gameController.directionMove(player,pushingDirection);
+                }
+            }
     }
 
     public List<Integer> getActivatingTurns() {

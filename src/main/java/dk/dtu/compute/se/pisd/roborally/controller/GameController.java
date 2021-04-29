@@ -581,20 +581,6 @@ public class GameController {
             }
         }
 
-    /**
-     * Registers a players checkpoint in player, and calls findWinner() if player have gathered all checkpoints
-     * @param player who landed on the checkpoint
-     * @param checkpointNumber to compare with players next checkpoint number
-     * @author @Gabriel
-     */
-    public void registerCheckpoint(@NotNull Player player, int checkpointNumber) {
-        if (player != null) {
-            if (checkpointNumber == player.getLastCheckpointVisited() + 1) {
-                player.setLastCheckpointVisited(checkpointNumber);
-                findWinner(player);
-            }
-        }
-    }
 
     /**
      * Prints out the winning player
@@ -819,58 +805,6 @@ public class GameController {
         }
     }
 
-    /**
-     * Sets off the push panel, and checks if a player the PushPanelDogdger upgrade in which case the player is not pushed
-     * @param player is the player being pushed
-     * @param heading is the heading of the pushpanel
-     * @param activatingTurns is the steps in which the pushpanel activates
-     * @author @Gabriel @Sebastian
-     */
-    public void activatePushPanel(Player player, Heading heading, List<Integer> activatingTurns) {
-        if(!activatingTurns.isEmpty() && player!=null && player.getSpace()!=null){
-            if(activatingTurns.contains(board.getStep())){
-                for(Upgrade u : player.getUpgrades()){
-                    if(u.responsible(UpgradeResponsibility.PUSH_PANEL_DODGER)){
-                        return;
-                    }
-                }
-            directionMove(player,heading);
-            }
-        }
-    }
-    /**
-     * Gives players energy
-     * @author @Sebastian
-     * @param player is the player being given energy
-     * @param energyAvailable dertermines whether the player should get energy from the energySpace
-     * @param energySpace is the space that rewards palyers with energy
-     */
-    public void registerEnergySpace(@NotNull Player player, boolean energyAvailable, EnergySpace energySpace){
-        if (player != null) {
-            if(energyAvailable && board.getStep() == 4){
-               givePlayerRandomUpgrade(player,energySpace);
-                givePlayerRandomUpgrade(player,energySpace);
-            }
-            else if (energyAvailable || board.getStep() == 4) {
-                givePlayerRandomUpgrade(player,energySpace);
-            }
-        }
-    }
-    /**
-     * Moves a player on a conveyor belt
-     * @param player is the player being moved
-     * @param heading is the direction the player is moved
-     * @param command determines how many spaces the players is moved
-     * @author @Gabriel
-     */
-    public void conveyorMove(Player player, Heading heading, Command command) {
-        Space target = player.board.getNeighbour(player.getSpace(), heading);
-        if(target == null && notWallsBlock(player.getSpace(),heading)){
-            player.setSpace(null);
-        }else {
-            executeCommand(player,heading,command);
-        }
-    }
 
     /**
      * Fires rail gun laser which is unaffected by walls

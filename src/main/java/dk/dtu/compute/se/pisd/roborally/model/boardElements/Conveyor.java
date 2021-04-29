@@ -1,10 +1,7 @@
 package dk.dtu.compute.se.pisd.roborally.model.boardElements;
 
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
-import dk.dtu.compute.se.pisd.roborally.model.ActivatableBoardElement;
-import dk.dtu.compute.se.pisd.roborally.model.Command;
-import dk.dtu.compute.se.pisd.roborally.model.Heading;
-import dk.dtu.compute.se.pisd.roborally.model.Player;
+import dk.dtu.compute.se.pisd.roborally.model.*;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -21,7 +18,19 @@ public class Conveyor extends ActivatableBoardElement {
         this.command = command;
     }
 
+    /**
+     * Moves a player on a conveyor belt
+     * @param player is the player being moved
+     * @author @Gabriel
+     */
     @Override
     public void activateElement(@NotNull Player player, @NotNull GameController gameController) {
-        gameController.conveyorMove(player,heading,command); }
+        Space target = player.board.getNeighbour(player.getSpace(), heading);
+
+        if(target == null && gameController.notWallsBlock(player.getSpace(),heading)){
+            player.setSpace(null);
+        }else {
+            gameController.executeCommand(player,heading,command);
+        } }
+
 }
