@@ -16,6 +16,5 @@ public class VirusModule extends Upgrade{
 
     @Override
     public void doAction(Player player, GameController gameController) {
-
     }
 }

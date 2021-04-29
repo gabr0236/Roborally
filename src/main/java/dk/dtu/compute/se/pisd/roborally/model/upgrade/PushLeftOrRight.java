@@ -28,6 +28,7 @@ public class PushLeftOrRight extends Upgrade {
     }
 
     public void doAction(Player playerPushed, GameController gameController, Command command){
+        setActivatedThisStep(true);
         Player playerPushing = gameController.board.getCurrentPlayer();
         Space playerPushedSpace = playerPushed.getSpace();
         switch (command){

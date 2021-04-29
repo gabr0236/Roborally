@@ -457,6 +457,9 @@ class GameControllerTest {
         Assertions.assertFalse(player1.getSavedDamageCards().contains(Command.WORM));
         Assertions.assertFalse(player1.getSavedDamageCards().contains(Command.TROJAN));
         Assertions.assertTrue(board.getSpace(1,2) == player1.getSpace());
+        player1.getSavedDamageCards().clear();
+        gameController.directionMove(current, current.getHeading());
+        Assertions.assertFalse(player1.getSavedDamageCards().contains(Command.VIRUS));
     }
 
 }

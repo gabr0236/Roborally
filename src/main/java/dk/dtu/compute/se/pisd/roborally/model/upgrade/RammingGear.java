@@ -17,6 +17,5 @@ public class RammingGear extends Upgrade{
 
     @Override
     public void doAction(Player player, GameController gameController) {
-
     }
 }

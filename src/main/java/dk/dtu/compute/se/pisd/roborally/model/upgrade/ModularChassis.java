@@ -3,6 +3,7 @@ package dk.dtu.compute.se.pisd.roborally.model.upgrade;
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
+import org.jetbrains.annotations.NotNull;
 
 
 /**
@@ -18,9 +19,31 @@ public class ModularChassis extends Upgrade{
 
     @Override
     public void doAction(Player player, GameController gameController) {
-        Space neighbour = gameController.board.getNeighbour(player.getSpace(), player.getHeading());
-        gameController.stealUpgradeCard(player, neighbour.getPlayer());
+    }
 
+    /**
+     * swap card when pushing this player if the pushing player has modular chassis upgrade.
+     * @author @Daniel
+     * @param player is the pushing player with modular chassis upgrad
+     * @param pushedPlayer is the player swapping a random card for the pushing players' modular chassis upgrade
+     */
+    public void doAction(@NotNull Player player, @NotNull Player pushedPlayer){
+        setActivatedThisStep(true);
+        if(pushedPlayer != null && !pushedPlayer.getUpgrades().isEmpty()){
+            for(Upgrade u : player.getUpgrades()){
+                if(u.responsible(UpgradeResponsibility.MODULAR_CHASSIS) && !u.isActivatedThisStep()) {
+                    player.getUpgrades().remove(u);
+                    pushedPlayer.getUpgrades().add(u);
+
+                    int randomUpgradeNumber = (int)Math.random()*pushedPlayer.getUpgrades().size();
+
+                    player.getUpgrades().add(pushedPlayer.getUpgrades().get(randomUpgradeNumber));
+                    pushedPlayer.getUpgrades().remove(randomUpgradeNumber);
+                }
+            }
+
+
+        }
     }
 
 }

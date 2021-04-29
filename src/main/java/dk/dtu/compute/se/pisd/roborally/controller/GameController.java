@@ -26,6 +26,7 @@ import dk.dtu.compute.se.pisd.roborally.dal.RepositoryAccess;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.model.ActivatableBoardElement;
 import dk.dtu.compute.se.pisd.roborally.model.boardElements.EnergySpace;
+import dk.dtu.compute.se.pisd.roborally.model.upgrade.ModularChassis;
 import dk.dtu.compute.se.pisd.roborally.model.upgrade.Upgrade;
 import dk.dtu.compute.se.pisd.roborally.model.upgrade.UpgradeResponsibility;
 import org.jetbrains.annotations.NotNull;
@@ -358,15 +359,17 @@ public class GameController {
         if (other != null) {
 
             if (target != null) {
-                dealPushDamage(player, other);
-                for (Upgrade u : player.getUpgrades()) {
-                    if(u.responsible(UpgradeResponsibility.MODULAR_CHASSIS) && other != null){
-                        u.doAction(player, this);
-                    }
-                    if (u.responsible(UpgradeResponsibility.PUSH_LEFT_OR_RIGHT) && other!=null) {
-                        board.setPhase(Phase.PLAYER_INTERACTION);
-                        return;
-                    }
+                    dealPushDamage(player, other);
+                    for (Upgrade u : player.getUpgrades()) {
+                        if (u.responsible(UpgradeResponsibility.MODULAR_CHASSIS) && other != null && !u.isActivatedThisStep()) {
+                            if(u instanceof ModularChassis modularChassis){
+                                modularChassis.doAction(player,other);
+                            }
+                        }
+                        if (u.responsible(UpgradeResponsibility.PUSH_LEFT_OR_RIGHT) && other != null && !u.isActivatedThisStep()) {
+                            board.setPhase(Phase.PLAYER_INTERACTION);
+                            return;
+                        }
                 }
                 if (notWallsBlock(other.getSpace(), heading)) {
                     if(other.getSpace() != null) {
@@ -717,29 +720,6 @@ public class GameController {
         }
     }
 
-    /**
-     * swap card when pushing this player if the pushing player har modular chassis upgrade.
-     * @author @Daniel
-     * @param player is the pushing player with modular chassis upgrad
-     * @param pushedPlayer is the player swapping a random card for the pushing players' modular chassis upgrade
-     */
-    public void stealUpgradeCard(@NotNull Player player, @NotNull Player pushedPlayer){
-        if(pushedPlayer != null && !pushedPlayer.getUpgrades().isEmpty()){
-            for(Upgrade u : player.getUpgrades()){
-                if(u.responsible(UpgradeResponsibility.MODULAR_CHASSIS)) {
-                    player.getUpgrades().remove(u);
-                    pushedPlayer.getUpgrades().add(u);
-
-                    int randomUpgradeNumber = (int)Math.random()*pushedPlayer.getUpgrades().size();
-
-                    player.getUpgrades().add(pushedPlayer.getUpgrades().get(randomUpgradeNumber));
-                    pushedPlayer.getUpgrades().remove(randomUpgradeNumber);
-                }
-            }
-
-
-        }
-    }
 
     /**
      * fires a single laser and checks for laser upgrades and adjusts accordingly
@@ -985,16 +965,22 @@ public class GameController {
      */
     public void dealPushDamage(Player player, Player pushedPlayer){
         for(Upgrade u : player.getUpgrades()){
-            if(u.responsible(UpgradeResponsibility.BLUE_SCREEN_DEATH))
+            if(u.responsible(UpgradeResponsibility.BLUE_SCREEN_DEATH) && !u.isActivatedThisStep()){
                 pushedPlayer.getSavedDamageCards().add(Command.WORM);
-            else if(u.responsible(UpgradeResponsibility.TROJAN_NEEDLER))
-                pushedPlayer.getSavedDamageCards().add(Command.TROJAN);
-            else if(u.responsible(UpgradeResponsibility.VIRUS_MODULE))
-                pushedPlayer.getSavedDamageCards().add(Command.VIRUS);
-            else if(u.responsible((UpgradeResponsibility.RAMMING_GEAR))){
-                pushedPlayer.getSavedDamageCards().add(spamOrRandom());
+                u.setActivatedThisStep(true);
             }
-
+            else if(u.responsible(UpgradeResponsibility.TROJAN_NEEDLER) && !u.isActivatedThisStep()){
+                pushedPlayer.getSavedDamageCards().add(Command.TROJAN);
+                u.setActivatedThisStep(true);
+            }
+            else if(u.responsible(UpgradeResponsibility.VIRUS_MODULE) && !u.isActivatedThisStep()){
+                u.setActivatedThisStep(true);
+                pushedPlayer.getSavedDamageCards().add(Command.VIRUS);
+            }
+            else if(u.responsible((UpgradeResponsibility.RAMMING_GEAR))&& !u.isActivatedThisStep()){
+                pushedPlayer.getSavedDamageCards().add(spamOrRandom());
+                u.setActivatedThisStep(true);
+            }
         }
     }
 

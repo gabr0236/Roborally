@@ -9,6 +9,7 @@ import dk.dtu.compute.se.pisd.roborally.model.Player;
  */
 
 public class BlueScreenDeath extends Upgrade{
+
     @Override
     public boolean responsible(UpgradeResponsibility upgradeResponsibility) {
         return upgradeResponsibility == UpgradeResponsibility.BLUE_SCREEN_DEATH;
@@ -16,11 +17,6 @@ public class BlueScreenDeath extends Upgrade{
 
     @Override
     public void doAction(Player player, GameController gameController) {
-
     }
 
-    @Override
-    public String toString() {
-        return "BlueScreenDeath";
-    }
 }
