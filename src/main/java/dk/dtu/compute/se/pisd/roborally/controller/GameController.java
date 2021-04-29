@@ -497,6 +497,10 @@ public class GameController {
         }
     }
 
+    /**
+     * Continues the program. Used for reentering activation after player interaction.
+     * @author @Gabriel
+     */
     public void continueProgram() {
         Player currentPlayer = board.getCurrentPlayer();
         if (currentPlayer != null && Phase.PLAYER_INTERACTION == board.getPhase()) {
@@ -530,6 +534,7 @@ public class GameController {
      * @author @Gabriel
      */
     private void nextPlayerOrPhase() {
+        setPlayersUpgradesNotAcitvated();
         Player currentPlayer = board.getCurrentPlayer();
         int nextPlayerNumber = board.getPlayerNumber(currentPlayer) + 1;
         int step = board.getStep();
@@ -548,7 +553,6 @@ public class GameController {
             } else {
                 fireAllLasers(board.getLaserSpaceList(),board.getPlayers());
 
-                //Should eventually be somewhere with upgrade phase logic
                 for (Player p: board.getPlayers()) {
                     for (Upgrade u:p.getUpgrades()) {
                         if(u.responsible(UpgradeResponsibility.EXTRA_HAND_CARD)){
@@ -639,6 +643,14 @@ public class GameController {
                 if (player.getSpace() == null) {
                     teleportPlayerToReboot(player);
                 }
+            }
+        }
+    }
+
+    private void setPlayersUpgradesNotAcitvated(){
+        for (Player p: board.getPlayers()) {
+            for (Upgrade u:p.getUpgrades()) {
+              u.setActivatedThisStep(false);
             }
         }
     }

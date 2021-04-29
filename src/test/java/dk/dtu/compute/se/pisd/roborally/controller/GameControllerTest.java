@@ -312,6 +312,8 @@ class GameControllerTest {
 
         gameController.directionMove(current, current.getHeading());
 
+        System.out.println(player1.getAllUpgradeNames());
+        System.out.println(current.getAllUpgradeNames());
         Assertions.assertTrue(player1.getUpgrades().contains(modularChassis));
         Assertions.assertTrue(current.getUpgrades().contains(railGun));
     }

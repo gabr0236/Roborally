@@ -28,21 +28,20 @@ public class ModularChassis extends Upgrade{
      * @param pushedPlayer is the player swapping a random card for the pushing players' modular chassis upgrade
      */
     public void doAction(@NotNull Player player, @NotNull Player pushedPlayer){
-        setActivatedThisStep(true);
         if(pushedPlayer != null && !pushedPlayer.getUpgrades().isEmpty()){
             for(Upgrade u : player.getUpgrades()){
                 if(u.responsible(UpgradeResponsibility.MODULAR_CHASSIS) && !u.isActivatedThisStep()) {
                     player.getUpgrades().remove(u);
-                    pushedPlayer.getUpgrades().add(u);
 
                     int randomUpgradeNumber = (int)Math.random()*pushedPlayer.getUpgrades().size();
 
+                    pushedPlayer.getUpgrades().add(u);
+
                     player.getUpgrades().add(pushedPlayer.getUpgrades().get(randomUpgradeNumber));
                     pushedPlayer.getUpgrades().remove(randomUpgradeNumber);
+                    setActivatedThisStep(true);
                 }
             }
-
-
         }
     }
 

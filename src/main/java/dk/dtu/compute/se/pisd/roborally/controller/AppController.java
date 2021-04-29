@@ -30,10 +30,7 @@ import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 
 import dk.dtu.compute.se.pisd.roborally.model.boardElements.Checkpoint;
-import dk.dtu.compute.se.pisd.roborally.model.upgrade.LuckyShield;
-import dk.dtu.compute.se.pisd.roborally.model.upgrade.PushLeftOrRight;
-import dk.dtu.compute.se.pisd.roborally.model.upgrade.RailGun;
-import dk.dtu.compute.se.pisd.roborally.model.upgrade.RearLaser;
+import dk.dtu.compute.se.pisd.roborally.model.upgrade.*;
 import javafx.application.Platform;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
@@ -380,10 +377,12 @@ public class AppController {
         board.getPlayers().get(1).getUpgrades().add(railGun);
         board.getPlayers().get(1).getUpgrades().add(luckyShield);
         board.getPlayer(1).getUpgrades().add(new PushLeftOrRight());
+        board.getPlayer(1).getUpgrades().add(new BlueScreenDeath());
 
         board.getSpace(1,3).setPlayer(board.getPlayer(1));
         board.getPlayer(1).setHeading(Heading.SOUTH);
         board.getPlayer(1).getProgramField(0).setCard(new CommandCard(Command.FORWARD));
+        board.setLasersActive(false);
         gameController.startProgrammingPhase();
 
         IRepository repository = RepositoryAccess.getRepository();
