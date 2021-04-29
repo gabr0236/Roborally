@@ -31,6 +31,10 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.effect.Blend;
+import javafx.scene.effect.Bloom;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Effect;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -100,13 +104,23 @@ public class BoardView extends VBox implements ViewObserver{
             this.getChildren().add(canvas);
             this.setStyle("-fx-background-color: #25b5b5");
             GraphicsContext gc = canvas.getGraphicsContext2D();
+            DropShadow ds = new DropShadow();
+            ds.setOffsetX(3.0f);
+            ds.setColor(Color.color(0.4f,0.4f,0.4f));
+            gc.setEffect(ds);
             gc.setFill(Paint.valueOf(player.getColor()));
             gc.setStroke(Paint.valueOf("White"));
             gc.setLineWidth(1);
             Font theFont = Font.font("Arial", FontWeight.BOLD, SpaceView.SPACE_HEIGHT);
             gc.setFont(theFont);
-            gc.fillText( player.getName()+" har vundet!!!",60,50);
-            gc.strokeText(player.getName()+" har vundet!!!",60,50);
+            gc.fillText( "TILLYKKE!!!!",155,50);
+            gc.strokeText("TILLYKKE!!!!",155,50);
+            gc.fillText( player.getName()+" har vundet",85,120);
+            gc.strokeText(player.getName()+" har vundet",85,120);
+            gc.setFill(Paint.valueOf("Gold"));
+            gc.setStroke(Paint.valueOf("White"));
+            gc.fillText( "\uD83C\uDFC6 \uD83C\uDFC6 \uD83C\uDFC6 \uD83C\uDFC6 \uD83C\uDFC6 \uD83C\uDFC6",120,190);
+            gc.strokeText("\uD83C\uDFC6 \uD83C\uDFC6 \uD83C\uDFC6 \uD83C\uDFC6 \uD83C\uDFC6 \uD83C\uDFC6",120,190);
         }
     }
 }
