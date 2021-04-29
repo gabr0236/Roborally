@@ -141,7 +141,7 @@ public class AppController {
             textInputDialog.setHeaderText("Write your name:");
             Optional<String> playerName = textInputDialog.showAndWait();
 
-            if (playerName.isPresent() && playerName.get().matches("^([ \\u00c0-\\u01ffa-zA-Z'\\-]){3,20}$")) {
+            if (playerName.isPresent() && playerName.get().matches("^([ 0-9\\u00c0-\\u01ffa-zA-Z'\\-]){3,20}$")) {
                 return playerName.get();
             } else if (playerName.isPresent()) {
                 invalidName();
@@ -209,7 +209,7 @@ public class AppController {
             textInputDialog.setHeaderText("Write a name for your game:");
             Optional<String> gameName = textInputDialog.showAndWait();
 
-            if (gameName.isPresent() && gameName.get().matches("^([ \\u00c0-\\u01ffa-zA-Z'\\-]){3,20}$")) {
+            if (gameName.isPresent() && gameName.get().matches("^([0-9\\u00c0-\\u01ffa-zA-Z'\\-]){3,20}$")) {
                 return gameName.get();
             } else if (gameName.isPresent()) {
                 invalidName();
