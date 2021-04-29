@@ -126,7 +126,7 @@
       "walls": [],
       "activatableBoardElementList": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Conveyor",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.boardElements.Conveyor",
           "INSTANCE": {
             "heading": "EAST",
             "command": "FORWARD"
@@ -140,7 +140,7 @@
       "walls": [],
       "activatableBoardElementList": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Conveyor",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.boardElements.Conveyor",
           "INSTANCE": {
             "heading": "EAST",
             "command": "FORWARD"
@@ -154,7 +154,7 @@
       "walls": [],
       "activatableBoardElementList": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Conveyor",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.boardElements.Conveyor",
           "INSTANCE": {
             "heading": "WEST",
             "command": "FORWARD"
@@ -168,7 +168,7 @@
       "walls": [],
       "activatableBoardElementList": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Conveyor",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.boardElements.Conveyor",
           "INSTANCE": {
             "heading": "NORTH",
             "command": "FORWARD"
@@ -182,7 +182,7 @@
       "walls": [],
       "activatableBoardElementList": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Conveyor",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.boardElements.Conveyor",
           "INSTANCE": {
             "heading": "SOUTH",
             "command": "FAST_FORWARD"
@@ -196,7 +196,7 @@
       "walls": [],
       "activatableBoardElementList": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Conveyor",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.boardElements.Conveyor",
           "INSTANCE": {
             "heading": "NORTH",
             "command": "FAST_FORWARD"
@@ -210,7 +210,7 @@
       "walls": [],
       "activatableBoardElementList": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Conveyor",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.boardElements.Conveyor",
           "INSTANCE": {
             "heading": "WEST",
             "command": "FAST_FORWARD"
@@ -224,7 +224,7 @@
       "walls": [],
       "activatableBoardElementList": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Conveyor",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.boardElements.Conveyor",
           "INSTANCE": {
             "heading": "EAST",
             "command": "FORWARD"
@@ -238,7 +238,7 @@
       "walls": [],
       "activatableBoardElementList": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Conveyor",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.boardElements.Conveyor",
           "INSTANCE": {
             "heading": "EAST",
             "command": "FAST_FORWARD"
@@ -252,7 +252,7 @@
       "walls": [],
       "activatableBoardElementList": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Conveyor",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.boardElements.Conveyor",
           "INSTANCE": {
             "heading": "NORTH",
             "command": "FORWARD"
@@ -266,7 +266,7 @@
       "walls": [],
       "activatableBoardElementList": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Conveyor",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.boardElements.Conveyor",
           "INSTANCE": {
             "heading": "WEST",
             "command": "FAST_FORWARD"
@@ -280,7 +280,7 @@
       "walls": [],
       "activatableBoardElementList": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Conveyor",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.boardElements.Conveyor",
           "INSTANCE": {
             "heading": "NORTH",
             "command": "FAST_FORWARD"
@@ -294,7 +294,7 @@
       "walls": [],
       "activatableBoardElementList": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Conveyor",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.boardElements.Conveyor",
           "INSTANCE": {
             "heading": "NORTH",
             "command": "FAST_FORWARD"
@@ -308,7 +308,7 @@
       "walls": [],
       "activatableBoardElementList": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Conveyor",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.boardElements.Conveyor",
           "INSTANCE": {
             "heading": "NORTH",
             "command": "FAST_FORWARD"
@@ -322,7 +322,7 @@
       "walls": [],
       "activatableBoardElementList": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Conveyor",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.boardElements.Conveyor",
           "INSTANCE": {
             "heading": "EAST",
             "command": "FAST_FORWARD"
@@ -336,7 +336,7 @@
       "walls": [],
       "activatableBoardElementList": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Conveyor",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.boardElements.Conveyor",
           "INSTANCE": {
             "heading": "EAST",
             "command": "FAST_FORWARD"
@@ -351,7 +351,7 @@
       "walls": [],
       "activatableBoardElementList": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Conveyor",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.boardElements.Conveyor",
           "INSTANCE": {
             "heading": "EAST",
             "command": "FAST_FORWARD"
@@ -365,7 +365,7 @@
       "walls": [],
       "activatableBoardElementList": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Conveyor",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.boardElements.Conveyor",
           "INSTANCE": {
             "heading": "SOUTH",
             "command": "FAST_FORWARD"
@@ -379,7 +379,7 @@
       "walls": [],
       "activatableBoardElementList": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Conveyor",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.boardElements.Conveyor",
           "INSTANCE": {
             "heading": "SOUTH",
             "command": "FAST_FORWARD"
@@ -393,7 +393,7 @@
       "walls": [],
       "activatableBoardElementList": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Conveyor",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.boardElements.Conveyor",
           "INSTANCE": {
             "heading": "SOUTH",
             "command": "FAST_FORWARD"
@@ -407,7 +407,7 @@
       "walls": [],
       "activatableBoardElementList": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Conveyor",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.boardElements.Conveyor",
           "INSTANCE": {
             "heading": "WEST",
             "command": "FAST_FORWARD"
@@ -421,7 +421,7 @@
       "walls": [],
       "activatableBoardElementList": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Conveyor",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.boardElements.Conveyor",
           "INSTANCE": {
             "heading": "WEST",
             "command": "FAST_FORWARD"
@@ -540,7 +540,7 @@
       "walls": [],
       "activatableBoardElementList": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Checkpoint",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.boardElements.Checkpoint",
           "INSTANCE": {
             "checkpointNumber": "1"
           }
@@ -553,7 +553,7 @@
       "walls": [],
       "activatableBoardElementList": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Checkpoint",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.boardElements.Checkpoint",
           "INSTANCE": {
             "checkpointNumber": "2"
           }
@@ -566,7 +566,7 @@
       "walls": [],
       "activatableBoardElementList": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Gear",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.boardElements.Gear",
           "INSTANCE": {
             "clockwise": true
           }
@@ -579,7 +579,7 @@
       "walls": [],
       "activatableBoardElementList": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.EnergySpace",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.boardElements.EnergySpace",
           "INSTANCE": {}
         }
       ],
@@ -590,7 +590,7 @@
       "walls": [],
       "activatableBoardElementList": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.EnergySpace",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.boardElements.EnergySpace",
           "INSTANCE": {}
         }
       ],
@@ -601,7 +601,7 @@
       "walls": [],
       "activatableBoardElementList": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.EnergySpace",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.boardElements.EnergySpace",
           "INSTANCE": {}
         }
       ],
@@ -612,7 +612,7 @@
       "walls": [],
       "activatableBoardElementList": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.EnergySpace",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.boardElements.EnergySpace",
           "INSTANCE": {}
         }
       ],
@@ -623,7 +623,7 @@
       "walls": [],
       "activatableBoardElementList": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.EnergySpace",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.boardElements.EnergySpace",
           "INSTANCE": {}
         }
       ],
