@@ -20,9 +20,5 @@ public class PressorBeam extends Upgrade{
     public void doAction(Player player, GameController gameController) {
     }
 
-    @Override
-    public String toString() { return "PressorBeam";
-    }
-
 }
 

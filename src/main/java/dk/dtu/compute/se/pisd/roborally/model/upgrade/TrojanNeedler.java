@@ -19,8 +19,5 @@ public class TrojanNeedler extends Upgrade{
 
     }
 
-    @Override
-    public String toString() {
-        return "TrojanNeedler";
-    }
+
 }

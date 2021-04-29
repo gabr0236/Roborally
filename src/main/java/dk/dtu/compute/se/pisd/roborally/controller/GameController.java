@@ -228,7 +228,7 @@ public class GameController {
      */
     public void executeCommand(@NotNull Player player, Heading heading, Command command) {
         if (player != null && player.board == board && command != null) {
-            player.setFinalDestination(calculateDestination(player, heading, command));
+            player.setFinalDestination(getDestination(player, heading, command));
 
             if (command == Command.SPAM || command == Command.TROJAN || command == Command.WORM || command == Command.VIRUS) {
                 if (player.getSavedDamageCards().contains(command)) player.getSavedDamageCards().remove(command);
@@ -358,21 +358,17 @@ public class GameController {
         if (other != null) {
 
             if (target != null) {
-                if (notWallsBlock(other.getSpace(), heading)) {
-                    // XXX Note that there might be additional problems with
-                    //     infinite recursion here (in some special cases)!
-                    //     We will come back to that!
-
-                    for (Upgrade u : player.getUpgrades()) {
-                        if (u.responsible(UpgradeResponsibility.PUSH_LEFT_OR_RIGHT)) {
-                            board.setPhase(Phase.PLAYER_INTERACTION);
-                            return;
-                        }
-                        else if(u.responsible(UpgradeResponsibility.MODULAR_CHASSIS) && other != null){
-                            u.doAction(player, this);
-                        }
+                dealPushDamage(player, other);
+                for (Upgrade u : player.getUpgrades()) {
+                    if(u.responsible(UpgradeResponsibility.MODULAR_CHASSIS) && other != null){
+                        u.doAction(player, this);
                     }
-                    dealPushDamage(player, other);
+                    if (u.responsible(UpgradeResponsibility.PUSH_LEFT_OR_RIGHT) && other!=null) {
+                        board.setPhase(Phase.PLAYER_INTERACTION);
+                        return;
+                    }
+                }
+                if (notWallsBlock(other.getSpace(), heading)) {
                     if(other.getSpace() != null) {
                         moveToSpace(other, target, heading);
                     }
@@ -494,10 +490,18 @@ public class GameController {
         if (currentPlayer != null && Phase.PLAYER_INTERACTION == board.getPhase() && option != null) {
             board.setPhase(Phase.ACTIVATION);
             executeCommand(currentPlayer,currentPlayer.getHeading(), option);
-            board.setStepMode(false);
             nextPlayerOrPhase();
         }
     }
+
+    public void continueProgram() {
+        Player currentPlayer = board.getCurrentPlayer();
+        if (currentPlayer != null && Phase.PLAYER_INTERACTION == board.getPhase()) {
+            board.setPhase(Phase.ACTIVATION);
+            nextPlayerOrPhase();
+        }
+    }
+
 
     /**
      * Moves a players CommandCard to a different position in hand.
@@ -936,7 +940,7 @@ public class GameController {
      * @param command
      * @return
      */
-    public Space calculateDestination(Player player, Heading heading, Command command){
+    public Space getDestination(Player player, Heading heading, Command command){
         Space move = board.getNeighbour(player.getSpace(),heading);
         Space movex2 = board.getNeighbour(move,heading);
         Space movex3 = board.getNeighbour(movex2,heading);

@@ -31,9 +31,4 @@ public class RearLaser extends Upgrade{
                 gameController.fireLaser(rearNeighbour, player.getHeading().oppositeHeading());
             }
     }
-
-    @Override
-    public String toString() {
-        return "RearLaser";
-    }
 }

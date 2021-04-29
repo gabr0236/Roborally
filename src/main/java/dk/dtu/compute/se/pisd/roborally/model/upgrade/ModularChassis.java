@@ -23,8 +23,4 @@ public class ModularChassis extends Upgrade{
 
     }
 
-    @Override
-    public String toString() {
-        return "ModularChassis";
-    }
 }

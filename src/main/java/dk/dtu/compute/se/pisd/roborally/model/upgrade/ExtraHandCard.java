@@ -20,8 +20,4 @@ public class ExtraHandCard extends Upgrade {
         }
     }
 
-    @Override
-    public String toString() {
-        return "ExtraHandCard";
-    }
 }

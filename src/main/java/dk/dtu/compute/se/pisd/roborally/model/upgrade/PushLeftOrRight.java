@@ -2,7 +2,12 @@ package dk.dtu.compute.se.pisd.roborally.model.upgrade;
 
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import dk.dtu.compute.se.pisd.roborally.model.Command;
+import dk.dtu.compute.se.pisd.roborally.model.CommandCard;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
+import dk.dtu.compute.se.pisd.roborally.model.Space;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A player with this upgrade has the ability to push players left or right.
@@ -11,32 +16,33 @@ import dk.dtu.compute.se.pisd.roborally.model.Player;
 public class PushLeftOrRight extends Upgrade {
 
     private final Command[] pushOptions = {Command.LEFT,Command.FORWARD,Command.RIGHT};
+    private List<Command> situationalOptions = new ArrayList<>();
 
     @Override
     public boolean responsible(UpgradeResponsibility upgradeResponsibility) {
         return upgradeResponsibility == UpgradeResponsibility.PUSH_LEFT_OR_RIGHT;
     }
 
-    //TODO @Gab spørg ekki om det her er ok
     @Override
     public void doAction(Player player, GameController gameController) {
     }
 
     public void doAction(Player playerPushed, GameController gameController, Command command){
         Player playerPushing = gameController.board.getCurrentPlayer();
+        Space playerPushedSpace = playerPushed.getSpace();
         switch (command){
-            case LEFT -> gameController.directionMove(playerPushed,playerPushed.getHeading().prev());
-            case FORWARD -> gameController.directionMove(playerPushed,playerPushing.getHeading());
-            case RIGHT -> gameController.directionMove(playerPushed,playerPushed.getHeading().next());
+            case LEFT -> gameController.directionMove(playerPushed,playerPushing.getHeading().prev());
+            case FORWARD -> gameController.executeCommand(playerPushed,playerPushing.getHeading(), playerPushing.getProgramField(gameController.board.getStep()).getCard().command);
+            case RIGHT -> gameController.directionMove(playerPushed,playerPushing.getHeading().next());
         }
-        //TODO: @Gab det her er ikke en færdig løsning
-        gameController.executeCommandOptionAndContinue(playerPushing.getProgramField(gameController.board.getStep()).getCard().command);
+        if(playerPushedSpace!=playerPushed.getSpace()) {
+            gameController.executeCommand(playerPushing,playerPushing.getHeading(),playerPushing.getProgramField(gameController.board.getStep()).getCard().command);
+            gameController.continueProgram();
+        } else {
+            gameController.continueProgram();
+        }
     }
 
     public Command[] getPushOptions() { return pushOptions; }
 
-    @Override
-    public String toString() {
-        return "PushLeftOrRight";
-    }
 }

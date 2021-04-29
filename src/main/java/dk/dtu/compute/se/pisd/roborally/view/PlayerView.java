@@ -230,33 +230,33 @@ public class PlayerView extends Tab implements ViewObserver, Comparable<PlayerVi
                 playerInteractionPanel.getChildren().clear();
 
                 if (player.board.getCurrentPlayer() == player) {
-                    boolean isUpgrade = false;
-                    for (Upgrade u:player.getUpgrades()) {
-                        if(u.responsible(UpgradeResponsibility.PUSH_LEFT_OR_RIGHT) && u instanceof PushLeftOrRight){
-                            PushLeftOrRight pushLeftOrRight = (PushLeftOrRight) u;
-                            for (Command c:pushLeftOrRight.getPushOptions()) {
-                                Button optionButton = new Button(c.displayName);
-                                optionButton.setOnAction(e -> ((PushLeftOrRight) u).doAction(
-                                        player.board.getNeighbour(player.getSpace(),player.getHeading()).getPlayer(),
-                                        gameController,c));
-                                optionButton.setDisable(false);
-                                playerInteractionPanel.getChildren().add(optionButton);
-                            }
-                            isUpgrade=true;
-                            statusLabel.setText(gameController.board.getStatusMessage(player));
-                        }
-                    }
-                    if(!isUpgrade) {
-                        CommandCard current = player.getProgramField(player.board.getStep()).getCard();
-                        if (current != null) {
-                            for (Command option : current.command.getOptions()) {
-                                Button optionButton = new Button(option.displayName);
-                                optionButton.setOnAction(e -> gameController.executeCommandOptionAndContinue(option));
-                                optionButton.setDisable(false);
-                                playerInteractionPanel.getChildren().add(optionButton);
+
+                    CommandCard current = player.getProgramField(player.board.getStep()).getCard();
+                    if (current != null) {
+                        for (Upgrade u : player.getUpgrades()) {
+                            if (u.responsible(UpgradeResponsibility.PUSH_LEFT_OR_RIGHT) && u instanceof PushLeftOrRight
+                                    && current.command.getOptions().size()<1) {
+                                PushLeftOrRight pushLeftOrRight = (PushLeftOrRight) u;
+                                for (Command c : pushLeftOrRight.getPushOptions()) {
+                                    Button optionButton = new Button(c.displayName);
+                                    optionButton.setOnAction(e -> ((PushLeftOrRight) u).doAction(
+                                            player.board.getNeighbour(player.getSpace(), player.getHeading()).getPlayer(),
+                                            gameController, c));
+                                    optionButton.setDisable(false);
+                                    playerInteractionPanel.getChildren().add(optionButton);
+                                }
+
+                                statusLabel.setText(gameController.board.getStatusMessage(player));
                             }
                         }
+                        for (Command option : current.command.getOptions()) {
+                            Button optionButton = new Button(option.displayName);
+                            optionButton.setOnAction(e -> gameController.executeCommandOptionAndContinue(option));
+                            optionButton.setDisable(false);
+                            playerInteractionPanel.getChildren().add(optionButton);
+                        }
                     }
+
                 }
             }
             statusLabel.setText(gameController.board.getStatusMessage(player));
