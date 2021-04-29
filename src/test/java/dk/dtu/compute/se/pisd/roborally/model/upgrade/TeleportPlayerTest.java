@@ -95,7 +95,7 @@ class TeleportPlayerTest {
         board.setStep(0);
         current.getProgramField(0).setCard(new CommandCard(Command.FORWARD));
         current.board.getNeighbour(current.getSpace(),current.getHeading()).setPlayer(board.getPlayer(1));
-        gameController.executeCommand(current,current.getHeading(),Command.FAST_FORWARD);
+        gameController.executeCommand(current,current.getHeading(),Command.FORWARD);
 
         Assertions.assertEquals(current, board.getSpace(0, 1).getPlayer(), "Player " + current.getName() + " should beSpace (0,1)!");
         Assertions.assertEquals(board.getPlayer(1), board.getSpace(0, 0).getPlayer(), "Player " + board.getPlayer(1).getName() + " should beSpace (0,0)!");

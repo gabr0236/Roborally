@@ -239,7 +239,8 @@ public class PlayerView extends Tab implements ViewObserver, Comparable<PlayerVi
                                 optionButton.setOnAction(e -> ((PushLeftOrRight) u).doAction(
                                         player.board.getNeighbour(player.getSpace(),player.getHeading()).getPlayer(),
                                         gameController,c));
-                                optionButton.setDisable(true);
+                                optionButton.setDisable(false);
+                                playerInteractionPanel.getChildren().add(optionButton);
                             }
                             isUpgrade=true;
                             statusLabel.setText(gameController.board.getStatusMessage(player));

@@ -249,7 +249,6 @@ class GameControllerTest {
          Assertions.assertEquals("Player 3",board.getPlayers().get(3).getName());
          Assertions.assertEquals("Player 4",board.getPlayers().get(4).getName());
          Assertions.assertEquals("Player 5",board.getPlayers().get(5).getName());
-
      }
 
     /**
@@ -457,8 +456,6 @@ class GameControllerTest {
         Assertions.assertFalse(player1.getSavedDamageCards().contains(Command.WORM));
         Assertions.assertFalse(player1.getSavedDamageCards().contains(Command.TROJAN));
         Assertions.assertTrue(board.getSpace(1,2) == player1.getSpace());
-
-
     }
 
 }

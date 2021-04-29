@@ -1,8 +1,7 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
-import dk.dtu.compute.se.pisd.roborally.model.*;
-import dk.dtu.compute.se.pisd.roborally.model.Reboot;
+import dk.dtu.compute.se.pisd.roborally.model.boardElements.Reboot;
 import dk.dtu.compute.se.pisd.roborally.model.upgrade.Firewall;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -128,6 +127,7 @@ public class RebootTest {
         Player player = board.getCurrentPlayer();
         board.getSpace(4,0).setPlayer(player);
         gameController.updateAllReboot();
+
         board.getSpace(9,0).setPlayer(player);
         gameController.updateAllReboot();
 

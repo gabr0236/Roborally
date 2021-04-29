@@ -1,13 +1,13 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
+import dk.dtu.compute.se.pisd.roborally.model.boardElements.Laser;
 import dk.dtu.compute.se.pisd.roborally.model.upgrade.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -70,6 +70,7 @@ class LaserTest {
 
         gameController.dealLaserDamage(killedPlayer,shootingPlayer);
 
+        //TODO: når tobis 2 test damagecards slettes vil denne test fejle, hvorfor actual skal sættes til 2!!!
         Assertions.assertEquals(killedPlayer.getSavedDamageCards().size(), 4);
     }
 

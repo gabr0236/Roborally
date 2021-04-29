@@ -29,7 +29,7 @@ import dk.dtu.compute.se.pisd.roborally.dal.RepositoryAccess;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 
-import dk.dtu.compute.se.pisd.roborally.model.Checkpoint;
+import dk.dtu.compute.se.pisd.roborally.model.boardElements.Checkpoint;
 import dk.dtu.compute.se.pisd.roborally.model.upgrade.LuckyShield;
 import dk.dtu.compute.se.pisd.roborally.model.upgrade.PushLeftOrRight;
 import dk.dtu.compute.se.pisd.roborally.model.upgrade.RailGun;
@@ -379,6 +379,7 @@ public class AppController {
         board.getPlayers().get(1).getUpgrades().add(rearLaser);
         board.getPlayers().get(1).getUpgrades().add(railGun);
         board.getPlayers().get(1).getUpgrades().add(luckyShield);
+        board.getPlayer(1).getUpgrades().add(new PushLeftOrRight());
         gameController.startProgrammingPhase();
 
         IRepository repository = RepositoryAccess.getRepository();
