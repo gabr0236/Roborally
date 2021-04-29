@@ -263,6 +263,14 @@ public class Player extends Subject implements Comparable<Player> {
         this.savedDamageCards = savedDamageCards;
     }
 
+    public String getAllUpgradeNames(){
+        String s = "";
+        for (Upgrade u:upgrades) {
+            s=s+ u.getName() + ", ";
+        }
+        return s;
+    }
+
     /**
      * compares two players in regards to their distance from the antenna
      * @param o is the player being compared to the player the method is called upon
