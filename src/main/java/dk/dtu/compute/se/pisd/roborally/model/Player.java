@@ -263,6 +263,10 @@ public class Player extends Subject implements Comparable<Player> {
         this.savedDamageCards = savedDamageCards;
     }
 
+    /**
+     * @return String with every upgrade the player has.
+     * @author @Gabriel
+     */
     public String getAllUpgradeNames(){
         String s = "";
         for (Upgrade u:upgrades) {
