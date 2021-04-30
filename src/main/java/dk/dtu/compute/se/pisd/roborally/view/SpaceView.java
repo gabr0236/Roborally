@@ -134,7 +134,10 @@ public class SpaceView extends StackPane implements ViewObserver {
         }
 
         else if (space.getIsAntenna()) {
-            this.setStyle("-fx-background-color: #25b5b5");
+            Image img = new Image("file:src/main/java/dk/dtu/compute/se/pisd/Pictures/Antenna.png", SPACE_WIDTH, SPACE_HEIGHT, true ,true);
+            ImageView iView = new ImageView(img);
+
+         /*   this.setStyle("-fx-background-color: #25b5b5");
             Polygon arrow = new Polygon(0.0, 0.0,
                     16.0, 30.0,
                     30.0, 0.0);
@@ -143,8 +146,8 @@ public class SpaceView extends StackPane implements ViewObserver {
             this.getChildren().add(arrow);
             Text text = new Text();
             text.setText("Antenna");
-            text.setFont(Font.font("Arial, Helvetica, sans-serif", FontWeight.BOLD, FontPosture.REGULAR, 10));
-            this.getChildren().add(text);
+            text.setFont(Font.font("Arial, Helvetica, sans-serif", FontWeight.BOLD, FontPosture.REGULAR, 10));*/
+            this.getChildren().add(iView);
         }
 
         else if (space.getReboot() != null) {
