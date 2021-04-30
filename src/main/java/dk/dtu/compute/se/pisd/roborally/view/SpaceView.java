@@ -26,6 +26,7 @@ import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.model.boardElements.*;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -33,6 +34,9 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.text.*;
+import javafx.scene.text.Font;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -187,22 +191,20 @@ public class SpaceView extends StackPane implements ViewObserver {
                 // Draw Gear
                 } else if (activatableBoardElement instanceof Gear gear) {
                     // @author Tobias s205358
-                    Circle gearView = new Circle(0, 0, 17.5);
-                    gearView.setFill(Color.BLUE);
-                    Polygon arrowView = new Polygon(0.0, 0.0,
-                            8.0, 15.0,
-                            15.0, 0.0);
-                    arrowView.setFill(Color.YELLOW);
-                    Heading clock;
-                    if (gear.isClockwise()) {
-                        clock = Heading.WEST;
-                    } else {
-                        clock = Heading.EAST;
-                    }
-                    arrowView.setRotate((90 * clock.ordinal()) % 360);
-                    this.getChildren().add(gearView);
-                    this.setStyle("-fx-background-color: Black");
-                    this.getChildren().add(arrowView);
+                    Image img;
+                    ImageView iView;
+
+                        if (gear.isClockwise()) {
+                            img = new Image("file:src/main/java/dk/dtu/compute/se/pisd/Pictures/ClockwiseArrow.png", SPACE_WIDTH, SPACE_HEIGHT, true, true);
+                            iView = new ImageView(img);
+                        } else {
+                            img = new Image("file:src/main/java/dk/dtu/compute/se/pisd/Pictures/CounterClockwiseArrow.png", SPACE_WIDTH, SPACE_HEIGHT, true, true);
+                            iView = new ImageView(img);
+                        }
+                   this.getChildren().add(iView);
+
+
+
                 }
 
                 //Draw EnergySpace
