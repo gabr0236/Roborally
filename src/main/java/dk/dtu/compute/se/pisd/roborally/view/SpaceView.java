@@ -195,14 +195,14 @@ public class SpaceView extends StackPane implements ViewObserver {
                     ImageView iView;
 
                         if (gear.isClockwise()) {
-                            img = new Image("file:dk/dtu/compute/se/pisd/Pictures/ClockwiseArrow.png");
+                            img = new Image("file:src/main/java/dk/dtu/compute/se/pisd/Pictures/ClockwiseArrow.png", SPACE_WIDTH, SPACE_HEIGHT, true, true);
                             iView = new ImageView(img);
                         } else {
-                            img = new Image("file:dk/dtu/compute/se/pisd/Pictures/CounterClockwiseArrow.png");
+                            img = new Image("file:src/main/java/dk/dtu/compute/se/pisd/Pictures/CounterClockwiseArrow.png", SPACE_WIDTH, SPACE_HEIGHT, true, true);
                             iView = new ImageView(img);
                         }
-                    Pane pane = new Pane(iView);
-                        this.getChildren().add(pane);
+                   this.getChildren().add(iView);
+
 
 
                 }
