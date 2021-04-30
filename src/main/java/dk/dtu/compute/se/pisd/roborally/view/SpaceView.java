@@ -127,6 +127,7 @@ public class SpaceView extends StackPane implements ViewObserver {
         this.getChildren().clear();
 
         if (space.getPit()) {
+            // @author Daniel
             this.setStyle("-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #424341, #090703)");
             Text text = new Text();
             text.setText("PIT");
@@ -134,6 +135,7 @@ public class SpaceView extends StackPane implements ViewObserver {
         }
 
         else if (space.getIsAntenna()) {
+            // @author Daniel
             Image img = new Image("file:src/main/java/dk/dtu/compute/se/pisd/Pictures/Antenna.png", SPACE_WIDTH, SPACE_HEIGHT, true ,true);
             ImageView iView = new ImageView(img);
 
@@ -193,7 +195,7 @@ public class SpaceView extends StackPane implements ViewObserver {
 
                 // Draw Gear
                 } else if (activatableBoardElement instanceof Gear gear) {
-                    // @author Tobias s205358
+                    // @author Tobias s205358, Daniel
                     Image img;
                     ImageView iView;
 
