@@ -33,7 +33,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
-import org.intellij.lang.annotations.Flow;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -234,7 +233,7 @@ public class PlayerView extends Tab implements ViewObserver, Comparable<PlayerVi
                     CommandCard current = player.getProgramField(player.board.getStep()).getCard();
                     if (current != null) {
                         for (Upgrade u : player.getUpgrades()) {
-                            if (u.responsible(UpgradeResponsibility.PUSH_LEFT_OR_RIGHT) && u instanceof PushLeftOrRight
+                            if (u.responsible(UpgradeResponsibility.PUSHLEFTORRIGHT) && u instanceof PushLeftOrRight
                                     && current.command.getOptions().size()<1) {
                                 PushLeftOrRight pushLeftOrRight = (PushLeftOrRight) u;
                                 for (Command c : pushLeftOrRight.getPushOptions()) {

@@ -8,9 +8,9 @@ import dk.dtu.compute.se.pisd.roborally.model.Player;
  * @author @Sebastian
  */
 public class PushPanelDodger extends Upgrade {
-    @Override
-    public boolean responsible(UpgradeResponsibility upgradeResponsibility) {
-        return upgradeResponsibility == upgradeResponsibility.PUSH_PANEL_DODGER;
+
+    public PushPanelDodger(){
+        this.upgradeResponsibility=UpgradeResponsibility.PUSHPANELDODGER;
     }
 
     @Override

@@ -11,9 +11,8 @@ import dk.dtu.compute.se.pisd.roborally.model.Space;
  * @author @Gabriel
  */
 public class TeleportPlayer extends Upgrade {
-    @Override
-    public boolean responsible(UpgradeResponsibility upgradeResponsibility) {
-        return upgradeResponsibility==UpgradeResponsibility.TELEPORT_PLAYER ? true : false;
+    public TeleportPlayer(){
+        this.upgradeResponsibility=UpgradeResponsibility.TELEPORTPLAYER;
     }
 
     @Override

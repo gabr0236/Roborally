@@ -1,7 +1,6 @@
 package dk.dtu.compute.se.pisd.roborally.model.upgrade;
 
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
-import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 
@@ -12,9 +11,8 @@ import dk.dtu.compute.se.pisd.roborally.model.Space;
  */
 public class RailGun extends Upgrade {
 
-    public boolean responsible(UpgradeResponsibility upgradeResponsibility){
-        return upgradeResponsibility == UpgradeResponsibility.RAIL_GUN;
-
+    public RailGun(){
+        this.upgradeResponsibility=UpgradeResponsibility.RAILGUN;
     }
 
     @Override

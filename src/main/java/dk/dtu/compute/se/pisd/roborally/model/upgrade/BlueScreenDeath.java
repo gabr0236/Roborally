@@ -10,13 +10,13 @@ import dk.dtu.compute.se.pisd.roborally.model.Player;
 
 public class BlueScreenDeath extends Upgrade{
 
-    @Override
-    public boolean responsible(UpgradeResponsibility upgradeResponsibility) {
-        return upgradeResponsibility == UpgradeResponsibility.BLUE_SCREEN_DEATH;
+    public BlueScreenDeath(){
+        this.upgradeResponsibility=UpgradeResponsibility.BLUESCREENDEATH;
     }
 
     @Override
     public void doAction(Player player, GameController gameController) {
     }
+
 
 }

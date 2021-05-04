@@ -37,7 +37,7 @@ public class PushPanel extends ActivatableBoardElement {
             if(!activatingTurns.isEmpty() && player!=null && player.getSpace()!=null){
                 if(activatingTurns.contains(gameController.board.getStep())){
                     for(Upgrade u : player.getUpgrades()){
-                        if(u.responsible(UpgradeResponsibility.PUSH_PANEL_DODGER)){
+                        if(u.responsible(UpgradeResponsibility.PUSHPANELDODGER)){
                             return;
                         }
                     }

@@ -2,7 +2,6 @@ package dk.dtu.compute.se.pisd.roborally.model.upgrade;
 
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import dk.dtu.compute.se.pisd.roborally.model.Command;
-import dk.dtu.compute.se.pisd.roborally.model.CommandCard;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 
@@ -18,10 +17,10 @@ public class PushLeftOrRight extends Upgrade {
     private final Command[] pushOptions = {Command.LEFT,Command.FORWARD,Command.RIGHT};
     private List<Command> situationalOptions = new ArrayList<>();
 
-    @Override
-    public boolean responsible(UpgradeResponsibility upgradeResponsibility) {
-        return upgradeResponsibility == UpgradeResponsibility.PUSH_LEFT_OR_RIGHT;
+    public PushLeftOrRight(){
+        this.upgradeResponsibility=UpgradeResponsibility.PUSHLEFTORRIGHT;
     }
+
 
     @Override
     public void doAction(Player player, GameController gameController) {

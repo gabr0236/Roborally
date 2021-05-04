@@ -9,9 +9,9 @@ import dk.dtu.compute.se.pisd.roborally.model.Player;
  */
 
 public class VirusModule extends Upgrade{
-    @Override
-    public boolean responsible(UpgradeResponsibility upgradeResponsibility) {
-        return upgradeResponsibility == UpgradeResponsibility.VIRUS_MODULE;
+
+    public VirusModule(){
+        this.upgradeResponsibility=UpgradeResponsibility.VIRUSMODULE;
     }
 
     @Override

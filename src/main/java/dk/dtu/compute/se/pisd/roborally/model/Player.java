@@ -35,8 +35,6 @@ import static dk.dtu.compute.se.pisd.roborally.model.Heading.EAST;
  * ...
  * @author Ekkart Kindler, ekki@dtu.dk
  * <p>
- * Javadoc
- * @author Gabriel
  */
 public class Player extends Subject implements Comparable<Player> {
 

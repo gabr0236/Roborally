@@ -9,9 +9,11 @@ import dk.dtu.compute.se.pisd.roborally.model.Player;
  */
 public class LuckyShield extends Upgrade {
     boolean lucky = false;
+
+    public LuckyShield(){this.upgradeResponsibility=UpgradeResponsibility.LUCKYSHIELD;}
     @Override
     public boolean responsible(UpgradeResponsibility upgradeResponsibility) {
-        if(upgradeResponsibility!=UpgradeResponsibility.LUCKY_SHIELD) return false;
+        if(upgradeResponsibility!=this.upgradeResponsibility) return false;
         else return (int)(Math.random()*100)<=50 ? true : false;
     }
 

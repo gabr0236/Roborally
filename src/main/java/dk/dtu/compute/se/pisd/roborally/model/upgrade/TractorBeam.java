@@ -9,9 +9,8 @@ import dk.dtu.compute.se.pisd.roborally.model.Player;
  */
 
 public class TractorBeam extends Upgrade {
-    @Override
-    public boolean responsible(UpgradeResponsibility upgradeResponsibility) {
-        return upgradeResponsibility == UpgradeResponsibility.TRACTOR_BEAM;
+    public TractorBeam(){
+        this.upgradeResponsibility=UpgradeResponsibility.TRACTORBEAM;
     }
 
     @Override

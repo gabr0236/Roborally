@@ -45,4 +45,12 @@ CREATE TABLE IF NOT EXISTS Cards (
   FOREIGN KEY (gameID, playerID) references Player(gameID, playerID) on delete cascade
 );;
 
+CREATE TABLE IF NOT EXISTS Upgrades (
+  gameID int NOT NULL,
+  playerID tinyint NOT NULL,
+  upgrade tinyint,
+  PRIMARY KEY (gameID, playerID, upgrade),
+  FOREIGN KEY (gameID, playerID) references Player(gameID, playerID) on delete cascade
+);;
+
 SET FOREIGN_KEY_CHECKS = 1;;

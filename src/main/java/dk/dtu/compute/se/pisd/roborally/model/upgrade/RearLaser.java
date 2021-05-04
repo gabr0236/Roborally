@@ -10,16 +10,15 @@ import dk.dtu.compute.se.pisd.roborally.model.Space;
  */
 
 public class RearLaser extends Upgrade{
-    @Override
-    public boolean responsible(UpgradeResponsibility upgradeResponsibility) {
-        return upgradeResponsibility == UpgradeResponsibility.REAR_LASER;
+    public RearLaser(){
+        this.upgradeResponsibility=UpgradeResponsibility.REARLASER;
     }
 
     @Override
     public void doAction(Player player, GameController gameController) {
         boolean hasRailGun = false;
         for(Upgrade u : player.getUpgrades()){
-            if(u.responsible(UpgradeResponsibility.RAIL_GUN))
+            if(u.responsible(UpgradeResponsibility.RAILGUN))
                 hasRailGun = true;
         }
 

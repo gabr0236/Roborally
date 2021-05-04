@@ -2,7 +2,6 @@ package dk.dtu.compute.se.pisd.roborally.model.upgrade;
 
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
-import dk.dtu.compute.se.pisd.roborally.model.Space;
 import org.jetbrains.annotations.NotNull;
 
 
@@ -12,10 +11,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class ModularChassis extends Upgrade{
 
-    @Override
-    public boolean responsible(UpgradeResponsibility upgradeResponsibility) {
-        return upgradeResponsibility == UpgradeResponsibility.MODULAR_CHASSIS;
-    }
+    public ModularChassis(){this.upgradeResponsibility=UpgradeResponsibility.MODULARCHASSIS;}
 
     @Override
     public void doAction(Player player, GameController gameController) {
@@ -30,7 +26,7 @@ public class ModularChassis extends Upgrade{
     public void doAction(@NotNull Player player, @NotNull Player pushedPlayer){
         if(pushedPlayer != null && !pushedPlayer.getUpgrades().isEmpty()){
             for(Upgrade u : player.getUpgrades()){
-                if(u.responsible(UpgradeResponsibility.MODULAR_CHASSIS) && !u.isActivatedThisStep()) {
+                if(u.responsible(UpgradeResponsibility.MODULARCHASSIS) && !u.isActivatedThisStep()) {
                     player.getUpgrades().remove(u);
 
                     int randomUpgradeNumber = (int)Math.random()*pushedPlayer.getUpgrades().size();

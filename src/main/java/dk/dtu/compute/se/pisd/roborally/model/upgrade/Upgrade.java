@@ -9,7 +9,11 @@ import dk.dtu.compute.se.pisd.roborally.model.Player;
 public abstract class Upgrade {
     private boolean activatedThisStep = false;
 
-    public abstract boolean responsible(UpgradeResponsibility upgradeResponsibility);
+    protected UpgradeResponsibility upgradeResponsibility;
+
+    public boolean responsible(UpgradeResponsibility upgradeResponsibility){
+        return upgradeResponsibility==this.upgradeResponsibility;
+    };
 
     public abstract void doAction(Player player, GameController gameController);
 
@@ -23,5 +27,9 @@ public abstract class Upgrade {
 
     public void setActivatedThisStep(boolean activatedThisStep) {
         this.activatedThisStep = activatedThisStep;
+    }
+
+    public UpgradeResponsibility getUpgradeResponsibility(){
+        return upgradeResponsibility;
     }
 }

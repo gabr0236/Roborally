@@ -1,26 +1,27 @@
 package dk.dtu.compute.se.pisd.roborally.model.upgrade;
 
-public enum UpgradeResponsibility {
-    TELEPORT_PLAYER,
-    RAIL_GUN,
-    LASER,
-    PIT_AVOIDER,
-    MODULAR_CHASSIS,
-    PUSH_PANEL_DODGER,
-    EXTRA_HAND_CARD,
-    RAMMING_GEAR,
-    PUSH_LEFT_OR_RIGHT,
-    BLUE_SCREEN_DEATH,
-    TROJAN_NEEDLER,
-    VIRUS_MODULE,
-    PRESSOR_BEAM,
-    LUCKY_SHIELD,
-    FIREWALL,
-    DOUBLE_BARREL_LASER,
-    REAR_LASER,
-    TRACTOR_BEAM;
+import java.util.stream.Stream;
 
-    public static int getRandom() {
-        return (int) (Math.random() * values().length-1);
+public enum UpgradeResponsibility {
+    TELEPORTPLAYER,
+    RAILGUN,
+    PITAVOIDER,
+    MODULARCHASSIS,
+    PUSHPANELDODGER,
+    EXTRAHANDCARD,
+    RAMMINGGEAR,
+    PUSHLEFTORRIGHT,
+    BLUESCREENDEATH,
+    TROJANNEEDLER,
+    VIRUSMODULE,
+    PRESSORBEAM,
+    LUCKYSHIELD,
+    FIREWALL,
+    DOUBLEBARRELLASER,
+    REARLASER,
+    TRACTORBEAM;
+
+    public static UpgradeResponsibility getRandom() {
+        return values()[((int) (Math.random() * values().length-1))];
     }
 }

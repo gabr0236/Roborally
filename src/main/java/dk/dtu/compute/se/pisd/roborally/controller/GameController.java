@@ -26,6 +26,7 @@ import dk.dtu.compute.se.pisd.roborally.dal.RepositoryAccess;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import dk.dtu.compute.se.pisd.roborally.model.ActivatableBoardElement;
 import dk.dtu.compute.se.pisd.roborally.model.boardElements.EnergySpace;
+import dk.dtu.compute.se.pisd.roborally.model.upgrade.CreateUpgrade;
 import dk.dtu.compute.se.pisd.roborally.model.upgrade.ModularChassis;
 import dk.dtu.compute.se.pisd.roborally.model.upgrade.Upgrade;
 import dk.dtu.compute.se.pisd.roborally.model.upgrade.UpgradeResponsibility;
@@ -237,7 +238,7 @@ public class GameController {
 
             if (command == Command.FORWARD || command == Command.MOVE_x3 || command == Command.FAST_FORWARD){
                 for (Upgrade u : player.getUpgrades()) {
-                    if (u.responsible(UpgradeResponsibility.TELEPORT_PLAYER)) {
+                    if (u.responsible(UpgradeResponsibility.TELEPORTPLAYER)) {
                         u.doAction(player, this);
                         return;
                     }
@@ -361,12 +362,12 @@ public class GameController {
             if (target != null) {
                     dealPushDamage(player, other);
                     for (Upgrade u : player.getUpgrades()) {
-                        if (u.responsible(UpgradeResponsibility.MODULAR_CHASSIS) && other != null && !u.isActivatedThisStep()) {
+                        if (u.responsible(UpgradeResponsibility.MODULARCHASSIS) && other != null && !u.isActivatedThisStep()) {
                             if(u instanceof ModularChassis modularChassis){
                                 modularChassis.doAction(player,other);
                             }
                         }
-                        if (u.responsible(UpgradeResponsibility.PUSH_LEFT_OR_RIGHT) && other != null && !u.isActivatedThisStep()) {
+                        if (u.responsible(UpgradeResponsibility.PUSHLEFTORRIGHT) && other != null && !u.isActivatedThisStep()) {
                             board.setPhase(Phase.PLAYER_INTERACTION);
                             return;
                         }
@@ -555,7 +556,7 @@ public class GameController {
 
                 for (Player p: board.getPlayers()) {
                     for (Upgrade u:p.getUpgrades()) {
-                        if(u.responsible(UpgradeResponsibility.EXTRA_HAND_CARD)){
+                        if(u.responsible(UpgradeResponsibility.EXTRAHANDCARD)){
                             u.doAction(p,this);
                         }
                     }
@@ -669,7 +670,7 @@ public class GameController {
     private void fallIntoPit(@NotNull Player player){
         if(player != null) {
             for (Upgrade u:player.getUpgrades()) {
-                if(u.responsible(UpgradeResponsibility.PIT_AVOIDER) && player.getSpace() != player.getFinalDestination()){
+                if(u.responsible(UpgradeResponsibility.PITAVOIDER) && player.getSpace() != player.getFinalDestination()){
                     return;
                 }
 
@@ -697,11 +698,11 @@ public class GameController {
             if (!players.isEmpty()) {
                 for (Player player : players) {
                     for (Upgrade u : player.getUpgrades()) {
-                        if (u.responsible(UpgradeResponsibility.RAIL_GUN)) {
+                        if (u.responsible(UpgradeResponsibility.RAILGUN)) {
                             u.doAction(player, this);
                             hasRailGun = true;
                         }
-                        if (u.responsible(UpgradeResponsibility.REAR_LASER)) {
+                        if (u.responsible(UpgradeResponsibility.REARLASER)) {
                             u.doAction(player, this);
                         }
                     }
@@ -748,12 +749,12 @@ public class GameController {
                                 boolean tractorBeam = false;
                                 dealLaserDamage(player, shootingPlayer);
                                 for (Upgrade u : shootingPlayer.getUpgrades()){
-                                    if(u.responsible(UpgradeResponsibility.PRESSOR_BEAM)) {
+                                    if(u.responsible(UpgradeResponsibility.PRESSORBEAM)) {
                                         directionMove(player, shootingDirection);
                                         projectile = board.getNeighbour(projectile, shootingDirection);
                                         pressorBeam = true;
                                     }
-                                    if(u.responsible(UpgradeResponsibility.TRACTOR_BEAM)) {
+                                    if(u.responsible(UpgradeResponsibility.TRACTORBEAM)) {
                                         if(shootingPlayer.board.getNeighbour(shootingPlayer.getSpace(),shootingPlayer.getHeading()) != player.getSpace()) {
                                             directionMove(player, shootingDirection.oppositeHeading());
                                             tractorBeam = true;
@@ -829,12 +830,12 @@ public class GameController {
                         boolean pressorBeam = false;
                         boolean tractorBeam = false;
                         for (Upgrade u : shootingPlayer.getUpgrades()){
-                            if(u.responsible(UpgradeResponsibility.PRESSOR_BEAM)) {
+                            if(u.responsible(UpgradeResponsibility.PRESSORBEAM)) {
                                 directionMove(player, shootingDirection);
                                 projectile = board.getNeighbour(projectile, shootingDirection);
                                 pressorBeam = true;
                             }
-                            if(u.responsible(UpgradeResponsibility.TRACTOR_BEAM)) {
+                            if(u.responsible(UpgradeResponsibility.TRACTORBEAM)) {
                                 if(shootingPlayer.board.getNeighbour(shootingPlayer.getSpace(),shootingPlayer.getHeading()) != player.getSpace()) {
                                     directionMove(player, shootingDirection.oppositeHeading());
                                     tractorBeam = true;
@@ -894,10 +895,13 @@ public class GameController {
             boolean b = false;
             int r = 0;
             do {
-                Upgrade u = board.upgrades.get(UpgradeResponsibility.getRandom());
+                Upgrade u = CreateUpgrade.getUpgrade(UpgradeResponsibility.getRandom());
                 if (!player.getUpgrades().contains(u) && player.getUpgrades().size() != UpgradeResponsibility.values().length) {
                     player.getUpgrades().add(u);
                     b = true;
+                }
+                if(player.getUpgrades().size()==UpgradeResponsibility.values().length){
+                    b=true;
                 }
             } while (false);
         }
@@ -911,19 +915,19 @@ public class GameController {
      */
     public void dealPushDamage(Player player, Player pushedPlayer){
         for(Upgrade u : player.getUpgrades()){
-            if(u.responsible(UpgradeResponsibility.BLUE_SCREEN_DEATH) && !u.isActivatedThisStep()){
+            if(u.responsible(UpgradeResponsibility.BLUESCREENDEATH) && !u.isActivatedThisStep()){
                 pushedPlayer.getSavedDamageCards().add(Command.WORM);
                 u.setActivatedThisStep(true);
             }
-            else if(u.responsible(UpgradeResponsibility.TROJAN_NEEDLER) && !u.isActivatedThisStep()){
+            else if(u.responsible(UpgradeResponsibility.TROJANNEEDLER) && !u.isActivatedThisStep()){
                 pushedPlayer.getSavedDamageCards().add(Command.TROJAN);
                 u.setActivatedThisStep(true);
             }
-            else if(u.responsible(UpgradeResponsibility.VIRUS_MODULE) && !u.isActivatedThisStep()){
+            else if(u.responsible(UpgradeResponsibility.VIRUSMODULE) && !u.isActivatedThisStep()){
                 u.setActivatedThisStep(true);
                 pushedPlayer.getSavedDamageCards().add(Command.VIRUS);
             }
-            else if(u.responsible((UpgradeResponsibility.RAMMING_GEAR))&& !u.isActivatedThisStep()){
+            else if(u.responsible((UpgradeResponsibility.RAMMINGGEAR))&& !u.isActivatedThisStep()){
                 pushedPlayer.getSavedDamageCards().add(spamOrRandom());
                 u.setActivatedThisStep(true);
             }
@@ -959,20 +963,20 @@ public class GameController {
         do {
             boolean upgradeUsed = false;
             for (Upgrade u : player.getUpgrades()) {
-                if (u.responsible(UpgradeResponsibility.LUCKY_SHIELD)) {
+                if (u.responsible(UpgradeResponsibility.LUCKYSHIELD)) {
                     return;
                 }
             }
             for (Upgrade u : shooter.getUpgrades()) {
-                if (u.responsible(UpgradeResponsibility.TROJAN_NEEDLER)) {
+                if (u.responsible(UpgradeResponsibility.TROJANNEEDLER)) {
                     player.getSavedDamageCards().add(Command.TROJAN);
                     upgradeUsed = true;
                 }
-                else if (u.responsible(UpgradeResponsibility.BLUE_SCREEN_DEATH)) {
+                else if (u.responsible(UpgradeResponsibility.BLUESCREENDEATH)) {
                     player.getSavedDamageCards().add(Command.WORM);
                     upgradeUsed = true;
                 }
-                else if (u.responsible(UpgradeResponsibility.DOUBLE_BARREL_LASER)) loopAgain = true;
+                else if (u.responsible(UpgradeResponsibility.DOUBLEBARRELLASER)) loopAgain = true;
             }
             if (!upgradeUsed) {
                 player.getSavedDamageCards().add(spamOrRandom());

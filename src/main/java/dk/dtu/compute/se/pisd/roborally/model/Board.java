@@ -71,7 +71,7 @@ public class Board extends Subject {
     public final List<Upgrade> upgrades = Arrays.asList(
             new ExtraHandCard(),new ModularChassis(), new PitAvoider(),new RailGun(),
             new RammingGear(), new TeleportPlayer(), new PushPanelDodger(), new RearLaser()
-            //,new PushLeftOrRight()
+            ,new PushLeftOrRight()
     );
 
     private int numberOfCheckpoints;

@@ -9,9 +9,8 @@ import dk.dtu.compute.se.pisd.roborally.model.Player;
  */
 
 public class TrojanNeedler extends Upgrade{
-    @Override
-    public boolean responsible(UpgradeResponsibility upgradeResponsibility) {
-        return upgradeResponsibility == UpgradeResponsibility.TROJAN_NEEDLER;
+    public TrojanNeedler(){
+        this.upgradeResponsibility=UpgradeResponsibility.TROJANNEEDLER;
     }
 
     @Override

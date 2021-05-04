@@ -8,9 +8,8 @@ import dk.dtu.compute.se.pisd.roborally.model.Player;
  * @author @Gabriel
  */
 public class Firewall extends Upgrade {
-    @Override
-    public boolean responsible(UpgradeResponsibility upgradeResponsibility) {
-        return upgradeResponsibility==UpgradeResponsibility.FIREWALL;
+    public Firewall(){
+        this.upgradeResponsibility=UpgradeResponsibility.FIREWALL;
     }
 
     @Override

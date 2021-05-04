@@ -2,7 +2,6 @@ package dk.dtu.compute.se.pisd.roborally.model.upgrade;
 
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
-import dk.dtu.compute.se.pisd.roborally.model.Space;
 
 /**
  * Upgrade that deals damage to players when pushing them
@@ -10,9 +9,9 @@ import dk.dtu.compute.se.pisd.roborally.model.Space;
  */
 
 public class RammingGear extends Upgrade{
-    @Override
-    public boolean responsible(UpgradeResponsibility upgradeResponsibility) {
-        return upgradeResponsibility == UpgradeResponsibility.RAMMING_GEAR;
+
+    public RammingGear(){
+        this.upgradeResponsibility=UpgradeResponsibility.RAMMINGGEAR;
     }
 
     @Override
