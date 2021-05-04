@@ -351,6 +351,7 @@ public class GameController {
      * @param space the space which the player is moving towards
      * @param heading the direction heading of the move
      * @throws ImpossibleMoveException
+     * @author Ekkart, Daniel
      */
     public void moveToSpace(@NotNull Player player, @NotNull Space space, @NotNull Heading heading) throws ImpossibleMoveException {
         assert board.getNeighbour(player.getSpace(), heading) == space; // make sure the move to here is possible in principle
