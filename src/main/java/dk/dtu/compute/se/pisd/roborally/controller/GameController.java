@@ -315,7 +315,7 @@ public class GameController {
                     if (virusSpace != null) {
                         if (virusSpace.getPlayer() != null) {
                             virusSpace.getPlayer().getSavedDamageCards().add(Command.VIRUS);
-                            virusSpace.getPlayer().setColor("Pink");
+                            //virusSpace.getPlayer().setColor("Pink");
                         }
                     }
                 }

@@ -71,8 +71,7 @@ public class RoboRally extends Application {
                     e.consume();
                     appController.exit();
                 });
-        //TODO: SÆT FALSE FØR ENDELIG AFLEVERING
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.sizeToScene();
         stage.show();
     }
