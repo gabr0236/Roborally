@@ -1,11 +1,15 @@
 package dk.dtu.compute.se.pisd.roborally.model.upgrade;
 
 /**
- * Facory for loading upgrades from database
+ * Factory for loading upgrades from database
  * @author @Gabriel
  */
 public class CreateUpgrade {
 
+    /**
+     * @param upgradeResponsibility
+     * @return Upgrade corresponding to the param
+     */
     public static Upgrade getUpgrade(UpgradeResponsibility upgradeResponsibility){
         switch (upgradeResponsibility) {
             case TELEPORTPLAYER -> { return new TeleportPlayer(); }

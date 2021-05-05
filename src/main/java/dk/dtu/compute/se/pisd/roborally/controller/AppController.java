@@ -156,7 +156,7 @@ public class AppController {
     /**
      * Shows dialog in which the players can pick between diffrent boards
      * @return string with boardname
-     * @author Gabriel
+     * @author @Gabriel
      */
     private String choseBoard() {
         boolean validBoard = false;
@@ -177,7 +177,7 @@ public class AppController {
     /**
      * Shows dialog in which the players can pick how many players the game should have (min 2, max 6)
      * @return returns the number of players chosen
-     * @author Gabriel
+     * @author @Gabriel
      */
     private Integer chosePlayerCount() {
         boolean playerCount = false;
@@ -338,7 +338,7 @@ public class AppController {
 
     /**
      * For testing a upgrade quickly
-     * @author Gabriel
+     * @author @Gabriel
      */
     public void newTestGameCorridorBlitz() {
         Board board = LoadBoard.loadBoard("CORRIDOR BLITZ");
@@ -360,7 +360,7 @@ public class AppController {
 
     /**
      * For testing a game quickly
-     * @author Gabriel
+     * @author @Gabriel
      */
     public void newTestGameChopShopChallenge() {
         Board board = LoadBoard.loadBoard("ChopShopChallenge");
@@ -396,7 +396,7 @@ public class AppController {
 
     /**
      * For testing a game quickly
-     * @author Gabriel
+     * @author @Gabriel
      */
     public void newTestGameWin() {
         Board board = LoadBoard.loadBoard("CORRIDOR BLITZ");
@@ -424,7 +424,7 @@ public class AppController {
 
     /**
      * For testing a upgrade quickly
-     * @author Gabriel
+     * @author @Gabriel
      */
     public void PushLeftOrRightTest() {
         Board board = LoadBoard.loadBoard("CORRIDOR BLITZ");

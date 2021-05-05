@@ -295,6 +295,7 @@ public class Board extends Subject {
     /**
      * sorts the list of players, depending on who is closet to the antenna by calling the sort method
      * and therefore decides the order in which players take their turns
+     * @author @Gabriel
      */
     public void sortPlayersAntennaDistance(){
         Collections.sort(players);

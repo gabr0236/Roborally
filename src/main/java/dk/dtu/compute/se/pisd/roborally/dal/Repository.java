@@ -353,7 +353,7 @@ class Repository implements IRepository {
 	 *
 	 * @param game used to get information and send to database
 	 * @throws SQLException
-	 * @author Gabriel
+	 * @author @Gabriel
 	 */
 	private void createCardsInDB(Board game) throws SQLException {
 		// TODO code should be more defensive
@@ -384,7 +384,7 @@ class Repository implements IRepository {
 	 *
 	 * @param game used to get information and send to database
 	 * @throws SQLException
-	 * @author Gabriel
+	 * @author @Gabriel
 	 */
 	private void createUpgradesInDB(Board game) throws SQLException {
 		// TODO code should be more defensive
@@ -512,6 +512,7 @@ class Repository implements IRepository {
 	 *
 	 * @param game used to get the current game id
 	 * @throws SQLException
+	 * @author @Gabriel
 	 */
 	private void updatePlayersInDB(Board game) throws SQLException {
 		PreparedStatement ps = getSelectPlayersStatementU();
@@ -521,8 +522,7 @@ class Repository implements IRepository {
 		while (rs.next()) {
 			int playerId = rs.getInt(PLAYER_PLAYERID);
 			Player player = game.getPlayers().stream().filter(p->p.getPlayerID()==playerId).findFirst().orElse(null);
-			game.getPlayers().stream().forEach(pe-> System.out.println(pe.getColor() + "  numbe: " + playerId));
-			System.out.println("=====\n");
+			if(player!=null) {
 				if (player.getSpace() != null) {
 					rs.updateInt(PLAYER_POSITION_X, player.getSpace().x);
 					rs.updateInt(PLAYER_POSITION_Y, player.getSpace().y);
@@ -534,7 +534,10 @@ class Repository implements IRepository {
 				rs.updateInt(PLAYER_REBOOT_POSITION_X, player.getRebootSpace().x);
 				rs.updateInt(PLAYER_REBOOT_POSITION_Y, player.getRebootSpace().y);
 				rs.updateRow();
-
+			} else {
+				//TODO error handling
+				System.out.println("Player is null");
+			}
 		}
 		rs.close();
 
@@ -694,7 +697,7 @@ class Repository implements IRepository {
 	/**
 	 *
 	 * @return a prepared statement for selecting cards corresponding to a specific game id
-	 * @author Gabriel
+	 * @author @Gabriel
 	 */
 	private PreparedStatement getSelectCardsStatementU() {
 		if (select_card_stmt == null) {
@@ -743,7 +746,7 @@ class Repository implements IRepository {
 	/**
 	 * @return a prepared statement for selecting all players cards
 	 * from a specific gameid in ascending order
-	 * @author Gabriel
+	 * @author @Gabriel
 	 */
 	private PreparedStatement getSelectCardsASCStatement() {
 		if (select_cards_asc_stmt == null) {
@@ -790,6 +793,7 @@ class Repository implements IRepository {
 
 	/**
 	 * Deletes a game from the DB
+	 * @author @Gabriel
 	 */
 	private PreparedStatement deleteGameStatement() {
 		if (sql_delete_game == null) {
@@ -812,7 +816,6 @@ class Repository implements IRepository {
 
 
 	/**
-	 *
 	 * @return a prepared statement for selecting cards corresponding to a specific game id
 	 * @author Gabriel
 	 */
@@ -862,7 +865,7 @@ class Repository implements IRepository {
 	private PreparedStatement sql_delete_upgrades = null;
 
 	/**
-	 * Deletes a game from the DB
+	 * Deletes upgrades from the DB
 	 * @author @Gabriel
 	 */
 	private PreparedStatement deleteUpgradesStatement() {

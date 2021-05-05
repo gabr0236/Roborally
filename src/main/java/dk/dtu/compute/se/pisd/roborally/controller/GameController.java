@@ -64,9 +64,6 @@ public class GameController {
                 for (Command damage: player.getSavedDamageCards()) {
                     player.getDamageCards().add(damage);
                 }
-                System.out.println(player);
-                System.out.println(player.getSavedDamageCards());
-                System.out.println(player.getDamageCards());
                 for (int j = 0; j < Player.NO_REGISTERS; j++) {
                     CommandCardField field = player.getProgramField(j);
                     field.setCard(null);
