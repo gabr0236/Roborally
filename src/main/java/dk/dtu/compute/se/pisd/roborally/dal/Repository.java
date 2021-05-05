@@ -438,8 +438,6 @@ class Repository implements IRepository {
 						}
 					}
 			}
-
-
 		rs.close();
 	}
 
@@ -647,6 +645,24 @@ class Repository implements IRepository {
 	}
 
 	/**
+	 * Deletes every players upgrades
+	 *
+	 * @param game in which upgrades gets deleted
+	 * @Author @Gabriel
+	 */
+	public void deletePlayerUpgradesInDB(@NotNull Board game) {
+		try {
+			PreparedStatement ps = deleteUpgradesStatement();
+			ps.setInt(1, game.getGameId());
+			int rowsDeleted=ps.executeUpdate();
+			//ps.close();
+		} catch (SQLException e) {
+			//TODO: errorhandling
+			e.printStackTrace();
+		}
+	}
+
+	/**
 	 * Deletes a game in the database
 	 *
 	 * @param game to be deleted
@@ -669,23 +685,6 @@ class Repository implements IRepository {
 		}
 	}
 
-	/**
-	 * Deletes every players upgrades
-	 *
-	 * @param game in which upgrades gets deleted
-	 * @Author @Gabriel
-	 */
-	public void deletePlayerUpgradesInDB(@NotNull Board game) {
-		try {
-			PreparedStatement ps = deleteUpgradesStatement();
-			ps.setInt(1, game.getGameId());
-			int rowsDeleted=ps.executeUpdate();
-			//ps.close();
-		} catch (SQLException e) {
-			//TODO: errorhandling
-			e.printStackTrace();
-		}
-	}
 
 	private static final String SQL_INSERT_GAME =
 			"INSERT INTO Game(name, currentPlayer, phase, step,board) VALUES (?, ?, ?, ?, ?)";
