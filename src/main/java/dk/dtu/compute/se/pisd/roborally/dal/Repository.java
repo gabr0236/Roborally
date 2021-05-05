@@ -420,22 +420,25 @@ class Repository implements IRepository {
 		PreparedStatement ps = getSelectEnergyConsumtionStatementU();
 		ps.setInt(1, game.getGameId());
 		ResultSet rs = ps.executeQuery();
-		while (rs.next()) {
 			for (Space space : game.getSpacesList()) {
 				if (!space.getActivatableBoardElements().isEmpty())
 					for (ActivatableBoardElement element : space.getActivatableBoardElements()) {
 						if (element instanceof EnergySpace energySpace) {
 							if (!energySpace.isEnergyAvailable()) {
-								rs.moveToInsertRow();
-								rs.updateInt(GAME_GAMEID, game.getGameId());
-								rs.updateInt(2, space.x);
-								rs.updateInt(3, space.y);
-								rs.insertRow();
+								try {
+									rs.moveToInsertRow();
+									rs.updateInt(GAME_GAMEID, game.getGameId());
+									rs.updateInt(2, space.x);
+									rs.updateInt(3, space.y);
+									rs.insertRow();
+								}catch (SQLIntegrityConstraintViolationException e){
+									//TODO error handling
+								}
 							}
 						}
 					}
 			}
-		}
+
 
 		rs.close();
 	}
@@ -562,7 +565,7 @@ class Repository implements IRepository {
 					.filter(s -> s instanceof EnergySpace)
 					.map(s -> (EnergySpace) s)
 					.findFirst()
-					.orElse(null).setEnergyAvailable(true);
+					.orElse(null).setEnergyAvailable(false);
 		}
 		rs.close();
 	}
