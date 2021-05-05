@@ -425,6 +425,7 @@ class Repository implements IRepository {
 				String colour = rs.getString(PLAYER_COLOUR);
 				Player player = new Player(game, colour, name);
 				game.addPlayer(player);
+				player.setPlayerID(playerId);
 
 				int x = rs.getInt(PLAYER_POSITION_X);
 				int y = rs.getInt(PLAYER_POSITION_Y);
@@ -520,23 +521,25 @@ class Repository implements IRepository {
 		while (rs.next()) {
 			int playerId = rs.getInt(PLAYER_PLAYERID);
 			Player player = game.getPlayers().stream().filter(p->p.getPlayerID()==playerId).findFirst().orElse(null);
-			if (player.getSpace() != null) {
-				rs.updateInt(PLAYER_POSITION_X, player.getSpace().x);
-				rs.updateInt(PLAYER_POSITION_Y, player.getSpace().y);
-			} else {
-				rs.updateInt(PLAYER_POSITION_X, -1);
-				rs.updateInt(PLAYER_POSITION_Y, -1);
-			}
-			rs.updateInt(PLAYER_HEADING, player.getHeading().ordinal());
-			rs.updateInt(PLAYER_REBOOT_POSITION_X, player.getRebootSpace().x);
-			rs.updateInt(PLAYER_REBOOT_POSITION_Y, player.getRebootSpace().y);
-			rs.updateRow();
+			game.getPlayers().stream().forEach(pe-> System.out.println(pe.getColor() + "  numbe: " + playerId));
+			System.out.println("=====\n");
+				if (player.getSpace() != null) {
+					rs.updateInt(PLAYER_POSITION_X, player.getSpace().x);
+					rs.updateInt(PLAYER_POSITION_Y, player.getSpace().y);
+				} else {
+					rs.updateInt(PLAYER_POSITION_X, -1);
+					rs.updateInt(PLAYER_POSITION_Y, -1);
+				}
+				rs.updateInt(PLAYER_HEADING, player.getHeading().ordinal());
+				rs.updateInt(PLAYER_REBOOT_POSITION_X, player.getRebootSpace().x);
+				rs.updateInt(PLAYER_REBOOT_POSITION_Y, player.getRebootSpace().y);
+				rs.updateRow();
+
 		}
 		rs.close();
 
 		// TODO error handling/consistency check: check whether all players were updated
 	}
-
 
 	/**
 	 * updates register card data corresponding to the current game id
