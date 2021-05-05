@@ -67,13 +67,7 @@ public class Board extends Subject {
     private List<Space> rebootSpaceList = new ArrayList<>();
 
     private final List<Space> laserSpaceList = new ArrayList<>();
-
-    public final List<Upgrade> upgrades = Arrays.asList(
-            new ExtraHandCard(),new ModularChassis(), new PitAvoider(),new RailGun(),
-            new RammingGear(), new TeleportPlayer(), new PushPanelDodger(), new RearLaser()
-            ,new PushLeftOrRight()
-    );
-
+    
     private int numberOfCheckpoints;
 
 

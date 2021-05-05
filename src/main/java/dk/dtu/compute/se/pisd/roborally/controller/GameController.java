@@ -896,7 +896,7 @@ public class GameController {
             int r = 0;
             do {
                 Upgrade u = CreateUpgrade.getUpgrade(UpgradeResponsibility.getRandom());
-                if (!player.getUpgrades().contains(u) && player.getUpgrades().size() != UpgradeResponsibility.values().length) {
+                if (!player.getUpgrades().stream().anyMatch(upgrade -> upgrade.getName().equals(u.getName())) && player.getUpgrades().size() != UpgradeResponsibility.values().length) {
                     player.getUpgrades().add(u);
                     b = true;
                 }
