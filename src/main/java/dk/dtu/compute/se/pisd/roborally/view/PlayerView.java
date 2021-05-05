@@ -104,7 +104,7 @@ public class PlayerView extends Tab implements ViewObserver, Comparable<PlayerVi
         }
 
         // XXX  the following buttons should actually not be on the tabs of the individual
-        //      players, but on the PlayersView (view for all players). This should be
+        //      players, but on the Pla yersView (view for all players). This should be
         //      refactored.
 
         finishButton = new Button("Finish Programming");
