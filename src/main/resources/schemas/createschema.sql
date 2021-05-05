@@ -53,4 +53,12 @@ CREATE TABLE IF NOT EXISTS Upgrades (
   FOREIGN KEY (gameID, playerID) references Player(gameID, playerID) on delete cascade
 );;
 
+CREATE TABLE IF NOT EXISTS EnergySpacesConsumed (
+  gameID int NOT NULL,
+  positionX int,
+  positionY int,
+  PRIMARY KEY (gameID, positionX, positionY),
+  FOREIGN KEY (gameID) references Player(gameID) on delete cascade
+);;
+
 SET FOREIGN_KEY_CHECKS = 1;;

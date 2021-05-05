@@ -23,6 +23,7 @@ package dk.dtu.compute.se.pisd.roborally.dal;
 
 import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
 import dk.dtu.compute.se.pisd.roborally.model.*;
+import dk.dtu.compute.se.pisd.roborally.model.boardElements.EnergySpace;
 import dk.dtu.compute.se.pisd.roborally.model.upgrade.CreateUpgrade;
 import dk.dtu.compute.se.pisd.roborally.model.upgrade.Upgrade;
 import dk.dtu.compute.se.pisd.roborally.model.upgrade.UpgradeResponsibility;
@@ -209,6 +210,7 @@ class Repository implements IRepository {
 			updateCardsInDB(game);
 			deletePlayerUpgradesInDB(game);
 			createUpgradesInDB(game);
+			createEnergySpacesConsumedInDB(game);
 
 
 			connection.commit();
@@ -277,6 +279,7 @@ class Repository implements IRepository {
 			}
 			loadCardFieldsFromDB(game);
 			loadUpgradesFromDB(game);
+			loadEnergySpacesConsumedFromDB(game);
 
 
 			return game;
@@ -397,11 +400,43 @@ class Repository implements IRepository {
 			for (Upgrade u:player.getUpgrades()) {
 				rs.moveToInsertRow();
 				rs.updateInt(UPGRADE_GAMEID, game.getGameId());
-				rs.updateInt(UPGRADE_PLAYERID, i);
+				rs.updateInt(UPGRADE_PLAYERID, player.getPlayerID());
 				rs.updateInt(UPGRADE, u.getUpgradeResponsibility().ordinal());
 				rs.insertRow();
 			}
 		}
+		rs.close();
+	}
+
+	/**
+	 * Creates tuples if a energyspace has been consumed
+	 *
+	 * @param game used to get information and send to database
+	 * @throws SQLException
+	 * @author @Gabriel
+	 */
+	private void createEnergySpacesConsumedInDB(Board game) throws SQLException {
+		// TODO code should be more defensive
+		PreparedStatement ps = getSelectEnergyConsumtionStatementU();
+		ps.setInt(1, game.getGameId());
+		ResultSet rs = ps.executeQuery();
+		while (rs.next()) {
+			for (Space space : game.getSpacesList()) {
+				if (!space.getActivatableBoardElements().isEmpty())
+					for (ActivatableBoardElement element : space.getActivatableBoardElements()) {
+						if (element instanceof EnergySpace energySpace) {
+							if (!energySpace.isEnergyAvailable()) {
+								rs.moveToInsertRow();
+								rs.updateInt(GAME_GAMEID, game.getGameId());
+								rs.updateInt(2, space.x);
+								rs.updateInt(3, space.y);
+								rs.insertRow();
+							}
+						}
+					}
+			}
+		}
+
 		rs.close();
 	}
 
@@ -508,6 +543,31 @@ class Repository implements IRepository {
 	}
 
 	/**
+	 * loads energyspacesconsumed corresponding to the current game id
+	 *
+	 * @param game used to get the game id
+	 * @author Gabriel
+	 */
+	private void loadEnergySpacesConsumedFromDB(Board game) throws SQLException {
+		PreparedStatement ps = getSelectEnergyConsumtionStatementU();
+		ps.setInt(1, game.getGameId());
+
+		ResultSet rs = ps.executeQuery();
+
+		while (rs.next()) {
+			int x = rs.getInt(2);
+			int y = rs.getInt(3);
+			game.getSpace(x,y).getActivatableBoardElements()
+					.stream()
+					.filter(s -> s instanceof EnergySpace)
+					.map(s -> (EnergySpace) s)
+					.findFirst()
+					.orElse(null).setEnergyAvailable(true);
+		}
+		rs.close();
+	}
+
+	/**
 	 * updates player data corresponding to the current game id
 	 *
 	 * @param game used to get the current game id
@@ -521,7 +581,10 @@ class Repository implements IRepository {
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
 			int playerId = rs.getInt(PLAYER_PLAYERID);
-			Player player = game.getPlayers().stream().filter(p->p.getPlayerID()==playerId).findFirst().orElse(null);
+			Player player = game.getPlayers()
+					.stream()
+					.filter(p->p.getPlayerID()==playerId)
+					.findFirst().orElse(null);
 			if(player!=null) {
 				if (player.getSpace() != null) {
 					rs.updateInt(PLAYER_POSITION_X, player.getSpace().x);
@@ -557,7 +620,10 @@ class Repository implements IRepository {
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
 			int playerId = rs.getInt(CARDS_PLAYERID);
-			Player player = game.getPlayer(playerId);
+			Player player = game.getPlayers()
+					.stream()
+					.filter(p->p.getPlayerID()==playerId)
+					.findFirst().orElse(null);
 			int position = rs.getInt(CARDS_POSITION);
 
 			if (player.getCards().get(position).getCard() != null) {
@@ -833,6 +899,33 @@ class Repository implements IRepository {
 			}
 		}
 		return select_upgrades_stmt;
+	}
+
+
+	private static final String SQL_SELECT_ENERGYSPACECONSUMED =
+			"SELECT * FROM EnergySpacesConsumed WHERE gameID = ?";
+
+	private PreparedStatement select_energySpaceConsumed_stmt = null;
+
+
+	/**
+	 * @return a prepared statement for selecting cards corresponding to a specific game id
+	 * @author Gabriel
+	 */
+	private PreparedStatement getSelectEnergyConsumtionStatementU() {
+		if (select_energySpaceConsumed_stmt == null) {
+			Connection connection = connector.getConnection();
+			try {
+				select_energySpaceConsumed_stmt = connection.prepareStatement(
+						SQL_SELECT_ENERGYSPACECONSUMED,
+						ResultSet.TYPE_FORWARD_ONLY,
+						ResultSet.CONCUR_UPDATABLE);
+			} catch (SQLException e) {
+				// TODO error handling
+				e.printStackTrace();
+			}
+		}
+		return select_energySpaceConsumed_stmt;
 	}
 
 	private static final String SQL_SELECT_UPGRADES_ASC =
