@@ -71,6 +71,8 @@ class Repository implements IRepository {
 
 	private static final String PLAYER_REBOOT_POSITION_Y = "rebootPosY";
 
+	private static final String PLAYER_CHECKPOINT = "checkpoint";
+
 	private static final String CARDS_GAMEID = "gameID";
 
 	private static final String CARDS_PLAYERID = "playerID";
@@ -86,7 +88,6 @@ class Repository implements IRepository {
 	private static final String UPGRADE_PLAYERID = "playerID";
 
 	private static final String UPGRADE = "upgrade";
-
 
 	private Connector connector;
 
@@ -480,6 +481,9 @@ class Repository implements IRepository {
 
 				int heading = rs.getInt(PLAYER_HEADING);
 				player.setHeading(Heading.values()[heading]);
+
+				int checkpoint = rs.getInt(PLAYER_CHECKPOINT);
+				player.setLastCheckpointVisited(checkpoint);
 			} else {
 				// TODO error handling
 				System.err.println("Game in DB does not have a player with id " + i + "!");
@@ -597,6 +601,7 @@ class Repository implements IRepository {
 				rs.updateInt(PLAYER_HEADING, player.getHeading().ordinal());
 				rs.updateInt(PLAYER_REBOOT_POSITION_X, player.getRebootSpace().x);
 				rs.updateInt(PLAYER_REBOOT_POSITION_Y, player.getRebootSpace().y);
+				rs.updateInt(PLAYER_CHECKPOINT, player.getLastCheckpointVisited());
 				rs.updateRow();
 			} else {
 				//TODO error handling

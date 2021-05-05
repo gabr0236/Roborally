@@ -28,6 +28,8 @@ CREATE TABLE IF NOT EXISTS Player (
 
   rebootPosX int,
   rebootPosY int,
+
+  checkpoint int,
   
   PRIMARY KEY (gameID, playerID),
   FOREIGN KEY (gameID) REFERENCES Game(gameID) on delete cascade
