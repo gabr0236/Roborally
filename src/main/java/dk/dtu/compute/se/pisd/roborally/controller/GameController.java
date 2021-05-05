@@ -51,6 +51,12 @@ public class GameController {
      * Assigns random cards to each players hand.
      */
     public void startProgrammingPhase() {
+
+        //TODO Slet det her
+        EnergySpace energySpace=(EnergySpace) board.getSpace(5,3).getActivatableBoardElements().stream().findAny().get();
+        System.out.println(energySpace.isEnergyAvailable());
+        //TODO ^^^^
+
         respawnPlayers();
         updatePlayersAntennaDistance();
         board.setPhase(Phase.PROGRAMMING);
