@@ -67,7 +67,7 @@ public class Board extends Subject {
     private List<Space> rebootSpaceList = new ArrayList<>();
 
     private final List<Space> laserSpaceList = new ArrayList<>();
-    
+
     private int numberOfCheckpoints;
 
 
@@ -374,4 +374,5 @@ public class Board extends Subject {
     public boolean isLasersActive(){
         return lasersActive;
     }
+
 }

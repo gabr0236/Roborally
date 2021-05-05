@@ -71,6 +71,10 @@ public class Player extends Subject implements Comparable<Player> {
 
     private Space finalDestination;
 
+    private int playerID;
+
+
+
     public Space getFinalDestination() {
         return finalDestination;
     }
@@ -86,12 +90,11 @@ public class Player extends Subject implements Comparable<Player> {
      * <p>
      * Creates an CommandCardField array to hold the cards being played
      * creates CommandCardField array to hold the cards given at the start of each round.
-     *
-     * @param board is the players' board
+     *  @param board is the players' board
      * @param color is the color of the player
      * @param name is the name of the player
      */
-    public Player(@NotNull Board board,@NotNull String color, @NotNull String name) {
+    public Player(@NotNull Board board, @NotNull String color, @NotNull String name) {
         this.board = board;
         this.name = name;
         this.color = color;
@@ -285,4 +288,13 @@ public class Player extends Subject implements Comparable<Player> {
         else if(o.getAntennaDistance()==antennaDistance) return o.getSpace().y < space.y ? -1 : 1;
         else return 1;
     }
+
+    public int getPlayerID() {
+        return playerID;
+    }
+
+    public void setPlayerID(int playerID) {
+        this.playerID = playerID;
+    }
+
 }

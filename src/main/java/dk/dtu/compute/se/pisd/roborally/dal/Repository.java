@@ -30,11 +30,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * ...
@@ -523,8 +519,7 @@ class Repository implements IRepository {
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
 			int playerId = rs.getInt(PLAYER_PLAYERID);
-			// TODO should be more defensive
-			Player player = game.getPlayer(playerId);
+			Player player = game.getPlayers().stream().filter(p->p.getPlayerID()==playerId).findFirst().orElse(null);
 			if (player.getSpace() != null) {
 				rs.updateInt(PLAYER_POSITION_X, player.getSpace().x);
 				rs.updateInt(PLAYER_POSITION_Y, player.getSpace().y);
@@ -610,7 +605,6 @@ class Repository implements IRepository {
 			PreparedStatement ps = deleteUpgradesStatement();
 			ps.setInt(1, game.getGameId());
 			int rowsDeleted=ps.executeUpdate();
-			System.out.println(rowsDeleted);
 			//ps.close();
 		} catch (SQLException e) {
 			//TODO: errorhandling

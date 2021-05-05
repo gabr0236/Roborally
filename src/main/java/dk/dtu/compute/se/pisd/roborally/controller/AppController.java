@@ -95,11 +95,12 @@ public class AppController {
             player.setSpace(board.getRebootSpaceList().get(i));
             player.setRebootSpace(board.getRebootSpaceList().get(i));
         }
-
+        setPlayerIDs();
         gameController.startProgrammingPhase();
 
         IRepository repository = RepositoryAccess.getRepository();
         repository.createGameInDB(board);
+
 
         roboRally.createBoardView(gameController);
     }
@@ -349,6 +350,7 @@ public class AppController {
             player.setSpace(board.getRebootSpaceList().get(i));
             player.setRebootSpace(board.getRebootSpaceList().get(i));
         }
+        setPlayerIDs();
         gameController.startProgrammingPhase();
         IRepository repository = RepositoryAccess.getRepository();
         repository.createGameInDB(board);
@@ -383,6 +385,7 @@ public class AppController {
         board.getPlayer(1).setHeading(Heading.SOUTH);
         board.getPlayer(1).getProgramField(0).setCard(new CommandCard(Command.FORWARD));
         board.setLasersActive(false);
+        setPlayerIDs();
         gameController.startProgrammingPhase();
 
         IRepository repository = RepositoryAccess.getRepository();
@@ -409,6 +412,8 @@ public class AppController {
         board.setNumberOfCheckpoints(2);
         board.getPlayers().get(0).setLastCheckpointVisited(1);
         board.setCurrentPlayer(board.getPlayer(0));
+        setPlayerIDs();
+
         gameController.startProgrammingPhase();
 
         IRepository repository = RepositoryAccess.getRepository();
@@ -435,11 +440,23 @@ public class AppController {
         board.getPlayer(2).getUpgrades().add(new PushLeftOrRight());
         board.getPlayer(2).setHeading(Heading.SOUTH);
 
+        setPlayerIDs();
         gameController.startProgrammingPhase();
         board.getPlayer(0).getProgramField(0).setCard(new CommandCard(Command.FORWARD));
         IRepository repository = RepositoryAccess.getRepository();
         repository.createGameInDB(board);
 
         roboRally.createBoardView(gameController);
+    }
+
+    /**
+     * Sets the database ID's for all players
+     * @author @Gabriel
+     */
+    private void setPlayerIDs() {
+        gameController.updatePlayersAntennaDistance();
+        for (int i = 0; i < gameController.board.getPlayersNumber(); i++) {
+            gameController.board.getPlayer(i).setPlayerID(i);
+        }
     }
 }

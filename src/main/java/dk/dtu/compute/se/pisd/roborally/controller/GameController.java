@@ -80,6 +80,8 @@ public class GameController {
         }
     }
 
+
+
     /**
      * If player has any damage cards, it will be added to the list of command cards.
      * A random card from the list of cards will be returned.

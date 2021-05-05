@@ -3,13 +3,7 @@ package dk.dtu.compute.se.pisd.roborally.model.upgrade;
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class PushLeftOrRightTest {
     private final int TEST_WIDTH = 12;
