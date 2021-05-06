@@ -113,10 +113,10 @@ public class BoardView extends VBox implements ViewObserver{
             gc.setLineWidth(1);
             Font theFont = Font.font("Arial", FontWeight.BOLD, SpaceView.SPACE_HEIGHT);
             gc.setFont(theFont);
-            gc.fillText( "TILLYKKE!!!!",155,50);
-            gc.strokeText("TILLYKKE!!!!",155,50);
-            gc.fillText( player.getName()+" har vundet",85,120);
-            gc.strokeText(player.getName()+" har vundet",85,120);
+            gc.fillText( "CONGRATULATIONS!!!!",40,50);
+            gc.strokeText("CONGRATULATIONS!!!!",40,50);
+            gc.fillText( player.getName()+" has won",120,120);
+            gc.strokeText(player.getName()+" has won",120,120);
             gc.setFill(Paint.valueOf("Gold"));
             gc.setStroke(Paint.valueOf("White"));
             gc.fillText( "\uD83C\uDFC6 \uD83C\uDFC6 \uD83C\uDFC6 \uD83C\uDFC6 \uD83C\uDFC6 \uD83C\uDFC6",120,190);
