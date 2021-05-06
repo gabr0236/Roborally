@@ -55,7 +55,7 @@ public class Player extends Subject implements Comparable<Player> {
     private final List<CommandCardField> cards = new ArrayList<>(8);
 
     private List<Command> damageCards = new ArrayList<>();
-    private List<Command> savedDamageCards = new ArrayList<>(Arrays.asList(Command.WORM, Command.VIRUS));
+    private List<Command> savedDamageCards = new ArrayList<>();
 
     private boolean playerWin = false;
 

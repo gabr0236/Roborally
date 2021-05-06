@@ -891,7 +891,6 @@ public class GameController {
         energySpace.setEnergyAvailable(false);
         player.getSpace().playerChanged();
 
-        if(board.getGameName()==null) {
             boolean b = false;
             int r = 0;
             do {
@@ -904,7 +903,7 @@ public class GameController {
                     b=true;
                 }
             } while (false);
-        }
+
     }
 
     /**

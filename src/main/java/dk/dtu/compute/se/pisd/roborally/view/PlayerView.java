@@ -259,6 +259,7 @@ public class PlayerView extends Tab implements ViewObserver, Comparable<PlayerVi
                 }
             }
             statusLabel.setText(gameController.board.getStatusMessage(player));
+
         }
     }
 
