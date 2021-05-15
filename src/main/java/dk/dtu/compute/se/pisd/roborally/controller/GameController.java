@@ -52,6 +52,7 @@ public class GameController {
      */
     public void startProgrammingPhase() {
         respawnPlayers();
+        printDmgCards();
         updatePlayersAntennaDistance();
         board.setPhase(Phase.PROGRAMMING);
         board.setCurrentPlayer(board.getPlayer(0));
@@ -138,6 +139,21 @@ public class GameController {
         board.setPhase(Phase.ACTIVATION);
         board.setCurrentPlayer(board.getPlayer(0));
         board.setStep(0);
+    }
+
+    /**
+     * For testing
+     * @author @Gabriel
+     */
+    public void printDmgCards(){
+        for (Player p:
+             board.getPlayers()) {
+            System.out.println("Player : " + p.getPlayerID() + "=========");
+            p.getSavedDamageCards().stream().forEach(c -> System.out.println(c.displayName));
+            p.getDamageCards().stream().forEach(c -> System.out.println(c.displayName));
+            System.out.println("==========================================");
+            System.out.println();
+        }
     }
 
     /**
