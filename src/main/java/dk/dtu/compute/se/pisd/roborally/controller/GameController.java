@@ -33,6 +33,7 @@ import dk.dtu.compute.se.pisd.roborally.model.upgrade.UpgradeResponsibility;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * ...
@@ -52,7 +53,6 @@ public class GameController {
      */
     public void startProgrammingPhase() {
         respawnPlayers();
-        printDmgCards();
         updatePlayersAntennaDistance();
         board.setPhase(Phase.PROGRAMMING);
         board.setCurrentPlayer(board.getPlayer(0));
@@ -76,6 +76,7 @@ public class GameController {
                 }
             }
         }
+        printDmgCards();
     }
 
 
@@ -148,9 +149,14 @@ public class GameController {
     public void printDmgCards(){
         for (Player p:
              board.getPlayers()) {
-            System.out.println("Player : " + p.getPlayerID() + "=========");
+            System.out.println(p.getName() + "======================================DAnni er gai");
             p.getSavedDamageCards().stream().forEach(c -> System.out.println(c.displayName));
             p.getDamageCards().stream().forEach(c -> System.out.println(c.displayName));
+            p.getCards().stream().filter(c -> (c.getCard().command.displayName.equals("Spam")
+                    || c.getCard().command.displayName.equals("Trojan")
+                    || c.getCard().command.displayName.equals("Worm"))
+                    || c.getCard().command.displayName.equals("Virus")).collect(Collectors.toList())
+                    .stream().forEach(c -> System.out.println(c.getCard().command.displayName));
             System.out.println("==========================================");
             System.out.println();
         }
