@@ -191,7 +191,6 @@ public class RebootTest {
         pushedPlayer.getUpgrades().add(new Firewall());
         gameController.executePrograms();
 
-        pushedPlayer.getSavedDamageCards().remove(0);
         Assertions.assertFalse(pushedPlayer.getSavedDamageCards().contains(Command.SPAM));
     }
 

@@ -384,7 +384,6 @@ public class AppController {
         board.getSpace(1,3).setPlayer(board.getPlayer(1));
         board.getPlayer(1).setHeading(Heading.SOUTH);
         board.getPlayer(1).getProgramField(0).setCard(new CommandCard(Command.FORWARD));
-        board.setLasersActive(false);
         setPlayerIDs();
         gameController.startProgrammingPhase();
 
