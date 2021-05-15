@@ -71,7 +71,7 @@ class LaserTest {
         gameController.dealLaserDamage(killedPlayer,shootingPlayer);
 
         //TODO: når tobis 2 test damagecards slettes vil denne test fejle, hvorfor actual skal sættes til 2!!!
-        Assertions.assertEquals(killedPlayer.getSavedDamageCards().size(), 4);
+        Assertions.assertEquals(killedPlayer.getSavedDamageCards().size(), 2);
     }
 
     /**
