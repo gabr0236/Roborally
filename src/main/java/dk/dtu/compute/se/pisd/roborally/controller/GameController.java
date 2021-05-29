@@ -149,7 +149,7 @@ public class GameController {
     public void printDmgCards(){
         for (Player p:
              board.getPlayers()) {
-            System.out.println(p.getName() + "======================================DAnni er gai");
+            System.out.println(p.getName() + "======================================");
             p.getSavedDamageCards().stream().forEach(c -> System.out.println(c.displayName));
             p.getDamageCards().stream().forEach(c -> System.out.println(c.displayName));
             p.getCards().stream().filter(c -> (c.getCard().command.displayName.equals("Spam")
@@ -917,7 +917,10 @@ public class GameController {
             int r = 0;
             do {
                 Upgrade u = CreateUpgrade.getUpgrade(UpgradeResponsibility.getRandom());
-                if (!player.getUpgrades().stream().anyMatch(upgrade -> upgrade.getName().equals(u.getName())) && player.getUpgrades().size() != UpgradeResponsibility.values().length) {
+                if (!player.getUpgrades().stream()
+                        .anyMatch(upgrade -> upgrade.getName()
+                        .equals(u.getName())) && player.getUpgrades().size() != UpgradeResponsibility
+                        .values().length) {
                     player.getUpgrades().add(u);
                     b = true;
                 }
