@@ -24,6 +24,7 @@ public class PushLeftOrRight extends Upgrade {
 
     @Override
     public void doAction(Player player, GameController gameController) {
+        String test = "Test";
     }
 
     public void doAction(Player playerPushed, GameController gameController, Command command){
