@@ -16,7 +16,7 @@ In addition this digital version implements additional databasesupport for savin
 
 ## How to play
 ### Rules
-[Rules](https://media.wizards.com/2017/rules/roborally_rules.pdf)
+[Official rules](https://media.wizards.com/2017/rules/roborally_rules.pdf)
 
 Each turn, you’ll draw random
 Program cards, each featuring an instruction for the movement of your robot. Choose
