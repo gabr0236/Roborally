@@ -66,13 +66,26 @@ The order of each turn
 
 Board elements:
 
-📡: Determines the order of which the robots moves are made by closest first.
-🟩: Spawnpoint.
-🟩 ▶️: Conveyor belt, moves robot 1 square in a direction.
-🟦 ▶️: Conveyor belt, moves robot 2 squares in a direction.
-▶️: player.
-| 🟨: Push panel, pushes any player standing on the field on the registers described on the board.
-| 🟥: Wall.
-⬛️: Pit, player dies if they step on it or over it.
+- 📡: Determines the order of which the robots moves are made by closest first.
 
+- 🟩: Reboot, spawnpoint.
 
+- 🟩 ▶️: Conveyor belt, moves robot 1 square in a direction.
+
+- 🟦 ▶️: Conveyor belt, moves robot 2 squares in a direction.
+
+- ▶️: player.
+
+- | 🟨: Push panel, pushes any player standing on the field on the registers described on the board.
+
+- | 🟥: Wall.
+
+- ⬛️: Pit, player dies if they step on it or over it.
+
+- 🟡: Checkpoint, stand on each checkpoint in order to win the game!
+
+- 🔫 (small red stick on walls): Laser, shoots after each turn!
+
+- ↩️: Gear, rotates player.
+
+- 🟧: Energy, gives the player a random upgrade!
