@@ -7,8 +7,7 @@ In addition this digital version implements additional databasesupport for savin
 
 ### Built with
 - Java
-- MariaDB
-- MySQL
+- MariaDB/MySQL
 - Json
 - [Gson](https://github.com/google/gson)
 - [Guava](https://github.com/google/guava)
@@ -26,7 +25,7 @@ the first to touch all the checkpoints in order.
 the same time as all the other players. Robots will get in each other’s way, push each other off
 course, and shoot each other with lasers. Sometimes the biggest challenge is just surviving!
 
-The order of each turn
+The order of each turn:
  1. Get programming cards (automatic)
  2. Arrange your Program cards among your
  five registers. (users)
@@ -41,16 +40,21 @@ The order of each turn
 
 
 Board elements:
+- ▶️: player.
 
-- 📡: Determines the order of which the robots moves are made by closest first.
+- 🟡: Checkpoint, stand on each checkpoint in order to win the game!
+
+- 📡: Determines the order of which the robots moves by closest first.
 
 - 🟩: Reboot, spawnpoint.
+
+- 🟧: Energy, gives the player a random upgrade!
+
+- 🔫 (small red stick on walls): Laser, shoots after each turn!
 
 - 🟩 ▶️: Conveyor belt, moves robot 1 square in a direction.
 
 - 🟦 ▶️: Conveyor belt, moves robot 2 squares in a direction.
-
-- ▶️: player.
 
 - | 🟨: Push panel, pushes any player standing on the field on the registers described on the board.
 
@@ -58,13 +62,10 @@ Board elements:
 
 - ⬛️: Pit, player dies if they step on it or over it.
 
-- 🟡: Checkpoint, stand on each checkpoint in order to win the game!
-
-- 🔫 (small red stick on walls): Laser, shoots after each turn!
-
 - ↩️: Gear, rotates player.
 
-- 🟧: Energy, gives the player a random upgrade!
+### Upgrades
+There are a total of 18 upgrade possibilities including RailGun which makes the player shoot through walls, BlueScreen of Death which makes the player deal "Worm Cards" instead of spam cards for damage, LuckyShield which may or may not protech the player from damage and Teleporter which ables the player to move through walls and over pits.
 
 ## Getting Started
 
