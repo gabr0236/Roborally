@@ -15,6 +15,7 @@ In addition this digital version implements additional databasesupport for savin
 - [JUnit 5](https://junit.org/junit5/)
 
 ## How to play
+### Rules
 [Rules](https://media.wizards.com/2017/rules/roborally_rules.pdf)
 
 Each turn, you’ll draw random
@@ -34,12 +35,16 @@ The order of each turn:
  interactions, and touch flags and repair sites. (user)
  Repeat
  
- ### Board (Course: ChopShopChallenge)
+ ### Boards 
+ #### Course: ChopShopChallenge
  
  <img src="https://github.com/gabr0236/Roborally/blob/Development/ReadmeImages/ImgProgrammingPhase.png" width="700">
 
+ #### Course: ChopShopChallenge
 
-Board elements:
+ <img src="https://github.com/gabr0236/Roborally/blob/Development/ReadmeImages/ImgCorridorBlitz.png" width="450">
+
+#### Board Elements
 - ▶️: player.
 
 - 🟡: Checkpoint, stand on each checkpoint in order to win the game!
@@ -67,7 +72,40 @@ Board elements:
 ### Upgrades
 There are a total of 18 upgrade possibilities including RailGun which makes the player shoot through walls, BlueScreen of Death which makes the player deal "Worm Cards" instead of spam cards for damage, LuckyShield which may or may not protech the player from damage and Teleporter which ables the player to move through walls and over pits.
 
-## Getting Started
+### Now lets get started!
+Select game name:
+
+ <img src="https://github.com/gabr0236/Roborally/blob/Development/ReadmeImages/ImgChoseGameName.png" width="200">
+
+Chose map:
+
+ <img src="https://github.com/gabr0236/Roborally/blob/Development/ReadmeImages/ImgChoseMap.png" width="200">
+
+Chose number of players:
+
+ <img src="https://github.com/gabr0236/Roborally/blob/Development/ReadmeImages/ImgChoseNumberOfPlayers.png" width="200">
+ 
+Chose player name:
+ 
+ <img src="https://github.com/gabr0236/Roborally/blob/Development/ReadmeImages/ImgChosePlayerName.png" width="200">
+  
+Chose player color:
+  
+ <img src="https://github.com/gabr0236/Roborally/blob/Development/ReadmeImages/ImgChoseColor.png" width="200">
+
+### Saving and loading games
+
+Save game:
+
+ <img src="https://github.com/gabr0236/Roborally/blob/Development/ReadmeImages/ImgSaveGame.png" width="200">
+
+Load game:
+
+ <img src="https://github.com/gabr0236/Roborally/blob/Development/ReadmeImages/ImgLoadGame.png" width="200">
+ 
+ <img src="https://github.com/gabr0236/Roborally/blob/Development/ReadmeImages/ImgLoadGame2.png" width="200">
+
+## Installation
 
 First download the project to your IDE.
 Make sure to clean Maven after downoading. 
