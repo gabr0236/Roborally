@@ -35,6 +35,8 @@ The order of each turn:
  interactions, and touch flags and repair sites. (user)
  Repeat
  
+ ***
+ 
  ### Boards 
  #### Course: ChopShopChallenge
  
@@ -69,8 +71,12 @@ The order of each turn:
 
 - ↩️: Gear, rotates player.
 
+ ***
+
 ### Upgrades
 There are a total of 18 upgrade possibilities including RailGun which makes the player shoot through walls, BlueScreen of Death which makes the player deal "Worm Cards" instead of spam cards for damage, LuckyShield which may or may not protech the player from damage and Teleporter which ables the player to move through walls and over pits.
+
+ ***
 
 ### Now lets get started!
 Select game name:
@@ -92,6 +98,8 @@ Chose player name:
 Chose player color:
   
  <img src="https://github.com/gabr0236/Roborally/blob/Development/ReadmeImages/ImgChoseColor.png" width="200">
+
+ ***
 
 ### Saving and loading games
 
