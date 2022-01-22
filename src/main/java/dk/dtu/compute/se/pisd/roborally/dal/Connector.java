@@ -36,8 +36,8 @@ import java.sql.Statement;
  *
  */
 class Connector {
-    private static final String   HOST   = "localhost";
-    private static final int     PORT  = 3306;
+    private static final String HOST   = "localhost";
+    private static final int    PORT  = 3306;
     private static final String DATABASE = "pisu";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "123456";
@@ -56,10 +56,7 @@ class Connector {
 
 			createDatabaseSchema();
 		} catch (SQLException e) {
-			// TODO we should try to diagnose and fix some problems here and
-			//      exit in a more graceful way
 			e.printStackTrace();
-			// Platform.exit();
 		}
     }
 
