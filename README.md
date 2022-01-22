@@ -1,7 +1,7 @@
 # Roborally
 
 ## About The Project
-This is a digitized version of Avalon Hill’s board game, called “Roborally”.
+This is a digitized version of Avalon Hill’s board game, “Roborally”.
 Roborally is to be played by 2-6 players, and possesses many of the mechanics from the original Roborally game, such as lasers, upgrades, board elements as well as many others. 
 In addition this digital version implements additional databasesupport for saving and loading games.
 
