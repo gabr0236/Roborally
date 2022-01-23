@@ -3,7 +3,7 @@
 ## About The Project
 This is a digitized version of Avalon Hill’s board game, “Roborally”.
 Roborally is to be played by 2-6 players, and possesses many of the mechanics from the original Roborally game, such as lasers, upgrades, board elements as well as many others. 
-In addition this digital version implements additional databasesupport for saving and loading games.
+In addition, this digital version implements additional database support for saving and loading games.
 
 ### Built with
 - Java
@@ -51,9 +51,9 @@ The order of each turn:
 
 - 🟡: Checkpoint, stand on each checkpoint in order to win the game!
 
-- 📡: Determines the order of which the robots moves by closest first.
+- 📡: Determines the order of which the robots move by closest first.
 
-- 🟩: Reboot, spawnpoint.
+- 🟩: Reboot, spawn point.
 
 - 🟧: Energy, gives the player a random upgrade!
 
@@ -74,11 +74,11 @@ The order of each turn:
  ***
 
 ### Upgrades
-There are a total of 18 upgrade possibilities including RailGun which makes the player shoot through walls, BlueScreen of Death which makes the player deal "Worm Cards" instead of spam cards for damage, LuckyShield which may or may not protech the player from damage and Teleporter which ables the player to move through walls and over pits.
+There are a total of 18 upgrade possibilities including RailGun which makes the player shoot through walls, BlueScreen of Death which makes the player deal "Worm Cards" instead of spam cards for damage, LuckyShield which may or may not protect the player from damage and Teleporter which ables the player to move through walls and over pits.
 
  ***
 
-### Now lets get started!
+### Now, lets get started!
 Select game name:
 
  <img src="https://github.com/gabr0236/Roborally/blob/Development/ReadmeImages/ImgChoseGameName.png" width="200">
@@ -116,7 +116,7 @@ Load game:
 ## Installation
 
 First download the project to your IDE.
-Make sure to clean Maven after downoading. 
+Make sure to clean Maven after downloading. 
 IMPORTANT the database connection must be started before running the app.
 
 ### Database setup
@@ -127,12 +127,12 @@ Download [MySQL Workbench](https://dev.mysql.com/downloads/workbench/).
 
 Start MySQL or MariaDB on your computer.
 
-Setup a new connection in MySQL workbench. 
+Set up a new connection in MySQL workbench. 
 
 <img src="https://github.com/gabr0236/Roborally/blob/Development/ReadmeImages/ImgCreateDBConnection.png" width="600">
 
 
-Feel free to change the params in the Connector class. These params should match the above params from the setup.
+Feel free to change the parameters in the Connector class. These parameters should match the above parameters from the setup.
 
 <img src="https://github.com/gabr0236/Roborally/blob/Development/ReadmeImages/ImgConnectorClass.png" width="400">
 
