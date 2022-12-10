@@ -42,7 +42,7 @@ The order of each turn:
  
  <img src="https://github.com/gabr0236/Roborally/blob/Development/ReadmeImages/ImgProgrammingPhase.png" width="700">
 
- #### Course: ChopShopChallenge
+ #### Course: CorridorBlitz
 
  <img src="https://github.com/gabr0236/Roborally/blob/Development/ReadmeImages/ImgCorridorBlitz.png" width="450">
 
